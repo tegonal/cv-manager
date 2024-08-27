@@ -13,14 +13,14 @@ import {
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { CollectionConfig } from 'payload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
-import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
-import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
-import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { selectTechnicalSkill } from '@/payload/collections/CVs/fields/select-technical-skill';
 import { selectSoftSkill } from '@/payload/collections/CVs/fields/select-soft-skill';
 import { selectCompany } from '@/payload/collections/CVs/fields/select-company';
 import { selectProject } from '@/payload/collections/CVs/fields/select-project';
+import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
+import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
+import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
 
 export const CV: CollectionConfig = {
   slug: 'cv',

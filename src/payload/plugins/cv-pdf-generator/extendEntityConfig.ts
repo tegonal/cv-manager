@@ -23,7 +23,6 @@ export const extendEntityConfig = <Entity extends { slug: string; fields: Field[
               name: 'cvPdfGenerator',
               type: 'ui',
               admin: {
-                position: 'sidebar',
                 components: {
                   Field: SaveButtonReplacer({ cvPdfConfig }),
                 },

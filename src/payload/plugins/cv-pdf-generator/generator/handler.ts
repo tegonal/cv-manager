@@ -12,6 +12,21 @@ import * as process from 'node:process';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { CvPdfConfig } from '@/payload/plugins/cv-pdf-generator/types';
 import { toHtml } from './lexical-to-html';
+import { isNumber } from 'lodash-es';
+
+const fetchFileToBase64 = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url);
+    const contentType = response.headers.get('content-type');
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const string = buffer.toString('base64');
+    return `data:${contentType};base64,${string}`;
+  } catch (error) {
+    logger.error(error);
+    return '';
+  }
+};
 
 type Props = {
   id: string;
@@ -59,7 +74,14 @@ export const requestHandler = async ({ id, locale }: Props) => {
   const logo = await fileToBase64(
     path.resolve(rootDir, pluginConfig.templatePath, 'media', 'tegonal.svg'),
   );
-  const profile = '';
+  const host = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000';
+
+  let profile = '';
+
+  if (cv.image && !isNumber(cv.image)) {
+    const profileUrl = `${host}${cv.image.url}`;
+    profile = await fetchFileToBase64(profileUrl);
+  }
 
   const data = {
     cv,

@@ -2,14 +2,16 @@
 
 import React from 'react';
 import { Button } from '@payloadcms/ui/elements/Button';
-import { logger } from '@/lib/logger';
 import ky from 'ky';
 import { DefaultSaveButton, useDocumentInfo, useLocale } from '@payloadcms/ui';
 import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const';
 
 export const SaveButtonReplacer: React.FC = () => {
   const [isBusy, setBusy] = React.useState(false);
-  const { id, title } = useDocumentInfo();
+  const {
+    id,
+    initialData: { fullName: title },
+  } = useDocumentInfo();
   const locale = useLocale();
 
   const onClick = async () => {
@@ -25,15 +27,13 @@ export const SaveButtonReplacer: React.FC = () => {
     const response = await ky.post(`/api/${pluginConstants.apiUrlSlug}`, {
       json: params,
     });
-    logger.info('onClick', params, response);
-    console.log('onClick', params, response);
+
     if (response.status !== 200) {
       console.error('Error generating PDF');
       console.error(response);
       setBusy(false);
       return;
     }
-    // convert ReadableStream to downloadable file and trigger download
 
     const readableStream = response.body;
     if (!readableStream) {
@@ -57,7 +57,8 @@ export const SaveButtonReplacer: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${title}.pdf`;
+    const today = new Date().toLocaleDateString(locale.code);
+    a.download = `${title} - ${today}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

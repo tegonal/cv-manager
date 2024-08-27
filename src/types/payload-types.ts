@@ -178,7 +178,9 @@ export interface Cv {
 export interface Media {
   id: number;
   alt?: string | null;
+  organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -220,6 +222,19 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "organisations".
+ */
+export interface Organisation {
+  id: number;
+  name: string;
+  description?: string | null;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -239,19 +254,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "organisations".
- */
-export interface Organisation {
-  id: number;
-  name: string;
-  description?: string | null;
-  createdBy?: (number | null) | User;
-  updatedBy?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
