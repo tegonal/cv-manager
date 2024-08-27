@@ -88,6 +88,17 @@ html(lang=cv.locale)
         width: 100%;
       }
 
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 3mm;
+      }
+
+      .list-row {
+        display: flex;
+        gap: 3mm;
+      }
+
       .col-1, .col-2 {
         position: relative;
         padding: 5mm 0 0 0;
@@ -100,6 +111,10 @@ html(lang=cv.locale)
         background: #666;
         width: 11mm;
         height: 1.3mm;
+      }
+
+      .spacer-5mm {
+        margin-bottom: 5mm;
       }
 
       .spacer-10mm {
@@ -258,96 +273,118 @@ html(lang=cv.locale)
         .cv-image-container
           img.cover-image(src=`${images.profile}`)
       .col-2
-        p.lead.no-margin #{i18n.fieldLabel.introduction[cv.locale]}
         h1 #{cv.fullName}
         p.lead.no-margin #{cv.jobTitle}
-    .spacer-10mm
     .container.intro-container
       .col-1
       .col-2
         p.lead.no-margin
           != cv.introduction
     .spacer-10mm
-    //.container
-    //  h2 #{i18n.fieldLabel.title}
-    //.container.profile-container.page-break-after
-    //  .col-1
-    //    .column-decoration
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.birthday}
-    //      p.no-margin #{cv.birthday}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.domainCompetencies}
-    //      ul
-    //        each item in cv.Branchenkompetenzen
-    //          li= item.Bezeichnung
-    //  .col-2
-    //    .column-decoration
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.function}
-    //      p.no-margin #{cv.Funktion}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.department}
-    //      p.no-margin #{cv.Fachbereich}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.coreCompetencies}
-    //      p.no-margin #{cv.Kernkompetenzen}
-    //.container.profile-container
-    //  .col-1
-    //    .column-decoration
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.education}
-    //      each item in cv.Ausbildungen
-    //        p.no-margin #{item.Bezeichnung}
-    //        p.small #{item.VonJahr} - #{item.BisJahr}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.mobile}
-    //      p.no-margin #{cv.Mobile}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.socialMedia}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.email}
-    //      p.no-margin #{cv.Email}
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.languages}
-    //      each item in cv.Sprachen
-    //        p.no-margin #{item.Sprache}
-    //        p.small #{item.Level}
-    //  .col-2
-    //    .column-decoration
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.projectsAndReferences}
-    //      ul
-    //        each item in cv.ProjekteUndReferenzen
-    //          li= item.Bezeichnung
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.recentTrainings}
-    //      ul
-    //        each item in cv.ProjekteUndReferenzen
-    //          li= item.Bezeichnung
-    //    .content-box
-    //      h3 #{i18n.fieldLabel.specificCompetencies}
-    //      each item in cv.Spezifische_Kenntnisse
-    //        p.no-margin= item.Bezeichnung
-    //        p.small= item.Level
-    //.spacer-20mm
-    //.container
-    //  h2 #{i18n.projectReferences.title}
-    //.projects-container
-    //  each item in projects
-    //    .project
-    //      .line
-    //        h3 #{i18n.projectReferences.company}
-    //        p #{item.Firma}
-    //      .line
-    //        h3 #{i18n.projectReferences.function}
-    //        p #{item.Funktion}
-    //      .line
-    //        h3 #{i18n.projectReferences.department}
-    //        p #{item.Fachbereich}
-    //      .line
-    //        h3 #{i18n.projectReferences.tasks}
-    //        div
-    //          ul
-    //            each task in item.Aufgaben
-    //              li #{task.Bezeichnung}
+    .container
+      h2 #{i18n.fieldLabel.profile[cv.locale]}
+    .container.profile-container.page-break-after
+      .col-1
+        .column-decoration
+        .content-box
+          h3 #{i18n.fieldLabel.birthday[cv.locale]}
+          p.no-margin #{cv.birthday}
+        if cv.nationalityStatus
+          .content-box
+            h3 #{i18n.fieldLabel.nationalityStatus[cv.locale]}
+            p.no-margin #{cv.nationalityStatus}
+        if cv.phoneNumber
+          .content-box
+            h3 #{i18n.fieldLabel.phoneNumber[cv.locale]}
+            p.no-margin #{cv.phoneNumber}
+        if cv.email
+          .content-box
+            h3 #{i18n.fieldLabel.email[cv.locale]}
+            p.no-margin #{cv.email}
+        if cv.links.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.links[cv.locale]}
+            div.list-row
+              each item in cv.links
+                div
+                  a(href=item.url)= item.platform
+      .col-2
+        .column-decoration
+        if cv.edu.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.education[cv.locale]}
+            div.list
+              each item in cv.edu
+                div
+                  p.no-margin #{item.institution}
+                  p.no-margin.small
+                    != item.description
+                  p.no-margin.small #{item.fromYear} - #{item.toYear}
+        if cv.certs.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.certifications[cv.locale]}
+            div.list
+              each item in cv.certs
+                div
+                  p.no-margin #{item.name}
+                  p.no-margin.small
+                    != item.description
+                  p.no-margin.small #{item.toYear}
+        if cv.courses.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.courses[cv.locale]}
+            div.list
+              each item in cv.courses
+                div
+                  p.no-margin #{item.name}
+                  p.no-margin.small
+                    != item.description
+                  p.no-margin.small #{item.toYear}
+
+    h2 #{i18n.fieldLabel.skills[cv.locale]}
+    .container.container-experience.page-break-after
+      .column-decoration
+      .col-1
+        if cv.languages.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.languages[cv.locale]}
+            div.list-row
+              each item in cv.languages
+                div
+                  p.no-margin= item.language.name
+                  p.no-margin.small #{item.level.level}
+        if cv.technologies.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.technologies[cv.locale]}
+            div.list-row
+              each item in cv.technologies
+                div
+                  p.no-margin #{item.skill.name}
+                  p.no-margin.small #{item.level.level}
+        if cv.softSkills.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.softSkills[cv.locale]}
+            div.list-row
+              each item in cv.softSkills
+                div
+                  p.no-margin #{item.softSkill.name}
+                  p.no-margin.small #{item.level.level}
+        if cv.otherSkills.length > 0
+          .content-box
+            h3 #{i18n.fieldLabel.otherSkills[cv.locale]}
+            div.list-row
+              each item in cv.otherSkills
+                div
+                  p.no-margin #{item.name}
+                  p.no-margin.small #{item.level.level}
+      if cv.projects.length > 0
+        h2 #{i18n.fieldLabel.workExperience[cv.locale]}
+        .content-box
+          h3 #{i18n.fieldLabel.projects[cv.locale]}
+          div.list
+            each item in cv.projects
+              div
+                p.no-margin #{item.company.name} / #{item.project.name}
+                p.no-margin.small #{item.fromYear} - #{item.toYear}
+                p.no-margin.small
+                  != item.description

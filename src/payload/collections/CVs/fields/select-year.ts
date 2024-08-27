@@ -9,7 +9,7 @@ export const selectStartYear: Field = {
   admin: {
     date: {
       pickerAppearance: 'monthOnly',
-      displayFormat: 'MMMM yyyy',
+      displayFormat: 'yyyy',
     },
   },
 };
@@ -18,10 +18,11 @@ export const selectEndYear: Field = {
   name: 'toYear',
   type: 'date',
   label: I18nCollection.fieldLabel.toYear,
+  required: true,
   admin: {
     date: {
       pickerAppearance: 'monthOnly',
-      displayFormat: 'MMMM yyyy',
+      displayFormat: 'yyyy',
     },
   },
 };
@@ -34,7 +35,7 @@ export const selectYear: Field = {
   admin: {
     date: {
       pickerAppearance: 'monthOnly',
-      displayFormat: 'MMMM yyyy',
+      displayFormat: 'yyyy',
     },
   },
 };

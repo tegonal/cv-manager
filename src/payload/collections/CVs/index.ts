@@ -19,6 +19,8 @@ import { organisationAdminsAccess } from '@/payload/collections/access/organisat
 import { I18nCollection } from '@/lib/i18nCollection';
 import { selectTechnicalSkill } from '@/payload/collections/CVs/fields/select-technical-skill';
 import { selectSoftSkill } from '@/payload/collections/CVs/fields/select-soft-skill';
+import { selectCompany } from '@/payload/collections/CVs/fields/select-company';
+import { selectProject } from '@/payload/collections/CVs/fields/select-project';
 
 export const CV: CollectionConfig = {
   slug: 'cv',
@@ -45,11 +47,13 @@ export const CV: CollectionConfig = {
           name: 'fullName',
           label: I18nCollection.fieldLabel.fullName,
           type: 'text',
+          required: true,
         },
         {
           name: 'birthday',
           type: 'date',
           label: I18nCollection.fieldLabel.birthday,
+          required: true,
           admin: {
             date: {
               pickerAppearance: 'dayOnly',
@@ -79,6 +83,7 @@ export const CV: CollectionConfig = {
           name: 'email',
           type: 'text',
           label: I18nCollection.fieldLabel.email,
+          required: true,
         },
         {
           name: 'jobTitle',
@@ -139,6 +144,7 @@ export const CV: CollectionConfig = {
     {
       type: 'collapsible',
       label: I18nCollection.fieldLabel.skills,
+      required: true,
       fields: [
         {
           name: 'languages',
@@ -215,7 +221,7 @@ export const CV: CollectionConfig = {
       label: I18nCollection.fieldLabel.education,
       fields: [
         {
-          name: 'schools',
+          name: 'edu',
           type: 'array',
           label: I18nCollection.fieldLabel.schools,
           minRows: 1,
@@ -235,15 +241,15 @@ export const CV: CollectionConfig = {
                   localized: true,
                   required: true,
                 },
-                textDescription,
                 selectStartYear,
                 selectEndYear,
               ],
             },
+            textDescription,
           ],
         },
         {
-          name: 'certifications',
+          name: 'certs',
           type: 'array',
           label: I18nCollection.fieldLabel.certifications,
           admin: {
@@ -254,8 +260,9 @@ export const CV: CollectionConfig = {
           fields: [
             {
               type: 'row',
-              fields: [textNameRequired, textDescription, selectYear],
+              fields: [textNameRequired, selectYear],
             },
+            textDescription,
           ],
         },
         {
@@ -270,8 +277,9 @@ export const CV: CollectionConfig = {
           fields: [
             {
               type: 'row',
-              fields: [textNameRequired, textDescription, selectYear],
+              fields: [textNameRequired, selectYear],
             },
+            textDescription,
           ],
         },
       ],
@@ -280,23 +288,6 @@ export const CV: CollectionConfig = {
       type: 'collapsible',
       label: I18nCollection.fieldLabel.workExperience,
       fields: [
-        {
-          name: 'companies',
-          type: 'array',
-          label: I18nCollection.fieldLabel.companies,
-          minRows: 1,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [textNameRequired, textDescription, selectStartYear, selectEndYear],
-            },
-          ],
-        },
         {
           name: 'projects',
           type: 'array',
@@ -310,12 +301,13 @@ export const CV: CollectionConfig = {
           fields: [
             {
               type: 'row',
-              fields: [textNameRequired, textDescription],
+              fields: [selectCompany, selectProject],
             },
             {
               type: 'row',
               fields: [selectStartYear, selectEndYear],
             },
+            textDescription,
           ],
         },
       ],

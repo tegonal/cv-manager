@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import { fileToBase64 } from './utils/file-to-base64';
 import { writeFile } from 'fs/promises';
 import path from 'path';
@@ -9,7 +11,7 @@ import configPromise from '@payload-config';
 import * as process from 'node:process';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { CvPdfConfig } from '@/payload/plugins/cv-pdf-generator/types';
-import { toHtml } from '@wunderwa/lexical-json';
+import { toHtml } from './lexical-to-html';
 
 type Props = {
   id: string;
@@ -69,7 +71,44 @@ export const requestHandler = async ({ id, locale }: Props) => {
   };
 
   logger.info(cv);
-  cv.introduction = toHtml(cv.introduction as any) as any;
+
+  // convert richtext fields to html
+  cv.introduction = (await toHtml(cv.introduction as any)) as any;
+
+  // convert date fields to formatted strings
+  cv.birthday = new Date(cv.birthday).toLocaleDateString(locale);
+
+  const getYear = (date: string) => new Date(date).getFullYear().toString();
+
+  if (cv.edu && cv.edu.length > 0) {
+    cv.edu = cv.edu?.map((edu) => {
+      edu.fromYear = getYear(edu.fromYear);
+      edu.toYear = getYear(edu.toYear);
+      return edu;
+    });
+  }
+
+  if (cv.certs && cv.certs.length > 0) {
+    cv.certs = cv.certs?.map((cert) => {
+      cert.toYear = getYear(cert.toYear);
+      return cert;
+    });
+  }
+
+  if (cv.courses && cv.courses.length > 0) {
+    cv.courses = cv.courses?.map((course) => {
+      course.toYear = getYear(course.toYear);
+      return course;
+    });
+  }
+
+  if (cv.projects && cv.projects.length > 0) {
+    cv.projects = cv.projects?.map((project) => {
+      project.fromYear = getYear(project.fromYear);
+      project.toYear = getYear(project.toYear);
+      return project;
+    });
+  }
 
   let fileString = '';
 

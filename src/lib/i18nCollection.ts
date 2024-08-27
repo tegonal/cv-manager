@@ -20,6 +20,10 @@ export const I18nCollection = {
       en: 'Languages',
       de: 'Sprachen',
     },
+    experience: {
+      en: 'Experience',
+      de: 'Erfahrung',
+    },
     technologies: {
       en: 'Technologies',
       de: 'Technologien',
@@ -151,6 +155,10 @@ export const I18nCollection = {
     profileImage: {
       en: 'Profile image',
       de: 'Profilbild',
+    },
+    profile: {
+      en: 'Profile',
+      de: 'Profil',
     },
     birthday: {
       en: 'Birthday',

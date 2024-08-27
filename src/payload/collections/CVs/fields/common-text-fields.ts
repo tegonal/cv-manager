@@ -13,14 +13,13 @@ export const textName: Field = {
   name: 'name',
   label: I18nCollection.fieldLabel.name,
   type: 'text',
-  required: true,
   localized: true,
 };
 
 export const textDescriptionRequired: Field = {
   name: 'description',
   label: I18nCollection.fieldLabel.description,
-  type: 'text',
+  type: 'textarea',
   required: true,
   localized: true,
 };
@@ -28,6 +27,6 @@ export const textDescriptionRequired: Field = {
 export const textDescription: Field = {
   name: 'description',
   label: I18nCollection.fieldLabel.description,
-  type: 'text',
+  type: 'textarea',
   localized: true,
 };

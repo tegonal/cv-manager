@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
-import { CV } from 'src/payload/collections/CVs';
+import { CV } from '@/payload/collections/CVs';
 import { Users } from '@/payload/collections/Users';
 import { Media } from '@/payload/collections/Media';
 import { Organisations } from '@/payload/collections/Organisations';
@@ -17,6 +17,8 @@ import { seedDevUser } from '@/config/seed/dev-user';
 import { cvPdfPlugin } from '@/payload/plugins/cv-pdf-generator/plugin';
 import { Skills } from '@/payload/collections/Skills';
 import { Levels } from '@/payload/collections/Level';
+import { Companies } from '@/payload/collections/Companies';
+import { Projects } from '@/payload/collections/Projects';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,7 +26,7 @@ const dirname = path.dirname(filename);
 export default buildConfig({
   //editor: slateEditor({}),
   editor: lexicalEditor(),
-  collections: [CV, Users, Skills, Levels, Media, Organisations],
+  collections: [CV, Users, Skills, Levels, Companies, Projects, Media, Organisations],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'src', 'types', 'payload-types.ts'),
@@ -36,10 +38,10 @@ export default buildConfig({
   }),
   localization: {
     locales: [
-      {
-        label: 'English',
-        code: 'en',
-      },
+      // {
+      //   label: 'English',
+      //   code: 'en',
+      // },
       {
         label: 'Deutsch',
         code: 'de',

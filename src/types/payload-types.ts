@@ -38,6 +38,8 @@ export interface Config {
     users: User;
     skill: Skill;
     level: Level;
+    company: Company;
+    project: Project;
     media: Media;
     organisations: Organisation;
     'payload-preferences': PayloadPreference;
@@ -47,7 +49,7 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {};
-  locale: 'en' | 'de';
+  locale: 'de';
   user: User & {
     collection: 'users';
   };
@@ -76,12 +78,12 @@ export interface UserAuthOperations {
  */
 export interface Cv {
   id: number;
-  fullName?: string | null;
-  birthday?: string | null;
+  fullName: string;
+  birthday: string;
   nationalityStatus?: string | null;
   image?: (number | null) | Media;
   phoneNumber?: string | null;
-  email?: string | null;
+  email: string;
   jobTitle: string;
   department?: string | null;
   links?: SocialLinks;
@@ -128,46 +130,38 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
-  schools?:
+  edu?:
     | {
         institution: string;
-        description?: string | null;
         fromYear: string;
-        toYear?: string | null;
+        toYear: string;
+        description?: string | null;
         id?: string | null;
       }[]
     | null;
-  certifications?:
+  certs?:
     | {
         name: string;
-        description?: string | null;
         toYear: string;
+        description?: string | null;
         id?: string | null;
       }[]
     | null;
   courses?:
     | {
         name: string;
-        description?: string | null;
         toYear: string;
-        id?: string | null;
-      }[]
-    | null;
-  companies?:
-    | {
-        name: string;
         description?: string | null;
-        fromYear: string;
-        toYear?: string | null;
         id?: string | null;
       }[]
     | null;
   projects?:
     | {
-        name: string;
-        description?: string | null;
+        company: number | Company;
+        project: number | Project;
         fromYear: string;
-        toYear?: string | null;
+        toYear: string;
+        description?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -282,6 +276,32 @@ export interface Level {
   level?: string | null;
   levelType?: ('language' | 'skill')[] | null;
   points?: number | null;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company".
+ */
+export interface Company {
+  id: number;
+  name?: string | null;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project".
+ */
+export interface Project {
+  id: number;
+  name?: string | null;
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
