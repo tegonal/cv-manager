@@ -1,0 +1,353 @@
+doctype html
+html(lang=cv.locale)
+  head
+    title #{cv.fullName}
+    meta(charset="utf-8")
+    script(src='https://unpkg.com/pagedjs/dist/paged.polyfill.js')
+    include includes/roboto-base64
+    style.
+      @page {
+        size: A4;
+        margin: 30mm 15mm 15mm 30mm;
+        @top-right {
+          content: element(companyLogo);
+        }
+        @bottom-left {
+          content: element(pageFooter);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        counter-reset: page;
+        background-image: url(#{images.pageBackground});
+        background-position-x: left;
+        background-position-y: bottom;
+        background-repeat: no-repeat;
+      }
+
+      img {
+        display: block;
+        margin: 0;
+      }
+
+      /* page layout */
+
+      #companyLogo {
+        position: running(companyLogo);
+        margin-top: 5mm;
+      }
+
+      #companyLogo img {
+        display: inline-block;
+        width: 36mm;
+        height: auto;
+      }
+
+      #pageFooter {
+        position: running(pageFooter);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #pageFooter >div {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      #pageNumber::before {
+        counter-increment: page;
+        content: " " counter(page);
+      }
+
+      .page-break-after {
+        page-break-after: always;
+      }
+
+
+      .container {
+        margin: 0 0 0 0;
+        position: relative;
+      }
+
+      .content-box {
+        margin-bottom: 7.5mm;
+        width: 100%;
+      }
+
+      .col-1, .col-2 {
+        position: relative;
+        padding: 5mm 0 0 0;
+      }
+
+      .column-decoration {
+        position: absolute;
+        top: 0;
+        left: -4mm;
+        background: #666;
+        width: 11mm;
+        height: 1.3mm;
+      }
+
+      .spacer-10mm {
+        margin-bottom: 10mm;
+      }
+
+      .spacer-20mm {
+        margin-bottom: 20mm;
+      }
+
+      .cover-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* typography */
+
+      body {
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 300;
+      }
+
+      p {
+        line-height: 120%;
+        margin: 0 0 16pt 0;
+      }
+
+      p.no-margin {
+        margin: 0;
+      }
+
+      p.lead {
+        font-size: 12pt;
+        line-height: 133%;
+      }
+
+      .small {
+        font-size: 7pt;
+        color: #333;
+      }
+
+      h1 {
+        font-size: 24pt;
+        font-weight: 300;
+      }
+
+      h2 {
+        font-size: 18pt;
+        font-weight: 300;
+      }
+
+      h3 {
+        font-size: 7pt;
+        font-weight: 700;
+      }
+
+      ul {
+        padding-left: 0;
+      }
+
+
+      /* intro containers */
+
+      .intro-container {
+        display: grid;
+        grid-template-columns: 44mm auto;
+        gap: 10mm;
+      }
+
+      .intro-container .col-1 {
+        width: 44mm;
+      }
+
+      .intro-container .col-2 {
+        position: relative;
+      }
+
+      .lead-in-image {
+        z-index: -1;
+        position: absolute;
+        top: -4mm;
+        left: -6mm;
+        width: 15mm;
+        height: 15mm;
+      }
+
+      .cv-image-container {
+        width: 44mm;
+        height: 44mm;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      /* profile container */
+
+      .profile-container {
+        display: grid;
+        grid-template-columns: 64mm auto;
+        gap: 10mm;
+        page-break-inside: avoid;
+      }
+
+      .profile-container .col-1 {
+      }
+
+      .profile-container .col-2 {
+      }
+
+      /* projects container */
+
+      .projects-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8mm;
+      }
+
+      .projects-container .project {
+        display: flex;
+        flex-direction: column;
+        gap: 3mm;
+        page-break-inside: avoid;
+      }
+
+      .projects-container .project .line {
+        display: grid;
+        grid-template-columns: 25% auto;
+        gap: 4mm;
+      }
+
+      .projects-container .project .line p,
+      .projects-container .project .line h3 {
+        margin: 0;
+      }
+
+      @media print {
+      }
+
+      @media screen {
+        html {
+          width: 210mm;
+        }
+      }
+
+  body
+    header#companyLogo
+      img(src=`${images.logo}`)
+    footer#pageFooter.small
+      div
+        p.no-margin Tegonal Genossenschaft - Wasserwerkgasse 2 - 3011 Bern - tegonal.com
+        #pageNumber.small
+    .spacer-10mm
+    .container.intro-container
+      .col-1
+        .cv-image-container
+          img.cover-image(src=`${images.profile}`)
+      .col-2
+        p.lead.no-margin #{i18n.fieldLabel.introduction[cv.locale]}
+        h1 #{cv.fullName}
+        p.lead.no-margin #{cv.jobTitle}
+    .spacer-10mm
+    .container.intro-container
+      .col-1
+      .col-2
+        p.lead.no-margin
+          != cv.introduction
+    .spacer-10mm
+    //.container
+    //  h2 #{i18n.fieldLabel.title}
+    //.container.profile-container.page-break-after
+    //  .col-1
+    //    .column-decoration
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.birthday}
+    //      p.no-margin #{cv.birthday}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.domainCompetencies}
+    //      ul
+    //        each item in cv.Branchenkompetenzen
+    //          li= item.Bezeichnung
+    //  .col-2
+    //    .column-decoration
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.function}
+    //      p.no-margin #{cv.Funktion}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.department}
+    //      p.no-margin #{cv.Fachbereich}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.coreCompetencies}
+    //      p.no-margin #{cv.Kernkompetenzen}
+    //.container.profile-container
+    //  .col-1
+    //    .column-decoration
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.education}
+    //      each item in cv.Ausbildungen
+    //        p.no-margin #{item.Bezeichnung}
+    //        p.small #{item.VonJahr} - #{item.BisJahr}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.mobile}
+    //      p.no-margin #{cv.Mobile}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.socialMedia}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.email}
+    //      p.no-margin #{cv.Email}
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.languages}
+    //      each item in cv.Sprachen
+    //        p.no-margin #{item.Sprache}
+    //        p.small #{item.Level}
+    //  .col-2
+    //    .column-decoration
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.projectsAndReferences}
+    //      ul
+    //        each item in cv.ProjekteUndReferenzen
+    //          li= item.Bezeichnung
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.recentTrainings}
+    //      ul
+    //        each item in cv.ProjekteUndReferenzen
+    //          li= item.Bezeichnung
+    //    .content-box
+    //      h3 #{i18n.fieldLabel.specificCompetencies}
+    //      each item in cv.Spezifische_Kenntnisse
+    //        p.no-margin= item.Bezeichnung
+    //        p.small= item.Level
+    //.spacer-20mm
+    //.container
+    //  h2 #{i18n.projectReferences.title}
+    //.projects-container
+    //  each item in projects
+    //    .project
+    //      .line
+    //        h3 #{i18n.projectReferences.company}
+    //        p #{item.Firma}
+    //      .line
+    //        h3 #{i18n.projectReferences.function}
+    //        p #{item.Funktion}
+    //      .line
+    //        h3 #{i18n.projectReferences.department}
+    //        p #{item.Fachbereich}
+    //      .line
+    //        h3 #{i18n.projectReferences.tasks}
+    //        div
+    //          ul
+    //            each task in item.Aufgaben
+    //              li #{task.Bezeichnung}
