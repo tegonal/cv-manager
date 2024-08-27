@@ -1,0 +1,23 @@
+name: Build application on commit
+on:
+  workflow_call:
+  pull_request:
+  push:
+    paths:
+      - '**'
+    branches:
+      - '**'
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Trying to install dependencies and build the application
+        run: |
+          yarn --version
+          yarn install
+          yarn run build

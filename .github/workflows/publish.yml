@@ -1,0 +1,63 @@
+name: Build and publish docker images
+
+on:
+  push:
+    tags:
+      - '**'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Log in to the Container registry
+          uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+          with:
+            registry: ${{ env.REGISTRY }}
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Extract metadata (tags, labels) for Docker
+          id: meta
+          uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+          with:
+            images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+        - name: Build and push Docker image
+          id: push
+          uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+          with:
+            context: .
+            push: true
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
+
+        - name: Set Status Message
+          id: set_status
+          shell: bash
+          run: |
+            if [ "${{ job.status }}" == "success" ]; then
+              echo "STATUS_MESSAGE=Build completed successfully, image pushed. ${{ steps.meta.outputs.tags }} ${{ steps.meta.outputs.labels }} :white_check_mark:" >> $GITHUB_ENV
+            else
+              echo "STATUS_MESSAGE=:boom: :boom: :boom: Build failed, more information is available in the GitHub action logs." >> $GITHUB_ENV
+            fi
+
+        - name: Mattermost Notification
+          uses: mattermost/action-mattermost-notify@master
+          with:
+            MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+            TEXT: |
+              This is a message from ${{ github.repository }}.
+              [Pipeline](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) ${{ env.STATUS_MESSAGE }}
+            MATTERMOST_USERNAME: ${{ github.triggering_actor }}

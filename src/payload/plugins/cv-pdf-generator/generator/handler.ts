@@ -70,8 +70,6 @@ export const requestHandler = async ({ id, locale }: Props) => {
     },
   };
 
-  logger.info(cv);
-
   // convert richtext fields to html
   cv.introduction = (await toHtml(cv.introduction as any)) as any;
 
