@@ -54,7 +54,7 @@
     "tslog": "^4.9.3"
   },
   "devDependencies": {
-    "@payloadcms/graphql": "3.0.0-beta.111",
+    "@payloadcms/graphql": "3.0.0-canary.ff8c8fd",
     "@swc/core": "1.5.7",
     "@tailwindcss/typography": "^0.5.15",
     "@types/jsdom": "^21.1.7",
