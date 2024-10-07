@@ -1,13 +1,11 @@
 import { CollectionConfig } from 'payload';
+import { I18nCollection } from '@/lib/i18nCollection';
 import { adminsAndSelf } from '@/payload/collections/Users/access/adminsAndSelf';
 import { anyone } from '@/payload/access/anyone';
-import { isSuperOrOrganisationAdmin } from '@/payload/collections/Users/utilities/isSuperOrOrganisationAdmin';
-import { loginAfterCreate } from '@/payload/collections/Users/hooks/loginAfterCreate';
 import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/recordSelectedOrganisation';
 import { superAdminFieldAccess } from '@/payload/access/superAdmins';
-import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants';
 import { organisationAdmins } from '@/payload/collections/Users/access/organisationAdmins';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -15,16 +13,19 @@ export const Users: CollectionConfig = {
   admin: {
     group: I18nCollection.collectionGroup.settings,
     useAsTitle: 'email',
+    hidden: (user) => {
+      return !user?.user?.roles?.includes(ROLE_SUPER_ADMIN);
+    },
   },
   access: {
     read: adminsAndSelf,
     create: anyone,
     update: adminsAndSelf,
     delete: adminsAndSelf,
-    admin: isSuperOrOrganisationAdmin,
+    // admin: isSuperOrOrganisationAdmin,
   },
   hooks: {
-    afterChange: [loginAfterCreate],
+    // afterChange: [loginAfterCreate],
     afterLogin: [recordSelectedOrganisation],
   },
   fields: [
@@ -37,6 +38,12 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'email',
+      type: 'text',
+      required: true,
+      unique: true,
+    },
+    {
       name: 'roles',
       type: 'select',
       hasMany: true,
@@ -44,7 +51,7 @@ export const Users: CollectionConfig = {
       access: {
         create: superAdminFieldAccess,
         update: superAdminFieldAccess,
-        read: superAdminFieldAccess,
+        // read: superAdminFieldAccess,
       },
       options: [
         {
@@ -65,7 +72,7 @@ export const Users: CollectionConfig = {
       access: {
         create: organisationAdmins,
         update: organisationAdmins,
-        read: organisationAdmins,
+        // read: organisationAdmins,
       },
       fields: [
         {

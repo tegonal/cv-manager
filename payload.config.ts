@@ -19,6 +19,8 @@ import { Skills } from '@/payload/collections/Skills';
 import { Levels } from '@/payload/collections/Level';
 import { Companies } from '@/payload/collections/Companies';
 import { Projects } from '@/payload/collections/Projects';
+import { OAuth2Plugin } from 'payload-oauth2';
+import { ROLE_USER } from '@/payload/utilities/constants';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -64,6 +66,9 @@ export default buildConfig({
         }
       : {}),
     user: Users.slug,
+    components: {
+      afterLogin: ['src/payload/components/oauth-login-button#OAuthLoginButton'],
+    },
   },
   email: nodemailerAdapter({
     defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
@@ -101,6 +106,50 @@ export default buildConfig({
       templatePath: './data/cv-pdf/templates',
       collections: [CV.slug],
       gotenbergUrl: process.env.GOTENBERG_PDF_URL || 'http://localhost:3030',
+    }),
+    OAuth2Plugin({
+      strategyName: 'oauth2',
+      useEmailAsIdentity: false,
+      enabled: true,
+      serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+      authCollection: Users.slug,
+      clientId: process.env.OAUTH_CLIENT_ID || '',
+      clientSecret: process.env.OAUTH_CLIENT_SECRET || '',
+      tokenEndpoint: 'https://scm.tegonal.com/oauth/token',
+      scopes: ['email', 'profile', 'openid'],
+      providerAuthorizationUrl: 'https://scm.tegonal.com/oauth/authorize',
+      getUserInfo: async (accessToken: string) => {
+        try {
+          const response = await fetch('https://scm.tegonal.com/oauth/userinfo', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          const user = await response.json();
+          console.log(user);
+          return {
+            email: user.email,
+            sub: user.sub,
+            roles: [ROLE_USER],
+            selectedOrganisation: 1,
+            organisations: [
+              {
+                organisation: 1,
+                roles: [ROLE_USER],
+              },
+            ],
+          };
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      },
+      successRedirect: () => {
+        console.log('Login successful, redirecting to /admin');
+        return '/admin';
+      },
+      failureRedirect: (req, error) => {
+        console.error(error);
+        return '/oauth-error';
+      },
     }),
   ],
   telemetry: false,
