@@ -2436,6 +2436,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/graphql@npm:3.0.0-canary.ff8c8fd":
+  version: 3.0.0-canary.ff8c8fd
+  resolution: "@payloadcms/graphql@npm:3.0.0-canary.ff8c8fd"
+  dependencies:
+    graphql-scalars: "npm:1.22.2"
+    pluralize: "npm:8.0.0"
+    ts-essentials: "npm:7.0.3"
+    tsx: "npm:4.17.0"
+  peerDependencies:
+    graphql: ^16.8.1
+    payload: 3.0.0-canary.ff8c8fd
+  bin:
+    payload-graphql: bin.js
+  checksum: 10/3de91c20a720ecba485c1926b7cc2d4e2a66872bee7a6b490b3c0c087b1c75c306818e5488a3152cda1f2b4179395036a44f1ee2a38605ce93216a0a70c4eabe
+  languageName: node
+  linkType: hard
+
 "@payloadcms/next@npm:3.0.0-beta.111":
   version: 3.0.0-beta.111
   resolution: "@payloadcms/next@npm:3.0.0-beta.111"
@@ -4770,7 +4787,7 @@ __metadata:
     "@lexical/html": "npm:0.18.0"
     "@payloadcms/db-postgres": "npm:3.0.0-beta.111"
     "@payloadcms/email-nodemailer": "npm:3.0.0-beta.111"
-    "@payloadcms/graphql": "npm:3.0.0-beta.111"
+    "@payloadcms/graphql": "npm:3.0.0-canary.ff8c8fd"
     "@payloadcms/next": "npm:3.0.0-beta.111"
     "@payloadcms/richtext-lexical": "npm:3.0.0-beta.111"
     "@payloadcms/storage-s3": "npm:3.0.0-beta.111"
@@ -10719,6 +10736,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-essentials@npm:7.0.3":
+  version: 7.0.3
+  resolution: "ts-essentials@npm:7.0.3"
+  peerDependencies:
+    typescript: ">=3.7.0"
+  checksum: 10/021b4263ddd58897171f3f5c467b5c872f76ba2ea07dfc11fa9667ba8d62ccb7f390db3e581139dcc6da94c3ff6306921f574acdb2b94cbc9d7da3e859e24665
+  languageName: node
+  linkType: hard
+
 "ts-interface-checker@npm:^0.1.9":
   version: 0.1.13
   resolution: "ts-interface-checker@npm:0.1.13"
@@ -10749,6 +10775,22 @@ __metadata:
   version: 4.9.3
   resolution: "tslog@npm:4.9.3"
   checksum: 10/134ea14335902b64a49e3ab02f03bab7746e114e1bed6c4a0e9aaf7927d2f7816f5fad50406b905e52fac9f9897cb3f19bd7be84e2c23153f0fc7752277d2622
+  languageName: node
+  linkType: hard
+
+"tsx@npm:4.17.0":
+  version: 4.17.0
+  resolution: "tsx@npm:4.17.0"
+  dependencies:
+    esbuild: "npm:~0.23.0"
+    fsevents: "npm:~2.3.3"
+    get-tsconfig: "npm:^4.7.5"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    tsx: dist/cli.mjs
+  checksum: 10/192dda2794c1e28b8e57cd5296953f49b2a4bca143a6ac427f30a244f9d2fb0aca6ea8f1d7c8d50ddf87cecc78d482ac68fc2d3f21bbcaaa0e84ef1f2dce0c79
   languageName: node
   linkType: hard
 
