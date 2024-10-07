@@ -2408,14 +2408,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/email-nodemailer@npm:3.0.0-beta.111":
-  version: 3.0.0-beta.111
-  resolution: "@payloadcms/email-nodemailer@npm:3.0.0-beta.111"
+"@payloadcms/email-nodemailer@npm:3.0.0-canary.ff8c8fd":
+  version: 3.0.0-canary.ff8c8fd
+  resolution: "@payloadcms/email-nodemailer@npm:3.0.0-canary.ff8c8fd"
   dependencies:
     nodemailer: "npm:6.9.10"
   peerDependencies:
-    payload: 3.0.0-beta.111
-  checksum: 10/b59710b6ea50d5c287c155c08c606599ea9b9b4ec2767612edaf6fc3b4c04a3be53b0effd95eec15f83743fe4d637398507f33ccae78999a7aa5b2d5b219c0f6
+    payload: 3.0.0-canary.ff8c8fd
+  checksum: 10/f59c875fc6d013a2b40d3ee472bdb0191e66d0f9009c20a4df70b0fd0f9b1db1c3022283ed1d242377ba86215c11fd0c837e3d284f0f9c191d551e51fb45bd5e
   languageName: node
   linkType: hard
 
@@ -4769,7 +4769,7 @@ __metadata:
     "@lexical/headless": "npm:0.18.0"
     "@lexical/html": "npm:0.18.0"
     "@payloadcms/db-postgres": "npm:3.0.0-beta.111"
-    "@payloadcms/email-nodemailer": "npm:3.0.0-beta.111"
+    "@payloadcms/email-nodemailer": "npm:3.0.0-canary.ff8c8fd"
     "@payloadcms/graphql": "npm:3.0.0-beta.111"
     "@payloadcms/next": "npm:3.0.0-beta.111"
     "@payloadcms/richtext-lexical": "npm:3.0.0-beta.111"
