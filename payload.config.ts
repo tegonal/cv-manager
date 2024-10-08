@@ -20,7 +20,6 @@ import { Levels } from '@/payload/collections/Level';
 import { Companies } from '@/payload/collections/Companies';
 import { Projects } from '@/payload/collections/Projects';
 import { OAuth2Plugin } from 'payload-oauth2';
-import { ROLE_USER } from '@/payload/utilities/constants';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -118,24 +117,15 @@ export default buildConfig({
       tokenEndpoint: 'https://scm.tegonal.com/oauth/token',
       scopes: ['email', 'profile', 'openid'],
       providerAuthorizationUrl: 'https://scm.tegonal.com/oauth/authorize',
-      getUserInfo: async (accessToken: string) => {
+      getUserInfo: async (accessToken) => {
         try {
           const response = await fetch('https://scm.tegonal.com/oauth/userinfo', {
             headers: { Authorization: `Bearer ${accessToken}` },
           });
           const user = await response.json();
-          console.log(user);
           return {
             email: user.email,
             sub: user.sub,
-            roles: [ROLE_USER],
-            selectedOrganisation: 1,
-            organisations: [
-              {
-                organisation: 1,
-                roles: [ROLE_USER],
-              },
-            ],
           };
         } catch (error) {
           console.error(error);

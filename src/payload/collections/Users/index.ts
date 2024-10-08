@@ -6,6 +6,7 @@ import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/re
 import { superAdminFieldAccess } from '@/payload/access/superAdmins';
 import { organisationAdmins } from '@/payload/collections/Users/access/organisationAdmins';
 import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants';
+import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/userDefaultsAfterCreate';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -25,7 +26,7 @@ export const Users: CollectionConfig = {
     // admin: isSuperOrOrganisationAdmin,
   },
   hooks: {
-    // afterChange: [loginAfterCreate],
+    afterChange: [userDefaultsAfterCreate],
     afterLogin: [recordSelectedOrganisation],
   },
   fields: [
@@ -47,7 +48,6 @@ export const Users: CollectionConfig = {
       name: 'roles',
       type: 'select',
       hasMany: true,
-      required: true,
       access: {
         create: superAdminFieldAccess,
         update: superAdminFieldAccess,
