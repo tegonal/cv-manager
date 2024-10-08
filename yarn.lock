@@ -3534,12 +3534,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:types-react-dom@19.0.0-rc.0":
-  version: 19.0.0-rc.0
-  resolution: "types-react-dom@npm:19.0.0-rc.0"
+"@types/react-dom@npm:types-react-dom@19.0.0":
+  version: 19.0.0
+  resolution: "types-react-dom@npm:19.0.0"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10/edcf0d1f1d9c1186f627a08cccf3f9c60cd3ad3f678a420572184ce09d99ee0dc7db31dc76e00069cfcd60aeb48f49bf4ccad9334eace4895ecc3c180d3e30a6
+  checksum: 10/b77d88f20ce20e78487d0420aa9611626c298330f77b9be7a3c1b314326622a3ad941fabe4908f8bba3125bdfa9889be3fa3c0772ab65524b218a0cfe9e6a25c
   languageName: node
   linkType: hard
 
@@ -4785,7 +4785,7 @@ __metadata:
     "@types/prettier": "npm:^3.0.0"
     "@types/pug": "npm:^2.0.10"
     "@types/react": "npm:types-react@19.0.0-rc.0"
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"
+    "@types/react-dom": "npm:types-react-dom@19.0.0"
     "@types/react-router-dom": "npm:5"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
