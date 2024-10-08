@@ -3475,12 +3475,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.16.10":
-  version: 20.16.10
-  resolution: "@types/node@npm:20.16.10"
+"@types/node@npm:^20.16.11":
+  version: 20.16.11
+  resolution: "@types/node@npm:20.16.11"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/f0832d16fed07737c2c3edd6cb6414a22e8379173e56e701ab8890b8798c8f9bc37337332631818f813ff7f8c0e168e9900e8f44cdfd2406d15150289c813acc
+  checksum: 10/6d2f92b7b320c32ba0c2bc54d21651bd21690998a2e27f00d15019d4db3e0ec30fce85332efed5e37d4cda078ff93ea86ee3e92b76b7a25a9b92a52a039b60b2
   languageName: node
   linkType: hard
 
@@ -4780,7 +4780,7 @@ __metadata:
     "@types/jsdom": "npm:^21.1.7"
     "@types/lodash-es": "npm:^4.17.12"
     "@types/mime-types": "npm:^2.1.4"
-    "@types/node": "npm:^20.16.10"
+    "@types/node": "npm:^20.16.11"
     "@types/nodemailer": "npm:^6.4.16"
     "@types/prettier": "npm:^3.0.0"
     "@types/pug": "npm:^2.0.10"
@@ -4811,7 +4811,7 @@ __metadata:
     payload-oauth2: "npm:^1.0.3"
     postcss: "npm:^8.4.47"
     prettier: "npm:^3.3.3"
-    prettier-plugin-tailwindcss: "npm:^0.6.6"
+    prettier-plugin-tailwindcss: "npm:^0.6.8"
     pug: "npm:^3.0.3"
     react: "npm:19.0.0-rc-3edc000d-20240926"
     react-dom: "npm:19.0.0-rc-3edc000d-20240926"
@@ -8917,9 +8917,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.6.6":
-  version: 0.6.6
-  resolution: "prettier-plugin-tailwindcss@npm:0.6.6"
+"prettier-plugin-tailwindcss@npm:^0.6.8":
+  version: 0.6.8
+  resolution: "prettier-plugin-tailwindcss@npm:0.6.8"
   peerDependencies:
     "@ianvs/prettier-plugin-sort-imports": "*"
     "@prettier/plugin-pug": "*"
@@ -8971,7 +8971,7 @@ __metadata:
       optional: true
     prettier-plugin-svelte:
       optional: true
-  checksum: 10/7e536ed7fc60fa0cd5ea515f16cc638f1ed242c9a72a58fda7b795c1f905623a12debe8cff312f15b06cd66a398e7b4f4b07dd549cead5df6e26064fde3c61c7
+  checksum: 10/09fbb9eeda787365f618529e062ae05fb419b73637285be63fa4c3aab3802815f55890250ebba689698f0039778838d3a8a48ae6415bac778afa3387b193d384
   languageName: node
   linkType: hard
 
