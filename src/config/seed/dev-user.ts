@@ -9,6 +9,9 @@ export const seedDevUser = async (payload: Payload) => {
   });
 
   if (existingUsers.docs.length === 0) {
+    payload.logger.warn(
+      'No existing user, creating default user "admin@test.com" with password "admin". Please change immediately.',
+    );
     const testOrg = await payload.create({
       collection: 'organisations',
       data: {
