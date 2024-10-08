@@ -25,7 +25,6 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
-  //editor: slateEditor({}),
   editor: lexicalEditor(),
   collections: [CV, Users, Skills, Levels, Companies, Projects, Media, Organisations],
   secret: process.env.PAYLOAD_SECRET || '',

@@ -21,6 +21,12 @@ export const Levels: CollectionConfig = {
     {
       type: 'text',
       name: 'level',
+      localized: true,
+    },
+    {
+      type: 'textarea',
+      name: 'description',
+      localized: true,
     },
     {
       type: 'select',
