@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Button,
   Drawer,
@@ -10,7 +9,7 @@ import {
   useTranslation,
 } from '@payloadcms/ui';
 import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
-import React, { use, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Company, Cv, Project } from '@/types/payload-types';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer';
@@ -49,8 +48,7 @@ const fetchCv = async (id: any, serverURL: string) => {
     return;
   }
   const response = await ky.get<Cv>(`${serverURL}/api/cv/${id}`);
-  const data = await response.json();
-  return data;
+  return await response.json();
 };
 
 export const ExportOverlay: React.FC = () => {
@@ -59,20 +57,30 @@ export const ExportOverlay: React.FC = () => {
   const { closeModal, isModalOpen } = useModal();
   const { t } = useTranslation();
   const isOpen = isModalOpen(drawerSlug);
+  const [cv, setCv] = React.useState<Cv>();
 
   const { config } = useConfig();
   const { serverURL } = config;
 
-  const cv = use(
-    useMemo(async () => {
-      if (!isOpen) {
-        return;
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    const fetchData = async () => {
+      try {
+        const data = await fetchCv(id, serverURL);
+        setCv(data);
+      } catch (error) {
+        console.error(error);
       }
-      return await fetchCv(id, serverURL);
-    }, [id, isOpen, serverURL]),
-  );
+    };
+    fetchData();
+  }, [id, isOpen, serverURL]);
 
   const initialFormState = useMemo(() => {
+    if (!cv) {
+      return {};
+    }
     const profile = profileKeys.reduce((acc, key) => {
       // @ts-ignore
       acc[key] = true;
