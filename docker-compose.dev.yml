@@ -50,7 +50,21 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
   gotenberg:
-    image: gotenberg/gotenberg:7
+    image: gotenberg/gotenberg:8.10
+    container_name: gotenberg
+    command:
+      - "gotenberg"
+      - "--libreoffice-auto-start=false"
+      - "--libreoffice-disable-routes=true"
+      - "--chromium-auto-start=true"
+      - "--chromium-ignore-certificate-errors=true"
+      - "--chromium-clear-cache=true"
+      - "--prometheus-disable-collect=true"
+      - "--webhook-disable=true"
+      - "--pdfengines-disable-routes=true"
+      - "--pdfengines-engines="
+    environment:
+      - "TZ=Europe/Zurich"
     ports:
       - "3030:3000"
     healthcheck:
