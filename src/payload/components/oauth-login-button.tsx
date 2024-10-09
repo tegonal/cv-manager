@@ -5,7 +5,7 @@ export const OAuthLoginButton: React.FC = () => (
       type={'button'}
       onClick={() => (window.location.href = '/api/users/oauth/authorize')}
       className={'btn btn--icon-style-without-border btn--size-large btn--style-secondary w-full'}>
-      <span className={'btn__content'}>OAuth Login</span>
+      <span className={'btn__content'}>Login using GitLab</span>
     </button>
   </div>
 );

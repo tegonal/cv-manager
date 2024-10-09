@@ -21,6 +21,8 @@ import { selectProject } from '@/payload/collections/CVs/fields/select-project';
 import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
 import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
 import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
+import { optional } from '@/payload/collections/CVs/fields/optional';
+import { selectSkill } from '@/payload/collections/CVs/fields/select-skill';
 
 export const CV: CollectionConfig = {
   slug: 'cv',
@@ -147,6 +149,24 @@ export const CV: CollectionConfig = {
       required: true,
       fields: [
         {
+          name: 'skillHighlights',
+          type: 'array',
+          label: I18nCollection.fieldLabel.skillHighlights,
+          admin: {
+            initCollapsed: true,
+            components: {
+              RowLabel:
+                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
+            },
+          },
+          fields: [
+            {
+              type: 'row',
+              fields: [selectSkill, selectSkillLevel],
+            },
+          ],
+        },
+        {
           name: 'languages',
           type: 'array',
           label: I18nCollection.fieldLabel.languages,
@@ -154,7 +174,8 @@ export const CV: CollectionConfig = {
           admin: {
             initCollapsed: true,
             components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+              RowLabel:
+                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
             },
           },
           fields: [
@@ -171,7 +192,8 @@ export const CV: CollectionConfig = {
           admin: {
             initCollapsed: true,
             components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+              RowLabel:
+                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
             },
           },
           fields: [
@@ -188,7 +210,8 @@ export const CV: CollectionConfig = {
           admin: {
             initCollapsed: true,
             components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+              RowLabel:
+                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
             },
           },
           fields: [
@@ -204,7 +227,8 @@ export const CV: CollectionConfig = {
           label: I18nCollection.fieldLabel.otherSkills,
           admin: {
             components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+              RowLabel:
+                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
             },
           },
           fields: [
@@ -221,10 +245,31 @@ export const CV: CollectionConfig = {
       label: I18nCollection.fieldLabel.education,
       fields: [
         {
+          name: 'eduHighlights',
+          type: 'array',
+          label: I18nCollection.fieldLabel.educationHighlights,
+          admin: {
+            components: {
+              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+            },
+          },
+          fields: [
+            {
+              type: 'text',
+              name: 'title',
+              label: I18nCollection.fieldLabel.title,
+            },
+            {
+              type: 'row',
+              fields: [optional(selectStartYear), optional(selectEndYear)],
+            },
+            textDescription,
+          ],
+        },
+        {
           name: 'edu',
           type: 'array',
           label: I18nCollection.fieldLabel.schools,
-          minRows: 1,
           admin: {
             components: {
               RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -289,10 +334,30 @@ export const CV: CollectionConfig = {
       label: I18nCollection.fieldLabel.workExperience,
       fields: [
         {
+          name: 'jobHighlights',
+          type: 'array',
+          label: I18nCollection.fieldLabel.jobHighlights,
+          admin: {
+            components: {
+              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+            },
+          },
+          fields: [
+            {
+              type: 'row',
+              fields: [selectCompany],
+            },
+            {
+              type: 'row',
+              fields: [optional(selectStartYear), optional(selectEndYear)],
+            },
+            textDescription,
+          ],
+        },
+        {
           name: 'projects',
           type: 'array',
           label: I18nCollection.fieldLabel.projects,
-          minRows: 1,
           admin: {
             components: {
               RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -305,7 +370,7 @@ export const CV: CollectionConfig = {
             },
             {
               type: 'row',
-              fields: [selectStartYear, selectEndYear],
+              fields: [selectStartYear, optional(selectEndYear)],
             },
             textDescription,
           ],

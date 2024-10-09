@@ -4,6 +4,10 @@ export const I18nCollection = {
       en: 'Skills',
       de: 'Fähigkeiten',
     },
+    title: {
+      en: 'Title',
+      de: 'Titel',
+    },
     softSkills: {
       en: 'Soft skills',
       de: 'Soft Skills',
@@ -11,6 +15,14 @@ export const I18nCollection = {
     personalInformation: {
       en: 'Personal information',
       de: 'Persönliche Informationen',
+    },
+    educationHighlights: {
+      en: 'Educational highlights',
+      de: 'Ausbildungs Highlights',
+    },
+    skillHighlights: {
+      en: 'Skill highlights',
+      de: 'Fähigkeiten Highlights',
     },
     nationalityStatus: {
       en: 'Nationality & Status of residence',
@@ -219,6 +231,10 @@ export const I18nCollection = {
     role: {
       en: 'Role',
       de: 'Rolle',
+    },
+    jobHighlights: {
+      en: 'Job highlights',
+      de: 'Job Highlights',
     },
   },
   fieldDescription: {},
