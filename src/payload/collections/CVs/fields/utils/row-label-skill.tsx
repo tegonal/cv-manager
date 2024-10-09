@@ -4,8 +4,10 @@ import { useRowLabel } from '@payloadcms/ui';
 import { Skill } from '@/types/payload-types';
 import ky from 'ky';
 
+const skillFields = ['skill', 'language', 'softSkill', 'name'];
+
 export const RowLabelSkill: React.FC = (args) => {
-  const { data, rowNumber, path } = useRowLabel<any>();
+  const { data } = useRowLabel<any>();
   const [skill, setSkill] = useState<Skill>();
 
   const fetchSkill = async (id: string) => {
@@ -22,11 +24,19 @@ export const RowLabelSkill: React.FC = (args) => {
   };
 
   const label = useMemo(() => {
-    if (!skill || skill.id !== data?.skill) {
-      fetchSkill(data.skill);
+    const skillField = skillFields.find((field) => data?.[field]);
+    if (!skillField) {
+      return '';
+    }
+    if (skillField === 'name') {
+      return data?.[skillField];
+    }
+    const skillId = data?.[skillField];
+    if (!skill || (skillId && skill.id !== skillId)) {
+      fetchSkill(skillId);
     }
     return skill?.name;
-  }, [data?.skill, skill]);
+  }, [data, skill]);
 
   return (
     <div>

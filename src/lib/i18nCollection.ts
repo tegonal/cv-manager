@@ -237,7 +237,16 @@ export const I18nCollection = {
       de: 'Job Highlights',
     },
   },
-  fieldDescription: {},
+  fieldDescription: {
+    fullName: {
+      en: 'Your full name as you would like to have it displayed on your profile.',
+      de: 'Dein vollständiger Name, wie du ihn in deinem Profil angezeigt haben möchtest.',
+    },
+    highlights: {
+      en: 'Highlights that you would like to prominently display on top of the list, emphasised. Things you are proud of.',
+      de: 'Highlights, welche Du auf Deinem CV prominent dargestellt und ausgezeichnet haben möchtest. Dinge, auf welche Du stolz bist.',
+    },
+  },
   collectionGroup: {
     settings: {
       en: 'Settings',

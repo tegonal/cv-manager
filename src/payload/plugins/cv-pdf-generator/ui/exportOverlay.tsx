@@ -180,6 +180,7 @@ export const ExportOverlay: React.FC = () => {
               locale={locale.code}
               title={cv?.fullName || 'cv-export'}
               exportOverride={formState}
+              onTransferred={() => closeModal(drawerSlug)}
             />
             <Button
               buttonStyle="secondary"

@@ -11,11 +11,12 @@ const editor = createHeadlessEditor({
 });
 
 const dom = new JSDOM();
+
 (global as any).window = dom.window;
 (global as any).document = dom.window.document;
-(global as any).navigator = {
-  userAgent: 'node.js',
-};
+// (global as any).navigator = {
+//   userAgent: 'node.js',
+// };
 
 export const toHtml = async (json: string): Promise<string> => {
   try {

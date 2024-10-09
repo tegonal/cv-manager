@@ -4,15 +4,23 @@ import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const';
 import { Button } from '@payloadcms/ui';
 import React from 'react';
 import { baseClass } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer';
+import { noop } from 'lodash-es';
 
 type Props = {
   id: string | number | undefined;
   title: string;
   exportOverride: Record<string, boolean>;
   locale: string;
+  onTransferred?: () => void;
 };
 
-export const GeneratePDFButton: React.FC<Props> = ({ id, title, exportOverride, locale }) => {
+export const GeneratePDFButton: React.FC<Props> = ({
+  id,
+  title,
+  exportOverride,
+  locale,
+  onTransferred = noop,
+}) => {
   const [isBusy, setBusy] = React.useState(false);
 
   const generatePdf = async () => {
@@ -66,6 +74,7 @@ export const GeneratePDFButton: React.FC<Props> = ({ id, title, exportOverride, 
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     setBusy(false);
+    onTransferred();
   };
   return (
     <Button

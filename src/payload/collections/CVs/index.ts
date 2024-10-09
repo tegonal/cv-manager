@@ -48,6 +48,9 @@ export const CV: CollectionConfig = {
         {
           name: 'fullName',
           label: I18nCollection.fieldLabel.fullName,
+          admin: {
+            description: I18nCollection.fieldDescription.fullName,
+          },
           type: 'text',
           required: true,
         },
@@ -158,6 +161,7 @@ export const CV: CollectionConfig = {
               RowLabel:
                 '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
             },
+            description: I18nCollection.fieldDescription.highlights,
           },
           fields: [
             {
@@ -252,6 +256,7 @@ export const CV: CollectionConfig = {
             components: {
               RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
             },
+            description: I18nCollection.fieldDescription.highlights,
           },
           fields: [
             {
@@ -341,6 +346,7 @@ export const CV: CollectionConfig = {
             components: {
               RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
             },
+            description: I18nCollection.fieldDescription.highlights,
           },
           fields: [
             {
