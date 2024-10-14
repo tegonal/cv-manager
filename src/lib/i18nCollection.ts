@@ -32,6 +32,10 @@ export const I18nCollection = {
       en: 'Languages',
       de: 'Sprachen',
     },
+    highlights: {
+      en: 'Highlights',
+      de: 'Highlights',
+    },
     experience: {
       en: 'Experience',
       de: 'Erfahrung',

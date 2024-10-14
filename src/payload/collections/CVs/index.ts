@@ -168,6 +168,7 @@ export const CV: CollectionConfig = {
               type: 'row',
               fields: [selectSkill, selectSkillLevel],
             },
+            textDescription,
           ],
         },
         {

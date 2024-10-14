@@ -22,7 +22,7 @@ jobs:
             This is a message from ${{ github.repository }}.
             [Pipeline](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) New tag pushed, Docker build started ...
           MATTERMOST_USERNAME: ${{ github.triggering_actor }}
-          
+
       - name: Checkout repository
         uses: actions/checkout@v4
 

@@ -15,6 +15,7 @@ import { I18nCollection } from '@/lib/i18nCollection';
 import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer';
 import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generatePdfButton';
 import ky from 'ky';
+import { truncate } from 'lodash-es';
 
 const profileKeys: (keyof Cv)[] = [
   'birthday',
@@ -116,7 +117,7 @@ export const ExportOverlay: React.FC = () => {
         section: getLocalizedFieldLabel('projects', locale.code),
         fields: cv?.projects?.map((project) => ({
           key: `project_${project.id}`,
-          label: `<strong>${(project.company as Company).name} - ${(project.project as Project).name}</strong>: ${project.description}`,
+          label: `<strong>${(project.company as Company).name} - ${(project.project as Project).name}</strong>: ${truncate(project.description || '', { length: 50 })}`,
           export: formState[`project_${project.id}`] ?? true,
         })),
       },

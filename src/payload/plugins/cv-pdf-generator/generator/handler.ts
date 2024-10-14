@@ -11,7 +11,6 @@ import configPromise from '@payload-config';
 import * as process from 'node:process';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { CvPdfConfig } from '@/payload/plugins/cv-pdf-generator/types';
-import { toHtml } from './lexical-to-html';
 import { isNumber } from 'lodash-es';
 
 const fetchFileToBase64 = async (url: string): Promise<string> => {
@@ -55,8 +54,6 @@ export const requestHandler = async ({ id, locale }: Props) => {
     please,
   );
 
-  logger.info(pluginConfig);
-
   const cvResult = await payload.find({
     collection: 'cv',
     where: { id: { equals: id } },
@@ -93,12 +90,18 @@ export const requestHandler = async ({ id, locale }: Props) => {
   };
 
   // convert richtext fields to html
+  const toHtml = await import('./lexical-to-html').then((module) => module.toHtml);
   cv.introduction = (await toHtml(cv.introduction as any)) as any;
 
   // convert date fields to formatted strings
   cv.birthday = new Date(cv.birthday).toLocaleDateString(locale);
 
-  const getYear = (date: string) => new Date(date).getFullYear().toString();
+  const getYear = (date: string | undefined | null) => {
+    if (!date) {
+      return '';
+    }
+    return new Date(date).getFullYear().toString();
+  };
 
   if (cv.edu && cv.edu.length > 0) {
     cv.edu = cv.edu?.map((edu) => {
@@ -130,7 +133,25 @@ export const requestHandler = async ({ id, locale }: Props) => {
     });
   }
 
+  if (cv.eduHighlights && cv.eduHighlights.length > 0) {
+    cv.eduHighlights = cv.eduHighlights?.map((highlight) => {
+      highlight.fromYear = getYear(highlight.fromYear);
+      highlight.toYear = getYear(highlight.toYear);
+      return highlight;
+    });
+  }
+
+  if (cv.jobHighlights && cv.jobHighlights.length > 0) {
+    cv.jobHighlights = cv.jobHighlights?.map((highlight) => {
+      highlight.fromYear = getYear(highlight.fromYear);
+      highlight.toYear = getYear(highlight.toYear);
+      return highlight;
+    });
+  }
+
   let fileString = '';
+
+  console.log(data);
 
   try {
     fileString = pug.renderFile(templateFile, {

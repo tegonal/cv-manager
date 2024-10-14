@@ -10,13 +10,10 @@ const editor = createHeadlessEditor({
   onError: () => {},
 });
 
-const dom = new JSDOM();
+const dom = new JSDOM(``, { pretendToBeVisual: true });
 
 (global as any).window = dom.window;
 (global as any).document = dom.window.document;
-// (global as any).navigator = {
-//   userAgent: 'node.js',
-// };
 
 export const toHtml = async (json: string): Promise<string> => {
   try {

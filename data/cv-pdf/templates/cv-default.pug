@@ -36,6 +36,10 @@ html(lang=cv.locale)
         background-position-x: left;
         background-position-y: bottom;
         background-repeat: no-repeat;
+        --primary-color: #C0D72E;
+        --secondary-color: #666;
+        --spacer-hr-color: #999;
+        --highlight-background-color: #f8f8f8;
       }
 
       img {
@@ -88,6 +92,28 @@ html(lang=cv.locale)
         width: 100%;
       }
 
+      .content-box.highlights {
+        border-left: 2mm solid var(--primary-color);
+        background: var(--highlight-background-color);
+        padding: 2mm;
+        margin-left: -4mm;
+        position: relative;
+        border-radius: 2mm;
+      }
+
+      .content-box.highlights::after {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMTU2LjYgMzg0LjlMMTI1LjcgMzU0Yy04LjUtOC41LTExLjUtMjAuOC03LjctMzIuMmMzLTguOSA3LTIwLjUgMTEuOC0zMy44TDI0IDI4OGMtOC42IDAtMTYuNi00LjYtMjAuOS0xMi4xcy00LjItMTYuNyAuMi0yNC4xbDUyLjUtODguNWMxMy0yMS45IDM2LjUtMzUuMyA2MS45LTM1LjNsODIuMyAwYzIuNC00IDQuOC03LjcgNy4yLTExLjNDMjg5LjEtNC4xIDQxMS4xLTguMSA0ODMuOSA1LjNjMTEuNiAyLjEgMjAuNiAxMS4yIDIyLjggMjIuOGMxMy40IDcyLjkgOS4zIDE5NC44LTExMS40IDI3Ni43Yy0zLjUgMi40LTcuMyA0LjgtMTEuMyA3LjJsMCA4Mi4zYzAgMjUuNC0xMy40IDQ5LTM1LjMgNjEuOWwtODguNSA1Mi41Yy03LjQgNC40LTE2LjYgNC41LTI0LjEgLjJzLTEyLjEtMTIuMi0xMi4xLTIwLjlsMC0xMDcuMmMtMTQuMSA0LjktMjYuNCA4LjktMzUuNyAxMS45Yy0xMS4yIDMuNi0yMy40IC41LTMxLjgtNy44ek0zODQgMTY4YTQwIDQwIDAgMSAwIDAtODAgNDAgNDAgMCAxIDAgMCA4MHoiIGNvbG9yPSJjdXJyZW50Q29sb3IiIC8+PC9zdmc+');
+        position: absolute;
+        background-size: cover;
+        content: '';
+        display: block;
+        top: 2mm;
+        right: 2mm;
+        width: 7mm;
+        height: 7mm;
+        opacity: 0.25;
+      }
+
       .list {
         display: flex;
         flex-direction: column;
@@ -95,8 +121,9 @@ html(lang=cv.locale)
       }
 
       .list-row {
-        display: flex;
-        gap: 3mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 4mm;
       }
 
       .col-1, .col-2 {
@@ -108,9 +135,10 @@ html(lang=cv.locale)
         position: absolute;
         top: 0;
         left: -4mm;
-        background: #666;
+        background: var(--primary-color);
         width: 11mm;
         height: 1.3mm;
+        display: none;
       }
 
       .spacer-5mm {
@@ -131,6 +159,14 @@ html(lang=cv.locale)
         object-fit: cover;
       }
 
+      .hr {
+        height: 1px;
+        border-top: none;
+        border-bottom: 1px solid var(--spacer-hr-color);
+        transform: scaleY(0.33);
+        margin: 2mm 0;
+      }
+
       /* typography */
 
       body {
@@ -140,37 +176,48 @@ html(lang=cv.locale)
       }
 
       p {
-        line-height: 120%;
+        line-height: 133%;
         margin: 0 0 16pt 0;
       }
 
-      p.no-margin {
+      .no-margin {
         margin: 0;
       }
 
-      p.lead {
+      .small-margin {
+        margin: 0 0 6pt 0;
+      }
+
+      .lead {
         font-size: 12pt;
         line-height: 133%;
       }
 
       .small {
-        font-size: 7pt;
+        font-size: 7.5pt;
         color: #333;
+      }
+
+      .bold {
+        font-weight: 700;
       }
 
       h1 {
         font-size: 24pt;
         font-weight: 300;
+        margin-top: 0;
       }
 
       h2 {
         font-size: 18pt;
         font-weight: 300;
+        margin-top: 0;
       }
 
       h3 {
         font-size: 7pt;
         font-weight: 700;
+        margin-top: 0;
       }
 
       ul {
@@ -182,30 +229,21 @@ html(lang=cv.locale)
 
       .intro-container {
         display: grid;
-        grid-template-columns: 44mm auto;
+        grid-template-columns: 20mm auto;
         gap: 10mm;
       }
 
       .intro-container .col-1 {
-        width: 44mm;
+        width: 20mm;
       }
 
       .intro-container .col-2 {
         position: relative;
       }
 
-      .lead-in-image {
-        z-index: -1;
-        position: absolute;
-        top: -4mm;
-        left: -6mm;
-        width: 15mm;
-        height: 15mm;
-      }
-
       .cv-image-container {
-        width: 44mm;
-        height: 44mm;
+        width: 20mm;
+        height: 20mm;
         border-radius: 50%;
         overflow: hidden;
       }
@@ -227,28 +265,8 @@ html(lang=cv.locale)
 
       /* projects container */
 
-      .projects-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8mm;
-      }
-
-      .projects-container .project {
-        display: flex;
-        flex-direction: column;
-        gap: 3mm;
-        page-break-inside: avoid;
-      }
-
-      .projects-container .project .line {
-        display: grid;
-        grid-template-columns: 25% auto;
-        gap: 4mm;
-      }
-
-      .projects-container .project .line p,
-      .projects-container .project .line h3 {
-        margin: 0;
+      .container-projects {
+        width: 80%;
       }
 
       @media print {
@@ -278,11 +296,16 @@ html(lang=cv.locale)
     .container.intro-container
       .col-1
       .col-2
-        p.lead.no-margin
+        div.lead.no-margin
           != cv.introduction
-    .spacer-10mm
-    .container
-      h2 #{i18n.fieldLabel.profile[cv.locale]}
+    .spacer-5mm
+    .hr
+    .spacer-5mm
+    .container.profile-container
+      .col-1
+        h2 #{i18n.fieldLabel.profile[cv.locale]}
+      .col-2
+        h2 #{i18n.fieldLabel.education[cv.locale]}
     .container.profile-container.page-break-after
       .col-1
         .column-decoration
@@ -310,16 +333,27 @@ html(lang=cv.locale)
                   a(href=item.url)= item.platform
       .col-2
         .column-decoration
+        if cv.eduHighlights.length > 0
+          .content-box.highlights
+            h3 #{i18n.fieldLabel.highlights[cv.locale]}
+            div.list
+              each item in cv.eduHighlights
+                div
+                  p.no-margin #{item.title}
+                  p.no-margin.small
+                    != item.description
+                  p.no-margin.small #{item.fromYear}#{item.toYear ? ' - ' + item.toYear : ''}
+
         if cv.edu.length > 0
           .content-box
-            h3 #{i18n.fieldLabel.education[cv.locale]}
             div.list
               each item in cv.edu
                 div
                   p.no-margin #{item.institution}
                   p.no-margin.small
                     != item.description
-                  p.no-margin.small #{item.fromYear} - #{item.toYear}
+                  p.no-margin.small #{item.fromYear}#{item.toYear ? ' - ' + item.toYear : ''}
+
         if cv.certs.length > 0
           .content-box
             h3 #{i18n.fieldLabel.certifications[cv.locale]}
@@ -330,6 +364,7 @@ html(lang=cv.locale)
                   p.no-margin.small
                     != item.description
                   p.no-margin.small #{item.toYear}
+
         if cv.courses.length > 0
           .content-box
             h3 #{i18n.fieldLabel.courses[cv.locale]}
@@ -345,7 +380,18 @@ html(lang=cv.locale)
     .container.container-experience.page-break-after
       .column-decoration
       .col-1
+        if cv.skillHighlights.length > 0
+          .content-box.highlights
+            h3 #{i18n.fieldLabel.highlights[cv.locale]}
+            div.list-row
+              each item in cv.skillHighlights
+                div
+                  p.no-margin= item.skill.name
+                  p.no-margin.small #{item.level.level}
+                  p.no-margin.small
+                    != item.description
         if cv.languages.length > 0
+          .hr
           .content-box
             h3 #{i18n.fieldLabel.languages[cv.locale]}
             div.list-row
@@ -354,6 +400,7 @@ html(lang=cv.locale)
                   p.no-margin= item.language.name
                   p.no-margin.small #{item.level.level}
         if cv.technologies.length > 0
+          .hr
           .content-box
             h3 #{i18n.fieldLabel.technologies[cv.locale]}
             div.list-row
@@ -362,6 +409,7 @@ html(lang=cv.locale)
                   p.no-margin #{item.skill.name}
                   p.no-margin.small #{item.level.level}
         if cv.softSkills.length > 0
+          .hr
           .content-box
             h3 #{i18n.fieldLabel.softSkills[cv.locale]}
             div.list-row
@@ -370,6 +418,7 @@ html(lang=cv.locale)
                   p.no-margin #{item.softSkill.name}
                   p.no-margin.small #{item.level.level}
         if cv.otherSkills.length > 0
+          .hr
           .content-box
             h3 #{i18n.fieldLabel.otherSkills[cv.locale]}
             div.list-row
@@ -377,14 +426,28 @@ html(lang=cv.locale)
                 div
                   p.no-margin #{item.name}
                   p.no-margin.small #{item.level.level}
+
+    h2 #{i18n.fieldLabel.workExperience[cv.locale]}
+    .container.container-projects.page-break-after
+      .column-decoration
+      .col-1
+      if cv.jobHighlights.length > 0
+        .content-box.highlights
+          h3 #{i18n.fieldLabel.highlights[cv.locale]}
+          div.list
+            each item in cv.jobHighlights
+              div
+                p.small-margin.bold #{item.company.name}
+                p.small.small-margin #{item.fromYear} - #{item.toYear}
+                p
+                  != item.description
       if cv.projects.length > 0
-        h2 #{i18n.fieldLabel.workExperience[cv.locale]}
         .content-box
           h3 #{i18n.fieldLabel.projects[cv.locale]}
           div.list
             each item in cv.projects
               div
-                p.no-margin #{item.company.name} / #{item.project.name}
-                p.no-margin.small #{item.fromYear} - #{item.toYear}
-                p.no-margin.small
+                p.small-margin.bold #{item.company.name} / #{item.project.name}
+                p.small.small-margin #{item.fromYear} - #{item.toYear}
+                p
                   != item.description

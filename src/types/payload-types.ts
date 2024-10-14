@@ -35,13 +35,14 @@ export interface Config {
   };
   collections: {
     cv: Cv;
-    users: User;
     skill: Skill;
     level: Level;
     company: Company;
     project: Project;
     media: Media;
     organisations: Organisation;
+    users: User;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -102,6 +103,14 @@ export interface Cv {
     };
     [k: string]: unknown;
   };
+  skillHighlights?:
+    | {
+        skill: number | Skill;
+        level: number | Level;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   languages?:
     | {
         language: number | Skill;
@@ -130,6 +139,15 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
+  eduHighlights?:
+    | {
+        title?: string | null;
+        fromYear?: string | null;
+        toYear?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   edu?:
     | {
         institution: string;
@@ -155,12 +173,21 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
+  jobHighlights?:
+    | {
+        company: number | Company;
+        fromYear?: string | null;
+        toYear?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   projects?:
     | {
         company: number | Company;
         project: number | Project;
         fromYear: string;
-        toYear: string;
+        toYear?: string | null;
         description?: string | null;
         id?: string | null;
       }[]
@@ -241,9 +268,10 @@ export interface User {
   id: number;
   firstName?: string | null;
   lastName?: string | null;
-  roles: ('admin' | 'user')[];
+  roles?: ('admin' | 'user')[] | null;
   organisations?: UserOrganisations;
   selectedOrganisation?: (number | null) | Organisation;
+  sub?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -276,6 +304,7 @@ export interface Skill {
 export interface Level {
   id: number;
   level?: string | null;
+  description?: string | null;
   levelType?: ('language' | 'skill')[] | null;
   points?: number | null;
   organisation?: (number | null) | Organisation;
@@ -307,6 +336,53 @@ export interface Project {
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: number;
+  document?:
+    | ({
+        relationTo: 'cv';
+        value: number | Cv;
+      } | null)
+    | ({
+        relationTo: 'skill';
+        value: number | Skill;
+      } | null)
+    | ({
+        relationTo: 'level';
+        value: number | Level;
+      } | null)
+    | ({
+        relationTo: 'company';
+        value: number | Company;
+      } | null)
+    | ({
+        relationTo: 'project';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'organisations';
+        value: number | Organisation;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
   updatedAt: string;
   createdAt: string;
 }
