@@ -3,7 +3,7 @@ import { Access } from 'payload';
 
 export const isAdminOrCreatedBy: Access = ({ req: { user } }) => {
   // Scenario #1 - Check if user has the 'admin' role
-  if (user && user.roles.includes(ROLE_SUPER_ADMIN)) {
+  if (user && user.roles?.includes(ROLE_SUPER_ADMIN)) {
     return true;
   }
 

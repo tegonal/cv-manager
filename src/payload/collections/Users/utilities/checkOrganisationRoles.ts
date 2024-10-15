@@ -14,7 +14,7 @@ export const checkOrganisationRoles = (
 ): boolean => {
   if (organisationId) {
     if (
-      allRoles.some((role) => {
+      allRoles?.some((role) => {
         return user?.organisations?.some(({ organisation: userOrganisation, roles }) => {
           const organisationID = getIdFromRelation(userOrganisation);
           return organisationID === organisationId && roles?.includes(role);
