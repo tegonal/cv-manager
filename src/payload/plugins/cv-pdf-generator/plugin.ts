@@ -41,14 +41,14 @@ export const cvPdfPlugin =
             const body = await req.json();
             logger.info('cvPdfPlugin endpoint', body);
 
-            const { id, locale } = body;
+            const { id, locale, exportOverride } = body;
             if (!id) {
               return new Response(JSON.stringify({ error: 'No id provided' }), { status: 400 });
             }
             if (!locale) {
               return new Response(JSON.stringify({ error: 'No locale provided' }), { status: 400 });
             }
-            const result = await requestHandler({ id, locale });
+            const result = await requestHandler({ id, locale, exportOverride });
             if ('error' in result) {
               return new Response(JSON.stringify(result), { status: 400 });
             } else {

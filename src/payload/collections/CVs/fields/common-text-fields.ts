@@ -27,6 +27,6 @@ export const textDescriptionRequired: Field = {
 export const textDescription: Field = {
   name: 'description',
   label: I18nCollection.fieldLabel.description,
-  type: 'textarea',
+  type: 'richText',
   localized: true,
 };

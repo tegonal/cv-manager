@@ -32,10 +32,6 @@ html(lang=cv.locale)
         padding: 0;
         margin: 0;
         counter-reset: page;
-        background-image: url(#{images.pageBackground});
-        background-position-x: left;
-        background-position-y: bottom;
-        background-repeat: no-repeat;
         --primary-color: #C0D72E;
         --secondary-color: #666;
         --spacer-hr-color: #999;
@@ -202,6 +198,12 @@ html(lang=cv.locale)
         font-weight: 700;
       }
 
+      .from-richtext {
+        p:last-child {
+          margin: 0
+        }
+      }
+
       h1 {
         font-size: 24pt;
         font-weight: 300;
@@ -296,7 +298,7 @@ html(lang=cv.locale)
     .container.intro-container
       .col-1
       .col-2
-        div.lead.no-margin
+        div.lead.no-margin.from-richtext
           != cv.introduction
     .spacer-5mm
     .hr
@@ -340,7 +342,7 @@ html(lang=cv.locale)
               each item in cv.eduHighlights
                 div
                   p.no-margin #{item.title}
-                  p.no-margin.small
+                  div.no-margin.small.from-richtext
                     != item.description
                   p.no-margin.small #{item.fromYear}#{item.toYear ? ' - ' + item.toYear : ''}
 
@@ -350,7 +352,7 @@ html(lang=cv.locale)
               each item in cv.edu
                 div
                   p.no-margin #{item.institution}
-                  p.no-margin.small
+                  div.no-margin.small.from-richtext
                     != item.description
                   p.no-margin.small #{item.fromYear}#{item.toYear ? ' - ' + item.toYear : ''}
 
@@ -361,7 +363,7 @@ html(lang=cv.locale)
               each item in cv.certs
                 div
                   p.no-margin #{item.name}
-                  p.no-margin.small
+                  div.no-margin.small.from-richtext
                     != item.description
                   p.no-margin.small #{item.toYear}
 
@@ -372,7 +374,7 @@ html(lang=cv.locale)
               each item in cv.courses
                 div
                   p.no-margin #{item.name}
-                  p.no-margin.small
+                  div.no-margin.small.from-richtext
                     != item.description
                   p.no-margin.small #{item.toYear}
 
@@ -388,7 +390,7 @@ html(lang=cv.locale)
                 div
                   p.no-margin= item.skill.name
                   p.no-margin.small #{item.level.level}
-                  p.no-margin.small
+                  div.no-margin.small.from-richtext
                     != item.description
         if cv.languages.length > 0
           .hr
@@ -439,7 +441,7 @@ html(lang=cv.locale)
               div
                 p.small-margin.bold #{item.company.name}
                 p.small.small-margin #{item.fromYear} - #{item.toYear}
-                p
+                div.from-richtext
                   != item.description
       if cv.projects.length > 0
         .content-box
@@ -449,5 +451,14 @@ html(lang=cv.locale)
               div
                 p.small-margin.bold #{item.company.name} / #{item.project.name}
                 p.small.small-margin #{item.fromYear} - #{item.toYear}
-                p
+                div.from-richtext
                   != item.description
+
+  if cv.casualInfo
+    h2 #{i18n.fieldLabel.casualInfo[cv.locale]}
+      .container.page-break-after
+        .column-decoration
+        .col-1
+          .content-box
+            div.from-richtext
+              != cv.casualInfo

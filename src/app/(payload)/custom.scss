@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@media print {
-  aside.nav {
-    display: none;
-  }
-}
-
 .editor {
   ol {
     list-style-type: decimal;
@@ -15,16 +9,4 @@
   ul {
     list-style-type: disc;
   }
-}
-
-:root {
-  --theme-text-50: rgb(from var(--theme-text) r g b / 0.5);
-  --theme-text-33: rgb(from var(--theme-text) r g b / 0.33);
-}
-
-.prose {
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--theme-text);
-  }
-  color: var(--theme-text);
 }

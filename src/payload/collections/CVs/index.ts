@@ -10,7 +10,6 @@ import {
   textDescription,
   textNameRequired,
 } from '@/payload/collections/CVs/fields/common-text-fields';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { CollectionConfig } from 'payload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
 import { I18nCollection } from '@/lib/i18nCollection';
@@ -140,11 +139,16 @@ export const CV: CollectionConfig = {
       type: 'richText',
       required: true,
       localized: true,
-      editor: lexicalEditor(),
       admin: {
         description:
           'Write an introduction about yourself. Try to cover some personal topics and your professional background. Please do not use formatting.',
       },
+    },
+    {
+      name: 'casualInfo',
+      label: I18nCollection.fieldLabel.casualInfo,
+      type: 'richText',
+      localized: true,
     },
     {
       type: 'collapsible',

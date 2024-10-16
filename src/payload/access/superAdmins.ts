@@ -1,7 +1,7 @@
 import type { Access, FieldAccess } from 'payload';
 
 import { checkUserRoles } from '@/payload/utilities/checkUserRoles';
-import { User } from '../../types/payload-types';
+import { User } from '@/types/payload-types';
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants';
 
 export const superAdmins: Access = ({ req: { user } }) => checkUserRoles([ROLE_SUPER_ADMIN], user);

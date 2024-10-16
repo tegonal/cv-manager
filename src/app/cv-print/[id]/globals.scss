@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@page {
+  size: A4;
+  margin: 30mm 15mm 15mm 30mm;
+  @top-right {
+    content: element(companyLogo);
+  }
+  @bottom-left {
+    content: element(pageFooter);
+  }
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  counter-reset: page;
+  font-size: 8pt;
+  --primary-color: #C0D72E;
+  --secondary-color: #666;
+  --spacer-hr-color: #999;
+  --highlight-background-color: #f8f8f8;
+}
+
+#companyLogo {
+  position: running(companyLogo);
+  margin-top: 5mm;
+}
+
+#companyLogo img {
+  display: inline-block;
+  width: 36mm;
+  height: auto;
+}
+
+#pageFooter {
+  position: running(pageFooter);
+}
+
+#pageNumber::before {
+  counter-increment: page;
+  content: " " counter(page);
+}
+
+.break-after {
+  break-after: always;
+}
+
+.circle-mask {
+  clip-path: circle(50% at 50% 50%);
+}
+
+
+/* typography */
+
+body {
+  font-family: Rubik, Arial, sans-serif;
+  font-size: 9pt;
+  font-weight: 300;
+  color: black;
+}
+
+a {
+  &:link {
+    @apply underline;
+    color: black;
+  }
+  &:hover {
+    @apply no-underline;
+  }
+  &:focus {
+  }
+  &:visited{
+    color: black;
+  }
+}
+
+p {
+  line-height: 133%;
+
+  &.margin {
+     margin: 0 0 12pt 0;
+   }
+
+  &.small-margin {
+    margin: 0 0 6pt 0;
+  }
+}
+
+.lead {
+  font-size: 12pt;
+  line-height: 133%;
+}
+
+.small {
+  font-size: 7.5pt;
+}
+
+h1 {
+  font-size: 24pt;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 18pt;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 7pt;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+ul {
+  padding-left: 0;
+}

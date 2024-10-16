@@ -4,6 +4,10 @@ export const I18nCollection = {
       en: 'Skills',
       de: 'Fähigkeiten',
     },
+    casualInfo: {
+      en: 'Casual information',
+      de: 'Persönliche Informationen',
+    },
     title: {
       en: 'Title',
       de: 'Titel',

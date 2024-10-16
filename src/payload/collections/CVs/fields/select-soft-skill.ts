@@ -8,7 +8,6 @@ export const selectSoftSkill: Field = {
   relationTo: 'skill',
   required: true,
   filterOptions: (data) => {
-    console.log(data);
     return {
       skillType: { equals: 'soft' },
     };
