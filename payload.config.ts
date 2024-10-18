@@ -136,7 +136,7 @@ export default buildConfig({
         return '/admin';
       },
       failureRedirect: (req, error) => {
-        console.error(error);
+        console.error({ msg: 'failureRedirect', error });
         return '/oauth-error';
       },
     }),
