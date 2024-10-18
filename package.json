@@ -26,7 +26,7 @@
     "node": ">=22.9.0"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.0.0-beta.111",
+    "@payloadcms/db-postgres": "3.0.0-canary.ff8c8fd",
     "@payloadcms/email-nodemailer": "3.0.0-beta.111",
     "@payloadcms/next": "3.0.0-beta.111",
     "@payloadcms/richtext-lexical": "3.0.0-beta.111",
