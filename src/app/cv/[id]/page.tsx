@@ -21,7 +21,7 @@ type Args = {
 
 type DecodedSearchParams = {
   locale: 'de';
-  excludedOptions: Record<string, boolean>;
+  exportOverride: Record<string, boolean>;
   secret: string;
 };
 
@@ -56,9 +56,7 @@ const filterEmptyLexicalNodes = (data: PayloadLexicalReactRendererContent) => {
 
 const hasLexicalNodes = (data: PayloadLexicalReactRendererContent) => {
   if (!data) return false;
-  console.log({ data });
   const filtered = filterEmptyLexicalNodes(data);
-  console.log({ data, filtered });
   return filtered.root.children.length > 0;
 };
 
@@ -79,6 +77,8 @@ const Page = async ({ params, searchParams }: Args) => {
     decodeFromBase64(query.searchParams.p as string),
   );
 
+  const { exportOverride } = decodedParams;
+
   const cv = await payload
     .find({
       collection: 'cv',
@@ -92,6 +92,10 @@ const Page = async ({ params, searchParams }: Args) => {
     .then((data) => data.docs[0]);
 
   const profileImage = (cv.image as Media)?.url || '';
+
+  const hasOverride = (key: string) => {
+    return key in exportOverride && exportOverride[key];
+  };
 
   return (
     <>
@@ -138,31 +142,31 @@ const Page = async ({ params, searchParams }: Args) => {
         <div className={'grid grid-cols-12 gap-x-8 gap-y-12'}>
           <div className={'col-span-4 flex flex-col gap-4'}>
             <h2>{I18nCollection.fieldLabel.profile[locale]}</h2>
-            {cv.birthday && (
+            {cv.birthday && hasOverride('birthday') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.birthday[locale]}</h3>
                 <p>{formatDate(cv.birthday)}</p>
               </div>
             )}
-            {cv.nationalityStatus && (
+            {cv.nationalityStatus && hasOverride('nationalityStatus') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.nationalityStatus[locale]}</h3>
                 <p>{cv.nationalityStatus}</p>
               </div>
             )}
-            {cv.phoneNumber && (
+            {cv.phoneNumber && hasOverride('phoneNumber') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.phoneNumber[locale]}</h3>
                 <p>{cv.phoneNumber}</p>
               </div>
             )}
-            {cv.email && (
+            {cv.email && hasOverride('email') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.email[locale]}</h3>
                 <p>{cv.email}</p>
               </div>
             )}
-            {cv.links && cv.links.length > 0 && (
+            {cv.links && cv.links.length > 0 && hasOverride('links') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.links[locale]}</h3>
                 {cv.links.map((link) => (
@@ -327,20 +331,24 @@ const Page = async ({ params, searchParams }: Args) => {
             {cv.projects && cv.projects.length > 0 && (
               <div className={'grid grid-cols-1 gap-6'}>
                 <h3>{I18nCollection.fieldLabel.projects[locale]}</h3>
-                {cv.projects.map((item) => (
-                  <div key={item.id}>
-                    <p>{(item.company as Company).name}</p>
-                    <p className={'small'}>{(item.project as Project).name}</p>
-                    <p className={'small'}>{fromToYear(item.fromYear, item.toYear)}</p>
-                    <div>
-                      <PayloadLexicalReactRenderer content={item.description as any} />
+                {cv.projects.map((item) => {
+                  const projectKey = `project_${item.id}`;
+                  if (projectKey in exportOverride && !exportOverride[projectKey]) return null;
+                  return (
+                    <div key={item.id}>
+                      <p>{(item.company as Company).name}</p>
+                      <p className={'small'}>{(item.project as Project).name}</p>
+                      <p className={'small'}>{fromToYear(item.fromYear, item.toYear)}</p>
+                      <div>
+                        <PayloadLexicalReactRenderer content={item.description as any} />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
-          {hasLexicalNodes(cv.casualInfo as any) && (
+          {hasLexicalNodes(cv.casualInfo as any) && hasOverride('casualInfo') && (
             <div className={'col-span-12 flex flex-col gap-8'}>
               <h2>{I18nCollection.fieldLabel.casualInfo[locale]}</h2>
               <div>

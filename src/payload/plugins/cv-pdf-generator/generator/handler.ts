@@ -22,22 +22,6 @@ export const requestHandler = async ({ id, locale, exportOverride }: Props) => {
   Chromiumly.configure({ endpoint: pluginConfig.gotenbergUrl });
   const urlConverter = new UrlConverter();
 
-  // const toPDF = pipe(
-  //   gotenberg(`${pluginConfig.gotenbergUrl}/forms/chromium`),
-  //   convert,
-  //   url,
-  //   to({
-  //     paperWidth: 8.267716535,
-  //     paperHeight: 11.69291339,
-  //     marginTop: 0,
-  //     marginBottom: 0,
-  //     marginLeft: 0,
-  //     marginRight: 0,
-  //     landscape: false,
-  //   }),
-  //   please,
-  // );
-
   const host = process.env.NEXT_PUBLIC_URL?.includes('localhost')
     ? 'http://host.docker.internal:3000'
     : process.env.NEXT_PUBLIC_URL;

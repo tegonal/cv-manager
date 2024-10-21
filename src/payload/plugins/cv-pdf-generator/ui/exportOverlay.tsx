@@ -22,6 +22,7 @@ const profileKeys: (keyof Cv)[] = [
   'phoneNumber',
   'email',
   'links',
+  'casualInfo',
 ];
 
 const getLocalizedFieldLabel = (
@@ -58,6 +59,7 @@ export const ExportOverlay: React.FC = () => {
   const { t } = useTranslation();
   const isOpen = isModalOpen(drawerSlug);
   const [cv, setCv] = React.useState<Cv>();
+  const [formState, setFormState] = React.useState<Record<string, boolean>>({});
 
   const { config } = useConfig();
   const { serverURL } = config;
@@ -77,9 +79,9 @@ export const ExportOverlay: React.FC = () => {
     fetchData();
   }, [id, isOpen, serverURL]);
 
-  const initialFormState = useMemo(() => {
+  useEffect(() => {
     if (!cv) {
-      return {};
+      return;
     }
     const profile = profileKeys.reduce((acc, key) => {
       // @ts-ignore
@@ -93,10 +95,8 @@ export const ExportOverlay: React.FC = () => {
       return acc;
     }, {});
 
-    return { ...profile, ...projects };
+    setFormState({ ...profile, ...projects });
   }, [cv]);
-
-  const [formState, setFormState] = React.useState<Record<string, boolean>>(initialFormState);
 
   const availableOptions = useMemo(() => {
     const profile = [
