@@ -3,12 +3,12 @@ import { getPayloadHMR } from '@payloadcms/next/utilities';
 import configPromise from '@payload-config';
 import Image from 'next/image';
 import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer';
-import { Company, Level, Media, Project, Skill } from '@/types/payload-types';
+import { Company, Level, Media, Project, Skill, SkillGroup } from '@/types/payload-types';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { decodeFromBase64 } from 'next/dist/build/webpack/loaders/utils';
 import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer';
 import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight';
-import { capitalize } from 'lodash-es';
+import { capitalize, isEmpty } from 'lodash-es';
 
 type Args = {
   params: Promise<{
@@ -166,10 +166,10 @@ const Page = async ({ params, searchParams }: Args) => {
                 <p>{cv.email}</p>
               </div>
             )}
-            {cv.links && cv.links.length > 0 && hasOverride('links') && (
+            {!isEmpty(cv.links) && hasOverride('links') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.links[locale]}</h3>
-                {cv.links.map((link) => (
+                {cv.links?.map((link) => (
                   <div key={link.id}>
                     <a href={link.url}>{capitalize(link.platform)}</a>
                   </div>
@@ -179,10 +179,9 @@ const Page = async ({ params, searchParams }: Args) => {
           </div>
           <div className={'col-span-8 flex flex-col gap-4'}>
             <h2>{I18nCollection.fieldLabel.education[locale]}</h2>
-
-            {cv.eduHighlights && cv.eduHighlights.length > 0 && (
+            {!isEmpty(cv.eduHighlights) && (
               <div className={'flex flex-col gap-4'}>
-                {cv.eduHighlights.map((item) => (
+                {cv.eduHighlights?.map((item) => (
                   <HighlightEntry
                     key={item.id}
                     title={item.title}
@@ -193,9 +192,9 @@ const Page = async ({ params, searchParams }: Args) => {
               </div>
             )}
 
-            {cv.edu && cv.edu.length > 0 && (
+            {!isEmpty(cv.edu) && (
               <div className={'flex flex-col gap-4'}>
-                {cv.edu.map((item) => (
+                {cv.edu?.map((item) => (
                   <div key={item.id}>
                     <p>{item.institution}</p>
                     <p className={'small'}>{fromToYear(item.fromYear, item.toYear)}</p>
@@ -207,10 +206,10 @@ const Page = async ({ params, searchParams }: Args) => {
               </div>
             )}
 
-            {cv.certs && cv.certs.length > 0 && (
+            {!isEmpty(cv.certs) && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.certifications[locale]}</h3>
-                {cv.certs.map((item) => (
+                {cv.certs?.map((item) => (
                   <div key={item.id}>
                     <p>{item.name}</p>
                     <p className={'small'}>{fromToYear(item.toYear)}</p>
@@ -222,10 +221,10 @@ const Page = async ({ params, searchParams }: Args) => {
               </div>
             )}
 
-            {cv.courses && cv.courses.length > 0 && (
+            {!isEmpty(cv.courses) && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.courses[locale]}</h3>
-                {cv.courses.map((item) => (
+                {cv.courses?.map((item) => (
                   <div key={item.id}>
                     <p>{item.name}</p>
                     <p className={'small'}>{fromToYear(item.toYear)}</p>
@@ -244,9 +243,9 @@ const Page = async ({ params, searchParams }: Args) => {
         <div className={'grid grid-cols-12 gap-8'}>
           <div className={'col-span-12 flex flex-col gap-12'}>
             <h2>{I18nCollection.fieldLabel.skills[locale]}</h2>
-            {cv.skillHighlights && cv.skillHighlights.length > 0 && (
+            {!isEmpty(cv.skillHighlights) && (
               <div className={'grid grid-cols-1 gap-6'}>
-                {cv.skillHighlights.map((item) => (
+                {cv.skillHighlights?.map((item) => (
                   <HighlightEntry
                     key={item.id}
                     title={(item.skill as Skill).name}
@@ -256,37 +255,27 @@ const Page = async ({ params, searchParams }: Args) => {
                 ))}
               </div>
             )}
-            {cv.technologies && cv.technologies.length > 0 && (
-              <div className={'flex flex-col gap-4'}>
-                <h3>{I18nCollection.fieldLabel.technologies[locale]}</h3>
-                <div className={'grid grid-cols-3 gap-6'}>
-                  {cv.technologies.map((item) => (
-                    <div key={item.id}>
-                      <p>{(item.skill as Skill).name}</p>
-                      <p className={'small'}>{(item.level as Level).level}</p>
-                    </div>
-                  ))}
+            {cv.skillGroups?.map((group) => {
+              if (group.skills && group.skills.length < 1) return null;
+              return (
+                <div key={group.id} className={'flex flex-col gap-4'}>
+                  <h3>{(group.group as SkillGroup).name}</h3>
+                  <div className={'grid grid-cols-3 gap-6'}>
+                    {group.skills?.map((item) => (
+                      <div key={item.id}>
+                        <p>{(item.skill as Skill).name}</p>
+                        <p className={'small'}>{(item.level as Level).level}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-            {cv.softSkills && cv.softSkills.length > 0 && (
-              <div className={'flex flex-col gap-4'}>
-                <h3>{I18nCollection.fieldLabel.softSkills[locale]}</h3>
-                <div className={'grid grid-cols-3 gap-6'}>
-                  {cv.softSkills.map((item) => (
-                    <div key={item.id}>
-                      <p>{(item.softSkill as Skill).name}</p>
-                      <p className={'small'}>{(item.level as Level).level}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {cv.otherSkills && cv.otherSkills.length > 0 && (
+              );
+            })}
+            {!isEmpty(cv.otherSkills) && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.otherSkills[locale]}</h3>
                 <div className={'grid grid-cols-4 gap-6'}>
-                  {cv.otherSkills.map((item) => (
+                  {cv.otherSkills?.map((item) => (
                     <div key={item.id}>
                       <p>{item.name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
@@ -295,11 +284,11 @@ const Page = async ({ params, searchParams }: Args) => {
                 </div>
               </div>
             )}
-            {cv.languages && cv.languages.length > 0 && (
+            {!isEmpty(cv.lang) && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.languages[locale]}</h3>
                 <div className={'grid grid-cols-5 gap-6'}>
-                  {cv.languages.map((item) => (
+                  {cv.lang?.map((item) => (
                     <div key={item.id}>
                       <p>{(item.language as Skill).name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
@@ -316,9 +305,9 @@ const Page = async ({ params, searchParams }: Args) => {
         <div className={'grid w-5/6 grid-cols-12 gap-12'}>
           <div className={'col-span-12 flex flex-col gap-8'}>
             <h2>{I18nCollection.fieldLabel.workExperience[locale]}</h2>
-            {cv.jobHighlights && cv.jobHighlights.length > 0 && (
+            {!isEmpty(cv.jobHighlights) && (
               <div className={'grid grid-cols-1 gap-6'}>
-                {cv.jobHighlights.map((item) => (
+                {cv.jobHighlights?.map((item) => (
                   <HighlightEntry
                     key={item.id}
                     title={(item.company as Company).name}
@@ -328,10 +317,10 @@ const Page = async ({ params, searchParams }: Args) => {
                 ))}
               </div>
             )}
-            {cv.projects && cv.projects.length > 0 && (
+            {!isEmpty(cv.projects) && (
               <div className={'grid grid-cols-1 gap-6'}>
                 <h3>{I18nCollection.fieldLabel.projects[locale]}</h3>
-                {cv.projects.map((item) => {
+                {cv.projects?.map((item) => {
                   const projectKey = `project_${item.id}`;
                   if (projectKey in exportOverride && !exportOverride[projectKey]) return null;
                   return (
