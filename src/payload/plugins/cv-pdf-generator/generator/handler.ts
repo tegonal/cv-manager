@@ -55,7 +55,7 @@ export const requestHandler = async ({ id, locale, exportOverride }: Props) => {
   const searchParamString = encodeToBase64(JSON.stringify(searchParams));
 
   try {
-    const url = `${host}/cv-print/${id}?p=${searchParamString}`;
+    const url = `${host}/cv/${id}?p=${searchParamString}`;
     if (process.env.NODE_ENV !== 'production') console.log({ url });
     return urlConverter.convert({
       url,

@@ -4,9 +4,11 @@
 
 @page {
   size: A4;
-  margin: 30mm 15mm 15mm 30mm;
+  margin: 45mm 30mm 15mm 30mm;
   @top-right {
     content: element(companyLogo);
+    margin-right: -15mm;
+    margin-top: 10mm;
   }
   @bottom-left {
     content: element(pageFooter);
@@ -33,7 +35,6 @@ body {
 
 #companyLogo {
   position: running(companyLogo);
-  margin-top: 5mm;
 }
 
 #companyLogo img {

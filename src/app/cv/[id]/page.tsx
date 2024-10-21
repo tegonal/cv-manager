@@ -7,7 +7,7 @@ import { Company, Level, Media, Project, Skill } from '@/types/payload-types';
 import { I18nCollection } from '@/lib/i18nCollection';
 import { decodeFromBase64 } from 'next/dist/build/webpack/loaders/utils';
 import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer';
-import { HighlightEntry } from '@/app/cv-print/[id]/(lib)/components/highlight';
+import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight';
 import { capitalize } from 'lodash-es';
 
 type Args = {
@@ -91,7 +91,7 @@ const Page = async ({ params, searchParams }: Args) => {
     })
     .then((data) => data.docs[0]);
 
-  console.log({ decodedParams });
+  const profileImage = (cv.image as Media)?.url || '';
 
   return (
     <>
@@ -109,27 +109,26 @@ const Page = async ({ params, searchParams }: Args) => {
         </div>
       </footer>
       {/* Basic Profile */}
-      <div className={'break-after mt-16'}>
-        <div className={'grid grid-cols-12 gap-x-8 gap-y-12'}>
-          <div className={'col-span-4 flex flex-row justify-end'}>
-            <div className={'circle-mask'}>
+      <div className={'break-after mt-24 text-center'}>
+        <div className={'flex flex-col items-center justify-center gap-32'}>
+          <div className={'flex flex-col gap-8'}>
+            <div
+              className={'circle-mask relative flex size-48 flex-row items-center justify-center'}>
               <Image
-                className={'profile-image bg-black'}
-                src={(cv.image as Media)?.sizes?.tablet?.url || ''}
-                width={400}
-                height={400}
+                className={'profile-image bg-black object-cover'}
+                src={profileImage}
+                fill={true}
                 alt={cv.fullName}
               />
             </div>
-          </div>
-          <div className={'col-span-8 flex flex-col justify-center'}>
-            <div>
-              <h1>{cv.fullName}</h1>
-              <p>{cv.jobTitle}</p>
+            <div className={'flex flex-col justify-center gap-4'}>
+              <div>
+                <h1>{cv.fullName}</h1>
+                <p>{cv.jobTitle}</p>
+              </div>
             </div>
           </div>
-          <div className={'col-span-4'}></div>
-          <div className={'lead col-span-8'}>
+          <div className={'lead w-2/3'}>
             <h3>{I18nCollection.fieldLabel.introduction[locale]}</h3>
             <PayloadLexicalReactRenderer content={cv.introduction as any} />
           </div>
@@ -309,8 +308,8 @@ const Page = async ({ params, searchParams }: Args) => {
         </div>
       </div>
       {/* Projects and Work Experience */}
-      <div className={'max-w-[80%]'}>
-        <div className={'grid grid-cols-12 gap-12'}>
+      <div className={''}>
+        <div className={'grid w-5/6 grid-cols-12 gap-12'}>
           <div className={'col-span-12 flex flex-col gap-8'}>
             <h2>{I18nCollection.fieldLabel.workExperience[locale]}</h2>
             {cv.jobHighlights && cv.jobHighlights.length > 0 && (

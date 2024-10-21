@@ -1,5 +1,5 @@
 import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer';
-import { IconHighlight } from '@/app/cv-print/[id]/(lib)/icon/highlight';
+import { IconHighlight } from '@/app/cv/[id]/(lib)/icon/highlight';
 
 type Props = {
   title: string | undefined | null;
