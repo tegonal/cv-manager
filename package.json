@@ -31,7 +31,7 @@
     "@payloadcms/next": "3.0.0-beta.116",
     "@payloadcms/richtext-lexical": "3.0.0-beta.116",
     "@payloadcms/storage-s3": "3.0.0-beta.116",
-    "@payloadcms/ui": "3.0.0-beta.116",
+    "@payloadcms/ui": "3.0.0-canary.ff8c8fd",
     "babel-plugin-react-compiler": "0.0.0-experimental-48eb8f4-20240822",
     "chromiumly": "^3.8.2",
     "cross-env": "^7.0.3",
