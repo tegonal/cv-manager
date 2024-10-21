@@ -28,6 +28,10 @@ export const I18nCollection = {
       en: 'Skill highlights',
       de: 'Fähigkeiten Highlights',
     },
+    skillGroup: {
+      en: 'Skillgroup',
+      de: 'Skillgruppe',
+    },
     nationalityStatus: {
       en: 'Nationality & Status of residence',
       de: 'Nationalität & Aufenthaltsstatus',

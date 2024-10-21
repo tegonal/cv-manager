@@ -1,6 +1,4 @@
-import { selectLanguageSkill } from '@/payload/collections/CVs/fields/select-language-skill';
-import { selectLanguageLevel } from '@/payload/collections/CVs/fields/select-language-level';
-import { selectSkillLevel } from '@/payload/collections/CVs/fields/select-skill-level';
+import { selectTechSkillLevel } from '@/payload/collections/CVs/fields/select-tech-skill-level';
 import {
   selectEndYear,
   selectStartYear,
@@ -13,8 +11,6 @@ import {
 import { CollectionConfig } from 'payload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
 import { I18nCollection } from '@/lib/i18nCollection';
-import { selectTechnicalSkill } from '@/payload/collections/CVs/fields/select-technical-skill';
-import { selectSoftSkill } from '@/payload/collections/CVs/fields/select-soft-skill';
 import { selectCompany } from '@/payload/collections/CVs/fields/select-company';
 import { selectProject } from '@/payload/collections/CVs/fields/select-project';
 import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
@@ -22,6 +18,9 @@ import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
 import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
 import { optional } from '@/payload/collections/CVs/fields/optional';
 import { selectSkill } from '@/payload/collections/CVs/fields/select-skill';
+import { selectSkillGroup } from '@/payload/collections/CVs/fields/select-skill-group';
+import { selectLanguageLevel } from '@/payload/collections/CVs/fields/select-language-level';
+import { selectLanguage } from '@/payload/collections/CVs/fields/select-language';
 
 export const CV: CollectionConfig = {
   slug: 'cv',
@@ -170,63 +169,43 @@ export const CV: CollectionConfig = {
           fields: [
             {
               type: 'row',
-              fields: [selectSkill, selectSkillLevel],
+              fields: [selectSkill, selectTechSkillLevel],
             },
             textDescription,
           ],
         },
         {
-          name: 'languages',
+          name: 'skillGroups',
           type: 'array',
-          label: I18nCollection.fieldLabel.languages,
+          label: I18nCollection.fieldLabel.skillGroup,
           minRows: 1,
           admin: {
             initCollapsed: true,
             components: {
               RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
+                '/src/payload/collections/CVs/fields/utils/row-label-skill-group.tsx#RowLabelSkillGroup',
             },
           },
           fields: [
+            selectSkillGroup,
             {
-              type: 'row',
-              fields: [selectLanguageSkill, selectLanguageLevel],
-            },
-          ],
-        },
-        {
-          name: 'technologies',
-          type: 'array',
-          label: I18nCollection.fieldLabel.technologies,
-          admin: {
-            initCollapsed: true,
-            components: {
-              RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [selectTechnicalSkill, selectSkillLevel],
-            },
-          ],
-        },
-        {
-          name: 'softSkills',
-          type: 'array',
-          label: I18nCollection.fieldLabel.softSkills,
-          admin: {
-            initCollapsed: true,
-            components: {
-              RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [selectSoftSkill, selectSkillLevel],
+              name: 'skills',
+              type: 'array',
+              label: I18nCollection.fieldLabel.skills,
+              minRows: 1,
+              admin: {
+                initCollapsed: true,
+                components: {
+                  RowLabel:
+                    '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
+                },
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [selectSkill, selectTechSkillLevel],
+                },
+              ],
             },
           ],
         },
@@ -243,7 +222,32 @@ export const CV: CollectionConfig = {
           fields: [
             {
               type: 'row',
-              fields: [textNameRequired, selectSkillLevel],
+              fields: [textNameRequired, selectTechSkillLevel],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'collapsible',
+      label: I18nCollection.fieldLabel.languages,
+      required: true,
+      fields: [
+        {
+          name: 'lang',
+          type: 'array',
+          label: I18nCollection.fieldLabel.languages,
+          admin: {
+            initCollapsed: true,
+            components: {
+              RowLabel:
+                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
+            },
+          },
+          fields: [
+            {
+              type: 'row',
+              fields: [selectLanguage, selectLanguageLevel],
             },
           ],
         },

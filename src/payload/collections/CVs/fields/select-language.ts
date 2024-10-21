@@ -1,15 +1,14 @@
 import { Field } from 'payload';
 import { I18nCollection } from '@/lib/i18nCollection';
 
-export const selectSoftSkill: Field = {
-  name: 'softSkill',
+export const selectLanguage: Field = {
+  name: 'language',
   label: I18nCollection.fieldLabel.skills,
   type: 'relationship',
-  relationTo: 'skill',
+  relationTo: 'langs',
   required: true,
-  filterOptions: (data) => {
-    return {
-      skillType: { equals: 'soft' },
-    };
+  admin: {
+    sortOptions: 'name',
+    allowEdit: false,
   },
 };

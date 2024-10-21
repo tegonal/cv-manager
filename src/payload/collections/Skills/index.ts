@@ -4,6 +4,7 @@ import { organisationsAccess } from '@/payload/collections/access/organisationsA
 import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
 import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
 import { I18nCollection } from '@/lib/i18nCollection';
+import { selectSkillGroup } from '@/payload/collections/Skills/fields/select-skill-group';
 
 export const Skills: CollectionConfig = {
   slug: 'skill',
@@ -21,15 +22,12 @@ export const Skills: CollectionConfig = {
     {
       type: 'text',
       name: 'name',
+      localized: true,
     },
     {
-      type: 'select',
-      name: 'skillType',
-      options: [
-        { label: 'Technical', value: 'technical' },
-        { label: 'Language', value: 'language' },
-        { label: 'Soft', value: 'soft' },
-      ],
+      type: 'richText',
+      name: 'description',
+      localized: true,
     },
     adminSettingsField({ sidebar: true }),
   ],

@@ -4,7 +4,7 @@ import { logger } from '@/lib/logger';
 import type { Config, Plugin } from 'payload';
 import { CollectionConfig } from 'payload';
 import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const';
-import { requestHandler } from '@/payload/plugins/cv-pdf-generator/generator/handler';
+import { requestHandler } from '@/payload/plugins/cv-pdf-generator/handler';
 
 export const cvPdfPlugin =
   (pluginConfig: CvPdfConfig): Plugin =>

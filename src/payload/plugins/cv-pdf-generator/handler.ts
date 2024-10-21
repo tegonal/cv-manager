@@ -43,7 +43,7 @@ export const requestHandler = async ({ id, locale, exportOverride }: Props) => {
     if (process.env.NODE_ENV !== 'production') console.log({ url });
     return urlConverter.convert({
       url,
-      waitDelay: '2s',
+      waitDelay: '0.2s',
       properties: {
         size: {
           width: 8.267716535,

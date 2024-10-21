@@ -7,4 +7,8 @@ export const selectCompany: Field = {
   type: 'relationship',
   relationTo: 'company',
   required: true,
+  admin: {
+    sortOptions: 'name',
+    allowEdit: true,
+  },
 };

@@ -22,9 +22,10 @@ import { UnderlineFeatureClient as UnderlineFeatureClient_20 } from '@payloadcms
 import { BoldFeatureClient as BoldFeatureClient_21 } from '@payloadcms/richtext-lexical/client';
 import { ItalicFeatureClient as ItalicFeatureClient_22 } from '@payloadcms/richtext-lexical/client';
 import { RowLabelSkill as RowLabelSkill_23 } from 'src/payload/collections/CVs/fields/utils/row-label-skill.tsx';
-import { RowLabelFirstText as RowLabelFirstText_24 } from 'src/payload/collections/utils/row-label-first-text.tsx';
-import { SaveButtonReplacer as SaveButtonReplacer_25 } from 'src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx';
-import { OAuthLoginButton as OAuthLoginButton_26 } from 'src/payload/components/oauth-login-button';
+import { RowLabelSkillGroup as RowLabelSkillGroup_24 } from 'src/payload/collections/CVs/fields/utils/row-label-skill-group.tsx';
+import { RowLabelFirstText as RowLabelFirstText_25 } from 'src/payload/collections/utils/row-label-first-text.tsx';
+import { SaveButtonReplacer as SaveButtonReplacer_26 } from 'src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx';
+import { OAuthLoginButton as OAuthLoginButton_27 } from 'src/payload/components/oauth-login-button';
 
 export const importMap = {
   '@payloadcms/richtext-lexical/client#RichTextCell': RichTextCell_0,
@@ -52,8 +53,10 @@ export const importMap = {
   '@payloadcms/richtext-lexical/client#BoldFeatureClient': BoldFeatureClient_21,
   '@payloadcms/richtext-lexical/client#ItalicFeatureClient': ItalicFeatureClient_22,
   '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill': RowLabelSkill_23,
-  '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText': RowLabelFirstText_24,
+  '/src/payload/collections/CVs/fields/utils/row-label-skill-group.tsx#RowLabelSkillGroup':
+    RowLabelSkillGroup_24,
+  '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText': RowLabelFirstText_25,
   '/src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx#SaveButtonReplacer':
-    SaveButtonReplacer_25,
-  'src/payload/components/oauth-login-button#OAuthLoginButton': OAuthLoginButton_26,
+    SaveButtonReplacer_26,
+  'src/payload/components/oauth-login-button#OAuthLoginButton': OAuthLoginButton_27,
 };

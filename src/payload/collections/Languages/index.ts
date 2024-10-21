@@ -5,8 +5,12 @@ import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
 import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
 import { I18nCollection } from '@/lib/i18nCollection';
 
-export const Projects: CollectionConfig = {
-  slug: 'project',
+export const Languages: CollectionConfig = {
+  slug: 'langs',
+  labels: {
+    plural: I18nCollection.fieldLabel.languages,
+    singular: I18nCollection.fieldLabel.language,
+  },
   access: {
     read: organisationsAccess,
     create: loggedInAccess,
@@ -21,11 +25,6 @@ export const Projects: CollectionConfig = {
     {
       type: 'text',
       name: 'name',
-      localized: true,
-    },
-    {
-      type: 'richText',
-      name: 'description',
       localized: true,
     },
     adminSettingsField({ sidebar: true }),

@@ -36,6 +36,8 @@ export interface Config {
   collections: {
     cv: Cv;
     skill: Skill;
+    skillGroup: SkillGroup;
+    langs: Lang;
     level: Level;
     company: Company;
     project: Project;
@@ -140,30 +142,29 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
-  languages?:
+  skillGroups?:
     | {
-        language: number | Skill;
-        level: number | Level;
-        id?: string | null;
-      }[]
-    | null;
-  technologies?:
-    | {
-        skill: number | Skill;
-        level: number | Level;
-        id?: string | null;
-      }[]
-    | null;
-  softSkills?:
-    | {
-        softSkill: number | Skill;
-        level: number | Level;
+        group: number | SkillGroup;
+        skills?:
+          | {
+              skill: number | Skill;
+              level: number | Level;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
   otherSkills?:
     | {
         name: string;
+        level: number | Level;
+        id?: string | null;
+      }[]
+    | null;
+  lang?:
+    | {
+        language: number | Lang;
         level: number | Level;
         id?: string | null;
       }[]
@@ -403,7 +404,21 @@ export interface User {
 export interface Skill {
   id: number;
   name?: string | null;
-  skillType?: ('technical' | 'language' | 'soft') | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -420,6 +435,32 @@ export interface Level {
   description?: string | null;
   levelType?: ('language' | 'skill')[] | null;
   points?: number | null;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skillGroup".
+ */
+export interface SkillGroup {
+  id: number;
+  name?: string | null;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "langs".
+ */
+export interface Lang {
+  id: number;
+  name?: string | null;
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -446,6 +487,21 @@ export interface Company {
 export interface Project {
   id: number;
   name?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -466,6 +522,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'skill';
         value: number | Skill;
+      } | null)
+    | ({
+        relationTo: 'skillGroup';
+        value: number | SkillGroup;
+      } | null)
+    | ({
+        relationTo: 'langs';
+        value: number | Lang;
       } | null)
     | ({
         relationTo: 'level';

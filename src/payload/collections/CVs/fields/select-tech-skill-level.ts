@@ -1,7 +1,7 @@
 import { Field } from 'payload';
 import { I18nCollection } from '@/lib/i18nCollection';
 
-export const selectSkillLevel: Field = {
+export const selectTechSkillLevel: Field = {
   name: 'level',
   type: 'relationship',
   label: I18nCollection.fieldLabel.skillLevel,
@@ -11,5 +11,9 @@ export const selectSkillLevel: Field = {
     return {
       levelType: { equals: 'skill' },
     };
+  },
+  admin: {
+    sortOptions: 'points',
+    allowEdit: false,
   },
 };

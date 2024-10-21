@@ -7,4 +7,8 @@ export const selectProject: Field = {
   type: 'relationship',
   relationTo: 'project',
   required: true,
+  admin: {
+    sortOptions: 'name',
+    allowEdit: true,
+  },
 };

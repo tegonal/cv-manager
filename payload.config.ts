@@ -20,13 +20,26 @@ import { Levels } from '@/payload/collections/Level';
 import { Companies } from '@/payload/collections/Companies';
 import { Projects } from '@/payload/collections/Projects';
 import { OAuth2Plugin } from 'payload-oauth2';
+import { SkillGroups } from '@/payload/collections/SkillGroups';
+import { Languages } from '@/payload/collections/Languages';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
   editor: lexicalEditor(),
-  collections: [CV, Users, Skills, Levels, Companies, Projects, Media, Organisations],
+  collections: [
+    CV,
+    Users,
+    Skills,
+    SkillGroups,
+    Languages,
+    Levels,
+    Companies,
+    Projects,
+    Media,
+    Organisations,
+  ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'src', 'types', 'payload-types.ts'),
