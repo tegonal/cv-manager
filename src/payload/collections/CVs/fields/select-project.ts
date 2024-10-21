@@ -10,5 +10,6 @@ export const selectProject: Field = {
   admin: {
     sortOptions: 'name',
     allowEdit: true,
+    width: '50%',
   },
 };

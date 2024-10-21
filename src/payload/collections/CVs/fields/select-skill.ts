@@ -10,5 +10,6 @@ export const selectSkill: Field = {
   admin: {
     sortOptions: 'name',
     allowEdit: false,
+    width: '50%',
   },
 };

@@ -5,6 +5,8 @@ import Script from 'next/script';
 
 const rubik = Rubik({
   subsets: ['latin'],
+  style: ['normal', 'italic'],
+  weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
 });
 

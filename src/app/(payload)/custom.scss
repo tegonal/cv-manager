@@ -4,6 +4,10 @@
   @tailwind utilities;
 }
 
+.field-type.array-field {
+  margin-bottom: 4rem;
+}
+
 .editor {
   ol {
     list-style-type: decimal;

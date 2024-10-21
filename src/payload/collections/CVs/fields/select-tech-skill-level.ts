@@ -15,5 +15,6 @@ export const selectTechSkillLevel: Field = {
   admin: {
     sortOptions: 'points',
     allowEdit: false,
+    width: '50%',
   },
 };

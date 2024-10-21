@@ -25,9 +25,9 @@ type DecodedSearchParams = {
   secret: string;
 };
 
-const formatDate = (date: string) => {
+const formatDate = (date: string, locale: string) => {
   const dateObj = new Date(date);
-  return dateObj.toLocaleDateString();
+  return dateObj.toLocaleDateString(locale);
 };
 
 const formatYear = (date: string) => {
@@ -145,7 +145,7 @@ const Page = async ({ params, searchParams }: Args) => {
             {cv.birthday && hasOverride('birthday') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.birthday[locale]}</h3>
-                <p>{formatDate(cv.birthday)}</p>
+                <p>{formatDate(cv.birthday, locale)}</p>
               </div>
             )}
             {cv.nationalityStatus && hasOverride('nationalityStatus') && (
@@ -196,7 +196,7 @@ const Page = async ({ params, searchParams }: Args) => {
               <div className={'flex flex-col gap-4'}>
                 {cv.edu?.map((item) => (
                   <div key={item.id}>
-                    <p>{item.institution}</p>
+                    <p className={'font-normal'}>{item.institution}</p>
                     <p className={'small'}>{fromToYear(item.fromYear, item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
@@ -211,7 +211,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 <h3>{I18nCollection.fieldLabel.certifications[locale]}</h3>
                 {cv.certs?.map((item) => (
                   <div key={item.id}>
-                    <p>{item.name}</p>
+                    <p className={'font-normal'}>{item.name}</p>
                     <p className={'small'}>{fromToYear(item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
@@ -226,7 +226,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 <h3>{I18nCollection.fieldLabel.courses[locale]}</h3>
                 {cv.courses?.map((item) => (
                   <div key={item.id}>
-                    <p>{item.name}</p>
+                    <p className={'font-normal'}>{item.name}</p>
                     <p className={'small'}>{fromToYear(item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
@@ -263,7 +263,7 @@ const Page = async ({ params, searchParams }: Args) => {
                   <div className={'grid grid-cols-3 gap-6'}>
                     {group.skills?.map((item) => (
                       <div key={item.id}>
-                        <p>{(item.skill as Skill).name}</p>
+                        <p className={'font-normal'}>{(item.skill as Skill).name}</p>
                         <p className={'small'}>{(item.level as Level).level}</p>
                       </div>
                     ))}
@@ -274,10 +274,10 @@ const Page = async ({ params, searchParams }: Args) => {
             {!isEmpty(cv.otherSkills) && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.otherSkills[locale]}</h3>
-                <div className={'grid grid-cols-4 gap-6'}>
+                <div className={'grid grid-cols-3 gap-6'}>
                   {cv.otherSkills?.map((item) => (
                     <div key={item.id}>
-                      <p>{item.name}</p>
+                      <p className={'font-normal'}>{item.name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
                     </div>
                   ))}
@@ -287,10 +287,10 @@ const Page = async ({ params, searchParams }: Args) => {
             {!isEmpty(cv.lang) && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.languages[locale]}</h3>
-                <div className={'grid grid-cols-5 gap-6'}>
+                <div className={'grid grid-cols-3 gap-6'}>
                   {cv.lang?.map((item) => (
                     <div key={item.id}>
-                      <p>{(item.language as Skill).name}</p>
+                      <p className={'font-normal'}>{(item.language as Skill).name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
                     </div>
                   ))}
@@ -325,9 +325,9 @@ const Page = async ({ params, searchParams }: Args) => {
                   if (projectKey in exportOverride && !exportOverride[projectKey]) return null;
                   return (
                     <div key={item.id}>
-                      <p>{(item.company as Company).name}</p>
-                      <p className={'small'}>{(item.project as Project).name}</p>
-                      <p className={'small'}>{fromToYear(item.fromYear, item.toYear)}</p>
+                      <p className={'mb-0.5 font-normal'}>{(item.company as Company).name}</p>
+                      <p className={'small mb-0.5'}>{(item.project as Project).name}</p>
+                      <p className={'small mb-0.5'}>{fromToYear(item.fromYear, item.toYear)}</p>
                       <div>
                         <PayloadLexicalReactRenderer content={item.description as any} />
                       </div>

@@ -1,32 +1,20 @@
-import { selectTechSkillLevel } from '@/payload/collections/CVs/fields/select-tech-skill-level';
-import {
-  selectEndYear,
-  selectStartYear,
-  selectYear,
-} from '@/payload/collections/CVs/fields/select-year';
-import {
-  textDescription,
-  textNameRequired,
-} from '@/payload/collections/CVs/fields/common-text-fields';
 import { CollectionConfig } from 'payload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
 import { I18nCollection } from '@/lib/i18nCollection';
-import { selectCompany } from '@/payload/collections/CVs/fields/select-company';
-import { selectProject } from '@/payload/collections/CVs/fields/select-project';
 import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
 import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
 import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
-import { optional } from '@/payload/collections/CVs/fields/optional';
-import { selectSkill } from '@/payload/collections/CVs/fields/select-skill';
-import { selectSkillGroup } from '@/payload/collections/CVs/fields/select-skill-group';
-import { selectLanguageLevel } from '@/payload/collections/CVs/fields/select-language-level';
-import { selectLanguage } from '@/payload/collections/CVs/fields/select-language';
+import { ProfileTabFields } from '@/payload/collections/CVs/tabs/profile';
+import { SkillsTabFields } from '@/payload/collections/CVs/tabs/skills';
+import { EducationTabFields } from '@/payload/collections/CVs/tabs/education';
+import { WorkExperienceTabFields } from '@/payload/collections/CVs/tabs/work-experience';
 
 export const CV: CollectionConfig = {
   slug: 'cv',
   admin: {
     useAsTitle: 'fullName',
     description: 'Curriculum Vitae',
+    defaultColumns: ['id', 'fullName', 'jobTitle', 'birthday', 'skillGroup', 'updatedAt'],
   },
   labels: {
     singular: 'CV',
@@ -40,355 +28,23 @@ export const CV: CollectionConfig = {
   },
   fields: [
     {
-      type: 'collapsible',
-      label: I18nCollection.fieldLabel.personalInformation,
-      fields: [
+      type: 'tabs',
+      tabs: [
         {
-          name: 'fullName',
-          label: I18nCollection.fieldLabel.fullName,
-          admin: {
-            description: I18nCollection.fieldDescription.fullName,
-          },
-          type: 'text',
-          required: true,
+          label: I18nCollection.fieldLabel.profile,
+          fields: ProfileTabFields,
         },
         {
-          name: 'birthday',
-          type: 'date',
-          label: I18nCollection.fieldLabel.birthday,
-          required: true,
-          admin: {
-            date: {
-              pickerAppearance: 'dayOnly',
-              displayFormat: 'dd.MM.yyyy',
-            },
-          },
+          label: I18nCollection.fieldLabel.skills,
+          fields: SkillsTabFields,
         },
         {
-          type: 'text',
-          name: 'nationalityStatus',
-          label: I18nCollection.fieldLabel.nationalityStatus,
+          label: I18nCollection.fieldLabel.education,
+          fields: EducationTabFields,
         },
         {
-          name: 'image',
-          type: 'relationship',
-          label: I18nCollection.fieldLabel.profileImage,
-          relationTo: 'media',
-          hasMany: false,
-        },
-
-        {
-          name: 'phoneNumber',
-          type: 'text',
-          label: I18nCollection.fieldLabel.phoneNumber,
-        },
-        {
-          name: 'email',
-          type: 'text',
-          label: I18nCollection.fieldLabel.email,
-          required: true,
-        },
-        {
-          name: 'jobTitle',
-          type: 'text',
-          label: I18nCollection.fieldLabel.currentJobTitle,
-          localized: true,
-          required: true,
-        },
-        {
-          name: 'department',
-          type: 'text',
-          label: I18nCollection.fieldLabel.currentJobDepartment,
-          localized: true,
-        },
-        {
-          name: 'links', // required
-          type: 'array', // required
-          label: I18nCollection.fieldLabel.links,
-          minRows: 0,
-          maxRows: 10,
-          interfaceName: 'SocialLinks',
-          fields: [
-            {
-              name: 'platform',
-              type: 'select',
-              options: [
-                { label: 'LinkedIn', value: 'linkedin' },
-                { label: 'X', value: 'x' },
-                { label: 'Mastodon', value: 'mastodon' },
-                { label: 'Facebook', value: 'facebook' },
-                { label: 'GitHub', value: 'github' },
-              ],
-              required: true,
-              label: I18nCollection.fieldLabel.socialMediaSite,
-            },
-            {
-              name: 'url',
-              type: 'text',
-              label: I18nCollection.fieldLabel.url,
-              required: true,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'introduction',
-      label: I18nCollection.fieldLabel.introduction,
-      type: 'richText',
-      required: true,
-      localized: true,
-      admin: {
-        description:
-          'Write an introduction about yourself. Try to cover some personal topics and your professional background. Please do not use formatting.',
-      },
-    },
-    {
-      name: 'casualInfo',
-      label: I18nCollection.fieldLabel.casualInfo,
-      type: 'richText',
-      localized: true,
-    },
-    {
-      type: 'collapsible',
-      label: I18nCollection.fieldLabel.skills,
-      required: true,
-      fields: [
-        {
-          name: 'skillHighlights',
-          type: 'array',
-          label: I18nCollection.fieldLabel.skillHighlights,
-          admin: {
-            initCollapsed: true,
-            components: {
-              RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
-            },
-            description: I18nCollection.fieldDescription.highlights,
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [selectSkill, selectTechSkillLevel],
-            },
-            textDescription,
-          ],
-        },
-        {
-          name: 'skillGroups',
-          type: 'array',
-          label: I18nCollection.fieldLabel.skillGroup,
-          minRows: 1,
-          admin: {
-            initCollapsed: true,
-            components: {
-              RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill-group.tsx#RowLabelSkillGroup',
-            },
-          },
-          fields: [
-            selectSkillGroup,
-            {
-              name: 'skills',
-              type: 'array',
-              label: I18nCollection.fieldLabel.skills,
-              minRows: 1,
-              admin: {
-                initCollapsed: true,
-                components: {
-                  RowLabel:
-                    '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
-                },
-              },
-              fields: [
-                {
-                  type: 'row',
-                  fields: [selectSkill, selectTechSkillLevel],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'otherSkills',
-          type: 'array',
-          label: I18nCollection.fieldLabel.otherSkills,
-          admin: {
-            components: {
-              RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [textNameRequired, selectTechSkillLevel],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'collapsible',
-      label: I18nCollection.fieldLabel.languages,
-      required: true,
-      fields: [
-        {
-          name: 'lang',
-          type: 'array',
-          label: I18nCollection.fieldLabel.languages,
-          admin: {
-            initCollapsed: true,
-            components: {
-              RowLabel:
-                '/src/payload/collections/CVs/fields/utils/row-label-skill.tsx#RowLabelSkill',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [selectLanguage, selectLanguageLevel],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'collapsible',
-      label: I18nCollection.fieldLabel.education,
-      fields: [
-        {
-          name: 'eduHighlights',
-          type: 'array',
-          label: I18nCollection.fieldLabel.educationHighlights,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-            description: I18nCollection.fieldDescription.highlights,
-          },
-          fields: [
-            {
-              type: 'text',
-              name: 'title',
-              label: I18nCollection.fieldLabel.title,
-            },
-            {
-              type: 'row',
-              fields: [optional(selectStartYear), optional(selectEndYear)],
-            },
-            textDescription,
-          ],
-        },
-        {
-          name: 'edu',
-          type: 'array',
-          label: I18nCollection.fieldLabel.schools,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                {
-                  name: 'institution',
-                  type: 'text',
-                  label: I18nCollection.fieldLabel.name,
-                  localized: true,
-                  required: true,
-                },
-                selectStartYear,
-                selectEndYear,
-              ],
-            },
-            textDescription,
-          ],
-        },
-        {
-          name: 'certs',
-          type: 'array',
-          label: I18nCollection.fieldLabel.certifications,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [textNameRequired, selectYear],
-            },
-            textDescription,
-          ],
-        },
-        {
-          name: 'courses',
-          type: 'array',
-          label: I18nCollection.fieldLabel.courses,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [textNameRequired, selectYear],
-            },
-            textDescription,
-          ],
-        },
-      ],
-    },
-    {
-      type: 'collapsible',
-      label: I18nCollection.fieldLabel.workExperience,
-      fields: [
-        {
-          name: 'jobHighlights',
-          type: 'array',
-          label: I18nCollection.fieldLabel.jobHighlights,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-            description: I18nCollection.fieldDescription.highlights,
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [selectCompany],
-            },
-            {
-              type: 'row',
-              fields: [optional(selectStartYear), optional(selectEndYear)],
-            },
-            textDescription,
-          ],
-        },
-        {
-          name: 'projects',
-          type: 'array',
-          label: I18nCollection.fieldLabel.projects,
-          admin: {
-            components: {
-              RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-            },
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [selectCompany, selectProject],
-            },
-            {
-              type: 'row',
-              fields: [selectStartYear, optional(selectEndYear)],
-            },
-            textDescription,
-          ],
+          label: I18nCollection.fieldLabel.workExperience,
+          fields: WorkExperienceTabFields,
         },
       ],
     },

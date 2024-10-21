@@ -28,9 +28,17 @@ export const I18nCollection = {
       en: 'Skill highlights',
       de: 'Fähigkeiten Highlights',
     },
+    externalProfiles: {
+      en: 'External Profiles',
+      de: 'Externe Profile',
+    },
     skillGroup: {
-      en: 'Skillgroup',
+      en: 'Skill groups',
       de: 'Skillgruppe',
+    },
+    skillCollections: {
+      en: 'Skill collections',
+      de: 'Skill Collections',
     },
     nationalityStatus: {
       en: 'Nationality & Status of residence',

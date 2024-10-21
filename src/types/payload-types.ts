@@ -82,14 +82,7 @@ export interface UserAuthOperations {
 export interface Cv {
   id: number;
   fullName: string;
-  birthday: string;
-  nationalityStatus?: string | null;
   image?: (number | null) | Media;
-  phoneNumber?: string | null;
-  email: string;
-  jobTitle: string;
-  department?: string | null;
-  links?: SocialLinks;
   introduction: {
     root: {
       type: string;
@@ -120,6 +113,20 @@ export interface Cv {
     };
     [k: string]: unknown;
   } | null;
+  birthday: string;
+  nationalityStatus?: string | null;
+  phoneNumber?: string | null;
+  email: string;
+  jobTitle: string;
+  department?: string | null;
+  links?: SocialLinks;
+  lang?:
+    | {
+        language: number | Lang;
+        level: number | Level;
+        id?: string | null;
+      }[]
+    | null;
   skillHighlights?:
     | {
         skill: number | Skill;
@@ -158,13 +165,6 @@ export interface Cv {
   otherSkills?:
     | {
         name: string;
-        level: number | Level;
-        id?: string | null;
-      }[]
-    | null;
-  lang?:
-    | {
-        language: number | Lang;
         level: number | Level;
         id?: string | null;
       }[]
@@ -399,6 +399,35 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "langs".
+ */
+export interface Lang {
+  id: number;
+  name?: string | null;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "level".
+ */
+export interface Level {
+  id: number;
+  level?: string | null;
+  description?: string | null;
+  levelType?: ('language' | 'skill')[] | null;
+  points?: number | null;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skill".
  */
 export interface Skill {
@@ -427,38 +456,9 @@ export interface Skill {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "level".
- */
-export interface Level {
-  id: number;
-  level?: string | null;
-  description?: string | null;
-  levelType?: ('language' | 'skill')[] | null;
-  points?: number | null;
-  organisation?: (number | null) | Organisation;
-  createdBy?: (number | null) | User;
-  updatedBy?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skillGroup".
  */
 export interface SkillGroup {
-  id: number;
-  name?: string | null;
-  organisation?: (number | null) | Organisation;
-  createdBy?: (number | null) | User;
-  updatedBy?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "langs".
- */
-export interface Lang {
   id: number;
   name?: string | null;
   organisation?: (number | null) | Organisation;

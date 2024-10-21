@@ -12,4 +12,7 @@ export const selectLanguageLevel: Field = {
       levelType: { equals: 'language' },
     };
   },
+  admin: {
+    width: '50%',
+  },
 };
