@@ -1,65 +1,61 @@
-import { RichTextCell as RichTextCell_0 } from '@payloadcms/richtext-lexical/client';
-import { RichTextField as RichTextField_1 } from '@payloadcms/richtext-lexical/client';
-import { getGenerateComponentMap as getGenerateComponentMap_2 } from '@payloadcms/richtext-lexical/generateComponentMap';
-import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_3 } from '@payloadcms/richtext-lexical/client';
-import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_4 } from '@payloadcms/richtext-lexical/client';
-import { UploadFeatureClient as UploadFeatureClient_5 } from '@payloadcms/richtext-lexical/client';
-import { BlockquoteFeatureClient as BlockquoteFeatureClient_6 } from '@payloadcms/richtext-lexical/client';
-import { RelationshipFeatureClient as RelationshipFeatureClient_7 } from '@payloadcms/richtext-lexical/client';
-import { LinkFeatureClient as LinkFeatureClient_8 } from '@payloadcms/richtext-lexical/client';
-import { ChecklistFeatureClient as ChecklistFeatureClient_9 } from '@payloadcms/richtext-lexical/client';
-import { OrderedListFeatureClient as OrderedListFeatureClient_10 } from '@payloadcms/richtext-lexical/client';
-import { UnorderedListFeatureClient as UnorderedListFeatureClient_11 } from '@payloadcms/richtext-lexical/client';
-import { IndentFeatureClient as IndentFeatureClient_12 } from '@payloadcms/richtext-lexical/client';
-import { AlignFeatureClient as AlignFeatureClient_13 } from '@payloadcms/richtext-lexical/client';
-import { HeadingFeatureClient as HeadingFeatureClient_14 } from '@payloadcms/richtext-lexical/client';
-import { ParagraphFeatureClient as ParagraphFeatureClient_15 } from '@payloadcms/richtext-lexical/client';
-import { InlineCodeFeatureClient as InlineCodeFeatureClient_16 } from '@payloadcms/richtext-lexical/client';
-import { SuperscriptFeatureClient as SuperscriptFeatureClient_17 } from '@payloadcms/richtext-lexical/client';
-import { SubscriptFeatureClient as SubscriptFeatureClient_18 } from '@payloadcms/richtext-lexical/client';
-import { StrikethroughFeatureClient as StrikethroughFeatureClient_19 } from '@payloadcms/richtext-lexical/client';
-import { UnderlineFeatureClient as UnderlineFeatureClient_20 } from '@payloadcms/richtext-lexical/client';
-import { BoldFeatureClient as BoldFeatureClient_21 } from '@payloadcms/richtext-lexical/client';
-import { ItalicFeatureClient as ItalicFeatureClient_22 } from '@payloadcms/richtext-lexical/client';
-import { RowLabelLanguage as RowLabelLanguage_23 } from 'src/payload/collections/CVs/row-labels/row-label-language.tsx';
-import { RowLabelSkill as RowLabelSkill_24 } from 'src/payload/collections/CVs/row-labels/row-label-skill.tsx';
-import { RowLabelSkillGroup as RowLabelSkillGroup_25 } from 'src/payload/collections/CVs/row-labels/row-label-skill-group.tsx';
-import { RowLabelFirstText as RowLabelFirstText_26 } from 'src/payload/collections/utils/row-label-first-text.tsx';
-import { SaveButtonReplacer as SaveButtonReplacer_27 } from 'src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx';
-import { OAuthLoginButton as OAuthLoginButton_28 } from 'src/payload/components/oauth-login-button';
+import { RichTextCell as RichTextCell_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { RichTextField as RichTextField_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { getGenerateComponentMap as getGenerateComponentMap_ec38dd6bee95fe7974552968355b33ae } from '@payloadcms/richtext-lexical/generateComponentMap'
+import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { RelationshipFeatureClient as RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { LinkFeatureClient as LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ChecklistFeatureClient as ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { OrderedListFeatureClient as OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { UnorderedListFeatureClient as UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { IndentFeatureClient as IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { AlignFeatureClient as AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { HeadingFeatureClient as HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ParagraphFeatureClient as ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { InlineCodeFeatureClient as InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { SuperscriptFeatureClient as SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { SubscriptFeatureClient as SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { RowLabelLanguage as RowLabelLanguage_b4d14b02800c82ae50c70dd83943d05e } from 'src/payload/collections/CVs/row-labels/row-label-language.tsx'
+import { RowLabelSkill as RowLabelSkill_70f2a0da1a52d289645609f47a9b29ce } from 'src/payload/collections/CVs/row-labels/row-label-skill.tsx'
+import { RowLabelSkillGroup as RowLabelSkillGroup_951d203d52378fa0d672264360155ea2 } from 'src/payload/collections/CVs/row-labels/row-label-skill-group.tsx'
+import { RowLabelFirstText as RowLabelFirstText_3c155042d49e8cad65cddd438f13227f } from 'src/payload/collections/utils/row-label-first-text.tsx'
+import { SaveButtonReplacer as SaveButtonReplacer_abe15da8360ef82ce201907c427c7d1a } from 'src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx'
+import { OAuthLoginButton as OAuthLoginButton_53e01bf128a2abcbd4dac91e546cd542 } from 'src/payload/components/oauth-login-button'
 
 export const importMap = {
-  '@payloadcms/richtext-lexical/client#RichTextCell': RichTextCell_0,
-  '@payloadcms/richtext-lexical/client#RichTextField': RichTextField_1,
-  '@payloadcms/richtext-lexical/generateComponentMap#getGenerateComponentMap':
-    getGenerateComponentMap_2,
-  '@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient': InlineToolbarFeatureClient_3,
-  '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient': HorizontalRuleFeatureClient_4,
-  '@payloadcms/richtext-lexical/client#UploadFeatureClient': UploadFeatureClient_5,
-  '@payloadcms/richtext-lexical/client#BlockquoteFeatureClient': BlockquoteFeatureClient_6,
-  '@payloadcms/richtext-lexical/client#RelationshipFeatureClient': RelationshipFeatureClient_7,
-  '@payloadcms/richtext-lexical/client#LinkFeatureClient': LinkFeatureClient_8,
-  '@payloadcms/richtext-lexical/client#ChecklistFeatureClient': ChecklistFeatureClient_9,
-  '@payloadcms/richtext-lexical/client#OrderedListFeatureClient': OrderedListFeatureClient_10,
-  '@payloadcms/richtext-lexical/client#UnorderedListFeatureClient': UnorderedListFeatureClient_11,
-  '@payloadcms/richtext-lexical/client#IndentFeatureClient': IndentFeatureClient_12,
-  '@payloadcms/richtext-lexical/client#AlignFeatureClient': AlignFeatureClient_13,
-  '@payloadcms/richtext-lexical/client#HeadingFeatureClient': HeadingFeatureClient_14,
-  '@payloadcms/richtext-lexical/client#ParagraphFeatureClient': ParagraphFeatureClient_15,
-  '@payloadcms/richtext-lexical/client#InlineCodeFeatureClient': InlineCodeFeatureClient_16,
-  '@payloadcms/richtext-lexical/client#SuperscriptFeatureClient': SuperscriptFeatureClient_17,
-  '@payloadcms/richtext-lexical/client#SubscriptFeatureClient': SubscriptFeatureClient_18,
-  '@payloadcms/richtext-lexical/client#StrikethroughFeatureClient': StrikethroughFeatureClient_19,
-  '@payloadcms/richtext-lexical/client#UnderlineFeatureClient': UnderlineFeatureClient_20,
-  '@payloadcms/richtext-lexical/client#BoldFeatureClient': BoldFeatureClient_21,
-  '@payloadcms/richtext-lexical/client#ItalicFeatureClient': ItalicFeatureClient_22,
-  '/src/payload/collections/CVs/row-labels/row-label-language.tsx#RowLabelLanguage':
-    RowLabelLanguage_23,
-  '/src/payload/collections/CVs/row-labels/row-label-skill.tsx#RowLabelSkill': RowLabelSkill_24,
-  '/src/payload/collections/CVs/row-labels/row-label-skill-group.tsx#RowLabelSkillGroup':
-    RowLabelSkillGroup_25,
-  '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText': RowLabelFirstText_26,
-  '/src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx#SaveButtonReplacer':
-    SaveButtonReplacer_27,
-  'src/payload/components/oauth-login-button#OAuthLoginButton': OAuthLoginButton_28,
-};
+  "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#RichTextField": RichTextField_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/generateComponentMap#getGenerateComponentMap": getGenerateComponentMap_ec38dd6bee95fe7974552968355b33ae,
+  "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#BlockquoteFeatureClient": BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#RelationshipFeatureClient": RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ChecklistFeatureClient": ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#OrderedListFeatureClient": OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UnorderedListFeatureClient": UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#IndentFeatureClient": IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#AlignFeatureClient": AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ParagraphFeatureClient": ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#InlineCodeFeatureClient": InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#SuperscriptFeatureClient": SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#SubscriptFeatureClient": SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#StrikethroughFeatureClient": StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/src/payload/collections/CVs/row-labels/row-label-language.tsx#RowLabelLanguage": RowLabelLanguage_b4d14b02800c82ae50c70dd83943d05e,
+  "/src/payload/collections/CVs/row-labels/row-label-skill.tsx#RowLabelSkill": RowLabelSkill_70f2a0da1a52d289645609f47a9b29ce,
+  "/src/payload/collections/CVs/row-labels/row-label-skill-group.tsx#RowLabelSkillGroup": RowLabelSkillGroup_951d203d52378fa0d672264360155ea2,
+  "/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText": RowLabelFirstText_3c155042d49e8cad65cddd438f13227f,
+  "/src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx#SaveButtonReplacer": SaveButtonReplacer_abe15da8360ef82ce201907c427c7d1a,
+  "src/payload/components/oauth-login-button#OAuthLoginButton": OAuthLoginButton_53e01bf128a2abcbd4dac91e546cd542
+}

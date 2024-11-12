@@ -73,9 +73,7 @@ const Page = async ({ params, searchParams }: Args) => {
     throw new Error('No parameters, Aborting');
   }
 
-  const decodedParams: DecodedSearchParams = JSON.parse(
-    decodeFromBase64(query.searchParams.p as string),
-  );
+  const decodedParams: DecodedSearchParams = decodeFromBase64(query.searchParams.p as string);
 
   const { exportOverride } = decodedParams;
 

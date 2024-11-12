@@ -48,13 +48,34 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    cv: CvSelect<false> | CvSelect<true>;
+    skill: SkillSelect<false> | SkillSelect<true>;
+    skillGroup: SkillGroupSelect<false> | SkillGroupSelect<true>;
+    langs: LangsSelect<false> | LangsSelect<true>;
+    level: LevelSelect<false> | LevelSelect<true>;
+    company: CompanySelect<false> | CompanySelect<true>;
+    project: ProjectSelect<false> | ProjectSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    organisations: OrganisationsSelect<false> | OrganisationsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
     defaultIDType: number;
   };
   globals: {};
+  globalsSelect: {};
   locale: 'de';
   user: User & {
     collection: 'users';
+  };
+  jobs?: {
+    tasks: unknown;
+    workflows?: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -596,6 +617,326 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cv_select".
+ */
+export interface CvSelect<T extends boolean = true> {
+  fullName?: T;
+  image?: T;
+  introduction?: T;
+  casualInfo?: T;
+  birthday?: T;
+  nationalityStatus?: T;
+  phoneNumber?: T;
+  email?: T;
+  jobTitle?: T;
+  department?: T;
+  links?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  lang?:
+    | T
+    | {
+        language?: T;
+        level?: T;
+        id?: T;
+      };
+  skillHighlights?:
+    | T
+    | {
+        skill?: T;
+        level?: T;
+        description?: T;
+        id?: T;
+      };
+  skillGroups?:
+    | T
+    | {
+        group?: T;
+        skills?:
+          | T
+          | {
+              skill?: T;
+              level?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  otherSkills?:
+    | T
+    | {
+        name?: T;
+        level?: T;
+        id?: T;
+      };
+  eduHighlights?:
+    | T
+    | {
+        title?: T;
+        fromYear?: T;
+        toYear?: T;
+        description?: T;
+        id?: T;
+      };
+  edu?:
+    | T
+    | {
+        institution?: T;
+        fromYear?: T;
+        toYear?: T;
+        description?: T;
+        id?: T;
+      };
+  certs?:
+    | T
+    | {
+        name?: T;
+        toYear?: T;
+        description?: T;
+        id?: T;
+      };
+  courses?:
+    | T
+    | {
+        name?: T;
+        toYear?: T;
+        description?: T;
+        id?: T;
+      };
+  jobHighlights?:
+    | T
+    | {
+        company?: T;
+        fromYear?: T;
+        toYear?: T;
+        description?: T;
+        id?: T;
+      };
+  projects?:
+    | T
+    | {
+        company?: T;
+        project?: T;
+        fromYear?: T;
+        toYear?: T;
+        description?: T;
+        id?: T;
+      };
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skill_select".
+ */
+export interface SkillSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skillGroup_select".
+ */
+export interface SkillGroupSelect<T extends boolean = true> {
+  name?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "langs_select".
+ */
+export interface LangsSelect<T extends boolean = true> {
+  name?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "level_select".
+ */
+export interface LevelSelect<T extends boolean = true> {
+  level?: T;
+  description?: T;
+  levelType?: T;
+  points?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company_select".
+ */
+export interface CompanySelect<T extends boolean = true> {
+  name?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project_select".
+ */
+export interface ProjectSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  organisation?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        tablet?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "organisations_select".
+ */
+export interface OrganisationsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  roles?: T;
+  organisations?:
+    | T
+    | {
+        organisation?: T;
+        roles?: T;
+        id?: T;
+      };
+  selectedOrganisation?: T;
+  sub?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

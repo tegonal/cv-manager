@@ -36,7 +36,7 @@ export const requestHandler = async ({ id, locale, exportOverride }: Props) => {
     secret: new Date().getTime().toString(),
   };
 
-  const searchParamString = encodeToBase64(JSON.stringify(searchParams));
+  const searchParamString = encodeToBase64(searchParams);
 
   try {
     const url = `${host}/cv/${id}?p=${searchParamString}`;
