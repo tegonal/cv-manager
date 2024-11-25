@@ -126,12 +126,12 @@ export default buildConfig({
       authCollection: Users.slug,
       clientId: process.env.OAUTH_CLIENT_ID || '',
       clientSecret: process.env.OAUTH_CLIENT_SECRET || '',
-      tokenEndpoint: 'https://scm.tegonal.com/oauth/token',
+      tokenEndpoint: process.env.OAUTH_TOKEN_ENDPOINT || '',
       scopes: ['email', 'profile', 'openid'],
-      providerAuthorizationUrl: 'https://scm.tegonal.com/oauth/authorize',
+      providerAuthorizationUrl: process.env.OAUTH_AUTHORIZE_ENDPOINT || '',
       getUserInfo: async (accessToken) => {
         try {
-          const response = await fetch('https://scm.tegonal.com/oauth/userinfo', {
+          const response = await fetch(process.env.OAUTH_USERINFO_ENDPOINT || '', {
             headers: { Authorization: `Bearer ${accessToken}` },
           });
           const user = await response.json();
