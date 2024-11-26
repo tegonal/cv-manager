@@ -2364,11 +2364,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-postgres@npm:3.0.0-beta.127":
-  version: 3.0.0-beta.127
-  resolution: "@payloadcms/db-postgres@npm:3.0.0-beta.127"
+"@payloadcms/db-postgres@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@payloadcms/db-postgres@npm:3.1.1"
   dependencies:
-    "@payloadcms/drizzle": "npm:3.0.0-beta.127"
+    "@payloadcms/drizzle": "npm:3.1.1"
     "@types/pg": "npm:8.10.2"
     console-table-printer: "npm:2.12.1"
     drizzle-kit: "npm:0.28.0"
@@ -2378,14 +2378,14 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:10.0.0"
   peerDependencies:
-    payload: 3.0.0-beta.127
-  checksum: 10/01cdd6df0479d707ed79405e0137097afd2e517d96b6eae34dbb6963f162b29578f48ec10906f7774878f2b69cef66d17c4e6537d4d9173db247cd7d1c8153b3
+    payload: 3.1.1
+  checksum: 10/e0cdbbba495d0cd5c171785cacd790a5127b5c04c0524e4226832008e2e274d57b6148e9f166a0cb57ba0d1698381c1a87a6cfdee277592ae69c5f4fd5025213
   languageName: node
   linkType: hard
 
-"@payloadcms/drizzle@npm:3.0.0-beta.127":
-  version: 3.0.0-beta.127
-  resolution: "@payloadcms/drizzle@npm:3.0.0-beta.127"
+"@payloadcms/drizzle@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@payloadcms/drizzle@npm:3.1.1"
   dependencies:
     console-table-printer: "npm:2.12.1"
     drizzle-orm: "npm:0.36.1"
@@ -2393,8 +2393,8 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:9.0.0"
   peerDependencies:
-    payload: 3.0.0-beta.127
-  checksum: 10/ffc50777216f3836b67eeb28eb91a68ebbed8f925608d16fc5ba0686a9324926c664a5f6e6831e41ceffe256e4980958a286cdac58b79dbd01710b779512603e
+    payload: 3.1.1
+  checksum: 10/6afa8b603c7411cebc9de534624196c68df9b075d33b4b5799367a768df63a3e3822e0940750e5b0bcd9b34c0054aee76e4eabd1ceb78d29a3e00bf5300ce5f0
   languageName: node
   linkType: hard
 
@@ -4625,7 +4625,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cv-manager@workspace:."
   dependencies:
-    "@payloadcms/db-postgres": "npm:3.0.0-beta.127"
+    "@payloadcms/db-postgres": "npm:3.1.1"
     "@payloadcms/email-nodemailer": "npm:3.0.0-beta.127"
     "@payloadcms/graphql": "npm:3.0.0-beta.127"
     "@payloadcms/next": "npm:3.0.0-beta.127"
