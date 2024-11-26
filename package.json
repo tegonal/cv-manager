@@ -52,7 +52,7 @@
     "tslog": "^4.9.3"
   },
   "devDependencies": {
-    "@payloadcms/graphql": "3.0.0-beta.127",
+    "@payloadcms/graphql": "3.1.1",
     "@swc/core": "1.5.7",
     "@tailwindcss/typography": "^0.5.15",
     "@types/jsdom": "^21.1.7",
