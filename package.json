@@ -29,7 +29,7 @@
     "@payloadcms/db-postgres": "3.0.0-beta.127",
     "@payloadcms/email-nodemailer": "3.0.0-beta.127",
     "@payloadcms/next": "3.0.0-beta.127",
-    "@payloadcms/richtext-lexical": "3.0.0-beta.127",
+    "@payloadcms/richtext-lexical": "3.1.1",
     "@payloadcms/storage-s3": "3.0.0-beta.127",
     "@payloadcms/ui": "3.0.0-beta.127",
     "babel-plugin-react-compiler": "0.0.0-experimental-48eb8f4-20240822",
