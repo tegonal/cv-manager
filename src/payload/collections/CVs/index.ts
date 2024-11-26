@@ -1,13 +1,12 @@
 import { CollectionConfig } from 'payload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
 import { I18nCollection } from '@/lib/i18nCollection';
-import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
-import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
-import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access';
 import { ProfileTabFields } from '@/payload/collections/CVs/tabs/profile';
 import { SkillsTabFields } from '@/payload/collections/CVs/tabs/skills';
 import { EducationTabFields } from '@/payload/collections/CVs/tabs/education';
 import { WorkExperienceTabFields } from '@/payload/collections/CVs/tabs/work-experience';
+import { defaultCollectionAccess } from '@/payload/access/default-collection-access';
 
 export const CV: CollectionConfig = {
   slug: 'cv',
@@ -21,10 +20,10 @@ export const CV: CollectionConfig = {
     plural: 'CVs',
   },
   access: {
-    read: organisationsAccess,
-    create: loggedInAccess,
-    update: organisationAdminsAccess,
-    delete: organisationAdminsAccess,
+    read: defaultCollectionAccess,
+    create: isLoggedInAccess,
+    update: defaultCollectionAccess,
+    delete: defaultCollectionAccess,
   },
   fields: [
     {

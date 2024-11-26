@@ -1,8 +1,10 @@
 import type { Field } from 'payload';
-
-import { superAdminFieldAccess } from '../../access/superAdmins';
-import { organisationFieldAdminAccess } from './access/admin';
 import { beforeChangeHook } from '@/payload/fields/organisation/hooks/beforeChangeHook';
+import { organisationFieldAdminAccess } from '@/payload/fields/created-by/access/admin';
+import { checkUserRoles } from '@/payload/access/utils/checkUserRoles';
+import { checkOrganisationRoles } from '@/payload/access/utils/checkOrganisationRoles';
+import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation';
+import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants';
 
 export const organisationField: Field = {
   name: 'organisation',
@@ -17,11 +19,21 @@ export const organisationField: Field = {
   admin: {
     description:
       "The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.",
+    condition: (a, b, { user }) => {
+      if (checkUserRoles([ROLE_SUPER_ADMIN], user)) return true;
+      const selectedOrganisation = getIdFromRelation(user?.selectedOrganisation);
+      if (selectedOrganisation) {
+        if (checkOrganisationRoles([ROLE_SUPER_ADMIN], user, selectedOrganisation as number)) {
+          return true;
+        }
+      }
+      return false;
+    },
   },
   access: {
-    create: superAdminFieldAccess,
-    read: organisationFieldAdminAccess,
-    update: superAdminFieldAccess,
+    // create: superAdminFieldAccess,
+    // read: organisationFieldAdminAccess,
+    update: organisationFieldAdminAccess,
   },
   hooks: {
     // automatically set the organisation to the last logged in organisation

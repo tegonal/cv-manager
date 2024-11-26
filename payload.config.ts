@@ -154,6 +154,11 @@ export default buildConfig({
       },
     }),
   ],
+  logger: {
+    options: {
+      level: (process.env.NODE_ENV === 'production' ? 'warn' : 'info') as string,
+    },
+  },
   telemetry: false,
   // Sharp is now an optional dependency -
   // if you want to resize images, crop, set focal point, etc.

@@ -1,17 +1,12 @@
 import type { FieldAccess } from 'payload';
 
-import { checkUserRoles } from '@/payload/utilities/checkUserRoles';
-import { checkOrganisationRoles } from '../utilities/checkOrganisationRoles';
+import { checkUserRoles } from '@/payload/access/utils/checkUserRoles';
+import { checkOrganisationRoles } from './utils/checkOrganisationRoles';
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants';
 import { User } from '@/types/payload-types';
 import { isNumber } from 'lodash-es';
 
-export const organisationAdmins: FieldAccess<User> = (args) => {
-  const {
-    req: { user },
-    doc,
-  } = args;
-
+export const isOrganisationAdminFieldAccess: FieldAccess<User> = async ({ req: { user }, doc }) => {
   return !!(
     checkUserRoles([ROLE_SUPER_ADMIN], user) ||
     doc?.organisations?.some(({ organisation }) => {

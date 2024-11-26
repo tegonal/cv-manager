@@ -1,5 +1,5 @@
 import type { Access } from 'payload';
 
-export const loggedInAccess: Access = ({ req: { user } }) => {
+export const isLoggedInAccess: Access = ({ req: { user } }) => {
   return Boolean(user);
 };

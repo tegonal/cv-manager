@@ -1,17 +1,16 @@
 import { CollectionConfig } from 'payload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
-import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
-import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
-import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access';
 import { I18nCollection } from '@/lib/i18nCollection';
+import { defaultCollectionAccess } from '@/payload/access/default-collection-access';
 
 export const Companies: CollectionConfig = {
   slug: 'company',
   access: {
-    read: organisationsAccess,
-    create: loggedInAccess,
-    update: organisationAdminsAccess,
-    delete: organisationAdminsAccess,
+    read: defaultCollectionAccess,
+    create: isLoggedInAccess,
+    update: defaultCollectionAccess,
+    delete: defaultCollectionAccess,
   },
   admin: {
     group: I18nCollection.collectionGroup.settings,

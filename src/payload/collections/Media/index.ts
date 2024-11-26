@@ -1,17 +1,16 @@
 import { CollectionConfig } from 'payload';
-import { organisationsAccess } from '@/payload/collections/access/organisationsAccess';
-import { loggedInAccess } from '@/payload/collections/access/loggedInAccess';
-import { organisationAdminsAccess } from '@/payload/collections/access/organisationAdminsAccess';
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access';
 import { assignOrgToUpload } from '@/payload/collections/hooks/assignOrgToUpload';
 import { adminSettingsField } from '@/payload/fields/admin-settings';
+import { defaultCollectionAccess } from '@/payload/access/default-collection-access';
 
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    read: organisationsAccess,
-    create: loggedInAccess,
-    update: organisationAdminsAccess,
-    delete: organisationAdminsAccess,
+    read: defaultCollectionAccess,
+    create: isLoggedInAccess,
+    update: defaultCollectionAccess,
+    delete: defaultCollectionAccess,
   },
   hooks: {
     beforeChange: [assignOrgToUpload],
