@@ -5,6 +5,7 @@ import { organisationAdmins } from '@/payload/collections/Organisations/access/o
 import { createdByField } from '@/payload/fields/created-by';
 import { updatedByField } from '@/payload/fields/updated-by';
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants';
+import { organisationMembers } from '@/payload/collections/Organisations/access/organisationMembers';
 
 export const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -21,7 +22,7 @@ export const Organisations: CollectionConfig = {
   },
   access: {
     create: superAdmins,
-    read: organisationAdmins,
+    read: organisationMembers,
     update: organisationAdmins,
     delete: superAdmins,
   },

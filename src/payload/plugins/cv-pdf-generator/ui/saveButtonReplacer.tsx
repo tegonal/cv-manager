@@ -1,5 +1,5 @@
 import React from 'react';
-import { DefaultSaveButton, DrawerToggler } from '@payloadcms/ui';
+import { DrawerToggler, SaveButton } from '@payloadcms/ui';
 import { ExportOverlay } from '@/payload/plugins/cv-pdf-generator/ui/exportOverlay';
 
 export const baseClass = 'cv-pdf-generator';
@@ -14,7 +14,7 @@ export const SaveButtonReplacer: React.FC = () => {
           slug={drawerSlug}>
           Generate PDF
         </DrawerToggler>
-        <DefaultSaveButton />
+        <SaveButton />
       </div>
       <ExportOverlay />
     </>

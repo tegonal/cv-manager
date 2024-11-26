@@ -99,7 +99,7 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        [Media.slug]: { prefix: Media.slug },
+        media: { prefix: 'media' },
       },
       config: {
         credentials: {
