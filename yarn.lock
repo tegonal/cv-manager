@@ -2454,9 +2454,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-cloud-storage@npm:3.0.0-beta.127":
-  version: 3.0.0-beta.127
-  resolution: "@payloadcms/plugin-cloud-storage@npm:3.0.0-beta.127"
+"@payloadcms/plugin-cloud-storage@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@payloadcms/plugin-cloud-storage@npm:3.1.1"
   dependencies:
     find-node-modules: "npm:^2.1.3"
     range-parser: "npm:^1.2.1"
@@ -2467,7 +2467,7 @@ __metadata:
     "@azure/storage-blob": ^12.11.0
     "@google-cloud/storage": ^7.7.0
     "@vercel/blob": ^0.22.3
-    payload: 3.0.0-beta.127
+    payload: 3.1.1
   peerDependenciesMeta:
     "@aws-sdk/client-s3":
       optional: true
@@ -2481,7 +2481,7 @@ __metadata:
       optional: true
     "@vercel/blob":
       optional: true
-  checksum: 10/2319d2cb17db57c26d102fb774ceaac5623c7f3b2e3e56e0b992b612d14b28722aa7bfdd2c995175a89ad5c55c5e1313b7a44a55b59d47825c40712a38b566a9
+  checksum: 10/8811bde429ed887e49b427ff09fc08ae491cfc4946cf966a1d3328998aef851112ee496f7505620990201f034e0480cf149f6708b40d621ffd671858985bcbe7
   languageName: node
   linkType: hard
 
@@ -2529,16 +2529,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/storage-s3@npm:3.0.0-beta.127":
-  version: 3.0.0-beta.127
-  resolution: "@payloadcms/storage-s3@npm:3.0.0-beta.127"
+"@payloadcms/storage-s3@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@payloadcms/storage-s3@npm:3.1.1"
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.614.0"
     "@aws-sdk/lib-storage": "npm:^3.614.0"
-    "@payloadcms/plugin-cloud-storage": "npm:3.0.0-beta.127"
+    "@payloadcms/plugin-cloud-storage": "npm:3.1.1"
   peerDependencies:
-    payload: 3.0.0-beta.127
-  checksum: 10/3ad7648d5e41e17b96d983ab5c97817f60cad4d435d01e5bf4c0d63df6f4b5b81cb9de5df50d39970a382b6471de6c8f9f8a49b5e8f116c00570a092a2c0727d
+    payload: 3.1.1
+  checksum: 10/ee11349e390b506f82bebf9f52963c4f4bae01531bf72f4e8dc0f1689fddd18b86d19a217be76995a9b883c7e8d656ba5821a1e2be6dd5be9a1757ad03bb10b5
   languageName: node
   linkType: hard
 
@@ -4630,7 +4630,7 @@ __metadata:
     "@payloadcms/graphql": "npm:3.0.0-beta.127"
     "@payloadcms/next": "npm:3.0.0-beta.127"
     "@payloadcms/richtext-lexical": "npm:3.0.0-beta.127"
-    "@payloadcms/storage-s3": "npm:3.0.0-beta.127"
+    "@payloadcms/storage-s3": "npm:3.1.1"
     "@payloadcms/ui": "npm:3.0.0-beta.127"
     "@swc/core": "npm:1.5.7"
     "@tailwindcss/typography": "npm:^0.5.15"
