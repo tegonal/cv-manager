@@ -1,6 +1,6 @@
 'use server';
 
-import { getPayload } from 'payload';
+import { getPayload, PayloadRequest } from 'payload';
 import configPromise from '@payload-config';
 import { CvPdfConfig } from '@/payload/plugins/cv-pdf-generator/types';
 import { Chromiumly, UrlConverter } from 'chromiumly';
@@ -13,11 +13,20 @@ type Props = {
   exportOverride: Record<string, boolean>;
 };
 
-export const requestHandler = async ({ id, locale, exportOverride }: Props) => {
+export const requestHandler = async (
+  req: PayloadRequest,
+  { id, locale, exportOverride }: Props,
+) => {
   const payload = await getPayload({
     config: configPromise,
   });
   const pluginConfig = payload.config.custom.cvPdfConfig as CvPdfConfig;
+  const payloadToken = req.headers.get('cookie')?.replace('payload-token=', '');
+  console.log({ payloadToken });
+
+  if (!payloadToken) {
+    throw new Error('PDF Printer: Payload token not found. Aborting..');
+  }
 
   Chromiumly.configure({ endpoint: pluginConfig.gotenbergUrl });
   const urlConverter = new UrlConverter();
@@ -42,8 +51,15 @@ export const requestHandler = async ({ id, locale, exportOverride }: Props) => {
     const url = `${host}/cv/${id}?p=${searchParamString}`;
     if (process.env.NODE_ENV !== 'production') console.log({ url });
     return urlConverter.convert({
+      cookies: [
+        {
+          name: 'payload-token',
+          value: payloadToken,
+          domain: new URL(pluginConfig.gotenbergUrl).hostname,
+        },
+      ],
       url,
-      skipNetworkIdleEvent: false,
+      waitDelay: '2s',
       properties: {
         size: {
           width: 8.267716535,

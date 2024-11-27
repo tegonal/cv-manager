@@ -48,7 +48,7 @@ export const cvPdfPlugin =
             if (!locale) {
               return new Response(JSON.stringify({ error: 'No locale provided' }), { status: 400 });
             }
-            const result = await requestHandler({ id, locale, exportOverride });
+            const result = await requestHandler(req, { id, locale, exportOverride });
             if ('error' in result) {
               return new Response(JSON.stringify(result), { status: 400 });
             } else {

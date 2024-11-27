@@ -2,6 +2,7 @@ import React from 'react';
 import './globals.scss';
 import { Rubik } from 'next/font/google';
 import Script from 'next/script';
+import { Metadata } from 'next';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -9,6 +10,11 @@ const rubik = Rubik({
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
 });
+
+export const metadata: Metadata = {
+  title: 'cv',
+  description: 'cv',
+};
 
 /* Our app sits here to not cause any conflicts with payload's root layout  */
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
 import configPromise from '@payload-config';
 import Image from 'next/image';
 import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer';
@@ -9,6 +8,7 @@ import { decodeFromBase64 } from 'next/dist/build/webpack/loaders/utils';
 import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer';
 import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight';
 import { capitalize, isEmpty } from 'lodash-es';
+import { getPayload } from 'payload';
 
 type Args = {
   params: Promise<{
@@ -67,7 +67,7 @@ const Page = async ({ params, searchParams }: Args) => {
   };
   const locale = 'de';
 
-  const payload = await getPayloadHMR({ config: configPromise });
+  const payload = await getPayload({ config: configPromise });
 
   if (!query.searchParams.p) {
     throw new Error('No parameters, Aborting');
@@ -121,6 +121,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 src={profileImage}
                 fill={true}
                 alt={cv.fullName}
+                priority={true}
               />
             </div>
             <div className={'flex flex-col justify-center gap-4'}>
