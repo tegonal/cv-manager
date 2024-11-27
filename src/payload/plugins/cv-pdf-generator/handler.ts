@@ -22,7 +22,6 @@ export const requestHandler = async (
   });
   const pluginConfig = payload.config.custom.cvPdfConfig as CvPdfConfig;
   const payloadToken = req.headers.get('cookie')?.replace('payload-token=', '');
-  console.log({ payloadToken });
 
   if (!payloadToken) {
     throw new Error('PDF Printer: Payload token not found. Aborting..');
@@ -39,6 +38,10 @@ export const requestHandler = async (
     throw new Error('PDF Printer: Host undefined. Aborting..');
   }
 
+  if (!process.env.PRINTER_SECRET) {
+    throw new Error('PDF Printer: Printer secret not found. Aborting..');
+  }
+
   const searchParams = {
     locale,
     exportOverride,
@@ -51,13 +54,9 @@ export const requestHandler = async (
     const url = `${host}/cv/${id}?p=${searchParamString}`;
     if (process.env.NODE_ENV !== 'production') console.log({ url });
     return urlConverter.convert({
-      cookies: [
-        {
-          name: 'payload-token',
-          value: payloadToken,
-          domain: new URL(pluginConfig.gotenbergUrl).hostname,
-        },
-      ],
+      extraHttpHeaders: {
+        'x-http-pdfprinter': process.env.PRINTER_SECRET || '',
+      },
       url,
       waitDelay: '2s',
       properties: {

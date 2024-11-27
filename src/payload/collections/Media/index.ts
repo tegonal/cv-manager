@@ -7,7 +7,13 @@ import { defaultCollectionAccess } from '@/payload/access/default-collection-acc
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    read: defaultCollectionAccess,
+    read: (args) => {
+      const printerSecret = args.req.headers.get('x-http-pdfprinter');
+      if (printerSecret === process.env.PRINTER_SECRET) {
+        return true;
+      }
+      return defaultCollectionAccess(args);
+    },
     create: isLoggedInAccess,
     update: defaultCollectionAccess,
     delete: defaultCollectionAccess,
