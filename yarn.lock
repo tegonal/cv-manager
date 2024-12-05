@@ -4268,9 +4268,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:0.0.0-experimental-48eb8f4-20240822":
-  version: 0.0.0-experimental-48eb8f4-20240822
-  resolution: "babel-plugin-react-compiler@npm:0.0.0-experimental-48eb8f4-20240822"
+"babel-plugin-react-compiler@npm:0.0.0-experimental-fe484b5-20240912":
+  version: 0.0.0-experimental-fe484b5-20240912
+  resolution: "babel-plugin-react-compiler@npm:0.0.0-experimental-fe484b5-20240912"
   dependencies:
     "@babel/generator": "npm:7.2.0"
     "@babel/types": "npm:^7.19.0"
@@ -4279,7 +4279,7 @@ __metadata:
     pretty-format: "npm:^24"
     zod: "npm:^3.22.4"
     zod-validation-error: "npm:^2.1.0"
-  checksum: 10/313857e45774d6547640864710f5ab6965cd728d237253df4caa948c9ec9be949c13802434e15b45a5dbaa8404e1db7aea96810770ffb1b193b2542e0e1d4f5a
+  checksum: 10/879bd6f43248b7975db5594439bf4c78dade25a29273a061bef4d42203e634b99d9bdd977b0927906f1e57d18a4d2061778535aff9d92949d84164b90c2d1ce6
   languageName: node
   linkType: hard
 
@@ -4802,7 +4802,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.16.0"
     "@typescript-eslint/parser": "npm:8.16.0"
     autoprefixer: "npm:^10.4.20"
-    babel-plugin-react-compiler: "npm:0.0.0-experimental-48eb8f4-20240822"
+    babel-plugin-react-compiler: "npm:0.0.0-experimental-fe484b5-20240912"
     chromiumly: "npm:^3.9.0"
     cross-env: "npm:^7.0.3"
     dotenv: "npm:^16.4.5"
@@ -4822,8 +4822,8 @@ __metadata:
     postcss: "npm:^8.4.49"
     prettier: "npm:^3.4.1"
     prettier-plugin-tailwindcss: "npm:^0.6.9"
-    react: "npm:19.0.0-rc-65a56d0e-20241020"
-    react-dom: "npm:19.0.0-rc-65a56d0e-20241020"
+    react: "npm:19.0.0"
+    react-dom: "npm:19.0.0"
     react-i18next: "npm:^14.1.3"
     react-router-dom: "npm:5.3.4"
     sharp: "npm:0.33.5"
@@ -9302,14 +9302,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0-rc-65a56d0e-20241020":
-  version: 19.0.0-rc-65a56d0e-20241020
-  resolution: "react-dom@npm:19.0.0-rc-65a56d0e-20241020"
+"react-dom@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react-dom@npm:19.0.0"
   dependencies:
-    scheduler: "npm:0.25.0-rc-65a56d0e-20241020"
+    scheduler: "npm:^0.25.0"
   peerDependencies:
-    react: 19.0.0-rc-65a56d0e-20241020
-  checksum: 10/127fbfea3f95753a2c743b1a67b8deb7b177c430ca7a9f43120fdba43cccdc5545c72f6d47a127b5ace33490573b60a5e006facc71e9981a3ff3800357b132f9
+    react: ^19.0.0
+  checksum: 10/aa64a2f1991042f516260e8b0eca0ae777b6c8f1aa2b5ae096e80bbb6ac9b005aef2bca697969841d34f7e1819556263476bdfea36c35092e8d9aefde3de2d9a
   languageName: node
   linkType: hard
 
@@ -9450,10 +9450,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.0.0-rc-65a56d0e-20241020":
-  version: 19.0.0-rc-65a56d0e-20241020
-  resolution: "react@npm:19.0.0-rc-65a56d0e-20241020"
-  checksum: 10/fe9d5743268c7108527b884724c66fc584f2023cc088f219fb0854e142f34a87948d95d3bb937f5fae0d5ec31e7adf8d03d9a60dc31a0c47347cd82b658fb31b
+"react@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react@npm:19.0.0"
+  checksum: 10/2490969c503f644703c88990d20e4011fa6119ddeca451e9de48f6d7ab058d670d2852a5fcd3aa3cd90a923ab2815d532637bd4a814add402ae5c0d4f129ee71
   languageName: node
   linkType: hard
 
@@ -9724,10 +9724,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.25.0-rc-65a56d0e-20241020":
-  version: 0.25.0-rc-65a56d0e-20241020
-  resolution: "scheduler@npm:0.25.0-rc-65a56d0e-20241020"
-  checksum: 10/81c73fa2918bd78d010ee7bb8c96966ed2f0490316a0682a14562bdf268a5e71cc73663fcc7f012ff8c85b2d6442cdcacee89442c0ca2569b09ed8d4486ca227
+"scheduler@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "scheduler@npm:0.25.0"
+  checksum: 10/e661e38503ab29a153429a99203fefa764f28b35c079719eb5efdd2c1c1086522f6653d8ffce388209682c23891a6d1d32fa6badf53c35fb5b9cd0c55ace42de
   languageName: node
   linkType: hard
 
