@@ -264,6 +264,10 @@ export const I18nCollection = {
       en: 'Job highlights',
       de: 'Job Highlights',
     },
+    since: {
+      en: 'since',
+      de: 'seit',
+    },
   },
   fieldDescription: {
     fullName: {

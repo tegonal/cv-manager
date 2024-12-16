@@ -35,10 +35,12 @@ const formatYear = (date: string) => {
   return dateObj.getFullYear().toString();
 };
 
-const fromToYear = (from?: string | null, to?: string | null) => {
+const fromToYear = (locale: 'de' | 'en', from?: string | null, to?: string | null) => {
   if (!from) return '';
   let returnString = formatYear(from);
-  if (to) {
+  if (!to) {
+    returnString = `${I18nCollection.fieldLabel.since[locale]} ${returnString}`;
+  } else if (from != to) {
     returnString = `${returnString} - ${formatYear(to)}`;
   }
   return returnString;
@@ -184,7 +186,7 @@ const Page = async ({ params, searchParams }: Args) => {
                   <HighlightEntry
                     key={item.id}
                     title={item.title}
-                    subtitle={fromToYear(item.fromYear, item.toYear)}
+                    subtitle={fromToYear(locale, item.fromYear, item.toYear)}
                     description={item.description}
                   />
                 ))}
@@ -196,7 +198,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 {cv.edu?.map((item) => (
                   <div key={item.id}>
                     <p className={'font-normal'}>{item.institution}</p>
-                    <p className={'small'}>{fromToYear(item.fromYear, item.toYear)}</p>
+                    <p className={'small'}>{fromToYear(locale, item.fromYear, item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -211,7 +213,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 {cv.certs?.map((item) => (
                   <div key={item.id}>
                     <p className={'font-normal'}>{item.name}</p>
-                    <p className={'small'}>{fromToYear(item.toYear)}</p>
+                    <p className={'small'}>{fromToYear(locale, item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -226,7 +228,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 {cv.courses?.map((item) => (
                   <div key={item.id}>
                     <p className={'font-normal'}>{item.name}</p>
-                    <p className={'small'}>{fromToYear(item.toYear)}</p>
+                    <p className={'small'}>{fromToYear(locale, item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -324,7 +326,7 @@ const Page = async ({ params, searchParams }: Args) => {
                   <HighlightEntry
                     key={item.id}
                     title={(item.company as Company).name}
-                    subtitle={fromToYear(item.fromYear, item.toYear)}
+                    subtitle={fromToYear(locale, item.fromYear, item.toYear)}
                     description={item.description}
                   />
                 ))}
@@ -340,7 +342,9 @@ const Page = async ({ params, searchParams }: Args) => {
                     <div key={item.id}>
                       <p className={'mb-0.5 font-normal'}>{(item.company as Company).name}</p>
                       <p className={'small mb-0.5'}>{(item.project as Project).name}</p>
-                      <p className={'small mb-0.5'}>{fromToYear(item.fromYear, item.toYear)}</p>
+                      <p className={'small mb-0.5'}>
+                        {fromToYear(locale, item.fromYear, item.toYear)}
+                      </p>
                       <div>
                         <PayloadLexicalReactRenderer content={item.description as any} />
                       </div>
