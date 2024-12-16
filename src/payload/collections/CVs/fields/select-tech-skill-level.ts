@@ -6,7 +6,7 @@ export const selectTechSkillLevel: Field = {
   type: 'relationship',
   label: I18nCollection.fieldLabel.skillLevel,
   relationTo: 'level',
-  required: true,
+  required: false,
   filterOptions: () => {
     return {
       levelType: { equals: 'skill' },

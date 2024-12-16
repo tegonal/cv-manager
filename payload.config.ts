@@ -51,10 +51,10 @@ export default buildConfig({
   }),
   localization: {
     locales: [
-      // {
-      //   label: 'English',
-      //   code: 'en',
-      // },
+      {
+        label: 'English',
+        code: 'en',
+      },
       {
         label: 'Deutsch',
         code: 'de',

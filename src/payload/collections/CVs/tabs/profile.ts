@@ -22,7 +22,7 @@ export const ProfileTabFields: Field[] = [
     name: 'introduction',
     label: I18nCollection.fieldLabel.introduction,
     type: 'richText',
-    required: true,
+    required: false,
     localized: true,
     admin: {
       description:

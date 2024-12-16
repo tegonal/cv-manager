@@ -1,11 +1,12 @@
 'use client';
 import React, { useMemo, useState } from 'react';
-import { useRowLabel } from '@payloadcms/ui';
+import { useLocale, useRowLabel } from '@payloadcms/ui';
 import { SkillGroup } from '@/types/payload-types';
 import ky from 'ky';
 
 export const RowLabelSkillGroup: React.FC = (args) => {
   const { data } = useRowLabel<any>();
+  const locale = useLocale();
   const [skillGroup, setSkillGroup] = useState<SkillGroup>();
 
   const fetchSkill = async (id: string) => {
@@ -13,7 +14,7 @@ export const RowLabelSkillGroup: React.FC = (args) => {
       return;
     }
     try {
-      ky.get<SkillGroup>(`/api/skillGroup/${id}`)
+      ky.get<SkillGroup>(`/api/skillGroup/${id}?locale=${locale.code}`)
         .json()
         .then((data) => setSkillGroup(data));
     } catch (error) {

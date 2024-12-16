@@ -69,7 +69,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: 'de';
+  locale: 'en' | 'de';
   user: User & {
     collection: 'users';
   };
@@ -104,7 +104,7 @@ export interface Cv {
   id: number;
   fullName: string;
   image?: (number | null) | Media;
-  introduction: {
+  introduction?: {
     root: {
       type: string;
       children: {
@@ -118,7 +118,7 @@ export interface Cv {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   casualInfo?: {
     root: {
       type: string;
@@ -150,8 +150,16 @@ export interface Cv {
     | null;
   skillHighlights?:
     | {
-        skill: number | Skill;
-        level: number | Level;
+        skill:
+          | {
+              relationTo: 'skill';
+              value: number | Skill;
+            }
+          | {
+              relationTo: 'skillGroup';
+              value: number | SkillGroup;
+            };
+        level?: (number | null) | Level;
         description?: {
           root: {
             type: string;
@@ -173,10 +181,34 @@ export interface Cv {
   skillGroups?:
     | {
         group: number | SkillGroup;
+        skillGroupDescription?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         skills?:
           | {
-              skill: number | Skill;
-              level: number | Level;
+              skill:
+                | {
+                    relationTo: 'skill';
+                    value: number | Skill;
+                  }
+                | {
+                    relationTo: 'skillGroup';
+                    value: number | SkillGroup;
+                  };
+              level?: (number | null) | Level;
+              'sub-skill'?: (number | Skill)[] | null;
               id?: string | null;
             }[]
           | null;
@@ -186,7 +218,7 @@ export interface Cv {
   otherSkills?:
     | {
         name: string;
-        level: number | Level;
+        level?: (number | null) | Level;
         id?: string | null;
       }[]
     | null;
@@ -659,11 +691,13 @@ export interface CvSelect<T extends boolean = true> {
     | T
     | {
         group?: T;
+        skillGroupDescription?: T;
         skills?:
           | T
           | {
               skill?: T;
               level?: T;
+              'sub-skill'?: T;
               id?: T;
             };
         id?: T;

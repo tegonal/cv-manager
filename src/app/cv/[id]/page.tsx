@@ -247,7 +247,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 {cv.skillHighlights?.map((item) => (
                   <HighlightEntry
                     key={item.id}
-                    title={(item.skill as Skill).name}
+                    title={(item.skill.value as Skill | SkillGroup).name}
                     subtitle={(item.level as Level).level}
                     description={item.description}
                   />
@@ -258,12 +258,26 @@ const Page = async ({ params, searchParams }: Args) => {
               if (group.skills && group.skills.length < 1) return null;
               return (
                 <div key={group.id} className={'flex flex-col gap-4'}>
-                  <h3>{(group.group as SkillGroup).name}</h3>
+                  <div className={'flex flex-col gap-1'}>
+                    <h3>{(group.group as SkillGroup).name}</h3>
+                    {group.skillGroupDescription && (
+                      <div className={'text-xs'}>
+                        <PayloadLexicalReactRenderer content={group.skillGroupDescription as any} />
+                      </div>
+                    )}
+                  </div>
                   <div className={'grid grid-cols-3 gap-6'}>
                     {group.skills?.map((item) => (
                       <div key={item.id}>
-                        <p className={'font-normal'}>{(item.skill as Skill).name}</p>
-                        <p className={'small'}>{(item.level as Level).level}</p>
+                        <p className={'font-normal'}>
+                          {(item.skill.value as Skill | SkillGroup).name}
+                        </p>
+                        {item.level && <p className={'small'}>{(item.level as Level).level}</p>}
+                        {item['sub-skill'] && !isEmpty(item['sub-skill']) && (
+                          <p className={'small additional'}>
+                            {item['sub-skill'].map((i) => (i as Skill).name).join(', ')}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>
