@@ -79,8 +79,38 @@ export default buildConfig({
     user: Users.slug,
     components: {
       afterLogin: ['src/payload/components/oauth-login-button#OAuthLoginButton'],
+      graphics: {
+        // shown in the nav bar
+        Icon: 'src/graphics/Icon/index.tsx#Icon',
+        // shown on the signup login page
+        Logo: 'src/graphics/Logo/index.tsx#Logo',
+      },
+    },
+    meta: {
+      description: 'Curriculum vitae manager app',
+      icons: [
+        {
+          type: 'image/png',
+          rel: 'icon',
+          url: '/favicon.svg',
+        },
+      ],
+      openGraph: {
+        description: 'CV Manager app',
+        images: [
+          {
+            height: 800,
+            url: '/ogImage.png',
+            width: 800,
+          },
+        ],
+        title: 'CV Manager',
+        siteName: undefined,
+      },
+      titleSuffix: '- CV Manager',
     },
   },
+  serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   email: nodemailerAdapter({
     defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
     defaultFromName: process.env.SMTP_FROM_ADDRESS || '',
