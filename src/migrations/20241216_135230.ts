@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
@@ -60,7 +60,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "cv_rels_skill_id_idx" ON "cv_rels" USING btree ("skill_id");
   CREATE INDEX IF NOT EXISTS "cv_rels_skill_group_id_idx" ON "cv_rels" USING btree ("skill_group_id");
   ALTER TABLE "cv_skill_highlights" DROP COLUMN IF EXISTS "skill_id";
-  ALTER TABLE "cv_skill_groups_skills" DROP COLUMN IF EXISTS "skill_id";`)
+  ALTER TABLE "cv_skill_groups_skills" DROP COLUMN IF EXISTS "skill_id";`);
 }
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
@@ -118,5 +118,5 @@ export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   ALTER TABLE "public"."skill_group_locales" ALTER COLUMN "_locale" SET DATA TYPE "public"."_locales" USING "_locale"::"public"."_locales";
   ALTER TABLE "public"."langs_locales" ALTER COLUMN "_locale" SET DATA TYPE "public"."_locales" USING "_locale"::"public"."_locales";
   ALTER TABLE "public"."level_locales" ALTER COLUMN "_locale" SET DATA TYPE "public"."_locales" USING "_locale"::"public"."_locales";
-  ALTER TABLE "public"."project_locales" ALTER COLUMN "_locale" SET DATA TYPE "public"."_locales" USING "_locale"::"public"."_locales";`)
+  ALTER TABLE "public"."project_locales" ALTER COLUMN "_locale" SET DATA TYPE "public"."_locales" USING "_locale"::"public"."_locales";`);
 }
