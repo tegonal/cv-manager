@@ -8427,11 +8427,11 @@ __metadata:
   linkType: hard
 
 "payload-oauth2@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "payload-oauth2@npm:1.0.7"
+  version: 1.0.9
+  resolution: "payload-oauth2@npm:1.0.9"
   peerDependencies:
     payload: ^3
-  checksum: 10/f2353d2f48f1cc2b3b464272debbc90bf6a68b16b27ed33db4b8aa9c1725c26ebb458b9813d23e963017be516913063dfaf0481125887ea37f1d893b5743d451
+  checksum: 10/68b37fa7e8be60779fa670e8cd47968fd6893ecbb97831ab42f897ecb76c5af636e932d7dde6a78b989dc6d2248fc61942ef4330174f6913ca9ad20ccc490084
   languageName: node
   linkType: hard
 
