@@ -2,7 +2,6 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
-   ALTER TYPE "public"."_locales" ADD VALUE 'en' BEFORE 'de';
   CREATE TABLE IF NOT EXISTS "cv_skill_groups_locales" (
   	"skill_group_description" jsonb,
   	"id" serial PRIMARY KEY NOT NULL,
