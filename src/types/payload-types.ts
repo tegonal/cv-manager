@@ -665,13 +665,7 @@ export interface CvSelect<T extends boolean = true> {
   email?: T;
   jobTitle?: T;
   department?: T;
-  links?:
-    | T
-    | {
-        platform?: T;
-        url?: T;
-        id?: T;
-      };
+  links?: T | SocialLinksSelect<T>;
   lang?:
     | T
     | {
@@ -767,6 +761,15 @@ export interface CvSelect<T extends boolean = true> {
   updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialLinks_select".
+ */
+export interface SocialLinksSelect<T extends boolean = true> {
+  platform?: T;
+  url?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -921,13 +924,7 @@ export interface UsersSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   roles?: T;
-  organisations?:
-    | T
-    | {
-        organisation?: T;
-        roles?: T;
-        id?: T;
-      };
+  organisations?: T | UserOrganisationsSelect<T>;
   selectedOrganisation?: T;
   sub?: T;
   updatedAt?: T;
@@ -939,6 +936,15 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UserOrganisations_select".
+ */
+export interface UserOrganisationsSelect<T extends boolean = true> {
+  organisation?: T;
+  roles?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
