@@ -2439,14 +2439,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/email-nodemailer@npm:3.8.0":
-  version: 3.8.0
-  resolution: "@payloadcms/email-nodemailer@npm:3.8.0"
+"@payloadcms/email-nodemailer@npm:3.9.0":
+  version: 3.9.0
+  resolution: "@payloadcms/email-nodemailer@npm:3.9.0"
   dependencies:
     nodemailer: "npm:6.9.10"
   peerDependencies:
-    payload: 3.8.0
-  checksum: 10/2ba1acab5e75711a2b73135e7046456f159584afff6e903d56978f05aa96f328a225139eb619f1f8b15b866914007b26ee977ccaa853de9404fa05d2769db2c3
+    payload: 3.9.0
+  checksum: 10/9094266258d15eebe243df96faf28636273ec5466da31066172244f68d92cfc18a70863032c970be571bb6ed29fe3a07c99bde1963e3a86511ac1803b97401f0
   languageName: node
   linkType: hard
 
@@ -4707,7 +4707,7 @@ __metadata:
   resolution: "cv-manager@workspace:."
   dependencies:
     "@payloadcms/db-postgres": "npm:3.8.0"
-    "@payloadcms/email-nodemailer": "npm:3.8.0"
+    "@payloadcms/email-nodemailer": "npm:3.9.0"
     "@payloadcms/graphql": "npm:3.8.0"
     "@payloadcms/next": "npm:3.8.0"
     "@payloadcms/richtext-lexical": "npm:3.8.0"
