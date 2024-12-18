@@ -22,6 +22,8 @@ jobs:
           yarn --version
           echo "Going to install dependencies..."
           yarn install
+          echo "Checking version..."
+          yarn next -v
           echo "Going to check formatting..."
           yarn run check-lint
           echo "Going to build application..."
