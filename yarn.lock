@@ -4188,12 +4188,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-37ed2a7-20241206":
-  version: 19.0.0-beta-37ed2a7-20241206
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-37ed2a7-20241206"
+"babel-plugin-react-compiler@npm:19.0.0-beta-df7b47d-20241124":
+  version: 19.0.0-beta-df7b47d-20241124
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-df7b47d-20241124"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10/c3c57034d3197e469e7f5e8b7171505fa542664423244d9029f8ec482268d81ce5b6fd6accf02edc95841dccde6a47630b521ca448236badf2f1fe45c6c4c821
+  checksum: 10/e41b67e9c8eb3c869a9601523236e8ff12284c2ca710f20976b2eefd1bf60727d98a1ddf7b3d1a534fff89ef6c4000729ed0bb7abf91bad2d5d11db67f021c88
   languageName: node
   linkType: hard
 
@@ -4719,7 +4719,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.18.1"
     "@typescript-eslint/parser": "npm:8.18.1"
     autoprefixer: "npm:^10.4.20"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-37ed2a7-20241206"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-df7b47d-20241124"
     chromiumly: "npm:^3.10.1"
     cross-env: "npm:^7.0.3"
     dotenv: "npm:^16.4.7"
