@@ -56,6 +56,10 @@ body {
   break-after: always;
 }
 
+.no-page-break {
+  page-break-inside: avoid;
+}
+
 .circle-mask {
   clip-path: circle(50% at 50% 50%);
 }

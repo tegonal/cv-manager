@@ -196,7 +196,7 @@ const Page = async ({ params, searchParams }: Args) => {
             {!isEmpty(cv.edu) && (
               <div className={'flex flex-col gap-4'}>
                 {cv.edu?.map((item) => (
-                  <div key={item.id}>
+                  <div key={item.id} className={'no-page-break'}>
                     <p className={'font-normal'}>{item.institution}</p>
                     <p className={'small'}>{fromToYear(locale, item.fromYear, item.toYear)}</p>
                     <div>
@@ -211,7 +211,7 @@ const Page = async ({ params, searchParams }: Args) => {
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.certifications[locale]}</h3>
                 {cv.certs?.map((item) => (
-                  <div key={item.id}>
+                  <div key={item.id} className={'no-page-break'}>
                     <p className={'font-normal'}>{item.name}</p>
                     <p className={'small'}>{fromToYear(locale, item.toYear)}</p>
                     <div>
@@ -226,7 +226,7 @@ const Page = async ({ params, searchParams }: Args) => {
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.courses[locale]}</h3>
                 {cv.courses?.map((item) => (
-                  <div key={item.id}>
+                  <div key={item.id} className={'no-page-break'}>
                     <p className={'font-normal'}>{item.name}</p>
                     <p className={'small'}>{fromToYear(locale, item.toYear)}</p>
                     <div>
@@ -259,7 +259,7 @@ const Page = async ({ params, searchParams }: Args) => {
             {cv.skillGroups?.map((group) => {
               if (group.skills && group.skills.length < 1) return null;
               return (
-                <div key={group.id} className={'flex flex-col gap-4'}>
+                <div key={group.id} className={'no-page-break flex flex-col gap-4'}>
                   <div className={'flex flex-col gap-1'}>
                     <h3>{(group.group as SkillGroup).name}</h3>
                     {group.skillGroupDescription && (
@@ -291,7 +291,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 <h3>{I18nCollection.fieldLabel.otherSkills[locale]}</h3>
                 <div className={'grid grid-cols-3 gap-6'}>
                   {cv.otherSkills?.map((item) => (
-                    <div key={item.id}>
+                    <div key={item.id} className={'no-page-break'}>
                       <p className={'font-normal'}>{item.name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
                     </div>
@@ -304,7 +304,7 @@ const Page = async ({ params, searchParams }: Args) => {
                 <h3>{I18nCollection.fieldLabel.languages[locale]}</h3>
                 <div className={'grid grid-cols-3 gap-6'}>
                   {cv.lang?.map((item) => (
-                    <div key={item.id}>
+                    <div key={item.id} className={'no-page-break'}>
                       <p className={'font-normal'}>{(item.language as Skill).name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
                     </div>
@@ -339,7 +339,7 @@ const Page = async ({ params, searchParams }: Args) => {
                   const projectKey = `project_${item.id}`;
                   if (projectKey in exportOverride && !exportOverride[projectKey]) return null;
                   return (
-                    <div key={item.id}>
+                    <div key={item.id} className={'no-page-break'}>
                       <p className={'mb-0.5 font-normal'}>{(item.company as Company).name}</p>
                       <p className={'small mb-0.5'}>{(item.project as Project).name}</p>
                       <p className={'small mb-0.5'}>
