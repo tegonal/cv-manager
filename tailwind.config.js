@@ -1,4 +1,3 @@
-/*eslint-env node*/
 /** @type {import('tailwindcss').Config} */
 import typography from '@tailwindcss/typography';
 
