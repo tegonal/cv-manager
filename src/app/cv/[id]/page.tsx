@@ -263,7 +263,7 @@ const Page = async ({ params, searchParams }: Args) => {
                   <div className={'flex flex-col gap-1'}>
                     <h3>{(group.group as SkillGroup).name}</h3>
                     {group.skillGroupDescription && (
-                      <div className={'text-xs'}>
+                      <div className={'small mb-0.5'}>
                         <PayloadLexicalReactRenderer content={group.skillGroupDescription as any} />
                       </div>
                     )}
