@@ -7263,9 +7263,9 @@ __metadata:
   linkType: hard
 
 "ky@npm:^1.7.3":
-  version: 1.7.3
-  resolution: "ky@npm:1.7.3"
-  checksum: 10/11538c0707e8e46ee2a096046cc64996327f1157127bea684f6c0c96fd64656b93764def98c194970b16ae9d79334b727a595be94995fad13d67d609412234d5
+  version: 1.7.4
+  resolution: "ky@npm:1.7.4"
+  checksum: 10/a5e98434866e4e8e691f76aaa4b4d5bd3abe6527dbb0e853ee37c4475852af6e0cbeef442be31b6824ca7fd3998740492419a45be60352836b9a21a54458f56c
   languageName: node
   linkType: hard
 
