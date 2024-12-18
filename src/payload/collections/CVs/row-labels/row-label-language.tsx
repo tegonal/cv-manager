@@ -9,26 +9,26 @@ export const RowLabelLanguage: React.FC = (args) => {
   const locale = useLocale();
   const [skillGroup, setSkillGroup] = useState<Lang>();
 
-  const fetchSkill = async (id: string) => {
-    if (!id) {
-      return;
-    }
-    try {
-      ky.get<Lang>(`/api/langs/${id}?locale=${locale.code}`)
-        .json()
-        .then((data) => setSkillGroup(data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const label = useMemo(() => {
+    const fetchSkill = async (id: string) => {
+      if (!id) {
+        return;
+      }
+      try {
+        ky.get<Lang>(`/api/langs/${id}?locale=${locale.code}`)
+          .json()
+          .then((data) => setSkillGroup(data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     const groupId = data?.language;
     if (!skillGroup || (groupId && skillGroup.id !== groupId)) {
       fetchSkill(groupId);
     }
     return skillGroup?.name;
-  }, [data, skillGroup]);
+  }, [data, skillGroup, locale.code]);
 
   return (
     <div>

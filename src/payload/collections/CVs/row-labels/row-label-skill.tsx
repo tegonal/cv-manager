@@ -13,33 +13,33 @@ export const RowLabelSkill: React.FC = (args) => {
   const locale = useLocale();
   const [skill, setSkill] = useState<SkillOrSkillGroup>();
 
-  const fetchSkill = async (id: string) => {
-    if (!id) {
-      return;
-    }
-    try {
-      ky.get<Skill>(`/api/skill/${id}?locale=${locale.code}`)
-        .json()
-        .then((data) => setSkill({ ...data, type: 'skill' }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const fetchSkillGroup = async (id: string) => {
-    if (!id) {
-      return;
-    }
-    try {
-      ky.get<Skill>(`/api/skillGroup/${id}?locale=${locale.code}`)
-        .json()
-        .then((data) => setSkill({ ...data, type: 'skillGroup' }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const label = useMemo(() => {
+    const fetchSkill = async (id: string) => {
+      if (!id) {
+        return;
+      }
+      try {
+        ky.get<Skill>(`/api/skill/${id}?locale=${locale.code}`)
+          .json()
+          .then((data) => setSkill({ ...data, type: 'skill' }));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchSkillGroup = async (id: string) => {
+      if (!id) {
+        return;
+      }
+      try {
+        ky.get<Skill>(`/api/skillGroup/${id}?locale=${locale.code}`)
+          .json()
+          .then((data) => setSkill({ ...data, type: 'skillGroup' }));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     const skillField = skillFields.find((field) => data?.[field]);
     if (!skillField) {
       return '';
@@ -48,8 +48,8 @@ export const RowLabelSkill: React.FC = (args) => {
       return data?.[skillField];
     }
     const skillRelation = data?.[skillField];
-    const skillType = skillRelation.type;
-    const skillId = skillRelation.id;
+    const skillType = skillRelation.relationTo;
+    const skillId = skillRelation.value;
 
     if (!skill || (skillId && skill.id !== skillId && skill.type !== skillType)) {
       switch (skillType) {
@@ -62,7 +62,7 @@ export const RowLabelSkill: React.FC = (args) => {
       }
     }
     return skill?.name;
-  }, [data, skill]);
+  }, [data, skill, locale.code]);
 
   return (
     <div>
