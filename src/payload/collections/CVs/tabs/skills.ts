@@ -9,6 +9,7 @@ import { selectSkillGroup } from '@/payload/collections/CVs/fields/select-skill-
 import { selectLanguage } from '@/payload/collections/CVs/fields/select-language';
 import { selectLanguageLevel } from '@/payload/collections/CVs/fields/select-language-level';
 import { Field } from 'payload';
+import { selectSubSkills } from '../fields/select-sub-skills';
 
 export const SkillsTabFields: Field[] = [
   {
@@ -62,6 +63,17 @@ export const SkillsTabFields: Field[] = [
     fields: [
       selectSkillGroup,
       {
+        name: 'skillGroupDescription',
+        type: 'richText',
+        label: I18nCollection.fieldLabel.description,
+        required: false,
+        localized: true,
+        admin: {
+          description:
+            'Add a description to the skill group to describe your specific skills in that area.',
+        },
+      },
+      {
         name: 'skills',
         type: 'array',
         label: I18nCollection.fieldLabel.skills,
@@ -75,7 +87,7 @@ export const SkillsTabFields: Field[] = [
         fields: [
           {
             type: 'row',
-            fields: [selectSkill, selectTechSkillLevel],
+            fields: [selectSkill, selectTechSkillLevel, selectSubSkills],
           },
         ],
       },

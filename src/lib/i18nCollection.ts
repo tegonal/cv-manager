@@ -4,6 +4,14 @@ export const I18nCollection = {
       en: 'Skills',
       de: 'Fähigkeiten',
     },
+    mainSkill: {
+      en: 'Main-Skill',
+      de: 'Haupt-Fähigkeit',
+    },
+    subSkills: {
+      en: 'Sub-Skills',
+      de: 'Zusätzliche Fähigkeiten',
+    },
     casualInfo: {
       en: 'Casual information',
       de: 'Persönliche Informationen',
@@ -255,6 +263,10 @@ export const I18nCollection = {
     jobHighlights: {
       en: 'Job highlights',
       de: 'Job Highlights',
+    },
+    since: {
+      en: 'since',
+      de: 'seit',
     },
   },
   fieldDescription: {

@@ -10,10 +10,11 @@
     "dev:compose:logs": "docker-compose -f docker-compose.dev.yml logs -f",
     "dev:compose:reset": "docker-compose -f docker-compose.dev.yml down -v",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "build": "yarn run lint && cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build -d",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && cross-env NODE_OPTIONS=--no-deprecation next start",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
+    "check-lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create && next lint --fix",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "generate:types": "payload generate:types && yarn run lint",
@@ -63,11 +64,11 @@
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@types/react-router-dom": "^5.3.3",
-    "@typescript-eslint/eslint-plugin": "8.18.0",
-    "@typescript-eslint/parser": "8.18.0",
+    "@typescript-eslint/eslint-plugin": "8.18.1",
+    "@typescript-eslint/parser": "8.18.1",
     "autoprefixer": "^10.4.20",
     "dotenv": "^16.4.7",
-    "eslint": "^8.57.1",
+    "eslint": "^9.0.0",
     "eslint-config-next": "15.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsonc": "^2.18.2",
@@ -76,11 +77,11 @@
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwindcss": "^3.4.16",
-    "typescript": "5.6.3"
+    "typescript": "5.7.2"
   },
   "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.0",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"
+    "@types/react": "npm:types-react@19.0.0",
+    "@types/react-dom": "npm:types-react-dom@19.0.0"
   },
   "packageManager": "yarn@4.5.3"
 }

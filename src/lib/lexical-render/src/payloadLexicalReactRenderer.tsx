@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { CSSProperties } from 'react';
 
 export type AbstractNode<Type extends string> = {
@@ -254,8 +255,8 @@ export const defaultElementRenderers: ElementRenderers = {
   linebreak: () => <br />,
   tab: () => <br />,
   upload: (element) => {
-    if (element.value.mimeType?.includes('image')) {
-      return <img src={element.value.url} alt={element.value.alt} />;
+    if (element.value.mimeType?.includes('image') && element.value.url) {
+      return <Image src={element.value.url} alt={element.value.alt} />;
     }
   },
 };
