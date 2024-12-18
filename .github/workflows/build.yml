@@ -20,7 +20,9 @@ jobs:
       - name: Trying to install dependencies and build the application
         run: |
           yarn --version
-          echo "Going to install dependencies"
+          echo "Going to install dependencies..."
           yarn install
-          echo "Going to build application"
-          yarn run build -d
+          echo "Going to check formatting..."
+          yarn run check-lint
+          echo "Going to build application..."
+          yarn run build
