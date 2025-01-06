@@ -40,7 +40,7 @@
     "jsonwebtoken": "^9.0.2",
     "ky": "^1.7.3",
     "lodash-es": "^4.17.21",
-    "next": "15.1.1",
+    "next": "15.1.2",
     "nodemailer": "^6.9.16",
     "payload": "3.8.0",
     "payload-oauth2": "^1.0.7",
