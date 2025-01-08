@@ -102,8 +102,14 @@ export interface UserAuthOperations {
  */
 export interface Cv {
   id: number;
+  /**
+   * Your full name as you would like to have it displayed on your profile.
+   */
   fullName: string;
   image?: (number | null) | Media;
+  /**
+   * Write an introduction about yourself. Try to cover some personal topics and your professional background. Please do not use formatting.
+   */
   introduction?: {
     root: {
       type: string;
@@ -148,6 +154,9 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Highlights that you would like to prominently display on top of the list, emphasised. Things you are proud of.
+   */
   skillHighlights?:
     | {
         skill:
@@ -181,6 +190,9 @@ export interface Cv {
   skillGroups?:
     | {
         group: number | SkillGroup;
+        /**
+         * Add a description to the skill group to describe your specific skills in that area.
+         */
         skillGroupDescription?: {
           root: {
             type: string;
@@ -222,6 +234,9 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Highlights that you would like to prominently display on top of the list, emphasised. Things you are proud of.
+   */
   eduHighlights?:
     | {
         title?: string | null;
@@ -312,6 +327,9 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Highlights that you would like to prominently display on top of the list, emphasised. Things you are proud of.
+   */
   jobHighlights?:
     | {
         company: number | Company;
@@ -359,6 +377,9 @@ export interface Cv {
         id?: string | null;
       }[]
     | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -372,6 +393,9 @@ export interface Cv {
 export interface Media {
   id: number;
   alt?: string | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -457,6 +481,9 @@ export interface User {
 export interface Lang {
   id: number;
   name?: string | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -473,6 +500,9 @@ export interface Level {
   description?: string | null;
   levelType?: ('language' | 'skill')[] | null;
   points?: number | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -501,6 +531,9 @@ export interface Skill {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -514,6 +547,9 @@ export interface Skill {
 export interface SkillGroup {
   id: number;
   name?: string | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -527,6 +563,9 @@ export interface SkillGroup {
 export interface Company {
   id: number;
   name?: string | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
@@ -555,6 +594,9 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
