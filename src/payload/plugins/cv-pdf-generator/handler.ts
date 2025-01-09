@@ -6,6 +6,7 @@ import { CvPdfConfig } from '@/payload/plugins/cv-pdf-generator/types';
 import { Chromiumly, UrlConverter } from 'chromiumly';
 import * as process from 'node:process';
 import { encodeToBase64 } from 'next/dist/build/webpack/loaders/utils';
+import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants';
 
 type Props = {
   id: string;
@@ -47,14 +48,14 @@ export const requestHandler = async (
   };
 
   const searchParamString = encodeToBase64(searchParams);
+  const extraHeaders: Record<string, string> = {};
+  extraHeaders[PRINTER_HEADER_KEY] = process.env.PRINTER_SECRET || '';
 
   try {
     const url = `${host}/cv/${id}?p=${searchParamString}`;
     if (process.env.NODE_ENV !== 'production') console.log({ url });
     return urlConverter.convert({
-      extraHttpHeaders: {
-        'x-http-pdfprinter': process.env.PRINTER_SECRET || '',
-      },
+      extraHttpHeaders: extraHeaders,
       url,
       waitDelay: '2s',
       properties: {

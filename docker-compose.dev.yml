@@ -33,7 +33,7 @@ services:
       MINIO_ROOT_PASSWORD: secret1234
     volumes:
       - minio-data:/data
-    command: server /data --console-address ":9001"
+    command: server --console-address ":9001" /data
 
   createbucket:
     image: minio/mc
