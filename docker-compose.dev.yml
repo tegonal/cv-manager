@@ -61,7 +61,7 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
   gotenberg:
-    image: gotenberg/gotenberg:8.14
+    image: gotenberg/gotenberg:8.15
     container_name: gotenberg
     command:
       - "gotenberg"
