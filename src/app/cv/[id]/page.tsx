@@ -14,10 +14,6 @@ import { headers } from 'next/headers';
 import * as process from 'node:process';
 import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants';
 
-if (!process.env.PRINTER_SECRET) {
-  throw new Error('PDF Printer: Printer secret not found. Aborting..');
-}
-
 type Args = {
   params: Promise<{
     id: string;
@@ -71,6 +67,10 @@ const hasLexicalNodes = (data: PayloadLexicalReactRendererContent) => {
 };
 
 const Page = async ({ params, searchParams }: Args) => {
+  if (!process.env.PRINTER_SECRET) {
+    throw new Error('PDF Printer: Printer secret not found. Aborting..');
+  }
+
   const query = {
     params: await params,
     searchParams: await searchParams,
