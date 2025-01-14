@@ -2501,15 +2501,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-cloud-storage@npm:3.15.1":
-  version: 3.15.1
-  resolution: "@payloadcms/plugin-cloud-storage@npm:3.15.1"
+"@payloadcms/plugin-cloud-storage@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/plugin-cloud-storage@npm:3.17.1"
   dependencies:
     find-node-modules: "npm:^2.1.3"
     range-parser: "npm:^1.2.1"
   peerDependencies:
-    payload: 3.15.1
-  checksum: 10/db0d331bd745fab23d46ac60b028eab49eeb2c1a76515e6bc800ff779b15d69013cfbf56e4688ae371b7c76b04445089d7932175440574cbab70eed451cbb4b6
+    payload: 3.17.1
+  checksum: 10/3cecdbca5b96f3316b7a163b646671f2fc0a0a0d7b01330e2ded63a0b287d9bafa3cf17f081d5251d5c472f801bec5b24ba2384eeac5324cd7d58efd758db682
   languageName: node
   linkType: hard
 
@@ -2563,16 +2563,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/storage-s3@npm:3.15.1":
-  version: 3.15.1
-  resolution: "@payloadcms/storage-s3@npm:3.15.1"
+"@payloadcms/storage-s3@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/storage-s3@npm:3.17.1"
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.614.0"
     "@aws-sdk/lib-storage": "npm:^3.614.0"
-    "@payloadcms/plugin-cloud-storage": "npm:3.15.1"
+    "@payloadcms/plugin-cloud-storage": "npm:3.17.1"
   peerDependencies:
-    payload: 3.15.1
-  checksum: 10/321dbdd019fe31a902d71ce224e5193f72eb04e82ed5500ed0e2d16280772e0d047c4de0ae8bd273d1ffb951030a3368171ae71daa19456826150f92ee08ee95
+    payload: 3.17.1
+  checksum: 10/7aa53230eeaa9196ebeeb0cbbe33f0aea419420dd3ace3aee4f42374895f8139c1cb921d90eb42d68713794510629d319e58f874a45f3dec015555e48aa0720b
   languageName: node
   linkType: hard
 
@@ -4709,7 +4709,7 @@ __metadata:
     "@payloadcms/graphql": "npm:3.15.1"
     "@payloadcms/next": "npm:3.15.1"
     "@payloadcms/richtext-lexical": "npm:3.15.1"
-    "@payloadcms/storage-s3": "npm:3.15.1"
+    "@payloadcms/storage-s3": "npm:3.17.1"
     "@payloadcms/ui": "npm:3.15.1"
     "@swc/core": "npm:1.10.6"
     "@tailwindcss/typography": "npm:^0.5.16"
