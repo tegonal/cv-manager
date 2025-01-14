@@ -2474,14 +2474,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/next@npm:3.15.1":
-  version: 3.15.1
-  resolution: "@payloadcms/next@npm:3.15.1"
+"@payloadcms/graphql@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/graphql@npm:3.17.1"
+  dependencies:
+    graphql-scalars: "npm:1.22.2"
+    pluralize: "npm:8.0.0"
+    ts-essentials: "npm:10.0.3"
+    tsx: "npm:4.19.2"
+  peerDependencies:
+    graphql: ^16.8.1
+    payload: 3.17.1
+  bin:
+    payload-graphql: bin.js
+  checksum: 10/273cc54b354fd2b2bd196ba7c4070b71f135aa2e2304cec94152ee45c2d27c25e9b826825a68be94de9db39fadf33a8c08e866de033add76fd07fc1e5440f076
+  languageName: node
+  linkType: hard
+
+"@payloadcms/next@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/next@npm:3.17.1"
   dependencies:
     "@dnd-kit/core": "npm:6.0.8"
-    "@payloadcms/graphql": "npm:3.15.1"
-    "@payloadcms/translations": "npm:3.15.1"
-    "@payloadcms/ui": "npm:3.15.1"
+    "@payloadcms/graphql": "npm:3.17.1"
+    "@payloadcms/translations": "npm:3.17.1"
+    "@payloadcms/ui": "npm:3.17.1"
     busboy: "npm:^1.6.0"
     file-type: "npm:19.3.0"
     graphql-http: "npm:^1.22.0"
@@ -2496,8 +2513,8 @@ __metadata:
   peerDependencies:
     graphql: ^16.8.1
     next: ^15.0.0
-    payload: 3.15.1
-  checksum: 10/1cb8cbf5d35423d9f71aa2e59f07d5d31e6bd0a7721b2be5df96405ef0c441aac9946b2e9e2a73504331be0efa0d1959a3198a82d8768b7cc9ee2b4f6ed35563
+    payload: 3.17.1
+  checksum: 10/035241aac9a56ec38cfd952fead455f7a136430b35da12c1533a0869c3311a66c84e85708e07c5a6a68e3a005fc6c1997e2f78494cb2758fbaf7092e60080568
   languageName: node
   linkType: hard
 
@@ -2585,6 +2602,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/translations@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/translations@npm:3.17.1"
+  dependencies:
+    date-fns: "npm:4.1.0"
+  checksum: 10/e1be1e7dfb6f239701e582bb357d43eca8213d360cabae64fbe7dc80a5bbdff902f7e5679e40327d23cfa694c7416235a76a8e3e68c455fbd6bfef1f8ce82a47
+  languageName: node
+  linkType: hard
+
 "@payloadcms/ui@npm:3.15.1":
   version: 3.15.1
   resolution: "@payloadcms/ui@npm:3.15.1"
@@ -2617,6 +2643,41 @@ __metadata:
     react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
     react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
   checksum: 10/b4a0a5b34c5f6081ee3af0ba89821961c97cac6d3bd92ebb90b43db7478b291fae899f6849fff7524ee701cd543664f61e82c58d75171946463f8dd228aec2e8
+  languageName: node
+  linkType: hard
+
+"@payloadcms/ui@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/ui@npm:3.17.1"
+  dependencies:
+    "@dnd-kit/core": "npm:6.0.8"
+    "@dnd-kit/sortable": "npm:7.0.2"
+    "@faceless-ui/modal": "npm:3.0.0-beta.2"
+    "@faceless-ui/scroll-info": "npm:2.0.0-beta.0"
+    "@faceless-ui/window-info": "npm:3.0.0-beta.0"
+    "@monaco-editor/react": "npm:4.6.0"
+    "@payloadcms/translations": "npm:3.17.1"
+    body-scroll-lock: "npm:4.0.0-beta.0"
+    bson-objectid: "npm:2.0.4"
+    date-fns: "npm:4.1.0"
+    dequal: "npm:2.0.3"
+    md5: "npm:2.3.0"
+    object-to-formdata: "npm:4.5.1"
+    qs-esm: "npm:7.0.2"
+    react-datepicker: "npm:7.6.0"
+    react-image-crop: "npm:10.1.8"
+    react-select: "npm:5.9.0"
+    scheduler: "npm:0.25.0"
+    sonner: "npm:^1.7.0"
+    ts-essentials: "npm:10.0.3"
+    use-context-selector: "npm:2.0.0"
+    uuid: "npm:10.0.0"
+  peerDependencies:
+    next: ^15.0.0
+    payload: 3.17.1
+    react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
+    react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
+  checksum: 10/c80bc0bf8756179c7b49b8e77ca7b3e6f635de36ddcb209feba127efcac26fc8f707024d36d462166df32c3a2c33f53ae505b2589247fb94a4da65ae7e2624cb
   languageName: node
   linkType: hard
 
@@ -4707,7 +4768,7 @@ __metadata:
     "@payloadcms/db-postgres": "npm:3.15.1"
     "@payloadcms/email-nodemailer": "npm:3.15.1"
     "@payloadcms/graphql": "npm:3.15.1"
-    "@payloadcms/next": "npm:3.15.1"
+    "@payloadcms/next": "npm:3.17.1"
     "@payloadcms/richtext-lexical": "npm:3.15.1"
     "@payloadcms/storage-s3": "npm:3.15.1"
     "@payloadcms/ui": "npm:3.15.1"
