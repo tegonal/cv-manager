@@ -2412,11 +2412,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-postgres@npm:3.15.1":
-  version: 3.15.1
-  resolution: "@payloadcms/db-postgres@npm:3.15.1"
+"@payloadcms/db-postgres@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/db-postgres@npm:3.17.1"
   dependencies:
-    "@payloadcms/drizzle": "npm:3.15.1"
+    "@payloadcms/drizzle": "npm:3.17.1"
     "@types/pg": "npm:8.10.2"
     console-table-printer: "npm:2.12.1"
     drizzle-kit: "npm:0.28.0"
@@ -2426,14 +2426,14 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:10.0.0"
   peerDependencies:
-    payload: 3.15.1
-  checksum: 10/3718c37f2a42fbed7bb89dbd7c80e669547e1c9f0662a18a1d70f48b1e87fe38ce7ea043812d182f58893c526f8fee42943c578deae2da626ff1b4d1be8d0330
+    payload: 3.17.1
+  checksum: 10/3030a69adaa8811a7a96052a5998c79363109bbb38f66f5c8fa2043ffa629db661813913431f1f4ddf6295fa8c767b38b650215f5a7f5e1fb56fecb1fa02540b
   languageName: node
   linkType: hard
 
-"@payloadcms/drizzle@npm:3.15.1":
-  version: 3.15.1
-  resolution: "@payloadcms/drizzle@npm:3.15.1"
+"@payloadcms/drizzle@npm:3.17.1":
+  version: 3.17.1
+  resolution: "@payloadcms/drizzle@npm:3.17.1"
   dependencies:
     console-table-printer: "npm:2.12.1"
     drizzle-orm: "npm:0.36.1"
@@ -2441,8 +2441,8 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:9.0.0"
   peerDependencies:
-    payload: 3.15.1
-  checksum: 10/0b01efba689a56781014ae681d3fe19ae28b531afdc8e5d4360d1d8a23d19bd6946853baa27c5471ad4f5999e865bc2cc9f48fcaf3d7f3687300277331718954
+    payload: 3.17.1
+  checksum: 10/441f1b99ae1e87c3cdbf8122f1b0cbe265faf1fc2aba26a93911458dffd1665a7f98577e24f0c59915f9f96892cb74a0e189400fab617b4eb71bdf298769afb3
   languageName: node
   linkType: hard
 
@@ -4704,7 +4704,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cv-manager@workspace:."
   dependencies:
-    "@payloadcms/db-postgres": "npm:3.15.1"
+    "@payloadcms/db-postgres": "npm:3.17.1"
     "@payloadcms/email-nodemailer": "npm:3.15.1"
     "@payloadcms/graphql": "npm:3.15.1"
     "@payloadcms/next": "npm:3.15.1"
