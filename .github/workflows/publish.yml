@@ -7,6 +7,8 @@ on:
 
 jobs:
   build-and-push-image:
+    # Run only in non-forked repository
+    if: github.repository == 'tegonal/cv-manager'
     runs-on: ubuntu-latest
     permissions:
       contents: read
