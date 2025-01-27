@@ -5,11 +5,22 @@ type Props = {
   title: string | undefined | null;
   subtitle: string | undefined | null;
   description: any;
+  borderLeftColor?: string;
 };
 
-export const HighlightEntry: React.FC<Props> = ({ title, subtitle, description }) => {
+export const HighlightEntry: React.FC<Props> = ({
+  title,
+  subtitle,
+  description,
+  borderLeftColor,
+}) => {
   return (
-    <div className={'no-page-break relative rounded border-l-8 border-l-lime-600 bg-gray-100 p-2'}>
+    <div
+      className={
+        'no-page-break relative rounded border-l-8 ' +
+        (borderLeftColor || 'border-l-slate-500') +
+        ' bg-gray-100 p-2'
+      }>
       <p className={'pr-8 font-bold'}>{title}</p>
       <p className={'pr-8 text-xs'}>{subtitle}</p>
       <div>
