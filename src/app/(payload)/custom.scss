@@ -1,7 +1,5 @@
 @layer payload-default {
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+  @import "tailwindcss";
 }
 
 .field-type.array-field {

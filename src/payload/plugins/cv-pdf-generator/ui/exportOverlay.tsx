@@ -154,7 +154,7 @@ export const ExportOverlay: React.FC = () => {
                     <li
                       key={field.key}
                       className={
-                        'flex select-none gap-2 p-2 hover:cursor-pointer hover:bg-emerald-200/15'
+                        'flex gap-2 p-2 select-none hover:cursor-pointer hover:bg-emerald-200/15'
                       }
                       onClick={() => onCheckboxChange(field.key)}>
                       <input

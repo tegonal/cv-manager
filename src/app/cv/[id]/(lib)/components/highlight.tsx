@@ -15,7 +15,7 @@ export const HighlightEntry: React.FC<Props> = ({ title, subtitle, description }
       <div>
         <PayloadLexicalReactRenderer content={description} />
       </div>
-      <div className={'absolute right-2 top-2 size-6 text-gray-400'}>
+      <div className={'absolute top-2 right-2 size-6 text-gray-400'}>
         <IconHighlight />
       </div>
     </div>
