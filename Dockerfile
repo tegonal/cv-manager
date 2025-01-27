@@ -1,6 +1,6 @@
 # Build main app package
 FROM node:22 AS builder
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app
 COPY ./ ./
@@ -12,7 +12,7 @@ RUN rm -rf .git
 
 FROM node:22-slim AS runner
 RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app
 

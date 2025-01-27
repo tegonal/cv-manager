@@ -7,6 +7,8 @@ import { buildConfig } from 'payload';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
+import { mongooseAdapter } from '@payloadcms/db-mongodb';
+import { sqliteAdapter } from '@payloadcms/db-sqlite';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 import { CV } from '@/payload/collections/CVs';
@@ -22,9 +24,38 @@ import { Projects } from '@/payload/collections/Projects';
 import { OAuth2Plugin } from 'payload-oauth2';
 import { SkillGroups } from '@/payload/collections/SkillGroups';
 import { Languages } from '@/payload/collections/Languages';
+import { migrations } from './src/migrations';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+
+const determineDatabase = (url?: string) => {
+  if (url?.startsWith('postgres://')) {
+    return postgresAdapter({
+      pool: {
+        connectionString: url,
+      },
+      prodMigrations: migrations,
+    });
+  } else if (url?.startsWith('mongodb://')) {
+    return mongooseAdapter({
+      url: url,
+    });
+  } else if (url?.startsWith('file://')) {
+    return sqliteAdapter({
+      client: {
+        url: url,
+      },
+    });
+  } else {
+    console.log('No supported database configured, default to sqlite');
+    return sqliteAdapter({
+      client: {
+        url: 'file:///cv-manager.db',
+      },
+    });
+  }
+};
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -44,11 +75,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'src', 'types', 'payload-types.ts'),
   },
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.POSTGRES_URI || '',
-    },
-  }),
+  db: determineDatabase(process.env.DATABASE_URI),
   localization: {
     locales: [
       {
@@ -111,23 +138,26 @@ export default buildConfig({
     },
   },
   serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
-  email: nodemailerAdapter({
-    defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
-    defaultFromName: process.env.SMTP_FROM_ADDRESS || '',
-    transportOptions: {
-      host: process.env.SMTP_HOST || '',
-      port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587,
-      auth: {
-        user: process.env.SMTP_USER || '',
-        pass: process.env.SMTP_PASS || '',
-      },
-    },
-  }),
+  email: process.env.SMTP_HOST
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
+        defaultFromName: process.env.SMTP_FROM_ADDRESS || '',
+        transportOptions: {
+          host: process.env.SMTP_HOST || '',
+          port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587,
+          auth: {
+            user: process.env.SMTP_USER || '',
+            pass: process.env.SMTP_PASS || '',
+          },
+        },
+      })
+    : undefined,
   async onInit(payload) {
     await seedDevUser(payload);
   },
   plugins: [
     s3Storage({
+      enabled: process.env.S3_ENDPOINT !== undefined,
       collections: {
         media: { prefix: 'media' },
       },
@@ -151,7 +181,7 @@ export default buildConfig({
     OAuth2Plugin({
       strategyName: 'oauth2',
       useEmailAsIdentity: false,
-      enabled: true,
+      enabled: process.env.OAUTH_CLIENT_ID !== undefined,
       serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
       authCollection: Users.slug,
       clientId: process.env.OAUTH_CLIENT_ID || '',
