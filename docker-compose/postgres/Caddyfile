@@ -1,4 +1,4 @@
-# Replace with the hostname of NEXT_PUBLIC_URL
+# Replace with the hostname of PUBLIC_URL
 localhost {
   reverse_proxy app:3000
 }

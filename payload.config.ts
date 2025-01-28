@@ -61,7 +61,7 @@ const determineDatabase = (url?: string) => {
   }
 };
 
-console.error('Starting server with serverUrl '+process.env.NEXT_PUBLIC_URL)
+console.error('Starting server with serverUrl '+process.env.PUBLIC_URL)
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -143,7 +143,7 @@ export default buildConfig({
       titleSuffix: '- CV Manager',
     },
   },
-  serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
         defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
@@ -188,7 +188,7 @@ export default buildConfig({
       strategyName: 'oauth2',
       useEmailAsIdentity: false,
       enabled: process.env.OAUTH_CLIENT_ID !== undefined,
-      serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+      serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
       authCollection: Users.slug,
       clientId: process.env.OAUTH_CLIENT_ID || '',
       clientSecret: process.env.OAUTH_CLIENT_SECRET || '',
