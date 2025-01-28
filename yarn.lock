@@ -4915,6 +4915,7 @@ __metadata:
     chromiumly: "npm:^3.11.0"
     cross-env: "npm:^7.0.3"
     dotenv: "npm:^16.4.7"
+    env-cmd: "npm:^10.1.0"
     eslint: "npm:^9.19.0"
     eslint-config-next: "npm:15.1.6"
     eslint-config-prettier: "npm:^10.0.0"
@@ -5363,6 +5364,18 @@ __metadata:
   version: 4.5.0
   resolution: "entities@npm:4.5.0"
   checksum: 10/ede2a35c9bce1aeccd055a1b445d41c75a14a2bb1cd22e242f20cf04d236cdcd7f9c859eb83f76885327bfae0c25bf03303665ee1ce3d47c5927b98b0e3e3d48
+  languageName: node
+  linkType: hard
+
+"env-cmd@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "env-cmd@npm:10.1.0"
+  dependencies:
+    commander: "npm:^4.0.0"
+    cross-spawn: "npm:^7.0.0"
+  bin:
+    env-cmd: bin/env-cmd.js
+  checksum: 10/54516db019e3c5fbbd3b5da4c74e63e18b20266c0df791890dec89c6c60a0617ad8530356499f8355cc422838f3b7922450239728b3be0a1f38b51503d42a232
   languageName: node
   linkType: hard
 

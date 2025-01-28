@@ -12,7 +12,7 @@
  */
 export type UserOrganisations =
   | {
-      organisation: string | Organisation;
+      organisation: number | Organisation;
       roles: ('admin' | 'user')[];
       id?: string | null;
     }[]
@@ -65,7 +65,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {};
   globalsSelect: {};
@@ -101,12 +101,12 @@ export interface UserAuthOperations {
  * via the `definition` "cv".
  */
 export interface Cv {
-  id: string;
+  id: number;
   /**
    * Your full name as you would like to have it displayed on your profile.
    */
   fullName: string;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   /**
    * Write an introduction about yourself. Try to cover some personal topics and your professional background. Please do not use formatting.
    */
@@ -149,8 +149,8 @@ export interface Cv {
   links?: SocialLinks;
   lang?:
     | {
-        language: string | Lang;
-        level: string | Level;
+        language: number | Lang;
+        level: number | Level;
         id?: string | null;
       }[]
     | null;
@@ -162,13 +162,13 @@ export interface Cv {
         skill:
           | {
               relationTo: 'skill';
-              value: string | Skill;
+              value: number | Skill;
             }
           | {
               relationTo: 'skillGroup';
-              value: string | SkillGroup;
+              value: number | SkillGroup;
             };
-        level?: (string | null) | Level;
+        level?: (number | null) | Level;
         description?: {
           root: {
             type: string;
@@ -189,7 +189,7 @@ export interface Cv {
     | null;
   skillGroups?:
     | {
-        group: string | SkillGroup;
+        group: number | SkillGroup;
         /**
          * Add a description to the skill group to describe your specific skills in that area.
          */
@@ -213,14 +213,14 @@ export interface Cv {
               skill:
                 | {
                     relationTo: 'skill';
-                    value: string | Skill;
+                    value: number | Skill;
                   }
                 | {
                     relationTo: 'skillGroup';
-                    value: string | SkillGroup;
+                    value: number | SkillGroup;
                   };
-              level?: (string | null) | Level;
-              'sub-skill'?: (string | Skill)[] | null;
+              level?: (number | null) | Level;
+              'sub-skill'?: (number | Skill)[] | null;
               id?: string | null;
             }[]
           | null;
@@ -230,7 +230,7 @@ export interface Cv {
   otherSkills?:
     | {
         name: string;
-        level?: (string | null) | Level;
+        level?: (number | null) | Level;
         id?: string | null;
       }[]
     | null;
@@ -332,7 +332,7 @@ export interface Cv {
    */
   jobHighlights?:
     | {
-        company: string | Company;
+        company: number | Company;
         fromYear?: string | null;
         toYear?: string | null;
         description?: {
@@ -355,8 +355,8 @@ export interface Cv {
     | null;
   projects?:
     | {
-        company: string | Company;
-        project: string | Project;
+        company: number | Company;
+        project: number | Project;
         fromYear: string;
         toYear?: string | null;
         description?: {
@@ -380,9 +380,9 @@ export interface Cv {
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -391,14 +391,14 @@ export interface Cv {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt?: string | null;
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -443,11 +443,11 @@ export interface Media {
  * via the `definition` "organisations".
  */
 export interface Organisation {
-  id: string;
+  id: number;
   name: string;
   description?: string | null;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -456,12 +456,12 @@ export interface Organisation {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   firstName?: string | null;
   lastName?: string | null;
   roles?: ('admin' | 'user')[] | null;
   organisations?: UserOrganisations;
-  selectedOrganisation?: (string | null) | Organisation;
+  selectedOrganisation?: (number | null) | Organisation;
   sub?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -479,14 +479,14 @@ export interface User {
  * via the `definition` "langs".
  */
 export interface Lang {
-  id: string;
+  id: number;
   name?: string | null;
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -495,7 +495,7 @@ export interface Lang {
  * via the `definition` "level".
  */
 export interface Level {
-  id: string;
+  id: number;
   level?: string | null;
   description?: string | null;
   levelType?: ('language' | 'skill')[] | null;
@@ -503,9 +503,9 @@ export interface Level {
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -514,7 +514,7 @@ export interface Level {
  * via the `definition` "skill".
  */
 export interface Skill {
-  id: string;
+  id: number;
   name?: string | null;
   description?: {
     root: {
@@ -534,9 +534,9 @@ export interface Skill {
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -545,14 +545,14 @@ export interface Skill {
  * via the `definition` "skillGroup".
  */
 export interface SkillGroup {
-  id: string;
+  id: number;
   name?: string | null;
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -561,14 +561,14 @@ export interface SkillGroup {
  * via the `definition` "company".
  */
 export interface Company {
-  id: string;
+  id: number;
   name?: string | null;
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -577,7 +577,7 @@ export interface Company {
  * via the `definition` "project".
  */
 export interface Project {
-  id: string;
+  id: number;
   name?: string | null;
   description?: {
     root: {
@@ -597,9 +597,9 @@ export interface Project {
   /**
    * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
    */
-  organisation?: (string | null) | Organisation;
-  createdBy?: (string | null) | User;
-  updatedBy?: (string | null) | User;
+  organisation?: (number | null) | Organisation;
+  createdBy?: (number | null) | User;
+  updatedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -608,52 +608,52 @@ export interface Project {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'cv';
-        value: string | Cv;
+        value: number | Cv;
       } | null)
     | ({
         relationTo: 'skill';
-        value: string | Skill;
+        value: number | Skill;
       } | null)
     | ({
         relationTo: 'skillGroup';
-        value: string | SkillGroup;
+        value: number | SkillGroup;
       } | null)
     | ({
         relationTo: 'langs';
-        value: string | Lang;
+        value: number | Lang;
       } | null)
     | ({
         relationTo: 'level';
-        value: string | Level;
+        value: number | Level;
       } | null)
     | ({
         relationTo: 'company';
-        value: string | Company;
+        value: number | Company;
       } | null)
     | ({
         relationTo: 'project';
-        value: string | Project;
+        value: number | Project;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'organisations';
-        value: string | Organisation;
+        value: number | Organisation;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -663,10 +663,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -686,7 +686,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
