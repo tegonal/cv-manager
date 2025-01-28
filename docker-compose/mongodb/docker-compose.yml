@@ -1,16 +1,6 @@
 name: tegonal-cv
 
 services:
-  postgres:
-    image: postgres:16
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: cv-manager
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
 
   mongodb:
     image: mongo:8.0
@@ -21,17 +11,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
       - mongodb-data:/data/db
-
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    restart: unless-stopped
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: admin@localhost.com
-#      PGADMIN_DEFAULT_PASSWORD: admin
-#    ports:
-#      - "5050:80"
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
 
   minio:
     image: minio/minio:latest
@@ -95,10 +74,12 @@ services:
       retries: 3
     network_mode: "host"
 
+  cvmanager:
+    image: tegonal/cv-manager:latest
+    container_name: cv-manager
+
 volumes:
     mailpit-data:
-      driver: local
-    postgres-data:
       driver: local
     minio-data:
       driver: local

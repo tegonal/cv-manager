@@ -1,0 +1,172 @@
+
+services:
+
+  proxy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+#      - "9001:9001" # minio UI
+#      - "9001:9001/udp"
+#      - "5050:5050" # pgadmin
+#      - "5050:5050/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-certs:/certs
+    networks:
+        - external
+        - internal
+
+  app:
+    image: tegonal/cv-manager:latest2
+    container_name: app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - internal
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    restart: unless-stopped
+#    env_file:
+#      - .env
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    volumes:
+#      - pgadmin-data:/var/lib/pgadmin
+#    networks:
+#      - internal
+
+
+# Uncomment if you want to enable automatic backups
+  # pgbackup:
+  #   image: ghcr.io/tiredofit/docker-db-backup
+  #   restart: unless-stopped
+  #   volumes:
+  #     - pgbackup-data:/backup
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - internal
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mc", "ready", "local" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - .env
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - internal
+
+  createbucket:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set myminio http://minio:9000 ${S3_SECRET_ACCESS_KEY} ${S3_ACCESS_KEY_ID};
+      /usr/bin/mc mb myminio/cv-manager;
+      exit 0;
+      "
+
+# Uncomment if you want to enable automatic backups
+  # volume-backup:
+  #   image: offen/docker-volume-backup:v2.43.0
+  #   restart: unless-stopped
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     minio:
+  #       condition: service_healthy
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - caddy-data:/backup/caddy:ro
+  #     - caddy-certs:/backup/certs:ro
+  #     - minio-data:/backup/minio:ro
+  #     - pgbackup-data:/backup/pgbackup:ro
+  #     - pgadmin-data:/backup/pgadmin:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ./backups/volumes:/archive
+  #   networks:
+  #     - internal
+
+  gotenberg:
+    image: gotenberg/gotenberg:8.15
+    container_name: gotenberg
+    command:
+      - "gotenberg"
+      - "--libreoffice-auto-start=false"
+      - "--libreoffice-disable-routes=true"
+      - "--chromium-auto-start=true"
+      - "--chromium-ignore-certificate-errors=true"
+      - "--chromium-clear-cache=true"
+      - "--prometheus-disable-collect=true"
+      - "--webhook-disable=true"
+      - "--pdfengines-disable-routes=true"
+    environment:
+      - "TZ=Europe/Zurich"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+     - internal
+
+volumes:
+  caddy-data:
+  caddy-certs:
+  minio-data:
+  postgres-data:
+  #pgbackup-data:
+  #pgadmin-data:
+
+networks:
+  internal:
+    driver: bridge
+  external:
+    driver: bridge

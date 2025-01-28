@@ -1,0 +1,14 @@
+# Replace with the hostname of NEXT_PUBLIC_URL
+localhost {
+  reverse_proxy app:3000
+}
+
+# Make minio UI available
+# localhost:9001 {
+#      reverse_proxy minio:9001
+# }
+
+# Make pg_admin UI available
+# localhost:5050 {
+#      reverse_proxy pgadmin:80
+# }

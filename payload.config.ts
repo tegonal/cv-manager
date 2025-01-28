@@ -61,6 +61,8 @@ const determineDatabase = (url?: string) => {
   }
 };
 
+console.error('Starting server with serverUrl '+process.env.NEXT_PUBLIC_URL)
+
 export default buildConfig({
   editor: lexicalEditor(),
   collections: [
