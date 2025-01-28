@@ -24,7 +24,7 @@ import { Projects } from '@/payload/collections/Projects';
 import { OAuth2Plugin } from 'payload-oauth2';
 import { SkillGroups } from '@/payload/collections/SkillGroups';
 import { Languages } from '@/payload/collections/Languages';
-import { migrations } from './src/migrations';
+import { migrations } from './src/migrations/postgres';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -36,23 +36,27 @@ const determineDatabase = (url?: string) => {
         connectionString: url,
       },
       prodMigrations: migrations,
+      migrationDir: './src/migrations/postgres'
     });
   } else if (url?.startsWith('mongodb://')) {
     return mongooseAdapter({
       url: url,
+      migrationDir: './src/migrations/mongodb'
     });
   } else if (url?.startsWith('file://')) {
     return sqliteAdapter({
       client: {
         url: url,
       },
+      migrationDir: './src/migrations/sqlite'
     });
   } else {
     console.log('No supported database configured, default to sqlite');
     return sqliteAdapter({
       client: {
-        url: 'file:///cv-manager.db',
+        url: 'file:///tmp/cv-manager.db',
       },
+      migrationDir: './src/migrations/sqlite'
     });
   }
 };
@@ -176,7 +180,7 @@ export default buildConfig({
     cvPdfPlugin({
       templatePath: './data/cv-pdf/templates',
       collections: [CV.slug],
-      gotenbergUrl: process.env.GOTENBERG_PDF_URL || 'http://localhost:3030',
+      gotenbergUrl: process.env.GOTENBERG_PDF_URL || 'https://demo.gotenberg.dev',
     }),
     OAuth2Plugin({
       strategyName: 'oauth2',
