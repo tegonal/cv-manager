@@ -1,10 +1,8 @@
-## CV-Manager with Postgres backend
-Ready to use setup with postgres database adapter and starting the following docker images:
+## CV-Manager with MongoDB backend
+Ready to use setup with the mongo database adapter and starting the following docker images:
 * caddy as proxy server with self-signed certificates
-* postgres
+* mongo
 * gotenberg
-* pgadmin (optional)
-* pgbackup (optional)
 * cv-manager
 
 ### Secrets
@@ -14,8 +12,8 @@ Adjust at least the following secrets in the `.env` file to ensure you're runnin
 * `S3_SECRET_ACCESS_KEY`
 * `S3_ACCESS_KEY_ID`
 * `MINIO_ROOT_PASSWORD`
-* `POSTGRES_USER`
-* `POSTGRES_PASSWORD`
+* `MONGO_INITDB_ROOT_USERNAME`
+* `MONGO_INITDB_ROOT_PASSWORD`
 
 ### Run the application
 Start the docker image in the desired directory:

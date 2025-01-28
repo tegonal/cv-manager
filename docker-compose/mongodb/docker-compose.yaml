@@ -11,8 +11,6 @@ services:
       - "443:443/udp"
 #      - "9001:9001" # minio UI
 #      - "9001:9001/udp"
-#      - "5050:5050" # pgadmin
-#      - "5050:5050/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
@@ -31,7 +29,7 @@ services:
       timeout: 10s
       retries: 5
     depends_on:
-      postgres:
+      mongo:
         condition: service_healthy
       minio:
         condition: service_healthy
@@ -40,49 +38,21 @@ services:
     networks:
       - internal
 
-  postgres:
-    image: postgres:16
-    container_name: postgres
+  mongo:
+    image: mongo:8.0
+    container_name: mongo
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       timeout: 5s
       retries: 5
     env_file:
       - .env
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - mongo-data:/data/db
     networks:
       - internal
-
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    restart: unless-stopped
-#    env_file:
-#      - .env
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
-#    networks:
-#      - internal
-
-
-# Uncomment if you want to enable automatic backups
-  # pgbackup:
-  #   image: ghcr.io/tiredofit/docker-db-backup
-  #   restart: unless-stopped
-  #   volumes:
-  #     - pgbackup-data:/backup
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - internal
 
   minio:
     image: minio/minio:latest
@@ -111,29 +81,6 @@ services:
       /usr/bin/mc mb myminio/cv-manager;
       exit 0;
       "
-
-# Uncomment if you want to enable automatic backups
-  # volume-backup:
-  #   image: offen/docker-volume-backup:v2.43.0
-  #   restart: unless-stopped
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #     minio:
-  #       condition: service_healthy
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - caddy-data:/backup/caddy:ro
-  #     - caddy-certs:/backup/certs:ro
-  #     - minio-data:/backup/minio:ro
-  #     - pgbackup-data:/backup/pgbackup:ro
-  #     - pgadmin-data:/backup/pgadmin:ro
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - ./backups/volumes:/archive
-  #   networks:
-  #     - internal
-
   gotenberg:
     image: gotenberg/gotenberg:8.15
     container_name: gotenberg
@@ -149,13 +96,13 @@ services:
       - "--webhook-disable=true"
       - "--pdfengines-disable-routes=true"      
       #- "--log-level=debug"
-    env_file:
-      - .env
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
       interval: 30s
       timeout: 20s
       retries: 3
+    env_file:
+      - .env
     networks:
      - internal
 
@@ -163,9 +110,7 @@ volumes:
   caddy-data:
   caddy-certs:
   minio-data:
-  postgres-data:
-  #pgbackup-data:
-  #pgadmin-data:
+  mongo-data:
 
 networks:
   internal:
