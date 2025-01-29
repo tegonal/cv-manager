@@ -1,9 +1,8 @@
 ## CV-Manager with MongoDB backend
 
-Ready to use setup with the mongo database adapter and starting the following docker images:
+Ready to use setup with the sqlite file db adapter and starting the following docker images:
 
 - caddy as proxy server with self-signed certificates
-- mongo
 - gotenberg
 - cv-manager
 
@@ -13,10 +12,6 @@ Adjust at least the following secrets in the `.env` file to ensure you're runnin
 
 - `PAYLOAD_SECRET`
 - `PRINTER_SECRET`
-- `S3_SECRET_ACCESS_KEY`
-- `S3_ACCESS_KEY_ID`
-- `MONGO_INITDB_ROOT_USERNAME`
-- `MONGO_INITDB_ROOT_PASSWORD`
 
 ### Run the application
 

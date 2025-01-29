@@ -56,8 +56,7 @@ export const requestHandler = async (
 
   try {
     const url = `${host}/cv/${id}?p=${searchParamString}`;
-    //if (process.env.NODE_ENV !== 'production')
-    console.log({ url });
+    if (process.env.NODE_ENV !== 'production') console.log({ url });
     return urlConverter.convert({
       extraHttpHeaders: extraHeaders,
       url,
