@@ -1,0 +1,43 @@
+# Replace with the hostname of PUBLIC_URL
+localhost {
+  @DirectAccess {
+    # exclude direct access to cv data used to render pdf
+    not path /cv/*
+  }
+
+  handle @DirectAccess {
+    reverse_proxy app:3000
+  }
+
+  handle {
+    # abort unhandled requests
+    respond "not-authorized" 403
+  }
+}
+
+# used as internal route from gotenberg to app to render cv data, forcing http
+http://caddy {  
+  @print_request {
+      header x-http-pdfprinter *
+      host caddy
+  }
+
+  handle @print_request {
+    reverse_proxy app:3000
+  }
+
+  handle {
+    # abort unhandled requests
+    respond "not-authorized" 403
+  }
+}
+
+# Make minio UI available
+# localhost:9001 {
+#      reverse_proxy minio:9001
+# }
+
+# Make pg_admin UI available
+# localhost:5050 {
+#      reverse_proxy pgadmin:80
+# }

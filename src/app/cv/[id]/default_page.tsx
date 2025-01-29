@@ -21,7 +21,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
     <>
       <header id={'companyLogo'}>
         <Image
-          src={'/' + process.env.DEFAULT_PAGE_COMPANY_LOGO || '/logo.png'}
+          src={'/' + (process.env.DEFAULT_PAGE_COMPANY_LOGO || 'logo.png')}
           alt={process.env.DEFAULT_PAGE_COMPANY_NAME || ''}
           width={Number(process.env.DEFAULT_PAGE_COMPANY_LOGO_WIDTH) || 20}
           height={Number(process.env.DEFAULT_PAGE_COMPANY_LOGO_HEIGHT) || 20}

@@ -1,0 +1,70 @@
+
+services:
+
+  proxy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-certs:/certs
+    networks:
+        - external
+        - internal
+
+  app:
+    image: tegonal/cv-manager:latest
+    container_name: app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    env_file:
+      - .env
+    volumes:
+      - app-data:/data
+    networks:
+      - internal
+    
+  gotenberg:
+    image: gotenberg/gotenberg:8.15
+    container_name: gotenberg
+    command:
+      - "gotenberg"
+      - "--libreoffice-auto-start=false"
+      - "--libreoffice-disable-routes=true"
+      - "--chromium-auto-start=true"
+      - "--chromium-ignore-certificate-errors=true"
+      - "--chromium-clear-cache=true"
+      - "--chromium-disable-web-security=true"
+      - "--prometheus-disable-collect=true"
+      - "--webhook-disable=true"
+      - "--pdfengines-disable-routes=true"      
+      #- "--log-level=debug"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    env_file:
+      - .env
+    networks:
+     - internal
+
+volumes:
+  caddy-data:
+  caddy-certs:
+  app-data:
+
+networks:
+  internal:
+    driver: bridge
+  external:
+    driver: bridge

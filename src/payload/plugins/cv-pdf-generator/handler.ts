@@ -31,7 +31,10 @@ export const requestHandler = async (
   Chromiumly.configure({ endpoint: pluginConfig.gotenbergUrl });
   const urlConverter = new UrlConverter();
 
-  const host = process.env.NEXT_PUBLIC_URL || 'http://host.docker.internal:3000';
+  const host =
+    process.env.GOTENBERG_TO_APP_URL ||
+    process.env.PUBLIC_URL ||
+    'http://host.docker.internal:3000';
 
   if (!host) {
     throw new Error('PDF Printer: Host undefined. Aborting..');

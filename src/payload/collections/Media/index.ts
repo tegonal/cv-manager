@@ -23,6 +23,9 @@ export const Media: CollectionConfig = {
     beforeChange: [assignOrgToUpload],
   },
   upload: {
+    // disable local storage if attached to an external S3 storage
+    disableLocalStorage: process.env.S3_ENDPOINT !== undefined,
+    staticDir: process.env.LOCAL_MEDIA_STORAGE_DIR || '/data/media',
     imageSizes: [
       {
         name: 'thumbnail',

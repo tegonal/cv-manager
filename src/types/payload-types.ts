@@ -399,7 +399,6 @@ export interface Media {
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
   updatedBy?: (number | null) | User;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -899,7 +898,6 @@ export interface MediaSelect<T extends boolean = true> {
   organisation?: T;
   createdBy?: T;
   updatedBy?: T;
-  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
