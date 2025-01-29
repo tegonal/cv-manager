@@ -190,7 +190,7 @@ export default buildConfig({
     OAuth2Plugin({
       strategyName: 'oauth2',
       useEmailAsIdentity: false,
-      enabled: process.env.OAUTH_CLIENT_ID !== undefined,
+      enabled: process.env.NEXT_PUBLIC_OAUTH_ENABLE == 'true' || false,
       serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
       authCollection: Users.slug,
       clientId: process.env.OAUTH_CLIENT_ID || '',
