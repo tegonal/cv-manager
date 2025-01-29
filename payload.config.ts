@@ -24,7 +24,9 @@ import { Projects } from '@/payload/collections/Projects';
 import { OAuth2Plugin } from 'payload-oauth2';
 import { SkillGroups } from '@/payload/collections/SkillGroups';
 import { Languages } from '@/payload/collections/Languages';
-import { migrations } from './src/migrations/postgres';
+import { migrations as postgresMigrations } from './src/migrations/postgres';
+import { migrations as mongodbMigrations } from './src/migrations/mongodb';
+import { migrations as sqliteMigrations } from './src/migrations/sqlite';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -35,20 +37,22 @@ const determineDatabase = (url?: string) => {
       pool: {
         connectionString: url,
       },
-      prodMigrations: migrations,
-      migrationDir: './src/migrations/postgres'
+      migrationDir: './src/migrations/postgres',
+      prodMigrations: postgresMigrations,
     });
   } else if (url?.startsWith('mongodb://')) {
     return mongooseAdapter({
       url: url,
-      migrationDir: './src/migrations/mongodb'
+      migrationDir: './src/migrations/mongodb',
+      prodMigrations: mongodbMigrations,
     });
   } else if (url?.startsWith('file://')) {
     return sqliteAdapter({
       client: {
         url: url,
       },
-      migrationDir: './src/migrations/sqlite'
+      migrationDir: './src/migrations/sqlite',
+      prodMigrations: sqliteMigrations,
     });
   } else {
     console.log('No supported database configured, default to sqlite');
@@ -56,12 +60,11 @@ const determineDatabase = (url?: string) => {
       client: {
         url: 'file:///tmp/cv-manager.db',
       },
-      migrationDir: './src/migrations/sqlite'
+      migrationDir: './src/migrations/sqlite',
+      prodMigrations: sqliteMigrations,
     });
   }
 };
-
-console.error('Starting server with serverUrl '+process.env.PUBLIC_URL)
 
 export default buildConfig({
   editor: lexicalEditor(),

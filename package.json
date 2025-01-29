@@ -22,7 +22,7 @@
     "migrate:create:mongodb": "env-cmd -f .env.local_mongodb -- yarn run migrate:create",
     "migrate:create:postgres": "env-cmd -f .env.local_postgres -- yarn run migrate:create",
     "migrate:create:sqlite": "env-cmd -f .env.local_sqlite -- yarn run migrate:create",
-    "migrate:create:all": "yarn run migrate:create:mongodb && yarn run migrate:create:postgres && yarn run migrate:create:sqlite",
+    "migrate:create:all": "yarn run migrate:create:postgres && yarn run migrate:create:sqlite",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "generate:types": "payload generate:types && yarn run lint",
     "generate:importMap": "payload generate:importMap && yarn run lint",
