@@ -2537,11 +2537,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-postgres@npm:3.19.0":
-  version: 3.19.0
-  resolution: "@payloadcms/db-postgres@npm:3.19.0"
+"@payloadcms/db-postgres@npm:3.20.0":
+  version: 3.20.0
+  resolution: "@payloadcms/db-postgres@npm:3.20.0"
   dependencies:
-    "@payloadcms/drizzle": "npm:3.19.0"
+    "@payloadcms/drizzle": "npm:3.20.0"
     "@types/pg": "npm:8.10.2"
     console-table-printer: "npm:2.12.1"
     drizzle-kit: "npm:0.28.0"
@@ -2551,8 +2551,8 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:10.0.0"
   peerDependencies:
-    payload: 3.19.0
-  checksum: 10/19e7c00097abe9022451d16f67eb8a8a3ac3672f3d067d6851b351a1a7cd9fb3c0a5b34359a34f7d1d5947c702b4b029fb01b303c63a5aa3027c3f0d808acc95
+    payload: 3.20.0
+  checksum: 10/bfe3e9b63553c44389db0d4f75bb1753fae1d4de8269a04fa771eb722f3b79a1bfe917f6a3db16813d7a57da08ec608aa7dd1073bd9fe73c07b97a885e3e6d31
   languageName: node
   linkType: hard
 
@@ -2586,6 +2586,21 @@ __metadata:
   peerDependencies:
     payload: 3.19.0
   checksum: 10/606e63e3ae4b6676924fa76eda928d31318e7434cdc333be6222b8d8858c3f11335cbae1781695743c59cf51bbe87c7d12881f1eba5cf87f7187f6407cc66c4c
+  languageName: node
+  linkType: hard
+
+"@payloadcms/drizzle@npm:3.20.0":
+  version: 3.20.0
+  resolution: "@payloadcms/drizzle@npm:3.20.0"
+  dependencies:
+    console-table-printer: "npm:2.12.1"
+    drizzle-orm: "npm:0.36.1"
+    prompts: "npm:2.4.2"
+    to-snake-case: "npm:1.0.0"
+    uuid: "npm:9.0.0"
+  peerDependencies:
+    payload: 3.20.0
+  checksum: 10/0f2d4fa20bb88203d926943ec9a3d0818c9643035a70ddc40c145ebbf19362bc69173c210a50b15fadcf83f43ade19e2c99367592937d90a8c98a5e0e51e1ba7
   languageName: node
   linkType: hard
 
@@ -4890,7 +4905,7 @@ __metadata:
   resolution: "cv-manager@workspace:."
   dependencies:
     "@payloadcms/db-mongodb": "npm:3.19.0"
-    "@payloadcms/db-postgres": "npm:3.19.0"
+    "@payloadcms/db-postgres": "npm:3.20.0"
     "@payloadcms/db-sqlite": "npm:3.19.0"
     "@payloadcms/email-nodemailer": "npm:3.19.0"
     "@payloadcms/graphql": "npm:3.19.0"
