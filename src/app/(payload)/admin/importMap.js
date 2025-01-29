@@ -27,7 +27,7 @@ import { RowLabelFirstText as RowLabelFirstText_3c155042d49e8cad65cddd438f13227f
 import { SaveButtonReplacer as SaveButtonReplacer_abe15da8360ef82ce201907c427c7d1a } from '/src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx';
 import { Icon as Icon_c91f387b1e1e266abbd316576a738bc6 } from 'src/graphics/Icon/index.tsx';
 import { Logo as Logo_0c05d89cc4c8a8bbbb6822cd8c3420f3 } from 'src/graphics/Logo/index.tsx';
-import { OAuthLoginButton as OAuthLoginButton_53e01bf128a2abcbd4dac91e546cd542 } from 'src/payload/components/oauth-login-button';
+import { OAuthServerLoginButton as OAuthServerLoginButton_b203fbaee741012621fc45713338946f } from 'src/payload/components/oauth-server-login-button';
 
 export const importMap = {
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
@@ -86,6 +86,6 @@ export const importMap = {
     SaveButtonReplacer_abe15da8360ef82ce201907c427c7d1a,
   'src/graphics/Icon/index.tsx#Icon': Icon_c91f387b1e1e266abbd316576a738bc6,
   'src/graphics/Logo/index.tsx#Logo': Logo_0c05d89cc4c8a8bbbb6822cd8c3420f3,
-  'src/payload/components/oauth-login-button#OAuthLoginButton':
-    OAuthLoginButton_53e01bf128a2abcbd4dac91e546cd542,
+  'src/payload/components/oauth-server-login-button#OAuthServerLoginButton':
+    OAuthServerLoginButton_b203fbaee741012621fc45713338946f,
 };

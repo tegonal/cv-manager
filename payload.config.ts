@@ -114,7 +114,7 @@ export default buildConfig({
       : {}),
     user: Users.slug,
     components: {
-      afterLogin: ['src/payload/components/oauth-login-button#OAuthLoginButton'],
+      afterLogin: ['src/payload/components/oauth-server-login-button#OAuthServerLoginButton'],
       graphics: {
         // shown in the nav bar
         Icon: 'src/graphics/Icon/index.tsx#Icon',
@@ -190,7 +190,7 @@ export default buildConfig({
     OAuth2Plugin({
       strategyName: 'oauth2',
       useEmailAsIdentity: false,
-      enabled: process.env.NEXT_PUBLIC_OAUTH_ENABLE == 'true' || false,
+      enabled: process.env.OAUTH_ENABLED === 'true' || false,
       serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
       authCollection: Users.slug,
       clientId: process.env.OAUTH_CLIENT_ID || '',

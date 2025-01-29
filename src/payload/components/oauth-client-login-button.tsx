@@ -1,7 +1,12 @@
 'use client';
-export const OAuthLoginButton: React.FC = () => (
+
+type ClientButtonProps = {
+  oauthEnabled: Boolean;
+};
+
+export const OAuthClientLoginButton: React.FC<ClientButtonProps> = ({ oauthEnabled }) => (
   <>
-    {process.env.NEXT_PUBLIC_OAUTH_ENABLE == 'true' && (
+    {oauthEnabled && (
       <div className={'w-full'}>
         <button
           type={'button'}

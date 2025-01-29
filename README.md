@@ -42,7 +42,7 @@ The following databases are supported by the cv-manager:
 
 The cv-manager support OAuth integration. To enable the oauth integration, provide the following configuration properties:
 
-- `NEXT_PUBLIC_OAUTH_ENABLE=true`
+- `OAUTH_ENABLED=true`
 - `OAUTH_CLIENT_ID`
 - `OAUTH_CLIENT_SECRET`
 - `OAUTH_TOKEN_ENDPOINT`
