@@ -2617,6 +2617,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/graphql@npm:3.20.0":
+  version: 3.20.0
+  resolution: "@payloadcms/graphql@npm:3.20.0"
+  dependencies:
+    graphql-scalars: "npm:1.22.2"
+    pluralize: "npm:8.0.0"
+    ts-essentials: "npm:10.0.3"
+    tsx: "npm:4.19.2"
+  peerDependencies:
+    graphql: ^16.8.1
+    payload: 3.20.0
+  bin:
+    payload-graphql: bin.js
+  checksum: 10/2344676727c1a61309621d43c092af430baf6289f845aa1d5b4bc9ad654f4f0237a8b53ab9f79cf463963b53c2d802283606c8032483ad7bcd608201024ed8f5
+  languageName: node
+  linkType: hard
+
 "@payloadcms/next@npm:3.19.0":
   version: 3.19.0
   resolution: "@payloadcms/next@npm:3.19.0"
@@ -4893,7 +4910,7 @@ __metadata:
     "@payloadcms/db-postgres": "npm:3.19.0"
     "@payloadcms/db-sqlite": "npm:3.19.0"
     "@payloadcms/email-nodemailer": "npm:3.19.0"
-    "@payloadcms/graphql": "npm:3.19.0"
+    "@payloadcms/graphql": "npm:3.20.0"
     "@payloadcms/next": "npm:3.19.0"
     "@payloadcms/richtext-lexical": "npm:3.19.0"
     "@payloadcms/storage-s3": "npm:3.19.0"
