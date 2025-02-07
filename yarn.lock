@@ -2589,14 +2589,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/email-nodemailer@npm:3.19.0":
-  version: 3.19.0
-  resolution: "@payloadcms/email-nodemailer@npm:3.19.0"
+"@payloadcms/email-nodemailer@npm:3.22.0":
+  version: 3.22.0
+  resolution: "@payloadcms/email-nodemailer@npm:3.22.0"
   dependencies:
     nodemailer: "npm:6.9.16"
   peerDependencies:
-    payload: 3.19.0
-  checksum: 10/542607d064f4ee021b1fb3650d424678440e721c811ea47c6f57680fa75dfa22afd1662be5eb7eeba85f810fe0a1ce1e29c9b9b8ba72b24afcebc041d5367c7b
+    payload: 3.22.0
+  checksum: 10/c9f442d3f6e17bbcb859b7924e65b072d8ab67ee0085056da2d3b81473de335685ae4a80c63d668bd75c3d8885797816be7f630248baa2184cf9d2b673be06ad
   languageName: node
   linkType: hard
 
@@ -4892,7 +4892,7 @@ __metadata:
     "@payloadcms/db-mongodb": "npm:3.19.0"
     "@payloadcms/db-postgres": "npm:3.19.0"
     "@payloadcms/db-sqlite": "npm:3.19.0"
-    "@payloadcms/email-nodemailer": "npm:3.19.0"
+    "@payloadcms/email-nodemailer": "npm:3.22.0"
     "@payloadcms/graphql": "npm:3.19.0"
     "@payloadcms/next": "npm:3.19.0"
     "@payloadcms/richtext-lexical": "npm:3.19.0"
