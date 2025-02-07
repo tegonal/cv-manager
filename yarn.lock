@@ -2522,9 +2522,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-mongodb@npm:3.19.0":
-  version: 3.19.0
-  resolution: "@payloadcms/db-mongodb@npm:3.19.0"
+"@payloadcms/db-mongodb@npm:3.22.0":
+  version: 3.22.0
+  resolution: "@payloadcms/db-mongodb@npm:3.22.0"
   dependencies:
     mongoose: "npm:8.9.5"
     mongoose-aggregate-paginate-v2: "npm:1.1.2"
@@ -2532,8 +2532,8 @@ __metadata:
     prompts: "npm:2.4.2"
     uuid: "npm:10.0.0"
   peerDependencies:
-    payload: 3.19.0
-  checksum: 10/a6e3b29849e751fcdfcdf5918c82bd4b974edfaba05a7cb71565c151d69c83bd1b6c0440453095e6d87e32ed33b401667be2757a388fe003b0c14d19190a4bd0
+    payload: 3.22.0
+  checksum: 10/680b41b8397f8974ae54263b9e4d0961c8377b16d914faea62755d897dfcd5fa5c56c35246b79b222f3874ed04023819f3c7aacc5abc9550b2b5185360668b11
   languageName: node
   linkType: hard
 
@@ -4889,7 +4889,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cv-manager@workspace:."
   dependencies:
-    "@payloadcms/db-mongodb": "npm:3.19.0"
+    "@payloadcms/db-mongodb": "npm:3.22.0"
     "@payloadcms/db-postgres": "npm:3.19.0"
     "@payloadcms/db-sqlite": "npm:3.19.0"
     "@payloadcms/email-nodemailer": "npm:3.19.0"
