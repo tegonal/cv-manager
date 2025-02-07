@@ -2556,12 +2556,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-sqlite@npm:3.19.0":
-  version: 3.19.0
-  resolution: "@payloadcms/db-sqlite@npm:3.19.0"
+"@payloadcms/db-sqlite@npm:3.22.0":
+  version: 3.22.0
+  resolution: "@payloadcms/db-sqlite@npm:3.22.0"
   dependencies:
     "@libsql/client": "npm:0.14.0"
-    "@payloadcms/drizzle": "npm:3.19.0"
+    "@payloadcms/drizzle": "npm:3.22.0"
     console-table-printer: "npm:2.12.1"
     drizzle-kit: "npm:0.28.0"
     drizzle-orm: "npm:0.36.1"
@@ -2569,8 +2569,8 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:9.0.0"
   peerDependencies:
-    payload: 3.19.0
-  checksum: 10/39c413af41d48493a44cb7240c9ef34bb5515acf0907e3545ffcf90dab923ae2bd2fb8b3b364645218c9df204d0aaf7123b26992f96de1d7fb6f0a069839c19c
+    payload: 3.22.0
+  checksum: 10/39e64331f0d5e6e0604e4d9ab81799dcaa4d8df20c1339c9b616fb594c588b8bb2a1809f9ef40559815400f2ea40d1d107b828f5c90c5154d51a3929cbf028ae
   languageName: node
   linkType: hard
 
@@ -2586,6 +2586,21 @@ __metadata:
   peerDependencies:
     payload: 3.19.0
   checksum: 10/606e63e3ae4b6676924fa76eda928d31318e7434cdc333be6222b8d8858c3f11335cbae1781695743c59cf51bbe87c7d12881f1eba5cf87f7187f6407cc66c4c
+  languageName: node
+  linkType: hard
+
+"@payloadcms/drizzle@npm:3.22.0":
+  version: 3.22.0
+  resolution: "@payloadcms/drizzle@npm:3.22.0"
+  dependencies:
+    console-table-printer: "npm:2.12.1"
+    drizzle-orm: "npm:0.36.1"
+    prompts: "npm:2.4.2"
+    to-snake-case: "npm:1.0.0"
+    uuid: "npm:9.0.0"
+  peerDependencies:
+    payload: 3.22.0
+  checksum: 10/95e18f94a8bd97337807557dfced6d6413e5b79f7e1e205d4721a6a217a4fb4cb63179c3a69332946d9840f733913f740ea761d227f58af55aa42d2531a03489
   languageName: node
   linkType: hard
 
@@ -4891,7 +4906,7 @@ __metadata:
   dependencies:
     "@payloadcms/db-mongodb": "npm:3.19.0"
     "@payloadcms/db-postgres": "npm:3.19.0"
-    "@payloadcms/db-sqlite": "npm:3.19.0"
+    "@payloadcms/db-sqlite": "npm:3.22.0"
     "@payloadcms/email-nodemailer": "npm:3.19.0"
     "@payloadcms/graphql": "npm:3.19.0"
     "@payloadcms/next": "npm:3.19.0"

@@ -36,7 +36,7 @@
   "dependencies": {
     "@payloadcms/db-mongodb": "3.19.0",
     "@payloadcms/db-postgres": "3.19.0",
-    "@payloadcms/db-sqlite": "3.19.0",
+    "@payloadcms/db-sqlite": "3.22.0",
     "@payloadcms/email-nodemailer": "3.19.0",
     "@payloadcms/next": "3.19.0",
     "@payloadcms/richtext-lexical": "3.19.0",
