@@ -142,7 +142,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 {cv.certs?.map((item) => (
                   <div key={item.id} className={'no-page-break'}>
                     <p className={'font-normal'}>{item.name}</p>
-                    <p className={'small'}>{fromToYear(locale, item.toYear)}</p>
+                    <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -157,7 +157,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 {cv.courses?.map((item) => (
                   <div key={item.id} className={'no-page-break'}>
                     <p className={'font-normal'}>{item.name}</p>
-                    <p className={'small'}>{fromToYear(locale, item.toYear)}</p>
+                    <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
