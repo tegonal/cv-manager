@@ -209,7 +209,7 @@ export default buildConfig({
           };
         } catch (error) {
           console.error(error);
-          return null;
+          return {};
         }
       },
       successRedirect: () => {
