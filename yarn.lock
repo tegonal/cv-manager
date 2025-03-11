@@ -5400,7 +5400,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.3"
     graphql: "npm:^16.10.0"
     jsonwebtoken: "npm:^9.0.2"
-    ky: "npm:^1.7.3"
+    ky: "npm:^1.7.5"
     lodash-es: "npm:^4.17.21"
     next: "npm:15.1.6"
     nodemailer: "npm:^6.10.0"
@@ -8062,10 +8062,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ky@npm:^1.7.3":
-  version: 1.7.4
-  resolution: "ky@npm:1.7.4"
-  checksum: 10/a5e98434866e4e8e691f76aaa4b4d5bd3abe6527dbb0e853ee37c4475852af6e0cbeef442be31b6824ca7fd3998740492419a45be60352836b9a21a54458f56c
+"ky@npm:^1.7.5":
+  version: 1.7.5
+  resolution: "ky@npm:1.7.5"
+  checksum: 10/aabb9688ca9a1839c8c0a9e7ff12a5d12f6905fb6a9892ac3ff9be6a9f16c5890ec02f00aec1a64cf548f795a5eaa7154f3e3e44ffa81f1cf5d9a90be8b6a9b3
   languageName: node
   linkType: hard
 
