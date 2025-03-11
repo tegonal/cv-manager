@@ -5409,7 +5409,7 @@ __metadata:
     env-cmd: "npm:^10.1.0"
     eslint: "npm:^9.22.0"
     eslint-config-next: "npm:15.2.1"
-    eslint-config-prettier: "npm:^10.0.0"
+    eslint-config-prettier: "npm:^10.1.1"
     eslint-plugin-jsonc: "npm:^2.19.1"
     eslint-plugin-prettier: "npm:^5.2.3"
     graphql: "npm:^16.10.0"
@@ -5426,7 +5426,7 @@ __metadata:
     prettier-plugin-tailwindcss: "npm:^0.6.11"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
-    react-i18next: "npm:^15.4.0"
+    react-i18next: "npm:^15.4.1"
     react-router-dom: "npm:7.3.0"
     sharp: "npm:0.33.5"
     tailwindcss: "npm:^3.4.16"
@@ -6370,14 +6370,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "eslint-config-prettier@npm:10.0.1"
+"eslint-config-prettier@npm:^10.1.1":
+  version: 10.1.1
+  resolution: "eslint-config-prettier@npm:10.1.1"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
-    eslint-config-prettier: build/bin/cli.js
-  checksum: 10/ba6875df0fc4fd3c7c6e2ec9c2e6a224462f7afc662f4cf849775c598a3571c1be136a9b683b12971653b3dcf3f31472aaede3076524b46ec9a77582630158e5
+    eslint-config-prettier: bin/cli.js
+  checksum: 10/e78e195a4f19e0de9bf655648bb3433877d6a5368537f1b1049976b74180844a00dd7c1ba3144e3da6e8b6864f8dcdfcda6c7338a537883fcf5b212ef6dcd0e0
   languageName: node
   linkType: hard
 
@@ -10112,9 +10112,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.4.0":
-  version: 15.4.0
-  resolution: "react-i18next@npm:15.4.0"
+"react-i18next@npm:^15.4.1":
+  version: 15.4.1
+  resolution: "react-i18next@npm:15.4.1"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
@@ -10126,7 +10126,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10/4b3666d819f01cf96a256af4419b26938d314e33c6388eafccc29f67ad02994e5d53e7bf82eac656cade7f7bcd04f4a237f0b293165d7eda91d62e3fde605a38
+  checksum: 10/fd1f2dbffd579d6ea35d5510734f997c11d4a09372a24db194daf5f3201a0f536992d558aa58863d20da4002994d1b6e6bd35cd1eab623f90afb97ea783a01b1
   languageName: node
   linkType: hard
 
