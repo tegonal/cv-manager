@@ -41,7 +41,7 @@ services:
       - internal
 
   postgres:
-    image: postgres:16
+    image: postgres:17
     container_name: postgres
     restart: unless-stopped
     healthcheck:
