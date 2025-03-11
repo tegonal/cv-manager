@@ -52,7 +52,7 @@
     "nodemailer": "^6.10.0",
     "pagedjs": "^0.4.3",
     "payload": "3.27.0",
-    "payload-oauth2": "^1.0.7",
+    "payload-oauth2": "^1.0.14",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-i18next": "^15.4.0",

@@ -5413,7 +5413,7 @@ __metadata:
     nodemailer: "npm:^6.10.0"
     pagedjs: "npm:^0.4.3"
     payload: "npm:3.27.0"
-    payload-oauth2: "npm:^1.0.7"
+    payload-oauth2: "npm:^1.0.14"
     postcss: "npm:^8.5.3"
     prettier: "npm:^3.5.3"
     prettier-plugin-tailwindcss: "npm:^0.6.11"
@@ -9377,12 +9377,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"payload-oauth2@npm:^1.0.7":
-  version: 1.0.9
-  resolution: "payload-oauth2@npm:1.0.9"
+"payload-oauth2@npm:^1.0.14":
+  version: 1.0.14
+  resolution: "payload-oauth2@npm:1.0.14"
   peerDependencies:
     payload: ^3
-  checksum: 10/68b37fa7e8be60779fa670e8cd47968fd6893ecbb97831ab42f897ecb76c5af636e932d7dde6a78b989dc6d2248fc61942ef4330174f6913ca9ad20ccc490084
+  checksum: 10/2907f0266a65ee27b4204f8b653498f0412dc929f55ca9acc576ef5a711dadb0546db4171d25c31f7fd0dc416a3718368fd5465642d2d6885e371ce0dbfd4863
   languageName: node
   linkType: hard
 
