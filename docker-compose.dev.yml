@@ -2,7 +2,7 @@ name: tegonal-cv
 
 services:
   postgres:
-    image: postgres:16
+    image: pgautoupgrade/pgautoupgrade:17-bookworm
     ports:
       - "5432:5432"
     environment:
