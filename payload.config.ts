@@ -44,7 +44,6 @@ const determineDatabase = (url?: string) => {
     return mongooseAdapter({
       url: url,
       migrationDir: './src/migrations/mongodb',
-      prodMigrations: mongodbMigrations,
     });
   } else if (url?.startsWith('file://')) {
     return sqliteAdapter({
@@ -189,7 +188,7 @@ export default buildConfig({
     }),
     OAuth2Plugin({
       strategyName: 'oauth2',
-      useEmailAsIdentity: false,
+      useEmailAsIdentity: true,
       enabled: process.env.OAUTH_ENABLED === 'true' || false,
       serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
       authCollection: Users.slug,
@@ -210,7 +209,7 @@ export default buildConfig({
           };
         } catch (error) {
           console.error(error);
-          return null;
+          return {};
         }
       },
       successRedirect: () => {

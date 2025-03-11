@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html className={rubik.className}>
-      <Script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js" strategy={'lazyOnload'} />
+      <Script src="/_next/static/paged.polyfill.min.js" strategy={'lazyOnload'} />
       <body>{children}</body>
     </html>
   );
