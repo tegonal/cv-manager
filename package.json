@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@payloadcms/graphql": "3.27.0",
-    "@swc/core": "1.10.11",
+    "@swc/core": "1.11.8",
     "@tailwindcss/typography": "^0.5.16",
     "@types/jsdom": "^21.1.7",
     "@types/jsonwebtoken": "^9.0.8",
