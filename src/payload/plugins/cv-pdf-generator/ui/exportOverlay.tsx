@@ -1,6 +1,7 @@
 'use client';
 import {
   Button,
+  CloseMenuIcon,
   Drawer,
   useConfig,
   useDocumentInfo,
@@ -8,7 +9,6 @@ import {
   useModal,
   useTranslation,
 } from '@payloadcms/ui';
-import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
 import React, { useEffect, useMemo } from 'react';
 import { Company, Cv, Project } from '@/types/payload-types';
 import { I18nCollection } from '@/lib/i18nCollection';
@@ -174,7 +174,7 @@ export const ExportOverlay: React.FC = () => {
               </div>
             ))}
           </div>
-          <div className={'flex flex-row gap-4'}>
+          <div className={'basis-xs flex'}>
             <GeneratePDFButton
               id={id}
               locale={locale.code}
@@ -193,9 +193,9 @@ export const ExportOverlay: React.FC = () => {
         <div>
           <Button
             buttonStyle="icon-label"
-            className={`${baseClass}__cancel`}
+            className={`${baseClass}__cancel size-10`}
             onClick={() => closeModal(drawerSlug)}>
-            <CloseIcon />
+            <CloseMenuIcon />
           </Button>
         </div>
       </div>
