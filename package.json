@@ -43,7 +43,7 @@
     "@payloadcms/storage-s3": "3.19.0",
     "@payloadcms/ui": "3.19.0",
     "babel-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
-    "chromiumly": "^3.11.0",
+    "chromiumly": "^4.0.0",
     "graphql": "^16.10.0",
     "jsonwebtoken": "^9.0.2",
     "ky": "^1.7.3",
