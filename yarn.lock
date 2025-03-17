@@ -5125,8 +5125,8 @@ __metadata:
   linkType: hard
 
 "chromiumly@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "chromiumly@npm:4.0.0"
+  version: 4.1.1
+  resolution: "chromiumly@npm:4.1.1"
   dependencies:
     config: "npm:3.x"
     dotenv: "npm:16.x"
@@ -5135,7 +5135,7 @@ __metadata:
       optional: true
     dotenv:
       optional: true
-  checksum: 10/b7ab77f11085762f900ff724240e903bc05c11b9bb94ca30ce33233d5cb002ff3a6c3c3bd3fc825ace9de448b21bef957333d4468f6d97433237483e38c60494
+  checksum: 10/39187c33b4f636cbe7e949877d6a103df12280daae1c880e725baef47c98fe9a7eab37981998709ed60b68eeb732651c7f70e01d726b52e7c841a3302f241550
   languageName: node
   linkType: hard
 
