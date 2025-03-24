@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import {
   PayloadLexicalReactRenderer,
   PayloadLexicalReactRendererContent,
-} from './payloadLexicalReactRenderer';
+} from './payloadLexicalReactRenderer'
 
 const content: PayloadLexicalReactRendererContent = {
   root: {
@@ -785,7 +785,7 @@ const content: PayloadLexicalReactRendererContent = {
     ],
     direction: 'ltr',
   },
-};
+}
 
 const content2: PayloadLexicalReactRendererContent = {
   root: {
@@ -1386,23 +1386,23 @@ const content2: PayloadLexicalReactRendererContent = {
     ],
     direction: 'ltr',
   },
-};
+}
 
 type Intro = {
-  text: string;
-  position: 'left' | 'right';
-};
+  text: string
+  position: 'left' | 'right'
+}
 
 type Code = {
-  title: string;
-  content: string;
-  language: string;
-};
+  title: string
+  content: string
+  language: string
+}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <PayloadLexicalReactRenderer<{
-      intro: Intro;
+      intro: Intro
     }>
       content={content}
       blockRenderers={{
@@ -1412,16 +1412,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               style={{
                 display: 'flex',
                 alignSelf: props.fields.position === 'left' ? 'flex-start' : 'flex-end',
-              }}>
+              }}
+            >
               {props.fields.position}
             </div>
-          );
+          )
         },
       }}
     />
 
     <PayloadLexicalReactRenderer<{
-      code: Code;
+      code: Code
     }>
       content={content2}
       blockRenderers={{
@@ -1430,9 +1431,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <pre>
               <code>{props.fields.content}</code>
             </pre>
-          );
+          )
         },
       }}
     />
   </React.StrictMode>,
-);
+)

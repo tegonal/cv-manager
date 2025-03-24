@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectLanguageLevel: Field = {
   name: 'level',
@@ -10,9 +10,9 @@ export const selectLanguageLevel: Field = {
   filterOptions: () => {
     return {
       levelType: { equals: 'language' },
-    };
+    }
   },
   admin: {
     width: '50%',
   },
-};
+}

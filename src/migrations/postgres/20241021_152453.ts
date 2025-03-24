@@ -1,15 +1,15 @@
-import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres';
-import { pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
+import { pgTable, serial, text } from 'drizzle-orm/pg-core'
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   const skillTable = pgTable('skill', {
     id: serial('id').primaryKey(),
     name: text('name').notNull(),
-  });
+  })
   // Get all skills prior
-  const skills = await payload.db.drizzle.select().from(skillTable);
+  const skills = await payload.db.drizzle.select().from(skillTable)
 
-  payload.logger.info({ msg: 'SkillMigration', total: skills.length });
+  payload.logger.info({ msg: 'SkillMigration', total: skills.length })
 
   await payload.db.drizzle.execute(sql`
    CREATE TABLE IF NOT EXISTS "cv_skill_groups_skills" (
@@ -274,10 +274,10 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "skill" DROP COLUMN IF EXISTS "name";
   ALTER TABLE "skill" DROP COLUMN IF EXISTS "skill_type";
   ALTER TABLE "project" DROP COLUMN IF EXISTS "name";
-  DROP TYPE "public"."enum_skill_skill_type";`);
+  DROP TYPE "public"."enum_skill_skill_type";`)
 
   for (const skill of skills) {
-    await payload.update({ collection: 'skill', id: skill.id, data: { name: skill.name } });
+    await payload.update({ collection: 'skill', id: skill.id, data: { name: skill.name } })
   }
 }
 
@@ -425,5 +425,5 @@ export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "cv_soft_skills_order_idx" ON "cv_soft_skills" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "cv_soft_skills_parent_id_idx" ON "cv_soft_skills" USING btree ("_parent_id");
   ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "skill_group_id";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "langs_id";`);
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "langs_id";`)
 }

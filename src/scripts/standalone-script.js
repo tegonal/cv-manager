@@ -3,19 +3,19 @@
  * and uses the Payload Local API to query the database.
  */
 
-import { getPayload } from 'payload';
-import { importConfig } from 'payload/node';
+import { getPayload } from 'payload'
+import { importConfig } from 'payload/node'
 
 async function run() {
-  const awaitedConfig = await importConfig('../../payload.config.ts');
-  const payload = await getPayload({ config: awaitedConfig });
+  const awaitedConfig = await importConfig('../../payload.config.ts')
+  const payload = await getPayload({ config: awaitedConfig })
 
   const pages = await payload.find({
     collection: 'pages',
-  });
+  })
 
-  console.log(pages);
-  process.exit(0);
+  console.log(pages)
+  process.exit(0)
 }
 
-run().catch(console.error);
+run().catch(console.error)

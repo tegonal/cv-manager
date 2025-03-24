@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
@@ -13,7 +13,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   CREATE INDEX IF NOT EXISTS "cv_lang_language_idx" ON "cv_lang" USING btree ("language_id");
-  ALTER TABLE "cv_lang" DROP COLUMN IF EXISTS "lang_id";`);
+  ALTER TABLE "cv_lang" DROP COLUMN IF EXISTS "lang_id";`)
 }
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
@@ -29,5 +29,5 @@ export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   END $$;
   
   CREATE INDEX IF NOT EXISTS "cv_lang_lang_idx" ON "cv_lang" USING btree ("lang_id");
-  ALTER TABLE "cv_lang" DROP COLUMN IF EXISTS "language_id";`);
+  ALTER TABLE "cv_lang" DROP COLUMN IF EXISTS "language_id";`)
 }

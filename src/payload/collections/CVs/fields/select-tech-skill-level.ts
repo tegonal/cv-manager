@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectTechSkillLevel: Field = {
   name: 'level',
@@ -10,11 +10,11 @@ export const selectTechSkillLevel: Field = {
   filterOptions: () => {
     return {
       levelType: { equals: 'skill' },
-    };
+    }
   },
   admin: {
     sortOptions: 'points',
     allowEdit: false,
     width: '50%',
   },
-};
+}

@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectCompany: Field = {
   name: 'company',
@@ -11,4 +11,4 @@ export const selectCompany: Field = {
     sortOptions: 'name',
     allowEdit: true,
   },
-};
+}

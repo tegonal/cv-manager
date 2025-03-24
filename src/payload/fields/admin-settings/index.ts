@@ -1,11 +1,11 @@
-import type { Field } from 'payload';
-import { organisationField } from '@/payload/fields/organisation';
-import { createdByField } from '@/payload/fields/created-by';
-import { updatedByField } from '@/payload/fields/updated-by';
+import type { Field } from 'payload'
+import { organisationField } from '@/payload/fields/organisation'
+import { createdByField } from '@/payload/fields/created-by'
+import { updatedByField } from '@/payload/fields/updated-by'
 
 type Props = {
-  sidebar?: boolean;
-};
+  sidebar?: boolean
+}
 
 export const adminSettingsField = ({ sidebar }: Props = {}): Field => ({
   type: 'row',
@@ -13,4 +13,4 @@ export const adminSettingsField = ({ sidebar }: Props = {}): Field => ({
   admin: {
     ...(sidebar && { position: 'sidebar' }),
   },
-});
+})

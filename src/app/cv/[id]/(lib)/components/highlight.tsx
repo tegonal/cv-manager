@@ -1,12 +1,12 @@
-import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer';
-import { IconHighlight } from '@/app/cv/[id]/(lib)/icon/highlight';
+import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
+import { IconHighlight } from '@/app/cv/[id]/(lib)/icon/highlight'
 
 type Props = {
-  title: string | undefined | null;
-  subtitle: string | undefined | null;
-  description: any;
-  borderLeftColor?: string;
-};
+  title: string | undefined | null
+  subtitle: string | undefined | null
+  description: any
+  borderLeftColor?: string
+}
 
 export const HighlightEntry: React.FC<Props> = ({
   title,
@@ -20,7 +20,8 @@ export const HighlightEntry: React.FC<Props> = ({
         'no-page-break relative rounded border-l-8 ' +
         (borderLeftColor || 'border-l-slate-500') +
         ' bg-gray-100 p-2'
-      }>
+      }
+    >
       <p className={'pr-8 font-bold'}>{title}</p>
       <p className={'pr-8 text-xs'}>{subtitle}</p>
       <div>
@@ -30,5 +31,5 @@ export const HighlightEntry: React.FC<Props> = ({
         <IconHighlight />
       </div>
     </div>
-  );
-};
+  )
+}

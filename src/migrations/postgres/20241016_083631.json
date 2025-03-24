@@ -77,12 +77,8 @@
           "name": "cv_links_parent_id_fk",
           "tableFrom": "cv_links",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -162,12 +158,8 @@
           "name": "cv_skill_highlights_skill_id_skill_id_fk",
           "tableFrom": "cv_skill_highlights",
           "tableTo": "skill",
-          "columnsFrom": [
-            "skill_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["skill_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -175,12 +167,8 @@
           "name": "cv_skill_highlights_level_id_level_id_fk",
           "tableFrom": "cv_skill_highlights",
           "tableTo": "level",
-          "columnsFrom": [
-            "level_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["level_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -188,12 +176,8 @@
           "name": "cv_skill_highlights_parent_id_fk",
           "tableFrom": "cv_skill_highlights",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -237,12 +221,8 @@
           "name": "cv_skill_highlights_locales_parent_id_fk",
           "tableFrom": "cv_skill_highlights_locales",
           "tableTo": "cv_skill_highlights",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -252,10 +232,7 @@
         "cv_skill_highlights_locales_locale_parent_id_unique": {
           "name": "cv_skill_highlights_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -331,12 +308,8 @@
           "name": "cv_languages_language_id_skill_id_fk",
           "tableFrom": "cv_languages",
           "tableTo": "skill",
-          "columnsFrom": [
-            "language_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["language_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -344,12 +317,8 @@
           "name": "cv_languages_level_id_level_id_fk",
           "tableFrom": "cv_languages",
           "tableTo": "level",
-          "columnsFrom": [
-            "level_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["level_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -357,12 +326,8 @@
           "name": "cv_languages_parent_id_fk",
           "tableFrom": "cv_languages",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -442,12 +407,8 @@
           "name": "cv_technologies_skill_id_skill_id_fk",
           "tableFrom": "cv_technologies",
           "tableTo": "skill",
-          "columnsFrom": [
-            "skill_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["skill_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -455,12 +416,8 @@
           "name": "cv_technologies_level_id_level_id_fk",
           "tableFrom": "cv_technologies",
           "tableTo": "level",
-          "columnsFrom": [
-            "level_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["level_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -468,12 +425,8 @@
           "name": "cv_technologies_parent_id_fk",
           "tableFrom": "cv_technologies",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -553,12 +506,8 @@
           "name": "cv_soft_skills_soft_skill_id_skill_id_fk",
           "tableFrom": "cv_soft_skills",
           "tableTo": "skill",
-          "columnsFrom": [
-            "soft_skill_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["soft_skill_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -566,12 +515,8 @@
           "name": "cv_soft_skills_level_id_level_id_fk",
           "tableFrom": "cv_soft_skills",
           "tableTo": "level",
-          "columnsFrom": [
-            "level_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["level_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -579,12 +524,8 @@
           "name": "cv_soft_skills_parent_id_fk",
           "tableFrom": "cv_soft_skills",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -658,12 +599,8 @@
           "name": "cv_other_skills_level_id_level_id_fk",
           "tableFrom": "cv_other_skills",
           "tableTo": "level",
-          "columnsFrom": [
-            "level_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["level_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -671,12 +608,8 @@
           "name": "cv_other_skills_parent_id_fk",
           "tableFrom": "cv_other_skills",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -720,12 +653,8 @@
           "name": "cv_other_skills_locales_parent_id_fk",
           "tableFrom": "cv_other_skills_locales",
           "tableTo": "cv_other_skills",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -735,10 +664,7 @@
         "cv_other_skills_locales_locale_parent_id_unique": {
           "name": "cv_other_skills_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -820,12 +746,8 @@
           "name": "cv_edu_highlights_parent_id_fk",
           "tableFrom": "cv_edu_highlights",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -869,12 +791,8 @@
           "name": "cv_edu_highlights_locales_parent_id_fk",
           "tableFrom": "cv_edu_highlights_locales",
           "tableTo": "cv_edu_highlights",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -884,10 +802,7 @@
         "cv_edu_highlights_locales_locale_parent_id_unique": {
           "name": "cv_edu_highlights_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -963,12 +878,8 @@
           "name": "cv_edu_parent_id_fk",
           "tableFrom": "cv_edu",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1018,12 +929,8 @@
           "name": "cv_edu_locales_parent_id_fk",
           "tableFrom": "cv_edu_locales",
           "tableTo": "cv_edu",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1033,10 +940,7 @@
         "cv_edu_locales_locale_parent_id_unique": {
           "name": "cv_edu_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -1106,12 +1010,8 @@
           "name": "cv_certs_parent_id_fk",
           "tableFrom": "cv_certs",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1161,12 +1061,8 @@
           "name": "cv_certs_locales_parent_id_fk",
           "tableFrom": "cv_certs_locales",
           "tableTo": "cv_certs",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1176,10 +1072,7 @@
         "cv_certs_locales_locale_parent_id_unique": {
           "name": "cv_certs_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -1249,12 +1142,8 @@
           "name": "cv_courses_parent_id_fk",
           "tableFrom": "cv_courses",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1304,12 +1193,8 @@
           "name": "cv_courses_locales_parent_id_fk",
           "tableFrom": "cv_courses_locales",
           "tableTo": "cv_courses",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1319,10 +1204,7 @@
         "cv_courses_locales_locale_parent_id_unique": {
           "name": "cv_courses_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -1404,12 +1286,8 @@
           "name": "cv_job_highlights_company_id_company_id_fk",
           "tableFrom": "cv_job_highlights",
           "tableTo": "company",
-          "columnsFrom": [
-            "company_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["company_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1417,12 +1295,8 @@
           "name": "cv_job_highlights_parent_id_fk",
           "tableFrom": "cv_job_highlights",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1466,12 +1340,8 @@
           "name": "cv_job_highlights_locales_parent_id_fk",
           "tableFrom": "cv_job_highlights_locales",
           "tableTo": "cv_job_highlights",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1481,10 +1351,7 @@
         "cv_job_highlights_locales_locale_parent_id_unique": {
           "name": "cv_job_highlights_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -1572,12 +1439,8 @@
           "name": "cv_projects_company_id_company_id_fk",
           "tableFrom": "cv_projects",
           "tableTo": "company",
-          "columnsFrom": [
-            "company_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["company_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1585,12 +1448,8 @@
           "name": "cv_projects_project_id_project_id_fk",
           "tableFrom": "cv_projects",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1598,12 +1457,8 @@
           "name": "cv_projects_parent_id_fk",
           "tableFrom": "cv_projects",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1647,12 +1502,8 @@
           "name": "cv_projects_locales_parent_id_fk",
           "tableFrom": "cv_projects_locales",
           "tableTo": "cv_projects",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1662,10 +1513,7 @@
         "cv_projects_locales_locale_parent_id_unique": {
           "name": "cv_projects_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -1770,12 +1618,8 @@
           "name": "cv_image_id_media_id_fk",
           "tableFrom": "cv",
           "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["image_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1783,12 +1627,8 @@
           "name": "cv_organisation_id_organisations_id_fk",
           "tableFrom": "cv",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1796,12 +1636,8 @@
           "name": "cv_created_by_id_users_id_fk",
           "tableFrom": "cv",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1809,12 +1645,8 @@
           "name": "cv_updated_by_id_users_id_fk",
           "tableFrom": "cv",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1876,12 +1708,8 @@
           "name": "cv_locales_parent_id_fk",
           "tableFrom": "cv_locales",
           "tableTo": "cv",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1891,10 +1719,7 @@
         "cv_locales_locale_parent_id_unique": {
           "name": "cv_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -1976,12 +1801,8 @@
           "name": "skill_organisation_id_organisations_id_fk",
           "tableFrom": "skill",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1989,12 +1810,8 @@
           "name": "skill_created_by_id_users_id_fk",
           "tableFrom": "skill",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2002,12 +1819,8 @@
           "name": "skill_updated_by_id_users_id_fk",
           "tableFrom": "skill",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2082,12 +1895,8 @@
           "name": "level_level_type_parent_fk",
           "tableFrom": "level_level_type",
           "tableTo": "level",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2166,12 +1975,8 @@
           "name": "level_organisation_id_organisations_id_fk",
           "tableFrom": "level",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2179,12 +1984,8 @@
           "name": "level_created_by_id_users_id_fk",
           "tableFrom": "level",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2192,12 +1993,8 @@
           "name": "level_updated_by_id_users_id_fk",
           "tableFrom": "level",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2247,12 +2044,8 @@
           "name": "level_locales_parent_id_fk",
           "tableFrom": "level_locales",
           "tableTo": "level",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2262,10 +2055,7 @@
         "level_locales_locale_parent_id_unique": {
           "name": "level_locales_locale_parent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "_locale",
-            "_parent_id"
-          ]
+          "columns": ["_locale", "_parent_id"]
         }
       }
     },
@@ -2340,12 +2130,8 @@
           "name": "company_organisation_id_organisations_id_fk",
           "tableFrom": "company",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2353,12 +2139,8 @@
           "name": "company_created_by_id_users_id_fk",
           "tableFrom": "company",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2366,12 +2148,8 @@
           "name": "company_updated_by_id_users_id_fk",
           "tableFrom": "company",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2450,12 +2228,8 @@
           "name": "project_organisation_id_organisations_id_fk",
           "tableFrom": "project",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2463,12 +2237,8 @@
           "name": "project_created_by_id_users_id_fk",
           "tableFrom": "project",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2476,12 +2246,8 @@
           "name": "project_updated_by_id_users_id_fk",
           "tableFrom": "project",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2789,12 +2555,8 @@
           "name": "media_organisation_id_organisations_id_fk",
           "tableFrom": "media",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2802,12 +2564,8 @@
           "name": "media_created_by_id_users_id_fk",
           "tableFrom": "media",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2815,12 +2573,8 @@
           "name": "media_updated_by_id_users_id_fk",
           "tableFrom": "media",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2899,12 +2653,8 @@
           "name": "organisations_created_by_id_users_id_fk",
           "tableFrom": "organisations",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2912,12 +2662,8 @@
           "name": "organisations_updated_by_id_users_id_fk",
           "tableFrom": "organisations",
           "tableTo": "users",
-          "columnsFrom": [
-            "updated_by_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["updated_by_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2992,12 +2738,8 @@
           "name": "users_roles_parent_fk",
           "tableFrom": "users_roles",
           "tableTo": "users",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3072,12 +2814,8 @@
           "name": "users_organisations_roles_parent_fk",
           "tableFrom": "users_organisations_roles",
           "tableTo": "users_organisations",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3151,12 +2889,8 @@
           "name": "users_organisations_organisation_id_organisations_id_fk",
           "tableFrom": "users_organisations",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3164,12 +2898,8 @@
           "name": "users_organisations_parent_id_fk",
           "tableFrom": "users_organisations",
           "tableTo": "users",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3321,12 +3051,8 @@
           "name": "users_selected_organisation_id_organisations_id_fk",
           "tableFrom": "users",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "selected_organisation_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["selected_organisation_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -3530,12 +3256,8 @@
           "name": "payload_locked_documents_rels_parent_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "payload_locked_documents",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3543,12 +3265,8 @@
           "name": "payload_locked_documents_rels_cv_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "cv",
-          "columnsFrom": [
-            "cv_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["cv_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3556,12 +3274,8 @@
           "name": "payload_locked_documents_rels_skill_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "skill",
-          "columnsFrom": [
-            "skill_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["skill_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3569,12 +3283,8 @@
           "name": "payload_locked_documents_rels_level_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "level",
-          "columnsFrom": [
-            "level_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["level_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3582,12 +3292,8 @@
           "name": "payload_locked_documents_rels_company_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "company",
-          "columnsFrom": [
-            "company_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["company_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3595,12 +3301,8 @@
           "name": "payload_locked_documents_rels_project_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3608,12 +3310,8 @@
           "name": "payload_locked_documents_rels_media_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "media",
-          "columnsFrom": [
-            "media_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["media_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3621,12 +3319,8 @@
           "name": "payload_locked_documents_rels_organisations_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "organisations",
-          "columnsFrom": [
-            "organisations_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organisations_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3634,12 +3328,8 @@
           "name": "payload_locked_documents_rels_users_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "users",
-          "columnsFrom": [
-            "users_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["users_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3807,12 +3497,8 @@
           "name": "payload_preferences_rels_parent_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "payload_preferences",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3820,12 +3506,8 @@
           "name": "payload_preferences_rels_users_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "users",
-          "columnsFrom": [
-            "users_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["users_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -3896,53 +3578,32 @@
     "public._locales": {
       "name": "_locales",
       "schema": "public",
-      "values": [
-        "de"
-      ]
+      "values": ["de"]
     },
     "public.enum_cv_links_platform": {
       "name": "enum_cv_links_platform",
       "schema": "public",
-      "values": [
-        "linkedin",
-        "x",
-        "mastodon",
-        "facebook",
-        "github"
-      ]
+      "values": ["linkedin", "x", "mastodon", "facebook", "github"]
     },
     "public.enum_skill_skill_type": {
       "name": "enum_skill_skill_type",
       "schema": "public",
-      "values": [
-        "technical",
-        "language",
-        "soft"
-      ]
+      "values": ["technical", "language", "soft"]
     },
     "public.enum_level_level_type": {
       "name": "enum_level_level_type",
       "schema": "public",
-      "values": [
-        "language",
-        "skill"
-      ]
+      "values": ["language", "skill"]
     },
     "public.enum_users_roles": {
       "name": "enum_users_roles",
       "schema": "public",
-      "values": [
-        "admin",
-        "user"
-      ]
+      "values": ["admin", "user"]
     },
     "public.enum_users_organisations_roles": {
       "name": "enum_users_organisations_roles",
       "schema": "public",
-      "values": [
-        "admin",
-        "user"
-      ]
+      "values": ["admin", "user"]
     }
   },
   "schemas": {},

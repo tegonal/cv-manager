@@ -1,5 +1,5 @@
-import { I18nCollection } from '@/lib/i18nCollection';
-import { Field } from 'payload';
+import { I18nCollection } from '@/lib/i18nCollection'
+import { Field } from 'payload'
 
 export const ProfileTabFields: Field[] = [
   {
@@ -106,4 +106,4 @@ export const ProfileTabFields: Field[] = [
       },
     ],
   },
-];
+]

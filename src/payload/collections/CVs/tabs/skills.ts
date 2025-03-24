@@ -1,15 +1,15 @@
-import { I18nCollection } from '@/lib/i18nCollection';
-import { selectSkill } from '@/payload/collections/CVs/fields/select-skill';
-import { selectTechSkillLevel } from '@/payload/collections/CVs/fields/select-tech-skill-level';
+import { I18nCollection } from '@/lib/i18nCollection'
+import { selectSkill } from '@/payload/collections/CVs/fields/select-skill'
+import { selectTechSkillLevel } from '@/payload/collections/CVs/fields/select-tech-skill-level'
 import {
   textDescription,
   textNameRequired,
-} from '@/payload/collections/CVs/fields/common-text-fields';
-import { selectSkillGroup } from '@/payload/collections/CVs/fields/select-skill-group';
-import { selectLanguage } from '@/payload/collections/CVs/fields/select-language';
-import { selectLanguageLevel } from '@/payload/collections/CVs/fields/select-language-level';
-import { Field } from 'payload';
-import { selectSubSkills } from '../fields/select-sub-skills';
+} from '@/payload/collections/CVs/fields/common-text-fields'
+import { selectSkillGroup } from '@/payload/collections/CVs/fields/select-skill-group'
+import { selectLanguage } from '@/payload/collections/CVs/fields/select-language'
+import { selectLanguageLevel } from '@/payload/collections/CVs/fields/select-language-level'
+import { Field } from 'payload'
+import { selectSubSkills } from '../fields/select-sub-skills'
 
 export const SkillsTabFields: Field[] = [
   {
@@ -109,4 +109,4 @@ export const SkillsTabFields: Field[] = [
       },
     ],
   },
-];
+]

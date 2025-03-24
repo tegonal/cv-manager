@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectSkill: Field = {
   name: 'skill',
@@ -15,4 +15,4 @@ export const selectSkill: Field = {
     allowEdit: false,
     width: '50%',
   },
-};
+}

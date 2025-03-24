@@ -1,6 +1,6 @@
 export type CvPdfConfig = {
-  gotenbergUrl: string;
-  templatePath: string;
-  collections?: string[];
-  globals?: string[];
-};
+  gotenbergUrl: string
+  templatePath: string
+  collections?: string[]
+  globals?: string[]
+}

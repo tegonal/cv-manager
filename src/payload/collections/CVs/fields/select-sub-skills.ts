@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectSubSkills: Field = {
   name: 'sub-skill',
@@ -12,4 +12,4 @@ export const selectSubSkills: Field = {
     sortOptions: 'name',
     allowEdit: true,
   },
-};
+}

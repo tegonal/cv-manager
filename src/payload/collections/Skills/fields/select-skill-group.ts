@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectSkillGroup: Field = {
   name: 'group',
@@ -7,4 +7,4 @@ export const selectSkillGroup: Field = {
   label: I18nCollection.fieldLabel.skillGroup,
   relationTo: 'skillGroup',
   required: true,
-};
+}

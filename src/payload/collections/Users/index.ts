@@ -1,82 +1,82 @@
-import { Access, CollectionConfig } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
-import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/recordSelectedOrganisation';
-import { isOrganisationAdminFieldAccess } from '@/payload/access/is-organisation-admin-field-access';
-import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants';
-import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/userDefaultsAfterCreate';
-import { isOrganisationAdminAccess } from '@/payload/access/is-organisation-admin-access';
-import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access';
-import { whereOwnUserAccess } from '@/payload/access/where-own-user-access';
-import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access';
-import { isLoggedInAccess } from '@/payload/access/is-logged-in-access';
+import { Access, CollectionConfig } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
+import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/recordSelectedOrganisation'
+import { isOrganisationAdminFieldAccess } from '@/payload/access/is-organisation-admin-field-access'
+import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
+import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/userDefaultsAfterCreate'
+import { isOrganisationAdminAccess } from '@/payload/access/is-organisation-admin-access'
+import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access'
+import { whereOwnUserAccess } from '@/payload/access/where-own-user-access'
+import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 
 const readAccess: Access = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
   if (await isOrganisationAdminAccess(args)) {
-    return true;
+    return true
   }
 
   if (whereOwnUserAccess(args)) {
-    return whereOwnUserAccess(args);
+    return whereOwnUserAccess(args)
   }
 
-  return false;
-};
+  return false
+}
 
 const createAccess: Access = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
   if (await isOrganisationAdminAccess(args)) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
 const updateAccess: Access = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
   if (await isOrganisationAdminAccess(args)) {
-    return true;
+    return true
   }
 
   if (whereOwnUserAccess(args)) {
-    return whereOwnUserAccess(args);
+    return whereOwnUserAccess(args)
   }
 
-  return false;
-};
+  return false
+}
 
 const deleteAccess: Access = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -183,4 +183,4 @@ export const Users: CollectionConfig = {
       },
     },
   ],
-};
+}

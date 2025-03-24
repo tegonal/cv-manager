@@ -1,15 +1,15 @@
-import { I18nCollection } from '@/lib/i18nCollection';
+import { I18nCollection } from '@/lib/i18nCollection'
 import {
   textDescription,
   textNameRequired,
-} from '@/payload/collections/CVs/fields/common-text-fields';
-import { Field } from 'payload';
-import { optional } from '@/payload/collections/CVs/fields/optional';
+} from '@/payload/collections/CVs/fields/common-text-fields'
+import { Field } from 'payload'
+import { optional } from '@/payload/collections/CVs/fields/optional'
 import {
   selectEndYear,
   selectStartYear,
   selectYear,
-} from '@/payload/collections/CVs/fields/select-year';
+} from '@/payload/collections/CVs/fields/select-year'
 
 export const EducationTabFields: Field[] = [
   {
@@ -96,4 +96,4 @@ export const EducationTabFields: Field[] = [
       textDescription,
     ],
   },
-];
+]

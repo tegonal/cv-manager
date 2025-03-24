@@ -1,133 +1,133 @@
-import Image from 'next/image';
-import React, { CSSProperties } from 'react';
+import Image from 'next/image'
+import React, { CSSProperties } from 'react'
 
 export type AbstractNode<Type extends string> = {
-  format?: '' | 'start' | 'center' | 'right' | 'justify' | number;
-  type: Type;
-  version: number;
-};
+  format?: '' | 'start' | 'center' | 'right' | 'justify' | number
+  type: Type
+  version: number
+}
 
 export type AbstractElementNode<Type extends string> = {
-  direction: 'ltr' | 'rtl' | null;
-  indent: number;
-} & AbstractNode<Type>;
+  direction: 'ltr' | 'rtl' | null
+  indent: number
+} & AbstractNode<Type>
 
 export type AbstractTextNode<Type extends string> = {
-  detail: number; // what is this
-  format: '' | number;
-  mode: 'normal'; // what is this
-  style: string;
-  text: string;
-} & AbstractNode<Type>;
+  detail: number // what is this
+  format: '' | number
+  mode: 'normal' // what is this
+  style: string
+  text: string
+} & AbstractNode<Type>
 
 export type BlockNode<BlockData extends Record<string, unknown>, BlockType extends string> = {
   fields: {
-    id: string;
-    blockName: string;
-    blockType: BlockType;
-  } & BlockData;
-} & AbstractElementNode<'block'>;
+    id: string
+    blockName: string
+    blockType: BlockType
+  } & BlockData
+} & AbstractElementNode<'block'>
 
 type UnknownBlockNode = {
   fields: {
-    id: string;
-    blockName: string;
-    blockType: string;
-    [key: string]: unknown;
-  };
-} & AbstractNode<'block'>;
+    id: string
+    blockName: string
+    blockType: string
+    [key: string]: unknown
+  }
+} & AbstractNode<'block'>
 
 export type Root = {
-  children: Node[];
-} & AbstractElementNode<'root'>;
+  children: Node[]
+} & AbstractElementNode<'root'>
 
 export type Mark = {
-  text: string;
-  bold?: boolean;
-  italic?: boolean;
-  underline?: boolean;
-  strikethrough?: boolean;
-  code?: boolean;
-  subscript?: boolean;
-  superscript?: boolean;
-  highlight?: boolean;
-};
+  text: string
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  strikethrough?: boolean
+  code?: boolean
+  subscript?: boolean
+  superscript?: boolean
+  highlight?: boolean
+}
 
-export type TextNode = AbstractTextNode<'text'>;
-export type Linebreak = AbstractNode<'linebreak'>;
-export type Tab = AbstractTextNode<'tab'>;
+export type TextNode = AbstractTextNode<'text'>
+export type Linebreak = AbstractNode<'linebreak'>
+export type Tab = AbstractTextNode<'tab'>
 
 export type LinkNode = {
-  children: TextNode[];
+  children: TextNode[]
   fields:
     | {
-        linkType: 'custom';
-        newTab: boolean;
-        url: string;
+        linkType: 'custom'
+        newTab: boolean
+        url: string
       }
     | {
         doc: {
-          relationTo: string;
-          value: unknown;
-        };
-        linkType: 'internal';
-        newTab: boolean;
-        url: string;
-      };
-} & AbstractElementNode<'link'>;
+          relationTo: string
+          value: unknown
+        }
+        linkType: 'internal'
+        newTab: boolean
+        url: string
+      }
+} & AbstractElementNode<'link'>
 
 export type AutoLinkNode = {
-  children: TextNode[];
+  children: TextNode[]
   fields: {
-    linkType: 'custom';
-    newTab?: boolean;
-    url: string;
-  };
-} & AbstractElementNode<'autolink'>;
+    linkType: 'custom'
+    newTab?: boolean
+    url: string
+  }
+} & AbstractElementNode<'autolink'>
 
 export type HeadingNode = {
-  tag: string;
-  children: TextNode[];
-} & AbstractElementNode<'heading'>;
+  tag: string
+  children: TextNode[]
+} & AbstractElementNode<'heading'>
 
 export type ParagraphNode = {
-  children: (TextNode | Linebreak | Tab | LinkNode | AutoLinkNode)[];
-} & AbstractElementNode<'paragraph'>;
+  children: (TextNode | Linebreak | Tab | LinkNode | AutoLinkNode)[]
+} & AbstractElementNode<'paragraph'>
 
 export type ListItemNode = {
-  children: (TextNode | ListNode)[];
-  value: number;
-} & AbstractElementNode<'listitem'>;
+  children: (TextNode | ListNode)[]
+  value: number
+} & AbstractElementNode<'listitem'>
 
 export type ListNode = {
-  tag: string;
-  listType: 'number' | 'bullet' | 'check';
-  start: number;
-  children: ListItemNode[];
-} & AbstractElementNode<'list'>;
+  tag: string
+  listType: 'number' | 'bullet' | 'check'
+  start: number
+  children: ListItemNode[]
+} & AbstractElementNode<'list'>
 
 export type QuoteNode = {
-  children: TextNode[];
-} & AbstractElementNode<'quote'>;
+  children: TextNode[]
+} & AbstractElementNode<'quote'>
 
 export type UploadNode<
   MediaType = {
-    id: string;
-    alt: string;
-    updatedAt: string;
-    createdAt: string;
-    url?: string;
-    filename?: string;
-    mimeType?: string;
-    filesize?: number;
-    width?: number;
-    height?: number;
+    id: string
+    alt: string
+    updatedAt: string
+    createdAt: string
+    url?: string
+    filename?: string
+    mimeType?: string
+    filesize?: number
+    width?: number
+    height?: number
   },
 > = {
-  fields: null;
-  relationTo: 'media';
-  value: MediaType;
-} & AbstractElementNode<'upload'>;
+  fields: null
+  relationTo: 'media'
+  value: MediaType
+} & AbstractElementNode<'upload'>
 
 export type Node =
   | HeadingNode
@@ -141,71 +141,69 @@ export type Node =
   | Tab
   | LinkNode
   | UnknownBlockNode
-  | AutoLinkNode;
+  | AutoLinkNode
 
 export type ElementRenderers = {
-  heading: (
-    props: { children: React.ReactNode } & Omit<HeadingNode, 'children'>,
-  ) => React.ReactNode;
-  list: (props: { children: React.ReactNode } & Omit<ListNode, 'children'>) => React.ReactNode;
+  heading: (props: { children: React.ReactNode } & Omit<HeadingNode, 'children'>) => React.ReactNode
+  list: (props: { children: React.ReactNode } & Omit<ListNode, 'children'>) => React.ReactNode
   listItem: (
     props: { children: React.ReactNode } & Omit<ListItemNode, 'children'>,
-  ) => React.ReactNode;
+  ) => React.ReactNode
   paragraph: (
     props: { children: React.ReactNode } & Omit<ParagraphNode, 'children'>,
-  ) => React.ReactNode;
-  quote: (props: { children: React.ReactNode } & Omit<QuoteNode, 'children'>) => React.ReactNode;
-  link: (props: { children: React.ReactNode } & Omit<LinkNode, 'children'>) => React.ReactNode;
+  ) => React.ReactNode
+  quote: (props: { children: React.ReactNode } & Omit<QuoteNode, 'children'>) => React.ReactNode
+  link: (props: { children: React.ReactNode } & Omit<LinkNode, 'children'>) => React.ReactNode
   autolink: (
     props: { children: React.ReactNode } & Omit<AutoLinkNode, 'children'>,
-  ) => React.ReactNode;
-  linebreak: () => React.ReactNode;
-  tab: () => React.ReactNode;
-  upload: (props: UploadNode) => React.ReactNode;
-};
+  ) => React.ReactNode
+  linebreak: () => React.ReactNode
+  tab: () => React.ReactNode
+  upload: (props: UploadNode) => React.ReactNode
+}
 
-export type RenderMark = (mark: Mark) => React.ReactNode;
+export type RenderMark = (mark: Mark) => React.ReactNode
 
 export type PayloadLexicalReactRendererContent = {
-  root: Root;
-};
+  root: Root
+}
 
 export type PayloadLexicalReactRendererProps<Blocks extends { [key: string]: any }> = {
-  content: PayloadLexicalReactRendererContent;
-  elementRenderers?: ElementRenderers;
-  renderMark?: RenderMark;
+  content: PayloadLexicalReactRendererContent
+  elementRenderers?: ElementRenderers
+  renderMark?: RenderMark
   blockRenderers?: {
     [BlockName in Extract<keyof Blocks, string>]?: (
       props: BlockNode<Blocks[BlockName], BlockName>,
-    ) => React.ReactNode;
-  };
-};
+    ) => React.ReactNode
+  }
+}
 
 // This copy-and-pasted from somewhere in lexical here: https://github.com/facebook/lexical/blob/c2ceee223f46543d12c574e62155e619f9a18a5d/packages/lexical/src/LexicalConstants.ts
-const IS_BOLD = 1;
-const IS_ITALIC = 1 << 1;
-const IS_STRIKETHROUGH = 1 << 2;
-const IS_UNDERLINE = 1 << 3;
-const IS_CODE = 1 << 4;
-const IS_SUBSCRIPT = 1 << 5;
-const IS_SUPERSCRIPT = 1 << 6;
-const IS_HIGHLIGHT = 1 << 7;
+const IS_BOLD = 1
+const IS_ITALIC = 1 << 1
+const IS_STRIKETHROUGH = 1 << 2
+const IS_UNDERLINE = 1 << 3
+const IS_CODE = 1 << 4
+const IS_SUBSCRIPT = 1 << 5
+const IS_SUPERSCRIPT = 1 << 6
+const IS_HIGHLIGHT = 1 << 7
 
 function getElementStyle<Type extends string>({
   indent,
   format,
 }: AbstractElementNode<Type>): CSSProperties {
-  const style: CSSProperties = {};
+  const style: CSSProperties = {}
 
   if (indent > 0) {
-    style.marginLeft = `${indent * 20}px`;
+    style.marginLeft = `${indent * 20}px`
   }
 
   if (format === 'right' || format === 'center' || format === 'justify') {
-    style.textAlign = format;
+    style.textAlign = format
   }
 
-  return style;
+  return style
 }
 
 export const defaultElementRenderers: ElementRenderers = {
@@ -216,7 +214,7 @@ export const defaultElementRenderers: ElementRenderers = {
         style: getElementStyle<'heading'>(element),
       },
       element.children,
-    );
+    )
   },
   list: (element) => {
     return React.createElement(
@@ -225,19 +223,20 @@ export const defaultElementRenderers: ElementRenderers = {
         style: getElementStyle<'list'>(element),
       },
       element.children,
-    );
+    )
   },
   listItem: (element) => {
-    return <li style={getElementStyle<'listitem'>(element)}>{element.children}</li>;
+    return <li style={getElementStyle<'listitem'>(element)}>{element.children}</li>
   },
   paragraph: (element) => {
-    return <p style={getElementStyle<'paragraph'>(element)}>{element.children}</p>;
+    return <p style={getElementStyle<'paragraph'>(element)}>{element.children}</p>
   },
   link: (element) => (
     <a
       href={element.fields.url}
       target={element.fields.newTab ? '_blank' : '_self'}
-      style={getElementStyle<'link'>(element)}>
+      style={getElementStyle<'link'>(element)}
+    >
       {element.children}
     </a>
   ),
@@ -245,7 +244,8 @@ export const defaultElementRenderers: ElementRenderers = {
     <a
       href={element.fields.url}
       target={element.fields.newTab ? '_blank' : '_self'}
-      style={getElementStyle<'autolink'>(element)}>
+      style={getElementStyle<'autolink'>(element)}
+    >
       {element.children}
     </a>
   ),
@@ -256,52 +256,52 @@ export const defaultElementRenderers: ElementRenderers = {
   tab: () => <br />,
   upload: (element) => {
     if (element.value.mimeType?.includes('image') && element.value.url) {
-      return <Image src={element.value.url} alt={element.value.alt} />;
+      return <Image src={element.value.url} alt={element.value.alt} />
     }
   },
-};
+}
 
 export const defaultRenderMark: RenderMark = (mark) => {
-  const style: CSSProperties = {};
+  const style: CSSProperties = {}
 
   if (mark.bold) {
-    style.fontWeight = 'bold';
+    style.fontWeight = 'bold'
   }
 
   if (mark.italic) {
-    style.fontStyle = 'italic';
+    style.fontStyle = 'italic'
   }
 
   if (mark.underline) {
-    style.textDecoration = 'underline';
+    style.textDecoration = 'underline'
   }
 
   if (mark.strikethrough) {
-    style.textDecoration = 'line-through';
+    style.textDecoration = 'line-through'
   }
 
   if (mark.code) {
-    return <code>{mark.text}</code>;
+    return <code>{mark.text}</code>
   }
 
   if (mark.highlight) {
-    return <mark style={style}>{mark.text}</mark>;
+    return <mark style={style}>{mark.text}</mark>
   }
 
   if (mark.subscript) {
-    return <sub style={style}>{mark.text}</sub>;
+    return <sub style={style}>{mark.text}</sub>
   }
 
   if (mark.superscript) {
-    return <sup style={style}>{mark.text}</sup>;
+    return <sup style={style}>{mark.text}</sup>
   }
 
   if (Object.keys(style).length === 0) {
-    return <>{mark.text}</>;
+    return <>{mark.text}</>
   }
 
-  return <span style={style}>{mark.text}</span>;
-};
+  return <span style={style}>{mark.text}</span>
+}
 
 export function PayloadLexicalReactRenderer<Blocks extends { [key: string]: any }>({
   content,
@@ -312,85 +312,85 @@ export function PayloadLexicalReactRenderer<Blocks extends { [key: string]: any 
   const renderElement = React.useCallback(
     (node: Node, children?: React.ReactNode) => {
       if (!elementRenderers) {
-        throw new Error("'elementRenderers' prop not provided.");
+        throw new Error("'elementRenderers' prop not provided.")
       }
 
       if (node.type === 'link' && node.fields) {
         return elementRenderers.link({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'autolink' && node.fields) {
         return elementRenderers.autolink({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'heading') {
         return elementRenderers.heading({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'paragraph') {
         return elementRenderers.paragraph({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'list') {
         return elementRenderers.list({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'listitem') {
         return elementRenderers.listItem({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'quote') {
         return elementRenderers.quote({
           ...node,
           children,
-        });
+        })
       }
 
       if (node.type === 'linebreak') {
-        return elementRenderers.linebreak();
+        return elementRenderers.linebreak()
       }
 
       if (node.type === 'tab') {
-        return elementRenderers.tab();
+        return elementRenderers.tab()
       }
 
       if (node.type === 'upload') {
-        return elementRenderers.upload(node);
+        return elementRenderers.upload(node)
       }
 
-      throw new Error(`Missing element renderer for node type '${node.type}'`);
+      throw new Error(`Missing element renderer for node type '${node.type}'`)
     },
     [elementRenderers],
-  );
+  )
 
   const renderText = React.useCallback(
     (node: TextNode): React.ReactNode | null => {
       if (!renderMark) {
-        throw new Error("'renderMark' prop not provided.");
+        throw new Error("'renderMark' prop not provided.")
       }
 
       if (!node.format) {
         return renderMark({
           text: node.text,
-        });
+        })
       }
 
       return renderMark({
@@ -403,46 +403,46 @@ export function PayloadLexicalReactRenderer<Blocks extends { [key: string]: any 
         subscript: (node.format & IS_SUBSCRIPT) > 0,
         superscript: (node.format & IS_SUPERSCRIPT) > 0,
         highlight: (node.format & IS_HIGHLIGHT) > 0,
-      });
+      })
     },
     [renderMark],
-  );
+  )
 
   const serialize = React.useCallback(
     (children: Node[]): React.ReactNode[] | null =>
       children.map((node, index) => {
         if (node.type === 'text') {
-          return <React.Fragment key={index}>{renderText(node)}</React.Fragment>;
+          return <React.Fragment key={index}>{renderText(node)}</React.Fragment>
         }
 
         if (node.type === 'block') {
           const renderer = blockRenderers[node.fields.blockType] as (
             props: unknown,
-          ) => React.ReactNode;
+          ) => React.ReactNode
 
           if (typeof renderer !== 'function') {
-            throw new Error(`Missing block renderer for block type '${node.fields.blockType}'`);
+            throw new Error(`Missing block renderer for block type '${node.fields.blockType}'`)
           }
 
-          return <React.Fragment key={index}>{renderer(node)}</React.Fragment>;
+          return <React.Fragment key={index}>{renderer(node)}</React.Fragment>
         }
 
         if (node.type === 'linebreak' || node.type === 'tab' || node.type === 'upload') {
-          return <React.Fragment key={index}>{renderElement(node)}</React.Fragment>;
+          return <React.Fragment key={index}>{renderElement(node)}</React.Fragment>
         }
 
         return (
           <React.Fragment key={index}>
             {renderElement(node, serialize(node.children))}
           </React.Fragment>
-        );
+        )
       }),
     [renderElement, renderText, blockRenderers],
-  );
+  )
 
   if (!content || !content.root) {
-    return null;
+    return null
   }
 
-  return <>{serialize(content.root.children)}</>;
+  return <>{serialize(content.root.children)}</>
 }

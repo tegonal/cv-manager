@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectStartYear: Field = {
   name: 'fromYear',
@@ -12,7 +12,7 @@ export const selectStartYear: Field = {
       displayFormat: 'yyyy',
     },
   },
-};
+}
 
 export const selectEndYear: Field = {
   name: 'toYear',
@@ -25,7 +25,7 @@ export const selectEndYear: Field = {
       displayFormat: 'yyyy',
     },
   },
-};
+}
 
 export const selectYear: Field = {
   name: 'toYear',
@@ -38,4 +38,4 @@ export const selectYear: Field = {
       displayFormat: 'yyyy',
     },
   },
-};
+}

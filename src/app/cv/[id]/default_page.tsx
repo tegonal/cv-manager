@@ -1,14 +1,14 @@
-import React from 'react';
-import Image from 'next/image';
-import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer';
-import { Company, Level, Project, Skill, SkillGroup } from '@/types/payload-types';
-import { I18nCollection } from '@/lib/i18nCollection';
-import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight';
-import { capitalize, isEmpty } from 'lodash-es';
-import { CvPageProps } from './page';
-import { filterEmptyLexicalNodes, formatDate, fromToYear, hasLexicalNodes } from './utilities';
-import * as process from 'node:process';
-import './default_page.scss';
+import React from 'react'
+import Image from 'next/image'
+import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
+import { Company, Level, Project, Skill, SkillGroup } from '@/types/payload-types'
+import { I18nCollection } from '@/lib/i18nCollection'
+import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight'
+import { capitalize, isEmpty } from 'lodash-es'
+import { CvPageProps } from './page'
+import { filterEmptyLexicalNodes, formatDate, fromToYear, hasLexicalNodes } from './utilities'
+import * as process from 'node:process'
+import './default_page.scss'
 
 const DefaultPage: React.FC<CvPageProps> = async ({
   cv,
@@ -186,7 +186,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               </div>
             )}
             {cv.skillGroups?.map((group) => {
-              if (group.skills && group.skills.length < 1) return null;
+              if (group.skills && group.skills.length < 1) return null
               return (
                 <div key={group.id} className={'no-page-break flex flex-col gap-4'}>
                   <div className={'flex flex-col gap-1'}>
@@ -213,7 +213,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                     ))}
                   </div>
                 </div>
-              );
+              )
             })}
             {!isEmpty(cv.otherSkills) && (
               <div className={'flex flex-col gap-4'}>
@@ -265,8 +265,8 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               <div className={'grid grid-cols-1 gap-6'}>
                 <h3>{I18nCollection.fieldLabel.projects[locale]}</h3>
                 {cv.projects?.map((item) => {
-                  const projectKey = `project_${item.id}`;
-                  if (projectKey in exportOverride && !exportOverride[projectKey]) return null;
+                  const projectKey = `project_${item.id}`
+                  if (projectKey in exportOverride && !exportOverride[projectKey]) return null
                   return (
                     <div key={item.id} className={'no-page-break'}>
                       <p className={'mb-0.5 font-normal'}>{(item.company as Company).name}</p>
@@ -278,7 +278,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                         <PayloadLexicalReactRenderer content={item.description as any} />
                       </div>
                     </div>
-                  );
+                  )
                 })}
               </div>
             )}
@@ -296,7 +296,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DefaultPage;
+export default DefaultPage

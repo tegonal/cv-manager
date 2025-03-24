@@ -1,4 +1,4 @@
-import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer';
+import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer'
 
 export const content2: PayloadLexicalReactRendererContent = {
   root: {
@@ -599,4 +599,4 @@ export const content2: PayloadLexicalReactRendererContent = {
     ],
     direction: 'ltr',
   },
-};
+}
