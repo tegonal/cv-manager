@@ -55,12 +55,10 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-i18next": "^15.4.1",
-    "react-router-dom": "7.4.0",
     "sharp": "0.33.5",
     "tslog": "^4.9.3"
   },
   "devDependencies": {
-    "@payloadcms/graphql": "3.29.0",
     "@swc/core": "1.11.13",
     "@tailwindcss/typography": "^0.5.16",
     "@types/jsdom": "^21.1.7",
@@ -70,7 +68,6 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
-    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "8.27.0",
     "@typescript-eslint/parser": "8.27.0",
     "autoprefixer": "^10.4.21",
