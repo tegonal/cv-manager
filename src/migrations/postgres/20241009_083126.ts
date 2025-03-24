@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
@@ -98,7 +98,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "cv_edu_highlights_order_idx" ON "cv_edu_highlights" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "cv_edu_highlights_parent_id_idx" ON "cv_edu_highlights" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "cv_job_highlights_order_idx" ON "cv_job_highlights" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "cv_job_highlights_parent_id_idx" ON "cv_job_highlights" USING btree ("_parent_id");`);
+  CREATE INDEX IF NOT EXISTS "cv_job_highlights_parent_id_idx" ON "cv_job_highlights" USING btree ("_parent_id");`)
 }
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
@@ -109,5 +109,5 @@ export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   DROP TABLE "cv_edu_highlights_locales";
   DROP TABLE "cv_job_highlights";
   DROP TABLE "cv_job_highlights_locales";
-  ALTER TABLE "cv_projects" ALTER COLUMN "to_year" SET NOT NULL;`);
+  ALTER TABLE "cv_projects" ALTER COLUMN "to_year" SET NOT NULL;`)
 }

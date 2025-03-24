@@ -1,5 +1,5 @@
-import { Field } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
+import { Field } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectLanguage: Field = {
   name: 'language',
@@ -12,4 +12,4 @@ export const selectLanguage: Field = {
     allowEdit: false,
     width: '50%',
   },
-};
+}

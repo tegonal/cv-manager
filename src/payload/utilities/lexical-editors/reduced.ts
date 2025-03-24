@@ -5,7 +5,7 @@ import {
   LinkFeature,
   OrderedListFeature,
   UnorderedListFeature,
-} from '@payloadcms/richtext-lexical';
+} from '@payloadcms/richtext-lexical'
 
 export const lexicalEditorReducedFeatures = lexicalEditor({
   features: ({ defaultFeatures }) => [
@@ -15,4 +15,4 @@ export const lexicalEditorReducedFeatures = lexicalEditor({
     BoldFeature(),
     FixedToolbarFeature(),
   ],
-});
+})

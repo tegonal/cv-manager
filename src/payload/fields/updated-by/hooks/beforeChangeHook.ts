@@ -1,6 +1,6 @@
-import { FieldHook } from 'payload';
+import { FieldHook } from 'payload'
 
 export const beforeChangeHook: FieldHook = async ({ req, req: { user } }) => {
-  if (!user || !req.user) return undefined;
-  return user.id;
-};
+  if (!user || !req.user) return undefined
+  return user.id
+}

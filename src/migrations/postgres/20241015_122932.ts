@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
@@ -15,10 +15,10 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
-  `);
+  `)
 }
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   await payload.db.drizzle.execute(sql`
-   DROP TABLE "cv_skill_highlights_locales";`);
+   DROP TABLE "cv_skill_highlights_locales";`)
 }

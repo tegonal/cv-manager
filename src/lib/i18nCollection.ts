@@ -299,4 +299,4 @@ export const I18nCollection = {
       de: 'Benutzer',
     },
   },
-};
+}

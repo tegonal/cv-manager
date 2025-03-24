@@ -1,19 +1,19 @@
-import { CollectionConfig } from 'payload';
-import { isLoggedInAccess } from '@/payload/access/is-logged-in-access';
-import { assignOrgToUpload } from '@/payload/collections/hooks/assignOrgToUpload';
-import { adminSettingsField } from '@/payload/fields/admin-settings';
-import { defaultCollectionAccess } from '@/payload/access/default-collection-access';
-import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants';
+import { CollectionConfig } from 'payload'
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
+import { assignOrgToUpload } from '@/payload/collections/hooks/assignOrgToUpload'
+import { adminSettingsField } from '@/payload/fields/admin-settings'
+import { defaultCollectionAccess } from '@/payload/access/default-collection-access'
+import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
 
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
     read: (args) => {
-      const printerSecret = args.req.headers.get(PRINTER_HEADER_KEY);
+      const printerSecret = args.req.headers.get(PRINTER_HEADER_KEY)
       if (printerSecret === process.env.PRINTER_SECRET) {
-        return true;
+        return true
       }
-      return defaultCollectionAccess(args);
+      return defaultCollectionAccess(args)
     },
     create: isLoggedInAccess,
     update: defaultCollectionAccess,
@@ -55,4 +55,4 @@ export const Media: CollectionConfig = {
     },
     adminSettingsField({ sidebar: true }),
   ],
-};
+}

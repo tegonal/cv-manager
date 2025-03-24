@@ -1,55 +1,55 @@
-import { Access, CollectionConfig } from 'payload';
-import { I18nCollection } from '@/lib/i18nCollection';
-import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access';
-import { createdByField } from '@/payload/fields/created-by';
-import { updatedByField } from '@/payload/fields/updated-by';
-import { isLoggedInAccess } from '@/payload/access/is-logged-in-access';
-import { Organisation } from '@/types/payload-types';
-import { checkOrganisationRoles } from '@/payload/access/utils/checkOrganisationRoles';
-import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants';
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation';
-import { isNumber } from 'lodash-es';
+import { Access, CollectionConfig } from 'payload'
+import { I18nCollection } from '@/lib/i18nCollection'
+import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
+import { createdByField } from '@/payload/fields/created-by'
+import { updatedByField } from '@/payload/fields/updated-by'
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
+import { Organisation } from '@/types/payload-types'
+import { checkOrganisationRoles } from '@/payload/access/utils/checkOrganisationRoles'
+import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
+import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { isNumber } from 'lodash-es'
 
 const createAccess: Access<Organisation> = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (await isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
 const readAccess: Access<Organisation> = (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
-  const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation);
+  const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation)
 
   if (selectedOrganisation && isNumber(selectedOrganisation)) {
     return {
       id: {
         equals: selectedOrganisation,
       },
-    };
+    }
   }
 
-  return false;
-};
+  return false
+}
 
 const updateAccess: Access<Organisation> = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
-  const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation);
+  const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation)
 
   if (
     selectedOrganisation &&
@@ -60,23 +60,23 @@ const updateAccess: Access<Organisation> = async (args) => {
       id: {
         equals: args.id || selectedOrganisation,
       },
-    };
+    }
   }
 
-  return false;
-};
+  return false
+}
 
 const deleteAccess: Access<Organisation> = async (args) => {
   if (!isLoggedInAccess(args)) {
-    return false;
+    return false
   }
 
   if (await isSuperAdminAccess(args)) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
 export const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -109,4 +109,4 @@ export const Organisations: CollectionConfig = {
     createdByField,
     updatedByField,
   ],
-};
+}

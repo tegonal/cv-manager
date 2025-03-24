@@ -1,10 +1,10 @@
-import { I18nCollection } from '@/lib/i18nCollection';
-import { textDescription } from '@/payload/collections/CVs/fields/common-text-fields';
-import { Field } from 'payload';
-import { selectCompany } from '@/payload/collections/CVs/fields/select-company';
-import { optional } from '@/payload/collections/CVs/fields/optional';
-import { selectEndYear, selectStartYear } from '@/payload/collections/CVs/fields/select-year';
-import { selectProject } from '@/payload/collections/CVs/fields/select-project';
+import { I18nCollection } from '@/lib/i18nCollection'
+import { textDescription } from '@/payload/collections/CVs/fields/common-text-fields'
+import { Field } from 'payload'
+import { selectCompany } from '@/payload/collections/CVs/fields/select-company'
+import { optional } from '@/payload/collections/CVs/fields/optional'
+import { selectEndYear, selectStartYear } from '@/payload/collections/CVs/fields/select-year'
+import { selectProject } from '@/payload/collections/CVs/fields/select-project'
 
 export const WorkExperienceTabFields: Field[] = [
   {
@@ -50,4 +50,4 @@ export const WorkExperienceTabFields: Field[] = [
       textDescription,
     ],
   },
-];
+]

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import {
   Button,
   CloseMenuIcon,
@@ -8,13 +8,13 @@ import {
   useLocale,
   useModal,
   useTranslation,
-} from '@payloadcms/ui';
-import React, { useEffect, useMemo } from 'react';
-import { Company, Cv, Project } from '@/types/payload-types';
-import { I18nCollection } from '@/lib/i18nCollection';
-import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer';
-import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generatePdfButton';
-import ky from 'ky';
+} from '@payloadcms/ui'
+import React, { useEffect, useMemo } from 'react'
+import { Company, Cv, Project } from '@/types/payload-types'
+import { I18nCollection } from '@/lib/i18nCollection'
+import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
+import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generatePdfButton'
+import ky from 'ky'
 
 const profileKeys: (keyof Cv)[] = [
   'birthday',
@@ -23,80 +23,80 @@ const profileKeys: (keyof Cv)[] = [
   'email',
   'links',
   'casualInfo',
-];
+]
 
 const getLocalizedFieldLabel = (
   key: keyof typeof I18nCollection.fieldLabel,
   localeCode: string,
 ): string => {
-  const fieldLabel = I18nCollection.fieldLabel[key];
-  return fieldLabel ? (fieldLabel as Record<string, string>)[localeCode] : 'Unknown';
-};
+  const fieldLabel = I18nCollection.fieldLabel[key]
+  return fieldLabel ? (fieldLabel as Record<string, string>)[localeCode] : 'Unknown'
+}
 
 type FormField = {
-  key: string;
-  label: string;
-  export: boolean;
-};
+  key: string
+  label: string
+  export: boolean
+}
 
 type FormSection = {
-  section: string;
-  fields: FormField[];
-};
+  section: string
+  fields: FormField[]
+}
 
 const fetchCv = async (id: any, serverURL: string) => {
   if (!id) {
-    return;
+    return
   }
-  const response = await ky.get<Cv>(`${serverURL}/api/cv/${id}`);
-  return await response.json();
-};
+  const response = await ky.get<Cv>(`${serverURL}/api/cv/${id}`)
+  return await response.json()
+}
 
 export const ExportOverlay: React.FC = () => {
-  const { id } = useDocumentInfo();
-  const locale = useLocale();
-  const { closeModal, isModalOpen } = useModal();
-  const { t } = useTranslation();
-  const isOpen = isModalOpen(drawerSlug);
-  const [cv, setCv] = React.useState<Cv>();
-  const [formState, setFormState] = React.useState<Record<string, boolean>>({});
+  const { id } = useDocumentInfo()
+  const locale = useLocale()
+  const { closeModal, isModalOpen } = useModal()
+  const { t } = useTranslation()
+  const isOpen = isModalOpen(drawerSlug)
+  const [cv, setCv] = React.useState<Cv>()
+  const [formState, setFormState] = React.useState<Record<string, boolean>>({})
 
-  const { config } = useConfig();
-  const { serverURL } = config;
+  const { config } = useConfig()
+  const { serverURL } = config
 
   useEffect(() => {
     if (!isOpen) {
-      return;
+      return
     }
     const fetchData = async () => {
       try {
-        const data = await fetchCv(id, serverURL);
-        setCv(data);
+        const data = await fetchCv(id, serverURL)
+        setCv(data)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
-    };
-    fetchData();
-  }, [id, isOpen, serverURL]);
+    }
+    fetchData()
+  }, [id, isOpen, serverURL])
 
   useEffect(() => {
     if (!cv) {
-      return;
+      return
     }
     const profile = profileKeys.reduce((acc, key) => {
       // @ts-ignore
-      acc[key] = true;
-      return acc;
-    }, {});
+      acc[key] = true
+      return acc
+    }, {})
 
     const projects = cv?.projects?.reduce((acc, project) => {
       // @ts-ignore
-      acc[`project_${project.id}`] = true;
-      return acc;
-    }, {});
+      acc[`project_${project.id}`] = true
+      return acc
+    }, {})
 
-    setFormState({ ...profile, ...projects });
-  }, [cv]);
+    setFormState({ ...profile, ...projects })
+  }, [cv])
 
   const availableOptions = useMemo(() => {
     const profile = [
@@ -109,7 +109,7 @@ export const ExportOverlay: React.FC = () => {
           export: formState[key] ?? true,
         })),
       },
-    ];
+    ]
 
     const projects = [
       {
@@ -120,17 +120,17 @@ export const ExportOverlay: React.FC = () => {
           export: formState[`project_${project.id}`] ?? true,
         })),
       },
-    ];
+    ]
 
-    return [...profile, ...projects] as FormSection[];
-  }, [formState, cv, locale.code]);
+    return [...profile, ...projects] as FormSection[]
+  }, [formState, cv, locale.code])
 
   const onCheckboxChange = (key: string) => {
     setFormState((prevState) => ({
       ...prevState,
       [key]: !prevState[key],
-    }));
-  };
+    }))
+  }
 
   return (
     <Drawer slug={drawerSlug} Header={null}>
@@ -156,7 +156,8 @@ export const ExportOverlay: React.FC = () => {
                       className={
                         'flex select-none gap-2 p-2 hover:cursor-pointer hover:bg-emerald-200/15'
                       }
-                      onClick={() => onCheckboxChange(field.key)}>
+                      onClick={() => onCheckboxChange(field.key)}
+                    >
                       <input
                         type="checkbox"
                         id={field.key}
@@ -167,7 +168,8 @@ export const ExportOverlay: React.FC = () => {
                       <label
                         htmlFor={field.key}
                         className={''}
-                        dangerouslySetInnerHTML={{ __html: field.label }}></label>
+                        dangerouslySetInnerHTML={{ __html: field.label }}
+                      ></label>
                     </li>
                   ))}
                 </ul>
@@ -185,7 +187,8 @@ export const ExportOverlay: React.FC = () => {
             <Button
               buttonStyle="secondary"
               className={`${baseClass}__cancel`}
-              onClick={() => closeModal(drawerSlug)}>
+              onClick={() => closeModal(drawerSlug)}
+            >
               {t('general:cancel')}
             </Button>
           </div>
@@ -194,11 +197,12 @@ export const ExportOverlay: React.FC = () => {
           <Button
             buttonStyle="icon-label"
             className={`${baseClass}__cancel size-10`}
-            onClick={() => closeModal(drawerSlug)}>
+            onClick={() => closeModal(drawerSlug)}
+          >
             <CloseMenuIcon />
           </Button>
         </div>
       </div>
     </Drawer>
-  );
-};
+  )
+}

@@ -1,1 +1,1 @@
-export const de = {};
+export const de = {}

@@ -1,72 +1,72 @@
-'use client';
-import React, { useMemo, useState } from 'react';
-import { useLocale, useRowLabel } from '@payloadcms/ui';
-import { Skill, SkillGroup } from '@/types/payload-types';
-import ky from 'ky';
+'use client'
+import React, { useMemo, useState } from 'react'
+import { useLocale, useRowLabel } from '@payloadcms/ui'
+import { Skill, SkillGroup } from '@/types/payload-types'
+import ky from 'ky'
 
-const skillFields = ['skill', 'language', 'softSkill', 'name'];
+const skillFields = ['skill', 'language', 'softSkill', 'name']
 
-type SkillOrSkillGroup = (Skill | SkillGroup) & { type: 'skill' | 'skillGroup' };
+type SkillOrSkillGroup = (Skill | SkillGroup) & { type: 'skill' | 'skillGroup' }
 
 export const RowLabelSkill: React.FC = (args) => {
-  const { data } = useRowLabel<any>();
-  const locale = useLocale();
-  const [skill, setSkill] = useState<SkillOrSkillGroup>();
+  const { data } = useRowLabel<any>()
+  const locale = useLocale()
+  const [skill, setSkill] = useState<SkillOrSkillGroup>()
 
   const label = useMemo(() => {
     const fetchSkill = async (id: string) => {
       if (!id) {
-        return;
+        return
       }
       try {
         ky.get<Skill>(`/api/skill/${id}?locale=${locale.code}`)
           .json()
-          .then((data) => setSkill({ ...data, type: 'skill' }));
+          .then((data) => setSkill({ ...data, type: 'skill' }))
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
-    };
+    }
 
     const fetchSkillGroup = async (id: string) => {
       if (!id) {
-        return;
+        return
       }
       try {
         ky.get<Skill>(`/api/skillGroup/${id}?locale=${locale.code}`)
           .json()
-          .then((data) => setSkill({ ...data, type: 'skillGroup' }));
+          .then((data) => setSkill({ ...data, type: 'skillGroup' }))
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
-    };
+    }
 
-    const skillField = skillFields.find((field) => data?.[field]);
+    const skillField = skillFields.find((field) => data?.[field])
     if (!skillField) {
-      return '';
+      return ''
     }
     if (skillField === 'name') {
-      return data?.[skillField];
+      return data?.[skillField]
     }
-    const skillRelation = data?.[skillField];
-    const skillType = skillRelation.relationTo;
-    const skillId = skillRelation.value;
+    const skillRelation = data?.[skillField]
+    const skillType = skillRelation.relationTo
+    const skillId = skillRelation.value
 
     if (!skill || (skillId && skill.id !== skillId && skill.type !== skillType)) {
       switch (skillType) {
         case 'skill':
-          fetchSkill(skillId);
-          break;
+          fetchSkill(skillId)
+          break
         case 'skillGroup':
-          fetchSkillGroup(skillId);
-          break;
+          fetchSkillGroup(skillId)
+          break
       }
     }
-    return skill?.name;
-  }, [data, skill, locale.code]);
+    return skill?.name
+  }, [data, skill, locale.code])
 
   return (
     <div>
       <span>{label}</span>
     </div>
-  );
-};
+  )
+}

@@ -1,1 +1,1 @@
-export const en = {};
+export const en = {}
