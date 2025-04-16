@@ -192,7 +192,7 @@ For local development, a docker-compose file is provided. You can use it through
 
 ```
 nvm use
-yarn run dev:compose:up
+yarn run services:start
 ```
 
 This will bring up a docker image for
