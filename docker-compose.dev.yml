@@ -1,4 +1,4 @@
-name: tegonal-cv
+name: cv-manager
 
 services:
   postgres:
@@ -71,7 +71,7 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
   gotenberg:
-    image: gotenberg/gotenberg:8.18
+    image: gotenberg/gotenberg:8.20
     container_name: gotenberg
     command:
       - "gotenberg"

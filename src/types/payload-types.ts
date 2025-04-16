@@ -90,7 +90,6 @@ export interface Config {
   blocks: {}
   collections: {
     cv: Cv
-    users: User
     skill: Skill
     skillGroup: SkillGroup
     langs: Lang
@@ -99,6 +98,7 @@ export interface Config {
     project: Project
     media: Media
     organisations: Organisation
+    users: User
     'payload-locked-documents': PayloadLockedDocument
     'payload-preferences': PayloadPreference
     'payload-migrations': PayloadMigration
@@ -106,7 +106,6 @@ export interface Config {
   collectionsJoins: {}
   collectionsSelect: {
     cv: CvSelect<false> | CvSelect<true>
-    users: UsersSelect<false> | UsersSelect<true>
     skill: SkillSelect<false> | SkillSelect<true>
     skillGroup: SkillGroupSelect<false> | SkillGroupSelect<true>
     langs: LangsSelect<false> | LangsSelect<true>
@@ -115,6 +114,7 @@ export interface Config {
     project: ProjectSelect<false> | ProjectSelect<true>
     media: MediaSelect<false> | MediaSelect<true>
     organisations: OrganisationsSelect<false> | OrganisationsSelect<true>
+    users: UsersSelect<false> | UsersSelect<true>
     'payload-locked-documents':
       | PayloadLockedDocumentsSelect<false>
       | PayloadLockedDocumentsSelect<true>
@@ -519,6 +519,7 @@ export interface User {
   roles?: ('admin' | 'user')[] | null
   organisations?: UserOrganisations
   selectedOrganisation?: (number | null) | Organisation
+  sub?: string | null
   updatedAt: string
   createdAt: string
   email: string
@@ -671,10 +672,6 @@ export interface PayloadLockedDocument {
         value: number | Cv
       } | null)
     | ({
-        relationTo: 'users'
-        value: number | User
-      } | null)
-    | ({
         relationTo: 'skill'
         value: number | Skill
       } | null)
@@ -705,6 +702,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'organisations'
         value: number | Organisation
+      } | null)
+    | ({
+        relationTo: 'users'
+        value: number | User
       } | null)
   globalSlug?: string | null
   user: {
@@ -871,35 +872,6 @@ export interface SocialLinksSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
- */
-export interface UsersSelect<T extends boolean = true> {
-  firstName?: T
-  lastName?: T
-  roles?: T
-  organisations?: T | UserOrganisationsSelect<T>
-  selectedOrganisation?: T
-  updatedAt?: T
-  createdAt?: T
-  email?: T
-  resetPasswordToken?: T
-  resetPasswordExpiration?: T
-  salt?: T
-  hash?: T
-  loginAttempts?: T
-  lockUntil?: T
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "UserOrganisations_select".
- */
-export interface UserOrganisationsSelect<T extends boolean = true> {
-  organisation?: T
-  roles?: T
-  id?: T
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skill_select".
  */
 export interface SkillSelect<T extends boolean = true> {
@@ -1042,6 +1014,36 @@ export interface OrganisationsSelect<T extends boolean = true> {
   updatedBy?: T
   updatedAt?: T
   createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  firstName?: T
+  lastName?: T
+  roles?: T
+  organisations?: T | UserOrganisationsSelect<T>
+  selectedOrganisation?: T
+  sub?: T
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UserOrganisations_select".
+ */
+export interface UserOrganisationsSelect<T extends boolean = true> {
+  organisation?: T
+  roles?: T
+  id?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
