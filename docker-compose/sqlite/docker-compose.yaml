@@ -34,7 +34,7 @@ services:
       - internal
     
   gotenberg:
-    image: gotenberg/gotenberg:8.18
+    image: gotenberg/gotenberg:8.20
     container_name: gotenberg
     command:
       - "gotenberg"
