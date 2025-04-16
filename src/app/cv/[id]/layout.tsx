@@ -21,7 +21,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html className={rubik.className}>
       <Script src="/_next/static/paged.polyfill.min.js" strategy={'lazyOnload'} />
-      <body>{children}</body>
+      <body className={rubik.className}>{children}</body>
     </html>
   )
 }
