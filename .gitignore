@@ -44,3 +44,4 @@ next-env.d.ts
 /media
 
 .yarn/cache
+.yarn/plugins

@@ -15,7 +15,7 @@ localhost {
   }
 }
 
-# used as internal route from gotenberg to app to render cv data, forcing http
+# used as internal route to render cv data, forcing http
 http://caddy {  
   @print_request {
       header x-http-pdfprinter *
