@@ -10,7 +10,6 @@ It gets delivered with a pre-define generic layout which can be customised to sp
 The application has the following dependencies:
 
 - As a database to store the cv data. Support databases are MongoDB, Postgres or SQlite for local file based datastore
-- A running [gotenberg](https://gotenberg.dev/docs/getting-started/installation) instance to generate PDF's. Use https://demo.gotenberg.dev only for low request rates and if server is public accessible.
 
 ### Docker compose
 
@@ -103,7 +102,7 @@ docker run --env-file YOUR_CONFIGURATION -v  SOURCE_FILE:/app/public/LOGO_NAME t
 
 ##### Customizing the layout
 
-The PDF is generated from a react page which is rendered by [pagedjs](https://pagedjs.org) and converted to a pdf by [gotenberg](https://gotenberg.dev/).
+The PDF is generated from a react page which is rendered by [pagedjs](https://pagedjs.org) and converted to a pdf by [puppeter](https://pptr.dev/) based on a headless firefox instance (we use firefox as special fonts are embedded and renfered much clearer than with chromium).
 To customize the complete layout of your page, create a new react component in `src/app/cv/[id]/custom_page.tsx` with the following skeleton:
 
 ```typescript
@@ -186,6 +185,15 @@ Where a full stack developer want to list the skills on a higher level like:
 
 ## Development
 
+### Install dependencies
+
+```
+nvm use
+yarn install
+```
+
+This will additionally install a headless firefox instance used by puppeter to generate pdfs.
+
 ### Local docker images
 
 For local development, a docker-compose file is provided. You can use it through yarn:
@@ -201,7 +209,6 @@ This will bring up a docker image for
 - mongodb as database adapter if running with mongodb
 - minio with initialized bucket as file storage
 - mailpit as local mailserver
-- gotenberg to generate PDF's locally
 
 ### Development mode with default local configuration
 

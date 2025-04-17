@@ -183,8 +183,7 @@ export default buildConfig({
     }),
     cvPdfPlugin({
       templatePath: './data/cv-pdf/templates',
-      collections: [CV.slug],
-      gotenbergUrl: process.env.GOTENBERG_PDF_URL || 'https://demo.gotenberg.dev',
+      collections: [CV.slug]
     }),
     OAuth2Plugin({
       strategyName: 'oauth2',

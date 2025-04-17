@@ -142,31 +142,6 @@ services:
   #   networks:
   #     - internal
 
-  gotenberg:
-    image: gotenberg/gotenberg:8.20
-    container_name: gotenberg
-    command:
-      - "gotenberg"
-      - "--libreoffice-auto-start=false"
-      - "--libreoffice-disable-routes=true"
-      - "--chromium-auto-start=true"
-      - "--chromium-ignore-certificate-errors=true"
-      - "--chromium-clear-cache=true"
-      - "--chromium-disable-web-security=true"
-      - "--prometheus-disable-collect=true"
-      - "--webhook-disable=true"
-      - "--pdfengines-disable-routes=true"      
-      #- "--log-level=debug"
-    env_file:
-      - .env
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    networks:
-     - internal
-
 volumes:
   caddy-data:
   caddy-certs:
