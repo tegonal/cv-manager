@@ -5,7 +5,7 @@ import configPromise from '@payload-config'
 import * as process from 'node:process'
 import { encodeToBase64 } from 'next/dist/build/webpack/loaders/utils'
 import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
-import puppeteer from 'puppeteer'
+import puppeteer, { SupportedBrowser } from 'puppeteer'
 
 type Props = {
   id: string
@@ -52,9 +52,11 @@ export const requestHandler = async (
     if (process.env.NODE_ENV !== 'production') console.log({ url })
     // Launch the browser
     const browser = await puppeteer.launch({
-      browser: 'firefox',
+      browser: (process.env.PUPPETER_BROWSER as SupportedBrowser) || 'firefox',
+      args: ['--no-sandbox'],
     })
     const page = await browser.newPage()
+    page.setExtraHTTPHeaders(extraHeaders)
 
     // Navigate the page to a URL
     await page.goto(url)
