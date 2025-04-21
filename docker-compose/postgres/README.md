@@ -4,7 +4,6 @@ Ready to use setup with postgres database adapter and starting the following doc
 
 - caddy as proxy server with self-signed certificates
 - postgres
-- gotenberg
 - pgadmin (optional)
 - pgbackup (optional)
 - cv-manager

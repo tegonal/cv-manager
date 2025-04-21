@@ -4,7 +4,6 @@ Ready to use setup with the mongo database adapter and starting the following do
 
 - caddy as proxy server with self-signed certificates
 - mongo
-- gotenberg
 - cv-manager
 
 ### Secrets

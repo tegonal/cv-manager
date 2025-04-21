@@ -82,15 +82,15 @@ const Page = async ({ params, searchParams }: Args) => {
   const loadImage = async (url: string) => {
     if (
       process.env.PUBLIC_URL &&
-      process.env.GOTENBERG_TO_APP_URL &&
+      process.env.INTERNAL_APP_URL &&
       url.startsWith(process.env.PUBLIC_URL) &&
-      process.env.PUBLIC_URL != process.env.GOTENBERG_TO_APP_URL
+      process.env.PUBLIC_URL != process.env.INTERNAL_APP_URL
     ) {
-      // replace public url with the url of gotenberg as the public url might not be accessible internally
-      url = url.replace(process.env.PUBLIC_URL, process.env.GOTENBERG_TO_APP_URL)
+      // replace public url with the url of interal app as the public url might not be accessible internally
+      url = url.replace(process.env.PUBLIC_URL, process.env.INTERNAL_APP_URL)
     }
 
-    console.log('fetch profile image', url)
+    console.debug('fetch profile image', url)
     const response = await ky.get(url, {
       headers: kyHeaders,
     })

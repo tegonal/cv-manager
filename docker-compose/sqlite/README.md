@@ -3,7 +3,6 @@
 Ready to use setup with the sqlite file db adapter and starting the following docker images:
 
 - caddy as proxy server with self-signed certificates
-- gotenberg
 - cv-manager
 
 ### Secrets
