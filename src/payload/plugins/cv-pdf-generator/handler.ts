@@ -13,6 +13,8 @@ type Props = {
   exportOverride: Record<string, boolean>
 }
 
+const DEFAULT_TIMEOUT = 60000
+
 export const requestHandler = async (
   req: PayloadRequest,
   { id, locale, exportOverride }: Props,
@@ -61,8 +63,10 @@ export const requestHandler = async (
 
     // Navigate the page to a URL
     await page.goto(url, {
-      timeout: 0,
-      waitUntil: ['load', 'domcontentloaded', 'networkidle2'],
+      timeout: process.env.PUPPETER_REQUEST_TIMEOUT
+        ? (parseInt(process.env.PUPPETER_REQUEST_TIMEOUT) ?? DEFAULT_TIMEOUT)
+        : DEFAULT_TIMEOUT,
+      waitUntil: ['load', 'domcontentloaded', 'networkidle0'],
     })
 
     // create PDF

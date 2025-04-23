@@ -36,6 +36,7 @@ export const GeneratePDFButton: React.FC<Props> = ({
     }
     const response = await ky.post(`/api/${pluginConstants.apiUrlSlug}`, {
       json: params,
+      timeout: false,
     })
 
     if (response.status !== 200) {
@@ -81,8 +82,7 @@ export const GeneratePDFButton: React.FC<Props> = ({
       buttonStyle="primary"
       className={`${baseClass}__cancel`}
       onClick={generatePdf}
-      disabled={isBusy}
-    >
+      disabled={isBusy}>
       {isBusy ? 'Generating PDF...' : 'Generate PDF'}
     </Button>
   )
