@@ -126,8 +126,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               <div className={'flex flex-col gap-4'}>
                 {cv.edu?.map((item) => (
                   <div key={item.id} className={'no-page-break'}>
-                    <p className={'font-normal'}>{item.institution}</p>
-                    <p className={'small'}>{fromToYear(locale, item.fromYear, item.toYear)}</p>
+                    <p className={'keep-with-next font-normal'}>{item.institution}</p>
+                    <p className={'keep-with-next small'}>
+                      {fromToYear(locale, item.fromYear, item.toYear)}
+                    </p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -141,8 +143,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <h3>{I18nCollection.fieldLabel.certifications[locale]}</h3>
                 {cv.certs?.map((item) => (
                   <div key={item.id} className={'no-page-break'}>
-                    <p className={'font-normal'}>{item.name}</p>
-                    <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
+                    <p className={'keep-with-next font-normal'}>{item.name}</p>
+                    <p className={'keep-with-next small'}>
+                      {fromToYear(locale, item.toYear, item.toYear)}
+                    </p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -156,8 +160,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <h3>{I18nCollection.fieldLabel.courses[locale]}</h3>
                 {cv.courses?.map((item) => (
                   <div key={item.id} className={'no-page-break'}>
-                    <p className={'font-normal'}>{item.name}</p>
-                    <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
+                    <p className={'keep-with-next font-normal'}>{item.name}</p>
+                    <p className={'keep-with-next small'}>
+                      {fromToYear(locale, item.toYear, item.toYear)}
+                    </p>
                     <div>
                       <PayloadLexicalReactRenderer content={item.description as any} />
                     </div>
@@ -189,8 +195,8 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               if (group.skills && group.skills.length < 1) return null
               return (
                 <div key={group.id} className={'no-page-break flex flex-col gap-4'}>
-                  <div className={'flex flex-col gap-1'}>
-                    <h3>{(group.group as SkillGroup).name}</h3>
+                  <div className={'keep-with-next flex flex-col gap-1'}>
+                    <h3 className={'keep-with-next'}>{(group.group as SkillGroup).name}</h3>
                     {group.skillGroupDescription && (
                       <div className={'small mb-0.5'}>
                         <PayloadLexicalReactRenderer content={group.skillGroupDescription as any} />
@@ -221,7 +227,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <div className={'grid grid-cols-3 gap-6'}>
                   {cv.otherSkills?.map((item) => (
                     <div key={item.id} className={'no-page-break'}>
-                      <p className={'font-normal'}>{item.name}</p>
+                      <p className={'keep-with-next font-normal'}>{item.name}</p>
                       <p className={'small'}>{(item.level as Level).level}</p>
                     </div>
                   ))}
@@ -234,7 +240,9 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <div className={'grid grid-cols-3 gap-6'}>
                   {cv.lang?.map((item) => (
                     <div key={item.id} className={'no-page-break'}>
-                      <p className={'font-normal'}>{(item.language as Skill).name}</p>
+                      <p className={'keep-with-next font-normal'}>
+                        {(item.language as Skill).name}
+                      </p>
                       <p className={'small'}>{(item.level as Level).level}</p>
                     </div>
                   ))}
@@ -269,9 +277,13 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                   if (projectKey in exportOverride && !exportOverride[projectKey]) return null
                   return (
                     <div key={item.id} className={'no-page-break'}>
-                      <p className={'mb-0.5 font-normal'}>{(item.company as Company).name}</p>
-                      <p className={'small mb-0.5'}>{(item.project as Project).name}</p>
-                      <p className={'small mb-0.5'}>
+                      <p className={'keep-with-next mb-0.5 font-normal'}>
+                        {(item.company as Company).name}
+                      </p>
+                      <p className={'keep-with-next small mb-0.5'}>
+                        {(item.project as Project).name}
+                      </p>
+                      <p className={'keep-with-next small mb-0.5'}>
                         {fromToYear(locale, item.fromYear, item.toYear)}
                       </p>
                       <div>
