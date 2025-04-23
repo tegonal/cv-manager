@@ -54,12 +54,16 @@ export const requestHandler = async (
     const browser = await puppeteer.launch({
       browser: (process.env.PUPPETER_BROWSER as SupportedBrowser) || 'firefox',
       args: ['--no-sandbox'],
+      //headless: false
     })
     const page = await browser.newPage()
     page.setExtraHTTPHeaders(extraHeaders)
 
     // Navigate the page to a URL
-    await page.goto(url)
+    await page.goto(url, {
+      timeout: 0,
+      waitUntil: ['load', 'domcontentloaded', 'networkidle2'],
+    })
 
     // create PDF
     const result = await page.pdf({
