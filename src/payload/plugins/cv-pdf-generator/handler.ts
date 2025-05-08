@@ -5,7 +5,7 @@ import configPromise from '@payload-config'
 import * as process from 'node:process'
 import { encodeToBase64 } from 'next/dist/build/webpack/loaders/utils'
 import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
-import puppeteer, { SupportedBrowser } from 'puppeteer'
+import puppeteer, { PuppeteerLifeCycleEvent, SupportedBrowser } from 'puppeteer'
 
 type Props = {
   id: string
@@ -56,17 +56,24 @@ export const requestHandler = async (
     const browser = await puppeteer.launch({
       browser: (process.env.PUPPETER_BROWSER as SupportedBrowser) || 'firefox',
       args: ['--no-sandbox'],
+      //enable those for debug purposes
+      //dumpio: true,
       //headless: false
     })
     const page = await browser.newPage()
     page.setExtraHTTPHeaders(extraHeaders)
 
     // Navigate the page to a URL
+    const waitUntil: PuppeteerLifeCycleEvent[] = ['load', 'domcontentloaded']
+    if (process.env.PUPPETER_BROWSER === 'chrome') {
+      waitUntil.push('networkidle0')
+    }
+
     await page.goto(url, {
       timeout: process.env.PUPPETER_REQUEST_TIMEOUT
         ? (parseInt(process.env.PUPPETER_REQUEST_TIMEOUT) ?? DEFAULT_TIMEOUT)
         : DEFAULT_TIMEOUT,
-      waitUntil: ['load', 'domcontentloaded', 'networkidle0'],
+      waitUntil: waitUntil,
     })
 
     // create PDF
@@ -85,6 +92,6 @@ export const requestHandler = async (
     return result
   } catch (e: any) {
     console.error(e)
+    return Promise.reject({})
   }
-  return Promise.resolve({})
 }
