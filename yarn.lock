@@ -9180,11 +9180,11 @@ __metadata:
   linkType: hard
 
 "payload-oauth2@npm:^1.0.14":
-  version: 1.0.14
-  resolution: "payload-oauth2@npm:1.0.14"
+  version: 1.0.15
+  resolution: "payload-oauth2@npm:1.0.15"
   peerDependencies:
     payload: ^3
-  checksum: 10/2907f0266a65ee27b4204f8b653498f0412dc929f55ca9acc576ef5a711dadb0546db4171d25c31f7fd0dc416a3718368fd5465642d2d6885e371ce0dbfd4863
+  checksum: 10/a58f85634956a5153003dbc9431a9a127f6e80105422b7c6cc1a8e146429ee1721e2a1f7ead8cc8f7953fdb17777e479bd3e8a341a6e3bc795b31ea496b2778d
   languageName: node
   linkType: hard
 
