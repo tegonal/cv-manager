@@ -64,10 +64,7 @@ export const requestHandler = async (
     page.setExtraHTTPHeaders(extraHeaders)
 
     // Navigate the page to a URL
-    const waitUntil: PuppeteerLifeCycleEvent[] = ['load', 'domcontentloaded']
-    if (process.env.PUPPETER_BROWSER === 'chrome') {
-      waitUntil.push('networkidle0')
-    }
+    const waitUntil: PuppeteerLifeCycleEvent[] = ['load', 'domcontentloaded', 'networkidle0']
 
     await page.goto(url, {
       timeout: process.env.PUPPETER_REQUEST_TIMEOUT
