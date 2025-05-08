@@ -2800,9 +2800,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.10.0":
-  version: 2.10.0
-  resolution: "@puppeteer/browsers@npm:2.10.0"
+"@puppeteer/browsers@npm:2.10.4":
+  version: 2.10.4
+  resolution: "@puppeteer/browsers@npm:2.10.4"
   dependencies:
     debug: "npm:^4.4.0"
     extract-zip: "npm:^2.0.1"
@@ -2813,7 +2813,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: 10/f2b360be90a6be0857c223fa1bd20e12b8c57962f217a1ebf5537a1f2db79f6569795adf3df4bb2d170185ef71ec755c1ded599e53fb4474d0a4356973ca0c85
+  checksum: 10/7ccae2c9bbab5d1f69e29e454e9744a873a5a791012799faea36a71b9908dfe67c61f7a64a1b9839ac79b1f9a5677f540197e0bbfe58e9d62b7ccb300f8002b3
   languageName: node
   linkType: hard
 
@@ -4788,15 +4788,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromium-bidi@npm:3.0.0":
-  version: 3.0.0
-  resolution: "chromium-bidi@npm:3.0.0"
+"chromium-bidi@npm:5.1.0":
+  version: 5.1.0
+  resolution: "chromium-bidi@npm:5.1.0"
   dependencies:
     mitt: "npm:^3.0.1"
     zod: "npm:^3.24.1"
   peerDependencies:
     devtools-protocol: "*"
-  checksum: 10/b14d0ce4cd08a060c72ea4652b46930f656639521dcdf5e2a5c29ba79d26400c182d06d8007c0aed1f5f3e5b7b19a8072281010cd390349243590bfc0f013932
+  checksum: 10/4e96f07a08eb6907fa9b1814a6c71051e76b237d08d7fa5be2b4c459978caa1e2bf4f4c76673432bbbe69674ab01c32e3263f12ba41383eaa9b0b7de92e9f8f2
   languageName: node
   linkType: hard
 
@@ -5309,10 +5309,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1425554":
-  version: 0.0.1425554
-  resolution: "devtools-protocol@npm:0.0.1425554"
-  checksum: 10/0b8957f3e4ec9e4520bec590acaceed3877f337901f5754c36fff69774d5a10a138f49eb5096e843a0abe78676849b4aff042b080dcada953265e9665b7d10cc
+"devtools-protocol@npm:0.0.1439962":
+  version: 0.0.1439962
+  resolution: "devtools-protocol@npm:0.0.1439962"
+  checksum: 10/70dc8c9e10b87b9d3377c6e81b4472621e6d18bfffe09031a914ac14616a8f8be290cb2c8d167ce19e48d5d493ad3ad12dd4967b8287b493d9a48aacfc202c68
   languageName: node
   linkType: hard
 
@@ -9806,33 +9806,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.6.1":
-  version: 24.6.1
-  resolution: "puppeteer-core@npm:24.6.1"
+"puppeteer-core@npm:24.8.2":
+  version: 24.8.2
+  resolution: "puppeteer-core@npm:24.8.2"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.0"
-    chromium-bidi: "npm:3.0.0"
+    "@puppeteer/browsers": "npm:2.10.4"
+    chromium-bidi: "npm:5.1.0"
     debug: "npm:^4.4.0"
-    devtools-protocol: "npm:0.0.1425554"
+    devtools-protocol: "npm:0.0.1439962"
     typed-query-selector: "npm:^2.12.0"
-    ws: "npm:^8.18.1"
-  checksum: 10/26acb17b4bd11778fa5df3aaa1e171762662c4485fda29c65246bc859e6248e425994dbc0a11f748b5535f3df33e117cac7f16ad46d63f784ec072d187c18f0d
+    ws: "npm:^8.18.2"
+  checksum: 10/38ca26d83a15876a2207415bd4ceb889267c1264d7678d5b61b2d8aefe7cfc1e0d7f949e260acb3265b0cbbc0b85de5f080129cfb242fb04415f701a1b9efe78
   languageName: node
   linkType: hard
 
 "puppeteer@npm:^24.6.1":
-  version: 24.6.1
-  resolution: "puppeteer@npm:24.6.1"
+  version: 24.8.2
+  resolution: "puppeteer@npm:24.8.2"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.0"
-    chromium-bidi: "npm:3.0.0"
+    "@puppeteer/browsers": "npm:2.10.4"
+    chromium-bidi: "npm:5.1.0"
     cosmiconfig: "npm:^9.0.0"
-    devtools-protocol: "npm:0.0.1425554"
-    puppeteer-core: "npm:24.6.1"
+    devtools-protocol: "npm:0.0.1439962"
+    puppeteer-core: "npm:24.8.2"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/1ec42961ae2bbfcc4d3909b606a6b71c0fb9d2aae1a9ae203d2487ce56ad93b57ce9e36535e756f3372c9eb03283c83201a7f55723d3c770bb1478540f08d517
+  checksum: 10/541470f3d2902bca0f95838e8f383be4251f69e0d31a7ee65b5dd6adbe0855e03e174ce59632fcf627494b3d67920c3fc531ee014007cfb61bc1322cccc995f5
   languageName: node
   linkType: hard
 
@@ -11713,7 +11713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.13.0, ws@npm:^8.16.0, ws@npm:^8.18.1":
+"ws@npm:^8.13.0, ws@npm:^8.16.0":
   version: 8.18.1
   resolution: "ws@npm:8.18.1"
   peerDependencies:
@@ -11725,6 +11725,21 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 10/3f38e9594f2af5b6324138e86b74df7d77bbb8e310bf8188679dd80bac0d1f47e51536a1923ac3365f31f3d8b25ea0b03e4ade466aa8292a86cd5defca64b19b
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.18.2":
+  version: 8.18.2
+  resolution: "ws@npm:8.18.2"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 10/018e04ec95561d88248d53a2eaf094b4ae131e9b062f2679e6e8a62f04649bc543448f1e038125225ac6bbb25f54c1e65d7a2cc9dbc1e28b43e5e6b7162ad88e
   languageName: node
   linkType: hard
 
