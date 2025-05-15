@@ -30,3 +30,11 @@ export const textDescription: Field = {
   type: 'richText',
   localized: true,
 }
+
+export const textLinkOptional: Field = {
+  type: 'text',
+  name: 'link',
+  localized: false,
+  required: false,
+  label: I18nCollection.fieldLabel.link,
+}

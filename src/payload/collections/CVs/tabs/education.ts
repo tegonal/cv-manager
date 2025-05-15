@@ -1,6 +1,7 @@
 import { I18nCollection } from '@/lib/i18nCollection'
 import {
   textDescription,
+  textLinkOptional,
   textNameRequired,
 } from '@/payload/collections/CVs/fields/common-text-fields'
 import { Field } from 'payload'
@@ -30,7 +31,7 @@ export const EducationTabFields: Field[] = [
       },
       {
         type: 'row',
-        fields: [optional(selectStartYear), optional(selectEndYear)],
+        fields: [optional(selectStartYear), optional(selectEndYear), textLinkOptional],
       },
       textDescription,
     ],
@@ -46,18 +47,15 @@ export const EducationTabFields: Field[] = [
     },
     fields: [
       {
+        name: 'institution',
+        type: 'text',
+        label: I18nCollection.fieldLabel.name,
+        localized: true,
+        required: true,
+      },
+      {
         type: 'row',
-        fields: [
-          {
-            name: 'institution',
-            type: 'text',
-            label: I18nCollection.fieldLabel.name,
-            localized: true,
-            required: true,
-          },
-          selectStartYear,
-          selectEndYear,
-        ],
+        fields: [selectStartYear, selectEndYear, textLinkOptional],
       },
       textDescription,
     ],
@@ -74,7 +72,7 @@ export const EducationTabFields: Field[] = [
     fields: [
       {
         type: 'row',
-        fields: [textNameRequired, selectYear],
+        fields: [selectYear, textNameRequired, textLinkOptional],
       },
       textDescription,
     ],
@@ -91,7 +89,7 @@ export const EducationTabFields: Field[] = [
     fields: [
       {
         type: 'row',
-        fields: [textNameRequired, selectYear],
+        fields: [selectYear, textNameRequired, textLinkOptional],
       },
       textDescription,
     ],

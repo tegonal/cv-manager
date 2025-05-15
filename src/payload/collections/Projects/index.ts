@@ -3,6 +3,7 @@ import { adminSettingsField } from '@/payload/fields/admin-settings'
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { I18nCollection } from '@/lib/i18nCollection'
 import { defaultCollectionAccess } from '@/payload/access/default-collection-access'
+import { textLinkOptional } from '../CVs/fields/common-text-fields'
 
 export const Projects: CollectionConfig = {
   slug: 'project',
@@ -21,11 +22,14 @@ export const Projects: CollectionConfig = {
       type: 'text',
       name: 'name',
       localized: true,
+      label: I18nCollection.fieldLabel.name,
     },
+    textLinkOptional,
     {
       type: 'richText',
       name: 'description',
       localized: true,
+      label: I18nCollection.fieldLabel.description,
     },
     adminSettingsField({ sidebar: true }),
   ],

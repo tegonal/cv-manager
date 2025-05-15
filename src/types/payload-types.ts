@@ -299,6 +299,7 @@ export interface Cv {
         title?: string | null
         fromYear?: string | null
         toYear?: string | null
+        link?: string | null
         description?: {
           root: {
             type: string
@@ -322,6 +323,7 @@ export interface Cv {
         institution: string
         fromYear: string
         toYear: string
+        link?: string | null
         description?: {
           root: {
             type: string
@@ -342,8 +344,9 @@ export interface Cv {
     | null
   certs?:
     | {
-        name: string
         toYear: string
+        name: string
+        link?: string | null
         description?: {
           root: {
             type: string
@@ -364,8 +367,9 @@ export interface Cv {
     | null
   courses?:
     | {
-        name: string
         toYear: string
+        name: string
+        link?: string | null
         description?: {
           root: {
             type: string
@@ -389,9 +393,9 @@ export interface Cv {
    */
   jobHighlights?:
     | {
-        company: number | Company
         fromYear?: string | null
         toYear?: string | null
+        company: number | Company
         description?: {
           root: {
             type: string
@@ -412,10 +416,10 @@ export interface Cv {
     | null
   projects?:
     | {
-        company: number | Company
-        project: number | Project
         fromYear: string
         toYear?: string | null
+        company: number | Company
+        project: number | Project
         description?: {
           root: {
             type: string
@@ -636,6 +640,7 @@ export interface Company {
 export interface Project {
   id: number
   name?: string | null
+  link?: string | null
   description?: {
     root: {
       type: string
@@ -808,6 +813,7 @@ export interface CvSelect<T extends boolean = true> {
         title?: T
         fromYear?: T
         toYear?: T
+        link?: T
         description?: T
         id?: T
       }
@@ -817,41 +823,44 @@ export interface CvSelect<T extends boolean = true> {
         institution?: T
         fromYear?: T
         toYear?: T
+        link?: T
         description?: T
         id?: T
       }
   certs?:
     | T
     | {
-        name?: T
         toYear?: T
+        name?: T
+        link?: T
         description?: T
         id?: T
       }
   courses?:
     | T
     | {
-        name?: T
         toYear?: T
+        name?: T
+        link?: T
         description?: T
         id?: T
       }
   jobHighlights?:
     | T
     | {
-        company?: T
         fromYear?: T
         toYear?: T
+        company?: T
         description?: T
         id?: T
       }
   projects?:
     | T
     | {
-        company?: T
-        project?: T
         fromYear?: T
         toYear?: T
+        company?: T
+        project?: T
         description?: T
         id?: T
       }
@@ -940,6 +949,7 @@ export interface CompanySelect<T extends boolean = true> {
  */
 export interface ProjectSelect<T extends boolean = true> {
   name?: T
+  link?: T
   description?: T
   organisation?: T
   createdBy?: T

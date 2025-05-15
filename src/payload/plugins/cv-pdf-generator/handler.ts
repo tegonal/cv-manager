@@ -4,7 +4,7 @@ import { getPayload, PayloadRequest } from 'payload'
 import configPromise from '@payload-config'
 import * as process from 'node:process'
 import { encodeToBase64 } from 'next/dist/build/webpack/loaders/utils'
-import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
+import { LANG_HEADER_KEY, PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
 import puppeteer, { PuppeteerLifeCycleEvent, SupportedBrowser } from 'puppeteer'
 
 type Props = {
@@ -40,7 +40,6 @@ export const requestHandler = async (
   }
 
   const searchParams = {
-    locale,
     exportOverride,
     secret: new Date().getTime().toString(),
   }
@@ -48,9 +47,10 @@ export const requestHandler = async (
   const searchParamString = encodeToBase64(searchParams)
   const extraHeaders: Record<string, string> = {}
   extraHeaders[PRINTER_HEADER_KEY] = process.env.PRINTER_SECRET || ''
+  extraHeaders[LANG_HEADER_KEY] = locale
 
   try {
-    const url = `${host}/cv/${id}?p=${searchParamString}`
+    const url = `${host}/cv/${id}?p=${searchParamString}&${LANG_HEADER_KEY}=${locale}`
     if (process.env.NODE_ENV !== 'production') console.log({ url })
     // Launch the browser
     const browser = await puppeteer.launch({
