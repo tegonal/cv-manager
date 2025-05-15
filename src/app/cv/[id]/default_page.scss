@@ -65,6 +65,11 @@ p {
   &.small-margin {
     margin: 0 0 6pt 0;
   }
+
+  // Based on https://www.mediaevent.de/css3-silbentrennung-hyphens/
+  hyphens: auto;
+  hyphenate-limit-chars: auto 5;
+  hyphenate-limit-lines: 2;
 }
 
 .lead {

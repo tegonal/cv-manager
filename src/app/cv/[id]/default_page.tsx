@@ -64,7 +64,9 @@ const DefaultPage: React.FC<CvPageProps> = async ({
           </div>
           <div className={'lead w-2/3'}>
             <h2>{I18nCollection.fieldLabel.introduction[locale]}</h2>
-            <PayloadLexicalReactRenderer content={cv.introduction as any} />
+            <div className={'space-y-1'}>
+              <PayloadLexicalReactRenderer content={cv.introduction as any} />
+            </div>
           </div>
         </div>
       </div>
@@ -101,7 +103,9 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <h3>{I18nCollection.fieldLabel.links[locale]}</h3>
                 {cv.links?.map((link) => (
                   <div key={link.id}>
-                    <a href={link.url}>{capitalize(link.platform)}</a>
+                    <a href={link.url} target="_blank">
+                      {capitalize(link.platform)}
+                    </a>
                   </div>
                 ))}
               </div>
@@ -129,11 +133,18 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                     <tbody>
                       <tr>
                         <td className={'no-page-break'}>
-                          <p className={'font-normal'}>{item.institution}</p>
+                          <p className={'font-normal'}>
+                            {item.link && (
+                              <a href={item.link} target="_blank">
+                                {item.institution}
+                              </a>
+                            )}
+                            {!item.link && item.institution}
+                          </p>
                           <p className={'small'}>
                             {fromToYear(locale, item.fromYear, item.toYear)}
                           </p>
-                          <div>
+                          <div className={'space-y-1'}>
                             <PayloadLexicalReactRenderer content={item.description as any} />
                           </div>
                         </td>
@@ -152,9 +163,16 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                     <tbody>
                       <tr>
                         <td className={'no-page-break'}>
-                          <p className={'font-normal'}>{item.name}</p>
+                          <p className={'font-normal'}>
+                            {item.link && (
+                              <a href={item.link} target="_blank">
+                                {item.name}
+                              </a>
+                            )}
+                            {!item.link && item.name}
+                          </p>
                           <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
-                          <div>
+                          <div className={'space-y-1'}>
                             <PayloadLexicalReactRenderer content={item.description as any} />
                           </div>
                         </td>
@@ -173,9 +191,16 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                     <tbody>
                       <tr>
                         <td className={'no-page-break'}>
-                          <p className={'font-normal'}>{item.name}</p>
+                          <p className={'font-normal'}>
+                            {item.link && (
+                              <a href={item.link} target="_blank">
+                                {item.name}
+                              </a>
+                            )}
+                            {!item.link && item.name}
+                          </p>
                           <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
-                          <div>
+                          <div className={'space-y-1'}>
                             <PayloadLexicalReactRenderer content={item.description as any} />
                           </div>
                         </td>
@@ -187,6 +212,22 @@ const DefaultPage: React.FC<CvPageProps> = async ({
             )}
           </div>
         </div>
+        {hasLexicalNodes(cv.casualInfo as any) && hasOverride('casualInfo') && (
+          <table className={'col-span-12 mt-8'}>
+            <tbody>
+              <tr>
+                <td className={'no-page-break flex flex-col gap-4'}>
+                  <h2>{I18nCollection.fieldLabel.casualInfo[locale]}</h2>
+                  <div className={'space-y-1'}>
+                    <PayloadLexicalReactRenderer
+                      content={filterEmptyLexicalNodes(cv.casualInfo as any)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
       </div>
       {/* Skills */}
       <div className={'break-after'}>
@@ -215,7 +256,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                         <div className={'flex flex-col gap-1'}>
                           <h3>{(group.group as SkillGroup).name}</h3>
                           {group.skillGroupDescription && (
-                            <div className={'small mb-0.5'}>
+                            <div className={'small mb-0.5 space-y-1'}>
                               <PayloadLexicalReactRenderer
                                 content={group.skillGroupDescription as any}
                               />
@@ -314,12 +355,24 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tbody>
                         <tr>
                           <td className={'no-page-break'}>
-                            <p className={'mb-0.5 font-normal'}>{(item.company as Company).name}</p>
-                            <p className={'small mb-0.5'}>{(item.project as Project).name}</p>
+                            <p className={'mb-0.5 font-normal'}>
+                              {(item.project as Project).link && (
+                                <a href={(item.project as Project).link || ''} target="_blank">
+                                  {(item.project as Project).name}
+                                </a>
+                              )}
+                              {!(item.project as Project).link && (item.project as Project).name}
+                            </p>
+                            <p className={'small mb-0.5'}>{(item.company as Company).name}</p>
                             <p className={'small mb-0.5'}>
                               {fromToYear(locale, item.fromYear, item.toYear)}
                             </p>
-                            <div>
+                            <div className={'space-y-1'}>
+                              {(item.project as Project).description && (
+                                <PayloadLexicalReactRenderer
+                                  content={(item.project as Project).description as any}
+                                />
+                              )}
                               <PayloadLexicalReactRenderer content={item.description as any} />
                             </div>
                           </td>
@@ -331,16 +384,6 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               </div>
             )}
           </div>
-          {hasLexicalNodes(cv.casualInfo as any) && hasOverride('casualInfo') && (
-            <div className={'col-span-12 flex flex-col gap-8'}>
-              <h2>{I18nCollection.fieldLabel.casualInfo[locale]}</h2>
-              <div>
-                <PayloadLexicalReactRenderer
-                  content={filterEmptyLexicalNodes(cv.casualInfo as any)}
-                />
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </>

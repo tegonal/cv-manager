@@ -212,6 +212,10 @@ export const I18nCollection = {
       en: 'Links',
       de: 'Links',
     },
+    link: {
+      en: 'Link',
+      de: 'Link',
+    },
     socialMediaSite: {
       en: 'Social media site',
       de: 'Soziales Netzwerk',

@@ -20,11 +20,11 @@ export const WorkExperienceTabFields: Field[] = [
     fields: [
       {
         type: 'row',
-        fields: [selectCompany],
+        fields: [optional(selectStartYear), optional(selectEndYear)],
       },
       {
         type: 'row',
-        fields: [optional(selectStartYear), optional(selectEndYear)],
+        fields: [selectCompany],
       },
       textDescription,
     ],
@@ -41,11 +41,11 @@ export const WorkExperienceTabFields: Field[] = [
     fields: [
       {
         type: 'row',
-        fields: [selectCompany, selectProject],
+        fields: [selectStartYear, optional(selectEndYear)],
       },
       {
         type: 'row',
-        fields: [selectStartYear, optional(selectEndYear)],
+        fields: [selectCompany, selectProject],
       },
       textDescription,
     ],

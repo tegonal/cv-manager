@@ -18,8 +18,7 @@ type Args = {
   }>
 }
 
-type DecodedSearchParams = {
-  locale: TypedLocale
+export type DecodedSearchParams = {
   exportOverride: Record<string, boolean>
   secret: string
 }
@@ -57,10 +56,12 @@ const Page = async ({ params, searchParams }: Args) => {
     throw new Error('No parameters, Aborting')
   }
 
+  const lang = query.searchParams.lang
+  const locale: TypedLocale = (lang as TypedLocale) || 'en'
+
   const decodedParams: DecodedSearchParams = decodeFromBase64(query.searchParams.p as string)
 
   const { exportOverride } = decodedParams
-  const locale: TypedLocale = decodedParams.locale
 
   const cv = await payload
     .find({
@@ -70,7 +71,7 @@ const Page = async ({ params, searchParams }: Args) => {
           equals: query.params.id,
         },
       },
-      locale: decodedParams.locale,
+      locale: locale,
       depth: 1,
     })
     .then((data) => data.docs[0])

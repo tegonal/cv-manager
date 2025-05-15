@@ -11,6 +11,7 @@ export const selectStartYear: Field = {
       pickerAppearance: 'monthOnly',
       displayFormat: 'yyyy',
     },
+    width: '20%',
   },
 }
 
@@ -24,6 +25,7 @@ export const selectEndYear: Field = {
       pickerAppearance: 'monthOnly',
       displayFormat: 'yyyy',
     },
+    width: '20%',
   },
 }
 
@@ -37,5 +39,6 @@ export const selectYear: Field = {
       pickerAppearance: 'monthOnly',
       displayFormat: 'yyyy',
     },
+    width: '20%',
   },
 }
