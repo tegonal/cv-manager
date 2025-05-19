@@ -2822,7 +2822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pkgr/core@npm:^0.2.0":
+"@pkgr/core@npm:^0.2.4":
   version: 0.2.4
   resolution: "@pkgr/core@npm:0.2.4"
   checksum: 10/8544f0346c3f7035b9e2fdf60179c68b12d3c76b3fba9533844099af67cf5c0ce5257538f5faa05953d48cc1536d046f003231f321b2f75b3fb449db8410a2b7
@@ -6414,8 +6414,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-jsonc@npm:^2.20.0":
-  version: 2.20.0
-  resolution: "eslint-plugin-jsonc@npm:2.20.0"
+  version: 2.20.1
+  resolution: "eslint-plugin-jsonc@npm:2.20.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.5.1"
     eslint-compat-utils: "npm:^0.6.4"
@@ -6424,10 +6424,10 @@ __metadata:
     graphemer: "npm:^1.4.0"
     jsonc-eslint-parser: "npm:^2.4.0"
     natural-compare: "npm:^1.4.0"
-    synckit: "npm:^0.6.2 || ^0.7.3 || ^0.10.3"
+    synckit: "npm:^0.6.2 || ^0.7.3 || ^0.11.5"
   peerDependencies:
     eslint: ">=6.0.0"
-  checksum: 10/655c98ceb91e002e365255e20ee8a985b450b9f1b2e5302db205bb55507ac021366a87aef4aee3692f5536c797aa320234d3275c3809adbe87b1a9529ae74354
+  checksum: 10/fc02f74ca20e0003adbd2b2a0b356073814e1d6393f8f3067a15aaf8e7b33b482e4a21bbe188463fef676f0dbb83f3c9e3809d897bdd8be4b016099ee54232fd
   languageName: node
   linkType: hard
 
@@ -11479,13 +11479,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.6.2 || ^0.7.3 || ^0.10.3":
-  version: 0.10.3
-  resolution: "synckit@npm:0.10.3"
+"synckit@npm:^0.6.2 || ^0.7.3 || ^0.11.5":
+  version: 0.11.6
+  resolution: "synckit@npm:0.11.6"
   dependencies:
-    "@pkgr/core": "npm:^0.2.0"
-    tslib: "npm:^2.8.1"
-  checksum: 10/bab2193585139f972b3725a9db8fedb6a93fe50bb5db06c0e8d3c93dbf83157e1eeba9fbd9c4922a1a41e9912b754ffe3906a3a7fa639ed502105de67d888207
+    "@pkgr/core": "npm:^0.2.4"
+  checksum: 10/e3fc13b064cb401ad4214e846f3e70037a44a221fcd303ad638c02d14e3f497ddd501b5b9f5e324e03fa2a3ca101df43f0850faa1696abaf0230a16ce9693408
   languageName: node
   linkType: hard
 
@@ -11726,7 +11725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.6.2, tslib@npm:^2.8.0, tslib@npm:^2.8.1":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.6.2, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
