@@ -42,11 +42,11 @@ body {
 
 a {
   &:link {
-    @apply underline;
+    @apply no-underline;
     color: black;
   }
   &:hover {
-    @apply no-underline;
+    @apply underline;
   }
   &:focus {
   }

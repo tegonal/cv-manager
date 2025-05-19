@@ -5308,6 +5308,7 @@ __metadata:
     jsonwebtoken: "npm:^9.0.2"
     ky: "npm:^1.8.1"
     lodash-es: "npm:^4.17.21"
+    lucide-react: "npm:^0.511.0"
     next: "npm:15.3.2"
     nodemailer: "npm:^7.0.3"
     pagedjs: "npm:^0.4.3"
@@ -8389,6 +8390,15 @@ __metadata:
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
   checksum: 10/6029ca5aba3aacb554e919d7ef804fffd4adfc4c83db00fac8248c7c78811fb6d4b6f70f7fd9d55032b3823446546a007edaa66ad1f2377ae833bd983fac5d98
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.511.0":
+  version: 0.511.0
+  resolution: "lucide-react@npm:0.511.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10/d712f4215a2e2563e145a6946f0e2be2cf6a081ac52d832e521996ba1c1fda91881445a4e78affa0bde520b3ad9f25ff83b8097f9baf2e192ce8f732d78e1402
   languageName: node
   linkType: hard
 

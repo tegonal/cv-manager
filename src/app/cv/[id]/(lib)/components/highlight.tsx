@@ -1,9 +1,10 @@
 import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
 import { IconHighlight } from '@/app/cv/[id]/(lib)/icon/highlight'
+import { ReactNode } from 'react'
 
 type Props = {
-  title: string | undefined | null
-  subtitle: string | undefined | null
+  title: string | undefined | null | ReactNode
+  subtitle: string | undefined | null | ReactNode
   description: any
   borderLeftColor?: string
 }

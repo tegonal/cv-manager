@@ -9,6 +9,7 @@ import { CvPageProps } from './page'
 import { filterEmptyLexicalNodes, formatDate, fromToYear, hasLexicalNodes } from './utilities'
 import * as process from 'node:process'
 import './default_page.scss'
+import { LinkWithIcon, OptionalLink } from './(lib)/components/link'
 
 const DefaultPage: React.FC<CvPageProps> = async ({
   cv,
@@ -103,9 +104,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <h3>{I18nCollection.fieldLabel.links[locale]}</h3>
                 {cv.links?.map((link) => (
                   <div key={link.id}>
-                    <a href={link.url} target="_blank">
-                      {capitalize(link.platform)}
-                    </a>
+                    <LinkWithIcon name={capitalize(link.platform)} url={link.url} />
                   </div>
                 ))}
               </div>
@@ -134,12 +133,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tr>
                         <td className={'no-page-break'}>
                           <p className={'font-normal'}>
-                            {item.link && (
-                              <a href={item.link} target="_blank">
-                                {item.institution}
-                              </a>
-                            )}
-                            {!item.link && item.institution}
+                            <OptionalLink url={item.link} name={item.institution} />
                           </p>
                           <p className={'small'}>
                             {fromToYear(locale, item.fromYear, item.toYear)}
@@ -164,12 +158,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tr>
                         <td className={'no-page-break'}>
                           <p className={'font-normal'}>
-                            {item.link && (
-                              <a href={item.link} target="_blank">
-                                {item.name}
-                              </a>
-                            )}
-                            {!item.link && item.name}
+                            <OptionalLink url={item.link} name={item.name} />
                           </p>
                           <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
                           <div className={'space-y-1'}>
@@ -192,12 +181,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tr>
                         <td className={'no-page-break'}>
                           <p className={'font-normal'}>
-                            {item.link && (
-                              <a href={item.link} target="_blank">
-                                {item.name}
-                              </a>
-                            )}
-                            {!item.link && item.name}
+                            <OptionalLink url={item.link} name={item.name} />
                           </p>
                           <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
                           <div className={'space-y-1'}>
@@ -356,12 +340,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                         <tr>
                           <td className={'no-page-break'}>
                             <p className={'mb-0.5 font-normal'}>
-                              {(item.project as Project).link && (
-                                <a href={(item.project as Project).link || ''} target="_blank">
-                                  {(item.project as Project).name}
-                                </a>
-                              )}
-                              {!(item.project as Project).link && (item.project as Project).name}
+                              <OptionalLink
+                                url={(item.project as Project).link}
+                                name={(item.project as Project).name || ''}
+                              />
                             </p>
                             <p className={'small mb-0.5'}>{(item.company as Company).name}</p>
                             <p className={'small mb-0.5'}>
