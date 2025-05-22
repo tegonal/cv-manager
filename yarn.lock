@@ -10414,8 +10414,8 @@ __metadata:
   linkType: hard
 
 "react-i18next@npm:^15.5.1":
-  version: 15.5.1
-  resolution: "react-i18next@npm:15.5.1"
+  version: 15.5.2
+  resolution: "react-i18next@npm:15.5.2"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
@@ -10430,7 +10430,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/19b9ecb1df2eb611c79a27c0f0e9ba7b93933ff7f3c2413507df5f514057b1f860df676157a3eafd5bd76726eb820c1f2ddb8f6be42c39152f2d585864344f01
+  checksum: 10/16e2e71177290ec3e3ca71403d101c511e0a0111f6eaabf5a84477fb5588cc83e27e5fc23d5f4404e6d3ca9f187752c349dd827d386218add27a169e9930fc63
   languageName: node
   linkType: hard
 
