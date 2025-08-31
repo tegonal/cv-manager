@@ -2780,6 +2780,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/translations@npm:3.44.0":
+  version: 3.44.0
+  resolution: "@payloadcms/translations@npm:3.44.0"
+  dependencies:
+    date-fns: "npm:4.1.0"
+  checksum: 10/75638b085664c06b1f1054c94ae0970258ecbc6d098ad2cfb5dc72efc31f910722e4d3f6757d19896d18c2e772f9f9a8376ddf572855bbed99911e8057f525a9
+  languageName: node
+  linkType: hard
+
 "@payloadcms/ui@npm:3.37.0":
   version: 3.37.0
   resolution: "@payloadcms/ui@npm:3.37.0"
@@ -5312,7 +5321,7 @@ __metadata:
     next: "npm:15.3.2"
     nodemailer: "npm:^7.0.3"
     pagedjs: "npm:^0.4.3"
-    payload: "npm:3.37.0"
+    payload: "npm:3.44.0"
     payload-oauth2: "npm:^1.0.15"
     postcss: "npm:^8.5.3"
     prettier: "npm:^3.5.3"
@@ -7600,6 +7609,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ipaddr.js@npm:2.2.0":
+  version: 2.2.0
+  resolution: "ipaddr.js@npm:2.2.0"
+  checksum: 10/9e1cdd9110b3bca5d910ab70d7fb1933e9c485d9b92cb14ef39f30c412ba3fe02a553921bf696efc7149cc653453c48ccf173adb996ec27d925f1f340f872986
+  languageName: node
+  linkType: hard
+
 "is-alphabetical@npm:^2.0.0":
   version: 2.0.1
   resolution: "is-alphabetical@npm:2.0.1"
@@ -9627,12 +9643,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"payload@npm:3.37.0":
-  version: 3.37.0
-  resolution: "payload@npm:3.37.0"
+"payload@npm:3.44.0":
+  version: 3.44.0
+  resolution: "payload@npm:3.44.0"
   dependencies:
     "@next/env": "npm:^15.1.5"
-    "@payloadcms/translations": "npm:3.37.0"
+    "@payloadcms/translations": "npm:3.44.0"
     "@types/busboy": "npm:1.5.4"
     ajv: "npm:8.17.1"
     bson-objectid: "npm:2.0.4"
@@ -9646,6 +9662,7 @@ __metadata:
     get-tsconfig: "npm:4.8.1"
     http-status: "npm:2.1.0"
     image-size: "npm:2.0.2"
+    ipaddr.js: "npm:2.2.0"
     jose: "npm:5.9.6"
     json-schema-to-typescript: "npm:15.0.3"
     minimist: "npm:1.2.8"
@@ -9658,13 +9675,14 @@ __metadata:
     scmp: "npm:2.1.0"
     ts-essentials: "npm:10.0.3"
     tsx: "npm:4.19.2"
+    undici: "npm:7.10.0"
     uuid: "npm:10.0.0"
     ws: "npm:^8.16.0"
   peerDependencies:
     graphql: ^16.8.1
   bin:
     payload: bin.js
-  checksum: 10/0fd73f8f218a2e84ece435abdbb38c59d7ec1f212810fd98d3ca58f7aa3c966c9bfa248c2646339119bcc88660f16ed134a0b5b00685bb90d23e1bdaac9ff874
+  checksum: 10/1fa169e98b6b13d3de278112ea59986506f3977e6fdf3e0523ad64331dd2e4a08e2c1050742620fb2dceb7dff3e0653fd426e029133b469f80b02dc7f6f923a1
   languageName: node
   linkType: hard
 
@@ -11886,6 +11904,13 @@ __metadata:
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
+  languageName: node
+  linkType: hard
+
+"undici@npm:7.10.0":
+  version: 7.10.0
+  resolution: "undici@npm:7.10.0"
+  checksum: 10/41d8ccd5b5e35bcd9035a5a640d9020f9ea1a2ef3dffb3e29518ff16ca01957833f1befe141b3a58db09015174681614732f9d322b0bc7f78855f51020bd744e
   languageName: node
   linkType: hard
 

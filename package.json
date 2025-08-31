@@ -51,7 +51,7 @@
     "next": "15.3.2",
     "nodemailer": "^7.0.3",
     "pagedjs": "^0.4.3",
-    "payload": "3.37.0",
+    "payload": "3.44.0",
     "payload-oauth2": "^1.0.15",
     "puppeteer": "^24.8.2",
     "react": "19.1.0",
