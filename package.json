@@ -57,7 +57,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-i18next": "^15.5.1",
-    "sharp": "0.34.1",
+    "sharp": "0.34.5",
     "tslog": "^4.9.3"
   },
   "devDependencies": {
