@@ -61,7 +61,7 @@
     "tslog": "^4.9.3"
   },
   "devDependencies": {
-    "@swc/core": "1.11.24",
+    "@swc/core": "1.15.3",
     "@tailwindcss/typography": "^0.5.16",
     "@types/jsdom": "^21.1.7",
     "@types/jsonwebtoken": "^9.0.9",
