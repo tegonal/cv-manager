@@ -1,4 +1,3 @@
-import { isNumber } from 'lodash-es'
 import { Access, CollectionConfig } from 'payload'
 
 import { I18nCollection } from '@/lib/i18nCollection'
@@ -34,7 +33,7 @@ const readAccess: Access<Organisation> = (args) => {
 
   const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation)
 
-  if (selectedOrganisation && isNumber(selectedOrganisation)) {
+  if (selectedOrganisation && typeof selectedOrganisation === 'number') {
     return {
       id: {
         equals: selectedOrganisation,
@@ -54,7 +53,7 @@ const updateAccess: Access<Organisation> = async (args) => {
 
   if (
     selectedOrganisation &&
-    isNumber(selectedOrganisation) &&
+    typeof selectedOrganisation === 'number' &&
     checkOrganisationRoles([ROLE_SUPER_ADMIN], args.req.user, selectedOrganisation)
   ) {
     return {

@@ -1,6 +1,5 @@
 'use client'
 import { useRowLabel } from '@payloadcms/ui'
-import { truncate } from 'lodash-es'
 import React, { useEffect, useState } from 'react'
 
 const excludeKeys = ['id', 'year', 'fromYear', 'toYear', 'locale', 'organisation', 'level']
@@ -17,7 +16,7 @@ export const RowLabelFirstText: React.FC = () => {
       const label = textFields[0]
 
       if (label) {
-        setLabel(truncate(data[label], { length: 50 }))
+        setLabel(data[label].length > 50 ? data[label].slice(0, 47) + '...' : data[label])
       }
     } else {
       setLabel(`Item ${rowNumber}`)

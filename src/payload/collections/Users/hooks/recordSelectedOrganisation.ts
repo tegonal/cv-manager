@@ -1,4 +1,3 @@
-import { isNumber } from 'lodash-es'
 import { CollectionAfterLoginHook } from 'payload'
 
 import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
@@ -22,7 +21,7 @@ export const recordSelectedOrganisation: CollectionAfterLoginHook<User> = async 
     }
 
     const selectedOrgId = getIdFromRelation(user.organisations?.[0]?.organisation)
-    if (!selectedOrgId || !isNumber(selectedOrgId)) {
+    if (!selectedOrgId || typeof selectedOrgId !== 'number') {
       req.payload.logger.error({
         msg: `Cannot find organisation ID for user ${user.id}, cannot set default!`,
       })

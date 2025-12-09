@@ -1,4 +1,3 @@
-import { capitalize, isEmpty } from 'lodash-es'
 import Image from 'next/image'
 import * as process from 'node:process'
 import React from 'react'
@@ -101,12 +100,15 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 <p>{cv.email}</p>
               </div>
             )}
-            {!isEmpty(cv.links) && hasOverride('links') && (
+            {(cv.links?.length ?? 0) > 0 && hasOverride('links') && (
               <div>
                 <h3>{I18nCollection.fieldLabel.links[locale]}</h3>
                 {cv.links?.map((link) => (
                   <div key={link.id}>
-                    <LinkWithIcon name={capitalize(link.platform)} url={link.url} />
+                    <LinkWithIcon
+                      name={link.platform.charAt(0).toUpperCase() + link.platform.slice(1)}
+                      url={link.url}
+                    />
                   </div>
                 ))}
               </div>
@@ -114,7 +116,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
           </div>
           <div className={'col-span-8 flex flex-col gap-4'}>
             <h2>{I18nCollection.fieldLabel.education[locale]}</h2>
-            {!isEmpty(cv.eduHighlights) && (
+            {(cv.eduHighlights?.length ?? 0) > 0 && (
               <div className={'flex flex-col gap-4'}>
                 {cv.eduHighlights?.map((item) => (
                   <HighlightEntry
@@ -127,7 +129,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               </div>
             )}
 
-            {!isEmpty(cv.edu) && (
+            {(cv.edu?.length ?? 0) > 0 && (
               <div className={'flex flex-col gap-4'}>
                 {cv.edu?.map((item) => (
                   <table key={item.id}>
@@ -151,7 +153,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               </div>
             )}
 
-            {!isEmpty(cv.certs) && (
+            {(cv.certs?.length ?? 0) > 0 && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.certifications[locale]}</h3>
                 {cv.certs?.map((item) => (
@@ -174,7 +176,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               </div>
             )}
 
-            {!isEmpty(cv.courses) && (
+            {(cv.courses?.length ?? 0) > 0 && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.courses[locale]}</h3>
                 {cv.courses?.map((item) => (
@@ -220,7 +222,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
         <div className={'grid grid-cols-12 gap-8'}>
           <div className={'col-span-12 flex flex-col gap-12'}>
             <h2>{I18nCollection.fieldLabel.skills[locale]}</h2>
-            {!isEmpty(cv.skillHighlights) && (
+            {(cv.skillHighlights?.length ?? 0) > 0 && (
               <div className={'grid grid-cols-1 gap-6'}>
                 {cv.skillHighlights?.map((item) => (
                   <HighlightEntry
@@ -258,9 +260,9 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                               {item.level && (
                                 <p className={'small'}>{(item.level as Level).level}</p>
                               )}
-                              {item['sub-skill'] && !isEmpty(item['sub-skill']) && (
+                              {(item['sub-skill']?.length ?? 0) > 0 && (
                                 <p className={'small additional'}>
-                                  {item['sub-skill'].map((i) => (i as Skill).name).join(', ')}
+                                  {item['sub-skill']?.map((i) => (i as Skill).name).join(', ')}
                                 </p>
                               )}
                             </div>
@@ -272,7 +274,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 </table>
               )
             })}
-            {!isEmpty(cv.otherSkills) && (
+            {(cv.otherSkills?.length ?? 0) > 0 && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.otherSkills[locale]}</h3>
                 <div className={'grid grid-cols-3 gap-6'}>
@@ -291,7 +293,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 </div>
               </div>
             )}
-            {!isEmpty(cv.lang) && (
+            {(cv.lang?.length ?? 0) > 0 && (
               <div className={'flex flex-col gap-4'}>
                 <h3>{I18nCollection.fieldLabel.languages[locale]}</h3>
                 <div className={'grid grid-cols-3 gap-6'}>
@@ -318,7 +320,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
         <div className={'grid w-5/6 grid-cols-12 gap-12'}>
           <div className={'col-span-12 flex flex-col gap-8'}>
             <h2>{I18nCollection.fieldLabel.workExperience[locale]}</h2>
-            {!isEmpty(cv.jobHighlights) && (
+            {(cv.jobHighlights?.length ?? 0) > 0 && (
               <div className={'grid grid-cols-1 gap-6'}>
                 {cv.jobHighlights?.map((item) => (
                   <HighlightEntry
@@ -330,7 +332,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                 ))}
               </div>
             )}
-            {!isEmpty(cv.projects) && (
+            {(cv.projects?.length ?? 0) > 0 && (
               <div className={'grid grid-cols-1 gap-6'}>
                 <h3>{I18nCollection.fieldLabel.projects[locale]}</h3>
                 {cv.projects?.map((item) => {

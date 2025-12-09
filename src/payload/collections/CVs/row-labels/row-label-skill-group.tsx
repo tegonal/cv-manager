@@ -5,7 +5,7 @@ import React, { useMemo, useState } from 'react'
 
 import { SkillGroup } from '@/types/payload-types'
 
-export const RowLabelSkillGroup: React.FC = (args) => {
+export const RowLabelSkillGroup: React.FC = () => {
   const { data } = useRowLabel<any>()
   const locale = useLocale()
   const [skillGroup, setSkillGroup] = useState<SkillGroup>()

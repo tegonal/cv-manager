@@ -9,7 +9,7 @@ const skillFields = ['skill', 'language', 'softSkill', 'name']
 
 type SkillOrSkillGroup = (Skill | SkillGroup) & { type: 'skill' | 'skillGroup' }
 
-export const RowLabelSkill: React.FC = (args) => {
+export const RowLabelSkill: React.FC = () => {
   const { data } = useRowLabel<any>()
   const locale = useLocale()
   const [skill, setSkill] = useState<SkillOrSkillGroup>()

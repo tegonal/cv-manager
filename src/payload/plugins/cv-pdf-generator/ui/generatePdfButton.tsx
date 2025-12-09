@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@payloadcms/ui'
 import ky from 'ky'
-import { noop } from 'lodash-es'
 import React from 'react'
 
 import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
@@ -19,7 +18,7 @@ export const GeneratePDFButton: React.FC<Props> = ({
   exportOverride,
   id,
   locale,
-  onTransferred = noop,
+  onTransferred = () => {},
   title,
 }) => {
   const [isBusy, setBusy] = React.useState(false)

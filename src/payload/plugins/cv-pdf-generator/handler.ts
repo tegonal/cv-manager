@@ -52,13 +52,9 @@ export const requestHandler = async (
   try {
     const url = `${host}/cv/${id}?p=${searchParamString}&${LANG_HEADER_KEY}=${locale}`
     if (process.env.NODE_ENV !== 'production') console.log({ url })
-    // Launch the browser
     browser = await puppeteer.launch({
       args: ['--no-sandbox'],
       browser: (process.env.PUPPETER_BROWSER as SupportedBrowser) || 'firefox',
-      //enable those for debug purposes
-      //dumpio: true,
-      //headless: false
     })
     const page = await browser.newPage()
     page.setExtraHTTPHeaders(extraHeaders)

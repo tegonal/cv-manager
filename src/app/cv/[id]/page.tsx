@@ -94,7 +94,6 @@ const Page = async ({ params, searchParams }: Args) => {
       url = url.replace(process.env.PUBLIC_URL, process.env.INTERNAL_APP_URL)
     }
 
-    console.debug('fetch profile image', url)
     const response = await ky.get(url, {
       headers: kyHeaders,
     })

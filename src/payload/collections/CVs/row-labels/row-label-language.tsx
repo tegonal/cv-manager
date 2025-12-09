@@ -5,7 +5,7 @@ import React, { useMemo, useState } from 'react'
 
 import { Lang } from '@/types/payload-types'
 
-export const RowLabelLanguage: React.FC = (args) => {
+export const RowLabelLanguage: React.FC = () => {
   const { data } = useRowLabel<any>()
   const locale = useLocale()
   const [skillGroup, setSkillGroup] = useState<Lang>()

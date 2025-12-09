@@ -89,9 +89,6 @@ export const Users: CollectionConfig = {
   admin: {
     group: I18nCollection.collectionGroup.settings,
     useAsTitle: 'email',
-    // hidden: (user) => {
-    //   return !user?.user?.roles?.includes(ROLE_SUPER_ADMIN);
-    // },
   },
   auth: true,
   fields: [
