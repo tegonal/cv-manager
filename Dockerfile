@@ -7,7 +7,11 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY .yarnrc.yml ./
+COPY .yarn ./.yarn
 COPY package.json yarn.lock ./
+
+# Remove afterInstall hook for Docker build - we install Chromium via apk in runner stage
+RUN sed -i '/^afterInstall:/d' .yarnrc.yml
 
 RUN yarn --version
 RUN yarn install --immutable
