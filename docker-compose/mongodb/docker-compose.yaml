@@ -37,7 +37,7 @@ services:
       - internal
 
   mongo:
-    image: mongo:8.0
+    image: mongo:8.2
     container_name: mongo
     restart: unless-stopped
     healthcheck:
