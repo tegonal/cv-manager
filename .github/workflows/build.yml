@@ -13,10 +13,10 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22.14
+          node-version: 24
       - name: Trying to install dependencies and build the application
         run: |
           yarn --version
@@ -24,7 +24,7 @@ jobs:
           yarn install
           echo "Checking version..."
           yarn next -v
-          echo "Going to check formatting..."
-          yarn run check-lint
+          echo "Going to run checks..."
+          yarn run check
           echo "Going to build application..."
           yarn run build

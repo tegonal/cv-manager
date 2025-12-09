@@ -46,7 +46,9 @@ const config = [
     rules: {
       'check-file/filename-naming-convention': [
         'error',
-        { '**/*.{ts,tsx,js,json,css,scss,html,htm}': 'KEBAB_CASE' },
+        {
+          '**/!(*importMap).{ts,tsx,js,json,css,scss,html,htm}': 'KEBAB_CASE',
+        },
         { ignoreMiddleExtensions: true },
       ],
       'import/order': 'off',
