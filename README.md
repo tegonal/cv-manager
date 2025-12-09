@@ -103,7 +103,7 @@ docker run --env-file YOUR_CONFIGURATION -v  SOURCE_FILE:/app/public/LOGO_NAME t
 ##### Customizing the layout
 
 The PDF is generated from a react page which is rendered by [pagedjs](https://pagedjs.org) and converted to a pdf by [puppeter](https://pptr.dev/) based on a headless firefox instance (we use firefox as special fonts are embedded and renfered much clearer than with chromium).
-To customize the complete layout of your page, create a new react component in `src/app/cv/[id]/custom_page.tsx` with the following skeleton:
+To customize the complete layout of your page, create a new react component in `src/app/cv/[id]/custom-page.tsx` with the following skeleton:
 
 ```typescript
 
@@ -120,7 +120,7 @@ const CustomPage: React.FC<CvPageProps> = async ({
 export default CustomPage;
 ```
 
-As a good starting point just copy-paste the `default_page.tsx` and start adjusting the layout to your needs.
+As a good starting point just copy-paste the `default-page.tsx` and start adjusting the layout to your needs.
 
 ℹ️ If you start the application locally in development mode a `url` is printed to the console when generating a PDF.
 This url gives you access to the intermediate generated page before converting it to a PDF. To be able to access this URL your need to enable the configuration property `ALLOW_UNSECURED_CV_ACCESS=true`, otherwise accessing it through your browser will be declined.
@@ -217,7 +217,7 @@ After starting the local docker images, the application can be run with one of t
 ```
 yarn run dev:mongodb
 yarn run dev:postgres
-yarn run dev:sqliste
+yarn run dev:sqlite
 ```
 
 ### Development mode with custom configuration
@@ -226,6 +226,14 @@ To customize the local setup just copy the `.env.example` file to `.env`, custom
 
 ```
 yarn run dev
+```
+
+### Code quality
+
+Run linting, formatting, and type checking:
+
+```
+yarn run check
 ```
 
 ### Database migration
