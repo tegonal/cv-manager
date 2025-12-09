@@ -1,21 +1,23 @@
-import React from 'react'
+import { Metadata } from 'next'
+
 import './globals.scss'
 import { Rubik } from 'next/font/google'
-import Script from 'next/script'
-import { Metadata } from 'next'
 import { headers } from 'next/headers'
+import Script from 'next/script'
+import React from 'react'
+
 import { LANG_HEADER_KEY } from '@/payload/utilities/constants'
 
 const rubik = Rubik({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
-  title: 'cv',
   description: 'cv',
+  title: 'cv',
 }
 
 interface LayoutProps {
@@ -28,7 +30,7 @@ const Layout: React.FC<LayoutProps> = async ({ children }) => {
   const lang = headersList.get(LANG_HEADER_KEY)
 
   return (
-    <html lang={lang || 'en'} className={rubik.className}>
+    <html className={rubik.className} lang={lang || 'en'}>
       <Script src="/_next/static/paged.polyfill.min.js" strategy={'lazyOnload'} />
       <body className={rubik.className}>{children}</body>
     </html>

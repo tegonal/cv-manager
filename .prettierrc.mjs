@@ -4,6 +4,6 @@ export default {
   singleQuote: true,
   trailingComma: 'all',
   printWidth: 100,
-  jsxBracketSameLine: true,
+  bracketSameLine: true,
   plugins: ['prettier-plugin-tailwindcss'],
 }

@@ -1,16 +1,14 @@
+import { Field } from 'payload'
+
 import { I18nCollection } from '@/lib/i18nCollection'
 import { textDescription } from '@/payload/collections/CVs/fields/common-text-fields'
-import { Field } from 'payload'
-import { selectCompany } from '@/payload/collections/CVs/fields/select-company'
 import { optional } from '@/payload/collections/CVs/fields/optional'
-import { selectEndYear, selectStartYear } from '@/payload/collections/CVs/fields/select-year'
+import { selectCompany } from '@/payload/collections/CVs/fields/select-company'
 import { selectProject } from '@/payload/collections/CVs/fields/select-project'
+import { selectEndYear, selectStartYear } from '@/payload/collections/CVs/fields/select-year'
 
 export const WorkExperienceTabFields: Field[] = [
   {
-    name: 'jobHighlights',
-    type: 'array',
-    label: I18nCollection.fieldLabel.jobHighlights,
     admin: {
       components: {
         RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -19,20 +17,20 @@ export const WorkExperienceTabFields: Field[] = [
     },
     fields: [
       {
-        type: 'row',
         fields: [optional(selectStartYear), optional(selectEndYear)],
+        type: 'row',
       },
       {
-        type: 'row',
         fields: [selectCompany],
+        type: 'row',
       },
       textDescription,
     ],
+    label: I18nCollection.fieldLabel.jobHighlights,
+    name: 'jobHighlights',
+    type: 'array',
   },
   {
-    name: 'projects',
-    type: 'array',
-    label: I18nCollection.fieldLabel.projects,
     admin: {
       components: {
         RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -40,14 +38,17 @@ export const WorkExperienceTabFields: Field[] = [
     },
     fields: [
       {
-        type: 'row',
         fields: [selectStartYear, optional(selectEndYear)],
+        type: 'row',
       },
       {
-        type: 'row',
         fields: [selectCompany, selectProject],
+        type: 'row',
       },
       textDescription,
     ],
+    label: I18nCollection.fieldLabel.projects,
+    name: 'projects',
+    type: 'array',
   },
 ]

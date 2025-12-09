@@ -1,18 +1,19 @@
 import { Field } from 'payload'
+
 import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectLanguageLevel: Field = {
-  name: 'level',
-  type: 'relationship',
-  label: I18nCollection.fieldLabel.languageLevel,
-  relationTo: 'level',
-  required: true,
+  admin: {
+    width: '50%',
+  },
   filterOptions: () => {
     return {
       levelType: { equals: 'language' },
     }
   },
-  admin: {
-    width: '50%',
-  },
+  label: I18nCollection.fieldLabel.languageLevel,
+  name: 'level',
+  relationTo: 'level',
+  required: true,
+  type: 'relationship',
 }

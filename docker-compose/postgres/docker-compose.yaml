@@ -1,32 +1,30 @@
-
 services:
-
   proxy:
     image: caddy:2
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-#      - "9001:9001" # minio UI
-#      - "9001:9001/udp"
-#      - "5050:5050" # pgadmin
-#      - "5050:5050/udp"
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    #      - "9001:9001" # minio UI
+    #      - "9001:9001/udp"
+    #      - "5050:5050" # pgadmin
+    #      - "5050:5050/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
       - caddy-certs:/certs
     networks:
-        - external
-        - internal
+      - external
+      - internal
 
   app:
     image: tegonal/cv-manager:latest
     container_name: app
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -45,7 +43,7 @@ services:
     container_name: postgres
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -56,21 +54,20 @@ services:
     networks:
       - internal
 
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    restart: unless-stopped
-#    env_file:
-#      - .env
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
-#    networks:
-#      - internal
+  #  pgadmin:
+  #    image: dpage/pgadmin4
+  #    restart: unless-stopped
+  #    env_file:
+  #      - .env
+  #    depends_on:
+  #      postgres:
+  #        condition: service_healthy
+  #    volumes:
+  #      - pgadmin-data:/var/lib/pgadmin
+  #    networks:
+  #      - internal
 
-
-# Uncomment if you want to enable automatic backups
+  # Uncomment if you want to enable automatic backups
   # pgbackup:
   #   image: ghcr.io/tiredofit/docker-db-backup
   #   restart: unless-stopped
@@ -89,7 +86,7 @@ services:
     container_name: minio
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "mc", "ready", "local" ]
+      test: ['CMD', 'mc', 'ready', 'local']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -121,26 +118,26 @@ services:
       - internal
 
 # Uncomment if you want to enable automatic backups
-  # volume-backup:
-  #   image: offen/docker-volume-backup:v2.43.0
-  #   restart: unless-stopped
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #     minio:
-  #       condition: service_healthy
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - caddy-data:/backup/caddy:ro
-  #     - caddy-certs:/backup/certs:ro
-  #     - minio-data:/backup/minio:ro
-  #     - pgbackup-data:/backup/pgbackup:ro
-  #     - pgadmin-data:/backup/pgadmin:ro
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - ./backups/volumes:/archive
-  #   networks:
-  #     - internal
+# volume-backup:
+#   image: offen/docker-volume-backup:v2.43.0
+#   restart: unless-stopped
+#   depends_on:
+#     postgres:
+#       condition: service_healthy
+#     minio:
+#       condition: service_healthy
+#   env_file:
+#     - .env
+#   volumes:
+#     - caddy-data:/backup/caddy:ro
+#     - caddy-certs:/backup/certs:ro
+#     - minio-data:/backup/minio:ro
+#     - pgbackup-data:/backup/pgbackup:ro
+#     - pgadmin-data:/backup/pgadmin:ro
+#     - /var/run/docker.sock:/var/run/docker.sock:ro
+#     - ./backups/volumes:/archive
+#   networks:
+#     - internal
 
 volumes:
   caddy-data:

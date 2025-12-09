@@ -1,31 +1,33 @@
-import React from 'react'
+import { capitalize, isEmpty } from 'lodash-es'
 import Image from 'next/image'
+import * as process from 'node:process'
+import React from 'react'
+
+import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight'
+import { I18nCollection } from '@/lib/i18nCollection'
 import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
 import { Company, Level, Project, Skill, SkillGroup } from '@/types/payload-types'
-import { I18nCollection } from '@/lib/i18nCollection'
-import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight'
-import { capitalize, isEmpty } from 'lodash-es'
-import { CvPageProps } from './page'
-import { filterEmptyLexicalNodes, formatDate, fromToYear, hasLexicalNodes } from './utilities'
-import * as process from 'node:process'
-import './default_page.scss'
+
 import { LinkWithIcon, OptionalLink } from './(lib)/components/link'
+import { CvPageProps } from './page'
+import './default_page.scss'
+import { filterEmptyLexicalNodes, formatDate, fromToYear, hasLexicalNodes } from './utilities'
 
 const DefaultPage: React.FC<CvPageProps> = async ({
   cv,
-  profileImageDataUrl,
-  hasOverride,
   exportOverride,
+  hasOverride,
   locale,
+  profileImageDataUrl,
 }) => {
   return (
     <>
       <header id={'companyLogo'}>
         <Image
-          src={'/' + (process.env.DEFAULT_PAGE_COMPANY_LOGO || 'logo.png')}
           alt={process.env.DEFAULT_PAGE_COMPANY_NAME || ''}
-          width={Number(process.env.DEFAULT_PAGE_COMPANY_LOGO_WIDTH) || 20}
           height={Number(process.env.DEFAULT_PAGE_COMPANY_LOGO_HEIGHT) || 20}
+          src={'/' + (process.env.DEFAULT_PAGE_COMPANY_LOGO || 'logo.png')}
+          width={Number(process.env.DEFAULT_PAGE_COMPANY_LOGO_WIDTH) || 20}
         />
       </header>
       <footer id={'pageFooter'}>
@@ -55,11 +57,11 @@ const DefaultPage: React.FC<CvPageProps> = async ({
             </div>
             <div className={'relative flex size-48 flex-row items-center justify-center'}>
               <Image
-                className={'bg-black object-cover'}
-                src={profileImageDataUrl}
-                fill={true}
                 alt={cv.fullName}
+                className={'bg-black object-cover'}
+                fill={true}
                 priority={true}
+                src={profileImageDataUrl}
               />
             </div>
           </div>
@@ -116,10 +118,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               <div className={'flex flex-col gap-4'}>
                 {cv.eduHighlights?.map((item) => (
                   <HighlightEntry
-                    key={item.id}
-                    title={item.title}
-                    subtitle={fromToYear(locale, item.fromYear, item.toYear)}
                     description={item.description}
+                    key={item.id}
+                    subtitle={fromToYear(locale, item.fromYear, item.toYear)}
+                    title={item.title}
                   />
                 ))}
               </div>
@@ -133,7 +135,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tr>
                         <td className={'no-page-break'}>
                           <p className={'font-normal'}>
-                            <OptionalLink url={item.link} name={item.institution} />
+                            <OptionalLink name={item.institution} url={item.link} />
                           </p>
                           <p className={'small'}>
                             {fromToYear(locale, item.fromYear, item.toYear)}
@@ -158,7 +160,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tr>
                         <td className={'no-page-break'}>
                           <p className={'font-normal'}>
-                            <OptionalLink url={item.link} name={item.name} />
+                            <OptionalLink name={item.name} url={item.link} />
                           </p>
                           <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
                           <div className={'space-y-1'}>
@@ -181,7 +183,7 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                       <tr>
                         <td className={'no-page-break'}>
                           <p className={'font-normal'}>
-                            <OptionalLink url={item.link} name={item.name} />
+                            <OptionalLink name={item.name} url={item.link} />
                           </p>
                           <p className={'small'}>{fromToYear(locale, item.toYear, item.toYear)}</p>
                           <div className={'space-y-1'}>
@@ -222,10 +224,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               <div className={'grid grid-cols-1 gap-6'}>
                 {cv.skillHighlights?.map((item) => (
                   <HighlightEntry
-                    key={item.id}
-                    title={(item.skill.value as Skill | SkillGroup).name}
-                    subtitle={(item.level as Level).level}
                     description={item.description}
+                    key={item.id}
+                    subtitle={(item.level as Level).level}
+                    title={(item.skill.value as Skill | SkillGroup).name}
                   />
                 ))}
               </div>
@@ -320,10 +322,10 @@ const DefaultPage: React.FC<CvPageProps> = async ({
               <div className={'grid grid-cols-1 gap-6'}>
                 {cv.jobHighlights?.map((item) => (
                   <HighlightEntry
-                    key={item.id}
-                    title={(item.company as Company).name}
-                    subtitle={fromToYear(locale, item.fromYear, item.toYear)}
                     description={item.description}
+                    key={item.id}
+                    subtitle={fromToYear(locale, item.fromYear, item.toYear)}
+                    title={(item.company as Company).name}
                   />
                 ))}
               </div>
@@ -341,8 +343,8 @@ const DefaultPage: React.FC<CvPageProps> = async ({
                           <td className={'no-page-break'}>
                             <p className={'mb-0.5 font-normal'}>
                               <OptionalLink
-                                url={(item.project as Project).link}
                                 name={(item.project as Project).name || ''}
+                                url={(item.project as Project).link}
                               />
                             </p>
                             <p className={'small mb-0.5'}>{(item.company as Company).name}</p>

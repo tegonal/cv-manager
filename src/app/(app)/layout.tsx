@@ -1,4 +1,5 @@
 import React from 'react'
+
 import './globals.scss'
 
 /* Our app sits here to not cause any conflicts with payload's root layout  */

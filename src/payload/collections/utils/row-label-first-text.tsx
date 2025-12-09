@@ -1,12 +1,12 @@
 'use client'
-import React, { useEffect, useState } from 'react'
 import { useRowLabel } from '@payloadcms/ui'
 import { truncate } from 'lodash-es'
+import React, { useEffect, useState } from 'react'
 
 const excludeKeys = ['id', 'year', 'fromYear', 'toYear', 'locale', 'organisation', 'level']
 
 export const RowLabelFirstText: React.FC = () => {
-  const { data, rowNumber, path } = useRowLabel<any>()
+  const { data, path, rowNumber } = useRowLabel<any>()
   const [label, setLabel] = useState(`Item ${rowNumber}`)
 
   useEffect(() => {

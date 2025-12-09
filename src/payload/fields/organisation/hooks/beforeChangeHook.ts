@@ -1,8 +1,9 @@
-import { hasSuperAdminRole } from '@/payload/access/utils/hasSuperAdminRole'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
 import { FieldHook } from 'payload'
 
-export const beforeChangeHook: FieldHook = async ({ req, req: { user }, data }) => {
+import { hasSuperAdminRole } from '@/payload/access/utils/hasSuperAdminRole'
+import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+
+export const beforeChangeHook: FieldHook = async ({ data, req, req: { user } }) => {
   if (!user || !req.user) return undefined
 
   if (hasSuperAdminRole(req.user) && data?.organisation) {

@@ -1,6 +1,7 @@
+import { TypedLocale } from 'payload'
+
 import { I18nCollection } from '@/lib/i18nCollection'
 import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer'
-import { TypedLocale } from 'payload'
 
 export const formatDate = (date: string, locale: string) => {
   const dateObj = new Date(date)
@@ -12,7 +13,7 @@ export const formatYear = (date: string) => {
   return dateObj.getFullYear().toString()
 }
 
-export const fromToYear = (locale: TypedLocale, from?: string | null, to?: string | null) => {
+export const fromToYear = (locale: TypedLocale, from?: null | string, to?: null | string) => {
   if (!from) return ''
   let returnString = formatYear(from)
   if (!to) {

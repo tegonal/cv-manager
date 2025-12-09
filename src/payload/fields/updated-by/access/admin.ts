@@ -4,7 +4,7 @@ import { checkUserRoles } from '@/payload/access/utils/checkUserRoles'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
 
-export const organisationFieldAdminAccess: FieldAccess = ({ req: { user }, doc }) => {
+export const organisationFieldAdminAccess: FieldAccess = ({ doc, req: { user } }) => {
   if (checkUserRoles([ROLE_SUPER_ADMIN], user)) {
     return true
   }

@@ -1,10 +1,12 @@
-import type { CvPdfConfig } from './types'
+import type { Config, Plugin } from 'payload'
+
+import { CollectionConfig } from 'payload'
 
 import { logger } from '@/lib/logger'
-import type { Config, Plugin } from 'payload'
-import { CollectionConfig } from 'payload'
 import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
 import { requestHandler } from '@/payload/plugins/cv-pdf-generator/handler'
+
+import type { CvPdfConfig } from './types'
 
 export const cvPdfPlugin =
   (pluginConfig: CvPdfConfig): Plugin =>
@@ -32,8 +34,6 @@ export const cvPdfPlugin =
       endpoints: [
         ...(config.endpoints || []),
         {
-          path: `/${pluginConstants.apiUrlSlug}`,
-          method: 'post',
           handler: async (req) => {
             if (!req.json) {
               return new Response(JSON.stringify({ error: 'No data provided' }), { status: 400 })
@@ -41,14 +41,14 @@ export const cvPdfPlugin =
             const body = await req.json()
             logger.info('cvPdfPlugin endpoint', body)
 
-            const { id, locale, exportOverride } = body
+            const { exportOverride, id, locale } = body
             if (!id) {
               return new Response(JSON.stringify({ error: 'No id provided' }), { status: 400 })
             }
             if (!locale) {
               return new Response(JSON.stringify({ error: 'No locale provided' }), { status: 400 })
             }
-            const result = await requestHandler(req, { id, locale, exportOverride })
+            const result = await requestHandler(req, { exportOverride, id, locale })
             if ('error' in result) {
               return new Response(JSON.stringify(result), { status: 400 })
             } else {
@@ -56,6 +56,8 @@ export const cvPdfPlugin =
               return new Response(result, { status: 200 })
             }
           },
+          method: 'post',
+          path: `/${pluginConstants.apiUrlSlug}`,
         },
       ],
     }

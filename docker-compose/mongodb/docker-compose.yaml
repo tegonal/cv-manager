@@ -1,30 +1,28 @@
-
 services:
-
   proxy:
     image: caddy:2
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-#      - "9001:9001" # minio UI
-#      - "9001:9001/udp"
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    #      - "9001:9001" # minio UI
+    #      - "9001:9001/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
       - caddy-certs:/certs
     networks:
-        - external
-        - internal
+      - external
+      - internal
 
   app:
     image: tegonal/cv-manager:latest
     container_name: app
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -59,7 +57,7 @@ services:
     container_name: minio
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "mc", "ready", "local" ]
+      test: ['CMD', 'mc', 'ready', 'local']
       interval: 10s
       timeout: 5s
       retries: 5

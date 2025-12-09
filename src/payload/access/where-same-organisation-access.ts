@@ -1,10 +1,11 @@
 import { Access } from 'payload'
+
 import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
 
 export const whereSameOrganisationAccess: Access = async ({
-  req,
-  req: { user, payload, ...rest },
   id,
+  req,
+  req: { payload, user, ...rest },
 }) => {
   const userLastLoggedInOrgId = getIdFromRelation(user?.selectedOrganisation)
 

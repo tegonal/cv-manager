@@ -1,5 +1,6 @@
 'use client'
 import { useTranslation } from '@payloadcms/ui'
+
 import { I18nKeys, I18nObject } from '@/lib/useTranslation-custom-types'
 
 type Props = {

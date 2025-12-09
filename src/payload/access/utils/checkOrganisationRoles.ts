@@ -9,7 +9,7 @@ type Roles = NonEmptyUserOrganisations[0]['roles']
 
 export const checkOrganisationRoles = (
   allRoles: Roles = [],
-  user: User | null,
+  user: null | User,
   organisationId: number,
 ): boolean => {
   if (organisationId) {

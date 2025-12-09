@@ -1,7 +1,8 @@
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
 import { CollectionBeforeChangeHook } from 'payload'
 
-export const assignOrgToUpload: CollectionBeforeChangeHook = async ({ req: { user }, data }) => {
+import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+
+export const assignOrgToUpload: CollectionBeforeChangeHook = async ({ data, req: { user } }) => {
   data.prefix = `${data.prefix}/${getIdFromRelation(user?.selectedOrganisation)}`
   return data
 }

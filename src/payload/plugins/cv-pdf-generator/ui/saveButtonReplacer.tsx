@@ -1,5 +1,6 @@
-import React from 'react'
 import { DrawerToggler, SaveButton } from '@payloadcms/ui'
+import React from 'react'
+
 import { ExportOverlay } from '@/payload/plugins/cv-pdf-generator/ui/exportOverlay'
 
 export const baseClass = 'cv-pdf-generator'
@@ -11,8 +12,7 @@ export const SaveButtonReplacer: React.FC = () => {
       <div className={'flex flex-row gap-6'}>
         <DrawerToggler
           className={`${baseClass}__edit btn btn--size-small btn--style-secondary`}
-          slug={drawerSlug}
-        >
+          slug={drawerSlug}>
           Generate PDF
         </DrawerToggler>
         <SaveButton />

@@ -1,19 +1,20 @@
-import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
-import { IconHighlight } from '@/app/cv/[id]/(lib)/icon/highlight'
 import { ReactNode } from 'react'
 
+import { IconHighlight } from '@/app/cv/[id]/(lib)/icon/highlight'
+import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
+
 type Props = {
-  title: string | undefined | null | ReactNode
-  subtitle: string | undefined | null | ReactNode
-  description: any
   borderLeftColor?: string
+  description: any
+  subtitle: null | ReactNode | string | undefined
+  title: null | ReactNode | string | undefined
 }
 
 export const HighlightEntry: React.FC<Props> = ({
-  title,
-  subtitle,
-  description,
   borderLeftColor,
+  description,
+  subtitle,
+  title,
 }) => {
   return (
     <div
@@ -21,8 +22,7 @@ export const HighlightEntry: React.FC<Props> = ({
         'no-page-break relative rounded border-l-8 ' +
         (borderLeftColor || 'border-l-slate-500') +
         ' bg-gray-100 p-2'
-      }
-    >
+      }>
       <p className={'pr-8 font-bold'}>{title}</p>
       <p className={'pr-8 text-xs'}>{subtitle}</p>
       <div>

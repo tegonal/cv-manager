@@ -1,18 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { PayloadLexicalReactRenderer } from './payloadLexicalReactRenderer'
+
 import { content } from '@/payload/utilities/lexical-render/src/content'
 import { content2 } from '@/payload/utilities/lexical-render/src/content2'
 
-type Intro = {
-  text: string
-  position: 'left' | 'right'
-}
+import { PayloadLexicalReactRenderer } from './payloadLexicalReactRenderer'
 
 type Code = {
-  title: string
   content: string
   language: string
+  title: string
+}
+
+type Intro = {
+  position: 'left' | 'right'
+  text: string
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -20,27 +22,25 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <PayloadLexicalReactRenderer<{
       intro: Intro
     }>
-      content={content}
       blockRenderers={{
         intro: (props) => {
           return (
             <div
               style={{
-                display: 'flex',
                 alignSelf: props.fields.position === 'left' ? 'flex-start' : 'flex-end',
-              }}
-            >
+                display: 'flex',
+              }}>
               {props.fields.position}
             </div>
           )
         },
       }}
+      content={content}
     />
 
     <PayloadLexicalReactRenderer<{
       code: Code
     }>
-      content={content2}
       blockRenderers={{
         code: (props) => {
           return (
@@ -50,6 +50,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           )
         },
       }}
+      content={content2}
     />
   </React.StrictMode>,
 )

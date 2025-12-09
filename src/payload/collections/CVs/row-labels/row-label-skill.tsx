@@ -1,8 +1,9 @@
 'use client'
-import React, { useMemo, useState } from 'react'
 import { useLocale, useRowLabel } from '@payloadcms/ui'
-import { Skill, SkillGroup } from '@/types/payload-types'
 import ky from 'ky'
+import React, { useMemo, useState } from 'react'
+
+import { Skill, SkillGroup } from '@/types/payload-types'
 
 const skillFields = ['skill', 'language', 'softSkill', 'name']
 

@@ -1,4 +1,5 @@
 import { Payload } from 'payload'
+
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 
 export const seedDevUser = async (payload: Payload) => {
@@ -22,17 +23,17 @@ export const seedDevUser = async (payload: Payload) => {
     await payload.create({
       collection: 'users',
       data: {
-        roles: [ROLE_SUPER_ADMIN],
+        email: 'admin@test.com',
         firstName: 'Admin',
         lastName: 'User',
-        email: 'admin@test.com',
-        password: 'admin',
         organisations: [
           {
             organisation: testOrg.id,
             roles: [ROLE_SUPER_ADMIN],
           },
         ],
+        password: 'admin',
+        roles: [ROLE_SUPER_ADMIN],
       },
     })
   }

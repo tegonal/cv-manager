@@ -1,5 +1,7 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+
+import { NextResponse } from 'next/server'
+
 import { LANG_HEADER_KEY } from './payload/utilities/constants'
 
 export function middleware(req: NextRequest) {

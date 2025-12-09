@@ -1,14 +1,15 @@
 import { Field } from 'payload'
+
 import { I18nCollection } from '@/lib/i18nCollection'
 
 export const selectSkillGroup: Field = {
-  name: 'group',
+  admin: {
+    allowEdit: false,
+    sortOptions: 'name',
+  },
   label: I18nCollection.fieldLabel.skillGroup,
-  type: 'relationship',
+  name: 'group',
   relationTo: 'skillGroup',
   required: true,
-  admin: {
-    sortOptions: 'name',
-    allowEdit: false,
-  },
+  type: 'relationship',
 }

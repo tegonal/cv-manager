@@ -1,41 +1,161 @@
 type Query {
   Cv(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Cv
-  Cvs(draft: Boolean, where: Cv_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Cvs
+  Cvs(
+    draft: Boolean
+    where: Cv_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Cvs
   countCvs(draft: Boolean, where: Cv_where, locale: LocaleInputType): countCvs
   docAccessCv(id: Int!): cvDocAccess
-  User(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
-  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Users
+  User(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): User
+  Users(
+    draft: Boolean
+    where: User_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Users
   countUsers(draft: Boolean, where: User_where, locale: LocaleInputType): countUsers
   docAccessUser(id: Int!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Skill(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Skill
-  Skills(draft: Boolean, where: Skill_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Skills
+  Skill(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): Skill
+  Skills(
+    draft: Boolean
+    where: Skill_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Skills
   countSkills(draft: Boolean, where: Skill_where, locale: LocaleInputType): countSkills
   docAccessSkill(id: Int!): skillDocAccess
-  Level(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Level
-  Levels(draft: Boolean, where: Level_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Levels
+  Level(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): Level
+  Levels(
+    draft: Boolean
+    where: Level_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Levels
   countLevels(draft: Boolean, where: Level_where, locale: LocaleInputType): countLevels
   docAccessLevel(id: Int!): levelDocAccess
-  Company(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Company
-  Companies(draft: Boolean, where: Company_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Companies
+  Company(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): Company
+  Companies(
+    draft: Boolean
+    where: Company_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Companies
   countCompanies(draft: Boolean, where: Company_where, locale: LocaleInputType): countCompanies
   docAccessCompany(id: Int!): companyDocAccess
-  Project(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Project
-  Projects(draft: Boolean, where: Project_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Projects
+  Project(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): Project
+  Projects(
+    draft: Boolean
+    where: Project_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Projects
   countProjects(draft: Boolean, where: Project_where, locale: LocaleInputType): countProjects
   docAccessProject(id: Int!): projectDocAccess
-  Media(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Media
-  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): allMedia
+  Media(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): Media
+  allMedia(
+    draft: Boolean
+    where: Media_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): allMedia
   countallMedia(draft: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: Int!): mediaDocAccess
-  Organisation(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Organisation
-  Organisations(draft: Boolean, where: Organisation_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Organisations
-  countOrganisations(draft: Boolean, where: Organisation_where, locale: LocaleInputType): countOrganisations
+  Organisation(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): Organisation
+  Organisations(
+    draft: Boolean
+    where: Organisation_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): Organisations
+  countOrganisations(
+    draft: Boolean
+    where: Organisation_where
+    locale: LocaleInputType
+  ): countOrganisations
   docAccessOrganisation(id: Int!): organisationsDocAccess
-  PayloadPreference(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): PayloadPreferences
-  countPayloadPreferences(draft: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
+  PayloadPreference(
+    id: Int!
+    draft: Boolean
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+  ): PayloadPreference
+  PayloadPreferences(
+    draft: Boolean
+    where: PayloadPreference_where
+    fallbackLocale: FallbackLocaleInputType
+    locale: LocaleInputType
+    limit: Int
+    page: Int
+    sort: String
+  ): PayloadPreferences
+  countPayloadPreferences(
+    draft: Boolean
+    where: PayloadPreference_where
+    locale: LocaleInputType
+  ): countPayloadPreferences
   docAccessPayloadPreference(id: Int!): payload_preferencesDocAccess
   Access: Access
 }
@@ -98,7 +218,10 @@ type User {
   lastName: String
   roles: [User_roles!]
   organisations: [UserOrganisations!]
-  selectedOrganisation(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Organisation
+  selectedOrganisation(
+    locale: LocaleInputType
+    fallbackLocale: FallbackLocaleInputType
+  ): Organisation
   updatedAt: DateTime
   createdAt: DateTime
   email: EmailAddress!
@@ -149,7 +272,8 @@ enum UserOrganisations_roles {
 """
 A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
 """
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+scalar EmailAddress
+  @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
 
 type Media_Sizes {
   thumbnail: Media_Sizes_Thumbnail
@@ -201,7 +325,8 @@ enum SocialLinks_platform {
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSON
+  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 type Cv_Languages {
   language(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Skill
@@ -2558,7 +2683,8 @@ type CvCreateDocAccess {
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSONObject
+  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 type CvReadDocAccess {
   permission: Boolean!
@@ -6120,7 +6246,10 @@ type OrganisationsDeleteDocAccess {
 
 type PayloadPreference {
   id: Int
-  user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadPreference_User_Relationship!
+  user(
+    locale: LocaleInputType
+    fallbackLocale: FallbackLocaleInputType
+  ): PayloadPreference_User_Relationship!
   key: String
   value: JSON
   updatedAt: DateTime
@@ -10314,11 +10443,23 @@ type PayloadPreferencesDeleteAccess {
 
 type Mutation {
   createCv(data: mutationCvInput!, draft: Boolean, locale: LocaleInputType): Cv
-  updateCv(id: Int!, autosave: Boolean, data: mutationCvUpdateInput!, draft: Boolean, locale: LocaleInputType): Cv
+  updateCv(
+    id: Int!
+    autosave: Boolean
+    data: mutationCvUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Cv
   deleteCv(id: Int!): Cv
   duplicateCv(id: Int!): Cv
   createUser(data: mutationUserInput!, draft: Boolean, locale: LocaleInputType): User
-  updateUser(id: Int!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
+  updateUser(
+    id: Int!
+    autosave: Boolean
+    data: mutationUserUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): User
   deleteUser(id: Int!): User
   refreshTokenUser: usersRefreshedUser
   logoutUser: String
@@ -10328,30 +10469,80 @@ type Mutation {
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
   createSkill(data: mutationSkillInput!, draft: Boolean, locale: LocaleInputType): Skill
-  updateSkill(id: Int!, autosave: Boolean, data: mutationSkillUpdateInput!, draft: Boolean, locale: LocaleInputType): Skill
+  updateSkill(
+    id: Int!
+    autosave: Boolean
+    data: mutationSkillUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Skill
   deleteSkill(id: Int!): Skill
   duplicateSkill(id: Int!): Skill
   createLevel(data: mutationLevelInput!, draft: Boolean, locale: LocaleInputType): Level
-  updateLevel(id: Int!, autosave: Boolean, data: mutationLevelUpdateInput!, draft: Boolean, locale: LocaleInputType): Level
+  updateLevel(
+    id: Int!
+    autosave: Boolean
+    data: mutationLevelUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Level
   deleteLevel(id: Int!): Level
   duplicateLevel(id: Int!): Level
   createCompany(data: mutationCompanyInput!, draft: Boolean, locale: LocaleInputType): Company
-  updateCompany(id: Int!, autosave: Boolean, data: mutationCompanyUpdateInput!, draft: Boolean, locale: LocaleInputType): Company
+  updateCompany(
+    id: Int!
+    autosave: Boolean
+    data: mutationCompanyUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Company
   deleteCompany(id: Int!): Company
   duplicateCompany(id: Int!): Company
   createProject(data: mutationProjectInput!, draft: Boolean, locale: LocaleInputType): Project
-  updateProject(id: Int!, autosave: Boolean, data: mutationProjectUpdateInput!, draft: Boolean, locale: LocaleInputType): Project
+  updateProject(
+    id: Int!
+    autosave: Boolean
+    data: mutationProjectUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Project
   deleteProject(id: Int!): Project
   duplicateProject(id: Int!): Project
   createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
-  updateMedia(id: Int!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
+  updateMedia(
+    id: Int!
+    autosave: Boolean
+    data: mutationMediaUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Media
   deleteMedia(id: Int!): Media
-  createOrganisation(data: mutationOrganisationInput!, draft: Boolean, locale: LocaleInputType): Organisation
-  updateOrganisation(id: Int!, autosave: Boolean, data: mutationOrganisationUpdateInput!, draft: Boolean, locale: LocaleInputType): Organisation
+  createOrganisation(
+    data: mutationOrganisationInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Organisation
+  updateOrganisation(
+    id: Int!
+    autosave: Boolean
+    data: mutationOrganisationUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): Organisation
   deleteOrganisation(id: Int!): Organisation
   duplicateOrganisation(id: Int!): Organisation
-  createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
-  updatePayloadPreference(id: Int!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
+  createPayloadPreference(
+    data: mutationPayloadPreferenceInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): PayloadPreference
+  updatePayloadPreference(
+    id: Int!
+    autosave: Boolean
+    data: mutationPayloadPreferenceUpdateInput!
+    draft: Boolean
+    locale: LocaleInputType
+  ): PayloadPreference
   deletePayloadPreference(id: Int!): PayloadPreference
   duplicatePayloadPreference(id: Int!): PayloadPreference
 }

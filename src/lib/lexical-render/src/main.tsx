@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import {
   PayloadLexicalReactRenderer,
   PayloadLexicalReactRendererContent,
@@ -7,10 +8,6 @@ import {
 
 const content: PayloadLexicalReactRendererContent = {
   root: {
-    type: 'root',
-    format: '',
-    indent: 0,
-    version: 1,
     children: [
       {
         children: [
@@ -27,9 +24,9 @@ const content: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 1,
-        type: 'heading',
-        version: 1,
         tag: 'h1',
+        type: 'heading',
+        version: 1,
       },
       {
         children: [
@@ -46,9 +43,9 @@ const content: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 0,
-        type: 'heading',
-        version: 1,
         tag: 'h2',
+        type: 'heading',
+        version: 1,
       },
       {
         children: [
@@ -65,9 +62,9 @@ const content: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 0,
-        type: 'heading',
-        version: 1,
         tag: 'h3',
+        type: 'heading',
+        version: 1,
       },
       {
         children: [
@@ -84,9 +81,9 @@ const content: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 0,
-        type: 'heading',
-        version: 1,
         tag: 'h4',
+        type: 'heading',
+        version: 1,
       },
       {
         children: [
@@ -103,9 +100,9 @@ const content: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 0,
-        type: 'heading',
-        version: 1,
         tag: 'h5',
+        type: 'heading',
+        version: 1,
       },
       {
         children: [
@@ -122,9 +119,9 @@ const content: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 0,
+        tag: 'h6',
         type: 'heading',
         version: 1,
-        tag: 'h6',
       },
       {
         children: [],
@@ -228,8 +225,8 @@ const content: PayloadLexicalReactRendererContent = {
                     format: '',
                     indent: 1,
                     type: 'listitem',
-                    version: 1,
                     value: 1,
+                    version: 1,
                   },
                   {
                     children: [
@@ -247,8 +244,8 @@ const content: PayloadLexicalReactRendererContent = {
                     format: '',
                     indent: 1,
                     type: 'listitem',
-                    version: 1,
                     value: 2,
+                    version: 1,
                   },
                   {
                     children: [
@@ -270,8 +267,8 @@ const content: PayloadLexicalReactRendererContent = {
                             format: '',
                             indent: 2,
                             type: 'listitem',
-                            version: 1,
                             value: 1,
+                            version: 1,
                           },
                           {
                             children: [
@@ -293,8 +290,8 @@ const content: PayloadLexicalReactRendererContent = {
                                     format: '',
                                     indent: 3,
                                     type: 'listitem',
-                                    version: 1,
                                     value: 1,
+                                    version: 1,
                                   },
                                   {
                                     children: [
@@ -316,90 +313,90 @@ const content: PayloadLexicalReactRendererContent = {
                                             format: '',
                                             indent: 4,
                                             type: 'listitem',
-                                            version: 1,
                                             value: 1,
+                                            version: 1,
                                           },
                                         ],
                                         direction: 'ltr',
                                         format: '',
                                         indent: 0,
-                                        type: 'list',
-                                        version: 1,
                                         listType: 'bullet',
                                         start: 1,
                                         tag: 'ul',
+                                        type: 'list',
+                                        version: 1,
                                       },
                                     ],
                                     direction: 'ltr',
                                     format: '',
                                     indent: 3,
                                     type: 'listitem',
-                                    version: 1,
                                     value: 2,
+                                    version: 1,
                                   },
                                 ],
                                 direction: 'ltr',
                                 format: '',
                                 indent: 0,
-                                type: 'list',
-                                version: 1,
                                 listType: 'bullet',
                                 start: 1,
                                 tag: 'ul',
+                                type: 'list',
+                                version: 1,
                               },
                             ],
                             direction: 'ltr',
                             format: '',
                             indent: 2,
                             type: 'listitem',
-                            version: 1,
                             value: 2,
+                            version: 1,
                           },
                         ],
                         direction: 'ltr',
                         format: '',
                         indent: 0,
-                        type: 'list',
-                        version: 1,
                         listType: 'bullet',
                         start: 1,
                         tag: 'ul',
+                        type: 'list',
+                        version: 1,
                       },
                     ],
                     direction: 'ltr',
                     format: '',
                     indent: 1,
                     type: 'listitem',
-                    version: 1,
                     value: 3,
+                    version: 1,
                   },
                 ],
                 direction: 'ltr',
                 format: '',
                 indent: 0,
-                type: 'list',
-                version: 1,
                 listType: 'bullet',
                 start: 1,
                 tag: 'ul',
+                type: 'list',
+                version: 1,
               },
             ],
             direction: 'ltr',
             format: '',
             indent: 0,
             type: 'listitem',
-            version: 1,
             value: 1,
+            version: 1,
           },
         ],
         direction: null,
         format: '',
         indent: 0,
-        type: 'list',
-        version: 1,
         listType: 'bullet',
         start: 1,
         tag: 'ul',
+        type: 'list',
+        version: 1,
       },
       {
         children: [
@@ -419,8 +416,8 @@ const content: PayloadLexicalReactRendererContent = {
             format: '',
             indent: 0,
             type: 'listitem',
-            version: 1,
             value: 1,
+            version: 1,
           },
           {
             children: [
@@ -438,8 +435,8 @@ const content: PayloadLexicalReactRendererContent = {
             format: '',
             indent: 0,
             type: 'listitem',
-            version: 1,
             value: 2,
+            version: 1,
           },
           {
             children: [
@@ -457,8 +454,8 @@ const content: PayloadLexicalReactRendererContent = {
             format: '',
             indent: 0,
             type: 'listitem',
-            version: 1,
             value: 3,
+            version: 1,
           },
           {
             children: [
@@ -480,8 +477,8 @@ const content: PayloadLexicalReactRendererContent = {
                     format: '',
                     indent: 1,
                     type: 'listitem',
-                    version: 1,
                     value: 1,
+                    version: 1,
                   },
                   {
                     children: [
@@ -499,36 +496,36 @@ const content: PayloadLexicalReactRendererContent = {
                     format: '',
                     indent: 1,
                     type: 'listitem',
-                    version: 1,
                     value: 2,
+                    version: 1,
                   },
                 ],
                 direction: 'ltr',
                 format: '',
                 indent: 0,
-                type: 'list',
-                version: 1,
                 listType: 'number',
                 start: 1,
                 tag: 'ol',
+                type: 'list',
+                version: 1,
               },
             ],
             direction: 'ltr',
             format: '',
             indent: 0,
             type: 'listitem',
-            version: 1,
             value: 4,
+            version: 1,
           },
         ],
         direction: 'ltr',
         format: '',
         indent: 0,
-        type: 'list',
-        version: 1,
         listType: 'number',
         start: 1,
         tag: 'ol',
+        type: 'list',
+        version: 1,
       },
       {
         children: [
@@ -784,15 +781,15 @@ const content: PayloadLexicalReactRendererContent = {
       },
     ],
     direction: 'ltr',
+    format: '',
+    indent: 0,
+    type: 'root',
+    version: 1,
   },
 }
 
 const content2: PayloadLexicalReactRendererContent = {
   root: {
-    type: 'root',
-    format: '',
-    indent: 0,
-    version: 1,
     children: [
       {
         children: [
@@ -809,9 +806,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: '',
         indent: 0,
+        tag: 'h2',
         type: 'heading',
         version: 1,
-        tag: 'h2',
       },
       {
         children: [
@@ -841,12 +838,9 @@ const content2: PayloadLexicalReactRendererContent = {
         version: 1,
       },
       {
-        format: '',
-        type: 'block',
-        version: 1,
         fields: {
-          id: '654b850d543f2609757e6ee4',
-          title: 'exampleComponents.css.ts',
+          blockName: '',
+          blockType: 'code',
           content:
             'import {vars} from "@/styles/theme.css";\n' +
             '\n' +
@@ -855,10 +849,13 @@ const content2: PayloadLexicalReactRendererContent = {
             '        color: vars.color.grey0,\n' +
             '    })\n' +
             '};',
+          id: '654b850d543f2609757e6ee4',
           language: 'ts',
-          blockName: '',
-          blockType: 'code',
+          title: 'exampleComponents.css.ts',
         },
+        format: '',
+        type: 'block',
+        version: 1,
       },
       {
         children: [
@@ -875,9 +872,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: 'start',
         indent: 0,
+        tag: 'h2',
         type: 'heading',
         version: 1,
-        tag: 'h2',
       },
       {
         children: [
@@ -894,9 +891,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: 'start',
         indent: 0,
+        tag: 'h3',
         type: 'heading',
         version: 1,
-        tag: 'h3',
       },
       {
         children: [
@@ -934,14 +931,14 @@ const content2: PayloadLexicalReactRendererContent = {
               },
             ],
             direction: 'ltr',
-            format: '',
-            indent: 0,
-            type: 'autolink',
-            version: 1,
             fields: {
               linkType: 'custom',
               url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@layer',
             },
+            format: '',
+            indent: 0,
+            type: 'autolink',
+            version: 1,
           },
         ],
         direction: 'ltr',
@@ -951,11 +948,9 @@ const content2: PayloadLexicalReactRendererContent = {
         version: 1,
       },
       {
-        format: '',
-        type: 'block',
-        version: 1,
         fields: {
-          id: '654b8552543f2609757e6ee5',
+          blockName: '',
+          blockType: 'code',
           content:
             '.example {\n' +
             '    display: none; /* this style wins even though it comes before .grid */\n' +
@@ -966,10 +961,12 @@ const content2: PayloadLexicalReactRendererContent = {
             '    display: grid;\n' +
             '  }\n' +
             '}',
+          id: '654b8552543f2609757e6ee5',
           language: 'css',
-          blockName: '',
-          blockType: 'code',
         },
+        format: '',
+        type: 'block',
+        version: 1,
       },
       {
         children: [
@@ -986,9 +983,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: 'start',
         indent: 0,
+        tag: 'h2',
         type: 'heading',
         version: 1,
-        tag: 'h2',
       },
       {
         children: [
@@ -1016,14 +1013,14 @@ const content2: PayloadLexicalReactRendererContent = {
               },
             ],
             direction: 'ltr',
-            format: '',
-            indent: 0,
-            type: 'autolink',
-            version: 1,
             fields: {
               linkType: 'custom',
               url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix',
             },
+            format: '',
+            indent: 0,
+            type: 'autolink',
+            version: 1,
           },
           { type: 'linebreak', version: 1 },
           { type: 'linebreak', version: 1 },
@@ -1044,19 +1041,19 @@ const content2: PayloadLexicalReactRendererContent = {
         version: 1,
       },
       {
-        format: '',
-        type: 'block',
-        version: 1,
         fields: {
-          id: '654b8581543f2609757e6ee6',
+          blockName: '',
+          blockType: 'code',
           content:
             '.test {\n' +
             '    background-color: color-mix(in srgb, var(--red), transparent 70%);\n' +
             '}',
+          id: '654b8581543f2609757e6ee6',
           language: 'css',
-          blockName: '',
-          blockType: 'code',
         },
+        format: '',
+        type: 'block',
+        version: 1,
       },
       {
         children: [
@@ -1073,9 +1070,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: 'start',
         indent: 0,
+        tag: 'h2',
         type: 'heading',
         version: 1,
-        tag: 'h2',
       },
       {
         children: [
@@ -1114,14 +1111,14 @@ const content2: PayloadLexicalReactRendererContent = {
               },
             ],
             direction: 'ltr',
-            format: '',
-            indent: 0,
-            type: 'autolink',
-            version: 1,
             fields: {
               linkType: 'custom',
               url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/contain',
             },
+            format: '',
+            indent: 0,
+            type: 'autolink',
+            version: 1,
           },
         ],
         direction: 'ltr',
@@ -1131,11 +1128,9 @@ const content2: PayloadLexicalReactRendererContent = {
         version: 1,
       },
       {
-        format: '',
-        type: 'block',
-        version: 1,
         fields: {
-          id: '654b8598543f2609757e6ee7',
+          blockName: '',
+          blockType: 'code',
           content:
             '.parent {\n' +
             '    contain: layout;\n' +
@@ -1145,10 +1140,12 @@ const content2: PayloadLexicalReactRendererContent = {
             '    position: fixed;\n' +
             '    top: 0;\n' +
             '}',
+          id: '654b8598543f2609757e6ee7',
           language: 'css',
-          blockName: '',
-          blockType: 'code',
         },
+        format: '',
+        type: 'block',
+        version: 1,
       },
       {
         children: [
@@ -1165,9 +1162,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: 'start',
         indent: 0,
+        tag: 'h2',
         type: 'heading',
         version: 1,
-        tag: 'h2',
       },
       {
         children: [
@@ -1195,14 +1192,14 @@ const content2: PayloadLexicalReactRendererContent = {
               },
             ],
             direction: 'ltr',
-            format: '',
-            indent: 0,
-            type: 'autolink',
-            version: 1,
             fields: {
               linkType: 'custom',
               url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert',
             },
+            format: '',
+            indent: 0,
+            type: 'autolink',
+            version: 1,
           },
         ],
         direction: 'ltr',
@@ -1226,9 +1223,9 @@ const content2: PayloadLexicalReactRendererContent = {
         direction: 'ltr',
         format: 'start',
         indent: 0,
+        tag: 'h2',
         type: 'heading',
         version: 1,
-        tag: 'h2',
       },
       {
         children: [
@@ -1256,14 +1253,14 @@ const content2: PayloadLexicalReactRendererContent = {
               },
             ],
             direction: 'ltr',
-            format: '',
-            indent: 0,
-            type: 'autolink',
-            version: 1,
             fields: {
               linkType: 'custom',
               url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_container_queries',
             },
+            format: '',
+            indent: 0,
+            type: 'autolink',
+            version: 1,
           },
           { type: 'linebreak', version: 1 },
           {
@@ -1279,14 +1276,14 @@ const content2: PayloadLexicalReactRendererContent = {
               },
             ],
             direction: 'ltr',
-            format: '',
-            indent: 0,
-            type: 'autolink',
-            version: 1,
             fields: {
               linkType: 'custom',
               url: 'https://ishadeed.com/article/container-queries-are-finally-here',
             },
+            format: '',
+            indent: 0,
+            type: 'autolink',
+            version: 1,
           },
           { type: 'linebreak', version: 1 },
           { type: 'linebreak', version: 1 },
@@ -1307,12 +1304,9 @@ const content2: PayloadLexicalReactRendererContent = {
         version: 1,
       },
       {
-        format: '',
-        type: 'block',
-        version: 1,
         fields: {
-          id: '654b85da543f2609757e6ee8',
-          title: 'exampleComponent.tsx',
+          blockName: '',
+          blockType: 'code',
           content:
             'import {sprinkles} from "@/styles/sprinkels.css";\n' +
             '\n' +
@@ -1321,18 +1315,18 @@ const content2: PayloadLexicalReactRendererContent = {
             '        Text\n' +
             '    </div>\n' +
             '}\n',
+          id: '654b85da543f2609757e6ee8',
           language: 'tsx',
-          blockName: '',
-          blockType: 'code',
+          title: 'exampleComponent.tsx',
         },
-      },
-      {
         format: '',
         type: 'block',
         version: 1,
+      },
+      {
         fields: {
-          id: '654b85ed543f2609757e6ee9',
-          title: 'exampleComponent.tsx',
+          blockName: '',
+          blockType: 'code',
           content:
             'import { sprinkles } from "@/styles/sprinkels.css";\n' +
             'import { responsiveTypography } from "@/styles/properties/typography.css";\n' +
@@ -1351,18 +1345,18 @@ const content2: PayloadLexicalReactRendererContent = {
             '    </div>\n' +
             '  );\n' +
             '}',
+          id: '654b85ed543f2609757e6ee9',
           language: 'tsx',
-          blockName: '',
-          blockType: 'code',
+          title: 'exampleComponent.tsx',
         },
-      },
-      {
         format: '',
         type: 'block',
         version: 1,
+      },
+      {
         fields: {
-          id: '654b87ce543f2609757e6eea',
-          title: 'exampleComponent.css.ts',
+          blockName: '',
+          blockType: 'code',
           content:
             'import { style } from "@vanilla-extract/css";\n' +
             'import { sprinkles } from "@/styles/sprinkels.css";\n' +
@@ -1370,10 +1364,13 @@ const content2: PayloadLexicalReactRendererContent = {
             'export default {\n' +
             '  root: style([sprinkles({ typography: "primary400Book" }), { padding: 20 }]),\n' +
             '};\n',
+          id: '654b87ce543f2609757e6eea',
           language: 'ts',
-          blockName: '',
-          blockType: 'code',
+          title: 'exampleComponent.css.ts',
         },
+        format: '',
+        type: 'block',
+        version: 1,
       },
       {
         children: [],
@@ -1385,18 +1382,22 @@ const content2: PayloadLexicalReactRendererContent = {
       },
     ],
     direction: 'ltr',
+    format: '',
+    indent: 0,
+    type: 'root',
+    version: 1,
   },
 }
 
-type Intro = {
-  text: string
-  position: 'left' | 'right'
-}
-
 type Code = {
-  title: string
   content: string
   language: string
+  title: string
+}
+
+type Intro = {
+  position: 'left' | 'right'
+  text: string
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -1404,27 +1405,25 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <PayloadLexicalReactRenderer<{
       intro: Intro
     }>
-      content={content}
       blockRenderers={{
         intro: (props) => {
           return (
             <div
               style={{
-                display: 'flex',
                 alignSelf: props.fields.position === 'left' ? 'flex-start' : 'flex-end',
-              }}
-            >
+                display: 'flex',
+              }}>
               {props.fields.position}
             </div>
           )
         },
       }}
+      content={content}
     />
 
     <PayloadLexicalReactRenderer<{
       code: Code
     }>
-      content={content2}
       blockRenderers={{
         code: (props) => {
           return (
@@ -1434,6 +1433,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           )
         },
       }}
+      content={content2}
     />
   </React.StrictMode>,
 )

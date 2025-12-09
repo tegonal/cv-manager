@@ -1,14 +1,15 @@
 import { Access, CollectionConfig } from 'payload'
+
 import { I18nCollection } from '@/lib/i18nCollection'
-import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/recordSelectedOrganisation'
-import { isOrganisationAdminFieldAccess } from '@/payload/access/is-organisation-admin-field-access'
-import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
-import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/userDefaultsAfterCreate'
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isOrganisationAdminAccess } from '@/payload/access/is-organisation-admin-access'
+import { isOrganisationAdminFieldAccess } from '@/payload/access/is-organisation-admin-field-access'
+import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
 import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access'
 import { whereOwnUserAccess } from '@/payload/access/where-own-user-access'
-import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
-import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
+import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/recordSelectedOrganisation'
+import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/userDefaultsAfterCreate'
+import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
 
 const readAccess: Access = async (args) => {
   if (!isLoggedInAccess(args)) {
@@ -79,8 +80,12 @@ const deleteAccess: Access = async (args) => {
 }
 
 export const Users: CollectionConfig = {
-  slug: 'users',
-  auth: true,
+  access: {
+    create: createAccess,
+    delete: deleteAccess,
+    read: readAccess,
+    update: updateAccess,
+  },
   admin: {
     group: I18nCollection.collectionGroup.settings,
     useAsTitle: 'email',
@@ -88,16 +93,7 @@ export const Users: CollectionConfig = {
     //   return !user?.user?.roles?.includes(ROLE_SUPER_ADMIN);
     // },
   },
-  access: {
-    read: readAccess,
-    create: createAccess,
-    update: updateAccess,
-    delete: deleteAccess,
-  },
-  hooks: {
-    afterChange: [userDefaultsAfterCreate],
-    afterLogin: [recordSelectedOrganisation],
-  },
+  auth: true,
   fields: [
     {
       name: 'firstName',
@@ -109,19 +105,18 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'email',
-      type: 'text',
       required: true,
+      type: 'text',
       unique: true,
     },
     {
-      name: 'roles',
-      type: 'select',
-      hasMany: true,
       access: {
         create: superAdminFieldAccess,
         update: superAdminFieldAccess,
         // read: superAdminFieldAccess,
       },
+      hasMany: true,
+      name: 'roles',
       options: [
         {
           label: 'Admin',
@@ -132,12 +127,9 @@ export const Users: CollectionConfig = {
           value: ROLE_USER,
         },
       ],
+      type: 'select',
     },
     {
-      name: 'organisations',
-      type: 'array',
-      label: 'Organisations',
-      interfaceName: 'UserOrganisations',
       access: {
         create: isOrganisationAdminFieldAccess,
         update: isOrganisationAdminFieldAccess,
@@ -146,15 +138,13 @@ export const Users: CollectionConfig = {
       fields: [
         {
           name: 'organisation',
-          type: 'relationship',
           relationTo: 'organisations',
           required: true,
+          type: 'relationship',
         },
         {
-          name: 'roles',
-          type: 'select',
           hasMany: true,
-          required: true,
+          name: 'roles',
           options: [
             {
               label: 'Admin',
@@ -165,14 +155,16 @@ export const Users: CollectionConfig = {
               value: ROLE_USER,
             },
           ],
+          required: true,
+          type: 'select',
         },
       ],
+      interfaceName: 'UserOrganisations',
+      label: 'Organisations',
+      name: 'organisations',
+      type: 'array',
     },
     {
-      name: 'selectedOrganisation',
-      type: 'relationship',
-      relationTo: 'organisations',
-      index: true,
       access: {
         create: () => false,
         read: isOrganisationAdminFieldAccess,
@@ -181,6 +173,15 @@ export const Users: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+      index: true,
+      name: 'selectedOrganisation',
+      relationTo: 'organisations',
+      type: 'relationship',
     },
   ],
+  hooks: {
+    afterChange: [userDefaultsAfterCreate],
+    afterLogin: [recordSelectedOrganisation],
+  },
+  slug: 'users',
 }

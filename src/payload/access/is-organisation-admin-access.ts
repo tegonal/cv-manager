@@ -1,8 +1,9 @@
 import type { Access } from 'payload'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
-import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 
-export const isOrganisationAdminAccess: Access = async ({ req, req: { user, payload } }) => {
+import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
+import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+
+export const isOrganisationAdminAccess: Access = async ({ req, req: { payload, user } }) => {
   const lastSelectedOrganisation = getIdFromRelation(user?.selectedOrganisation)
 
   if (!lastSelectedOrganisation) {
@@ -11,9 +12,9 @@ export const isOrganisationAdminAccess: Access = async ({ req, req: { user, payl
   }
 
   const org = await payload.findByID({
-    req,
     collection: 'organisations',
     id: lastSelectedOrganisation,
+    req,
   })
 
   if (!org) {

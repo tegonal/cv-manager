@@ -1,50 +1,52 @@
-import path from 'path';
-import { en } from 'payload/i18n/en';
-import { de } from 'payload/i18n/de';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
+import path from 'path'
+import { buildConfig } from 'payload'
+import { OAuth2Plugin } from 'payload-oauth2'
+import { de } from 'payload/i18n/de'
+import { en } from 'payload/i18n/en'
+import sharp from 'sharp'
+import { fileURLToPath } from 'url'
 
-import { buildConfig } from 'payload';
-import sharp from 'sharp';
-import { fileURLToPath } from 'url';
-import { postgresAdapter } from '@payloadcms/db-postgres';
-import { mongooseAdapter } from '@payloadcms/db-mongodb';
-import { sqliteAdapter } from '@payloadcms/db-sqlite';
-import { s3Storage } from '@payloadcms/storage-s3';
-import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
-import { CV } from '@/payload/collections/CVs';
-import { Users } from '@/payload/collections/Users';
-import { Media } from '@/payload/collections/Media';
-import { Organisations } from '@/payload/collections/Organisations';
-import { seedDevUser } from '@/config/seed/dev-user';
-import { cvPdfPlugin } from '@/payload/plugins/cv-pdf-generator/plugin';
-import { Skills } from '@/payload/collections/Skills';
-import { Levels } from '@/payload/collections/Level';
-import { Companies } from '@/payload/collections/Companies';
-import { Projects } from '@/payload/collections/Projects';
-import { OAuth2Plugin } from 'payload-oauth2';
-import { SkillGroups } from '@/payload/collections/SkillGroups';
-import { Languages } from '@/payload/collections/Languages';
-import { migrations as postgresMigrations } from './src/migrations/postgres';
-import { migrations as mongodbMigrations } from './src/migrations/mongodb';
-import { migrations as sqliteMigrations } from './src/migrations/sqlite';
+import { seedDevData } from '@/config/seed/dev-data'
+import { seedDevUser } from '@/config/seed/dev-user'
+import { Companies } from '@/payload/collections/Companies'
+import { CV } from '@/payload/collections/CVs'
+import { Languages } from '@/payload/collections/Languages'
+import { Levels } from '@/payload/collections/Level'
+import { Media } from '@/payload/collections/Media'
+import { Organisations } from '@/payload/collections/Organisations'
+import { Projects } from '@/payload/collections/Projects'
+import { SkillGroups } from '@/payload/collections/SkillGroups'
+import { Skills } from '@/payload/collections/Skills'
+import { Users } from '@/payload/collections/Users'
+import { cvPdfPlugin } from '@/payload/plugins/cv-pdf-generator/plugin'
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+import { migrations as mongodbMigrations } from './src/migrations/mongodb'
+import { migrations as postgresMigrations } from './src/migrations/postgres'
+import { migrations as sqliteMigrations } from './src/migrations/sqlite'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
 const determineDatabase = (url?: string) => {
   if (url?.startsWith('postgres://')) {
     return postgresAdapter({
+      migrationDir: './src/migrations/postgres',
       pool: {
         connectionString: url,
       },
-      migrationDir: './src/migrations/postgres',
       prodMigrations: postgresMigrations,
-    });
+    })
   } else if (url?.startsWith('mongodb://')) {
     return mongooseAdapter({
-      url: url,
       migrationDir: './src/migrations/mongodb',
-    });
+      url: url,
+    })
   } else if (url?.startsWith('file://')) {
     return sqliteAdapter({
       client: {
@@ -52,55 +54,20 @@ const determineDatabase = (url?: string) => {
       },
       migrationDir: './src/migrations/sqlite',
       prodMigrations: sqliteMigrations,
-    });
+    })
   } else {
-    console.log('No supported database configured, default to sqlite');
+    console.log('No supported database configured, default to sqlite')
     return sqliteAdapter({
       client: {
         url: 'file:///tmp/cv-manager.db',
       },
       migrationDir: './src/migrations/sqlite',
       prodMigrations: sqliteMigrations,
-    });
+    })
   }
-};
+}
 
 export default buildConfig({
-  editor: lexicalEditor(),
-  collections: [
-    CV,
-    Users,
-    Skills,
-    SkillGroups,
-    Languages,
-    Levels,
-    Companies,
-    Projects,
-    Media,
-    Organisations,
-  ],
-  secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, 'src', 'types', 'payload-types.ts'),
-  },
-  db: determineDatabase(process.env.DATABASE_URI),
-  localization: {
-    locales: [
-      {
-        label: 'English',
-        code: 'en',
-      },
-      {
-        label: 'Deutsch',
-        code: 'de',
-      },
-    ],
-    defaultLocale: 'de',
-    fallback: true,
-  },
-  i18n: {
-    supportedLanguages: { en, de },
-  },
   admin: {
     ...(process.env.NODE_ENV !== 'production'
       ? {
@@ -111,7 +78,6 @@ export default buildConfig({
           },
         }
       : {}),
-    user: Users.slug,
     components: {
       afterLogin: ['src/payload/components/oauth-server-login-button#OAuthServerLoginButton'],
       graphics: {
@@ -125,8 +91,8 @@ export default buildConfig({
       description: 'Curriculum vitae manager app',
       icons: [
         {
-          type: 'image/png',
           rel: 'icon',
+          type: 'image/png',
           url: '/favicon.svg',
         },
       ],
@@ -139,99 +105,136 @@ export default buildConfig({
             width: 800,
           },
         ],
-        title: 'CV Manager',
         siteName: undefined,
+        title: 'CV Manager',
       },
       titleSuffix: '- CV Manager',
     },
+    user: Users.slug,
   },
-  serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
+  collections: [
+    CV,
+    Users,
+    Skills,
+    SkillGroups,
+    Languages,
+    Levels,
+    Companies,
+    Projects,
+    Media,
+    Organisations,
+  ],
+  db: determineDatabase(process.env.DATABASE_URI),
+  editor: lexicalEditor(),
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
         defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
         defaultFromName: process.env.SMTP_FROM_ADDRESS || '',
         transportOptions: {
+          auth: {
+            pass: process.env.SMTP_PASS || '',
+            user: process.env.SMTP_USER || '',
+          },
           host: process.env.SMTP_HOST || '',
           port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587,
-          auth: {
-            user: process.env.SMTP_USER || '',
-            pass: process.env.SMTP_PASS || '',
-          },
         },
       })
     : undefined,
-  async onInit(payload) {
-    await seedDevUser(payload);
+  i18n: {
+    supportedLanguages: { de, en },
   },
-  plugins: [
-    s3Storage({
-      enabled: process.env.S3_ENDPOINT !== undefined,
-      collections: {
-        media: { prefix: 'media' },
+  localization: {
+    defaultLocale: 'de',
+    fallback: true,
+    locales: [
+      {
+        code: 'en',
+        label: 'English',
       },
-      config: {
-        credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
-        },
-        bucketEndpoint: false,
-        forcePathStyle: true,
-        region: 'auto', // Cloudflare R2 specific
-        endpoint: process.env.S3_ENDPOINT || '',
+      {
+        code: 'de',
+        label: 'Deutsch',
       },
-      bucket: process.env.S3_BUCKET || '',
-    }),
-    cvPdfPlugin({
-      templatePath: './data/cv-pdf/templates',
-      collections: [CV.slug]
-    }),
-    OAuth2Plugin({
-      strategyName: 'oauth2',
-      useEmailAsIdentity: true,
-      enabled: process.env.OAUTH_ENABLED === 'true' || false,
-      serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
-      authCollection: Users.slug,
-      clientId: process.env.OAUTH_CLIENT_ID || '',
-      clientSecret: process.env.OAUTH_CLIENT_SECRET || '',
-      tokenEndpoint: process.env.OAUTH_TOKEN_ENDPOINT || '',
-      scopes: ['email', 'profile', 'openid'],
-      providerAuthorizationUrl: process.env.OAUTH_AUTHORIZE_ENDPOINT || '',
-      getUserInfo: async (accessToken) => {
-        try {
-          const response = await fetch(process.env.OAUTH_USERINFO_ENDPOINT || '', {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          });
-          const user = await response.json();
-          return {
-            email: user.email,
-            sub: user.sub,
-          };
-        } catch (error) {
-          console.error(error);
-          return {};
-        }
-      },
-      successRedirect: () => {
-        console.log('Login successful, redirecting to /admin');
-        return '/admin';
-      },
-      failureRedirect: (req, error) => {
-        console.error({ msg: 'failureRedirect', error });
-        return '/oauth-error';
-      },
-    }),
-  ],
+    ],
+  },
   logger: {
     options: {
       level: (process.env.NODE_ENV === 'production' ? 'warn' : 'info') as string,
     },
   },
+  async onInit(payload) {
+    await seedDevUser(payload)
+    await seedDevData(payload)
+  },
+  plugins: [
+    s3Storage({
+      bucket: process.env.S3_BUCKET || '',
+      collections: {
+        media: { prefix: 'media' },
+      },
+      config: {
+        bucketEndpoint: false,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        endpoint: process.env.S3_ENDPOINT || '',
+        forcePathStyle: true,
+        region: 'auto', // Cloudflare R2 specific
+      },
+      enabled: process.env.S3_ENDPOINT !== undefined,
+    }),
+    cvPdfPlugin({
+      collections: [CV.slug],
+      templatePath: './data/cv-pdf/templates',
+    }),
+    OAuth2Plugin({
+      authCollection: Users.slug,
+      clientId: process.env.OAUTH_CLIENT_ID || '',
+      clientSecret: process.env.OAUTH_CLIENT_SECRET || '',
+      enabled: process.env.OAUTH_ENABLED === 'true' || false,
+      failureRedirect: (req, error) => {
+        console.error({ error, msg: 'failureRedirect' })
+        return '/oauth-error'
+      },
+      getUserInfo: async (accessToken) => {
+        try {
+          const response = await fetch(process.env.OAUTH_USERINFO_ENDPOINT || '', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          })
+          const user = await response.json()
+          return {
+            email: user.email,
+            sub: user.sub,
+          }
+        } catch (error) {
+          console.error(error)
+          return {}
+        }
+      },
+      providerAuthorizationUrl: process.env.OAUTH_AUTHORIZE_ENDPOINT || '',
+      scopes: ['email', 'profile', 'openid'],
+      serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
+      strategyName: 'oauth2',
+      successRedirect: () => {
+        console.log('Login successful, redirecting to /admin')
+        return '/admin'
+      },
+      tokenEndpoint: process.env.OAUTH_TOKEN_ENDPOINT || '',
+      useEmailAsIdentity: true,
+    }),
+  ],
+  secret: process.env.PAYLOAD_SECRET || '',
+  serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',
+  // This is temporary - we may make an adapter pattern
+  // for this before reaching 3.0 stable
+  sharp,
   telemetry: false,
   // Sharp is now an optional dependency -
   // if you want to resize images, crop, set focal point, etc.
   // make sure to install it and pass it to the config.
 
-  // This is temporary - we may make an adapter pattern
-  // for this before reaching 3.0 stable
-  sharp,
-});
+  typescript: {
+    outputFile: path.resolve(dirname, 'src', 'types', 'payload-types.ts'),
+  },
+})

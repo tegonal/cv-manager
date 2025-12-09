@@ -1,13 +1,27 @@
-import React from 'react'
 import configPromise from '@payload-config'
-import { Cv, Media } from '@/types/payload-types'
-import { decodeFromBase64 } from 'next/dist/build/webpack/loaders/utils'
-import { getPayload, TypedLocale } from 'payload'
 import ky from 'ky'
 import { headers } from 'next/headers'
 import * as process from 'node:process'
+import { getPayload, TypedLocale } from 'payload'
+import React from 'react'
+
 import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
+import { Cv, Media } from '@/types/payload-types'
+
 import DefaultPage from './default_page'
+
+export type CvPageProps = {
+  cv: Cv
+  exportOverride: Record<string, boolean>
+  hasOverride: (key: string) => boolean
+  locale: TypedLocale
+  profileImageDataUrl: string
+}
+
+export type DecodedSearchParams = {
+  exportOverride: Record<string, boolean>
+  secret: string
+}
 
 type Args = {
   params: Promise<{
@@ -16,19 +30,6 @@ type Args = {
   searchParams: Promise<{
     [key: string]: string | string[]
   }>
-}
-
-export type DecodedSearchParams = {
-  exportOverride: Record<string, boolean>
-  secret: string
-}
-
-export type CvPageProps = {
-  cv: Cv
-  profileImageDataUrl: string
-  hasOverride: (key: string) => boolean
-  exportOverride: Record<string, boolean>
-  locale: TypedLocale
 }
 
 const Page = async ({ params, searchParams }: Args) => {
@@ -59,20 +60,22 @@ const Page = async ({ params, searchParams }: Args) => {
   const lang = query.searchParams.lang
   const locale: TypedLocale = (lang as TypedLocale) || 'en'
 
-  const decodedParams: DecodedSearchParams = decodeFromBase64(query.searchParams.p as string)
+  const decodedParams: DecodedSearchParams = JSON.parse(
+    Buffer.from(query.searchParams.p as string, 'base64').toString('utf-8'),
+  )
 
   const { exportOverride } = decodedParams
 
   const cv = await payload
     .find({
       collection: 'cv',
+      depth: 1,
+      locale: locale,
       where: {
         id: {
           equals: query.params.id,
         },
       },
-      locale: locale,
-      depth: 1,
     })
     .then((data) => data.docs[0])
 
@@ -119,15 +122,13 @@ const Page = async ({ params, searchParams }: Args) => {
     : DefaultPage
 
   return (
-    <>
-      <CvPage
-        cv={cv}
-        profileImageDataUrl={profileImageDataUrl}
-        hasOverride={hasOverride}
-        exportOverride={exportOverride}
-        locale={locale}
-      ></CvPage>
-    </>
+    <CvPage
+      cv={cv}
+      exportOverride={exportOverride}
+      hasOverride={hasOverride}
+      locale={locale}
+      profileImageDataUrl={profileImageDataUrl}
+    />
   )
 }
 

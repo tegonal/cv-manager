@@ -1,10 +1,11 @@
+import { Field } from 'payload'
+
 import { I18nCollection } from '@/lib/i18nCollection'
 import {
   textDescription,
   textLinkOptional,
   textNameRequired,
 } from '@/payload/collections/CVs/fields/common-text-fields'
-import { Field } from 'payload'
 import { optional } from '@/payload/collections/CVs/fields/optional'
 import {
   selectEndYear,
@@ -14,9 +15,6 @@ import {
 
 export const EducationTabFields: Field[] = [
   {
-    name: 'eduHighlights',
-    type: 'array',
-    label: I18nCollection.fieldLabel.educationHighlights,
     admin: {
       components: {
         RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -25,21 +23,21 @@ export const EducationTabFields: Field[] = [
     },
     fields: [
       {
-        type: 'text',
-        name: 'title',
         label: I18nCollection.fieldLabel.title,
+        name: 'title',
+        type: 'text',
       },
       {
-        type: 'row',
         fields: [optional(selectStartYear), optional(selectEndYear), textLinkOptional],
+        type: 'row',
       },
       textDescription,
     ],
+    label: I18nCollection.fieldLabel.educationHighlights,
+    name: 'eduHighlights',
+    type: 'array',
   },
   {
-    name: 'edu',
-    type: 'array',
-    label: I18nCollection.fieldLabel.schools,
     admin: {
       components: {
         RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -47,40 +45,40 @@ export const EducationTabFields: Field[] = [
     },
     fields: [
       {
-        name: 'institution',
-        type: 'text',
         label: I18nCollection.fieldLabel.name,
         localized: true,
+        name: 'institution',
         required: true,
+        type: 'text',
       },
       {
-        type: 'row',
         fields: [selectStartYear, selectEndYear, textLinkOptional],
+        type: 'row',
       },
       textDescription,
     ],
+    label: I18nCollection.fieldLabel.schools,
+    name: 'edu',
+    type: 'array',
   },
   {
+    admin: {
+      components: {
+        RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
+      },
+    },
+    fields: [
+      {
+        fields: [selectYear, textNameRequired, textLinkOptional],
+        type: 'row',
+      },
+      textDescription,
+    ],
+    label: I18nCollection.fieldLabel.certifications,
     name: 'certs',
     type: 'array',
-    label: I18nCollection.fieldLabel.certifications,
-    admin: {
-      components: {
-        RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
-      },
-    },
-    fields: [
-      {
-        type: 'row',
-        fields: [selectYear, textNameRequired, textLinkOptional],
-      },
-      textDescription,
-    ],
   },
   {
-    name: 'courses',
-    type: 'array',
-    label: I18nCollection.fieldLabel.courses,
     admin: {
       components: {
         RowLabel: '/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText',
@@ -88,10 +86,13 @@ export const EducationTabFields: Field[] = [
     },
     fields: [
       {
-        type: 'row',
         fields: [selectYear, textNameRequired, textLinkOptional],
+        type: 'row',
       },
       textDescription,
     ],
+    label: I18nCollection.fieldLabel.courses,
+    name: 'courses',
+    type: 'array',
   },
 ]

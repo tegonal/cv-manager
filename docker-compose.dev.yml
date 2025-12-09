@@ -4,7 +4,7 @@ services:
   postgres:
     image: pgautoupgrade/pgautoupgrade:17-bookworm
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -15,29 +15,29 @@ services:
   mongodb:
     image: mongo:8.0
     ports:
-      - "27017:27017"
+      - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
       - mongodb-data:/data/db
 
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    restart: unless-stopped
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: admin@localhost.com
-#      PGADMIN_DEFAULT_PASSWORD: admin
-#    ports:
-#      - "5050:80"
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
+  #  pgadmin:
+  #    image: dpage/pgadmin4
+  #    restart: unless-stopped
+  #    environment:
+  #      PGADMIN_DEFAULT_EMAIL: admin@localhost.com
+  #      PGADMIN_DEFAULT_PASSWORD: admin
+  #    ports:
+  #      - "5050:80"
+  #    volumes:
+  #      - pgadmin-data:/var/lib/pgadmin
 
   minio:
-    image: minio/minio:latest
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - '9000:9000'
+      - '9001:9001'
     environment:
       MINIO_ROOT_USER: ${S3_SECRET_ACCESS_KEY}
       MINIO_ROOT_PASSWORD: ${S3_ACCESS_KEY_ID}
@@ -46,7 +46,7 @@ services:
     command: server --console-address ":9001" /data
 
   createbucket:
-    image: minio/mc
+    image: quay.io/minio/mc:RELEASE.2025-04-22T21-15-12Z
     depends_on:
       - minio
     entrypoint: >
@@ -71,13 +71,13 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
 volumes:
-    mailpit-data:
-      driver: local
-    postgres-data:
-      driver: local
-    minio-data:
-      driver: local
-    pgadmin-data:
-      driver: local
-    mongodb-data:
-      driver: local
+  mailpit-data:
+    driver: local
+  postgres-data:
+    driver: local
+  minio-data:
+    driver: local
+  pgadmin-data:
+    driver: local
+  mongodb-data:
+    driver: local

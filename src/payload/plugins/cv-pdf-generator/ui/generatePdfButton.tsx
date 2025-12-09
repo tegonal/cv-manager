@@ -1,25 +1,26 @@
 'use client'
-import ky from 'ky'
-import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
 import { Button } from '@payloadcms/ui'
-import React from 'react'
-import { baseClass } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
+import ky from 'ky'
 import { noop } from 'lodash-es'
+import React from 'react'
+
+import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
+import { baseClass } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
 
 type Props = {
-  id: string | number | undefined
-  title: string
   exportOverride: Record<string, boolean>
+  id: number | string | undefined
   locale: string
   onTransferred?: () => void
+  title: string
 }
 
 export const GeneratePDFButton: React.FC<Props> = ({
-  id,
-  title,
   exportOverride,
+  id,
   locale,
   onTransferred = noop,
+  title,
 }) => {
   const [isBusy, setBusy] = React.useState(false)
 
@@ -30,9 +31,9 @@ export const GeneratePDFButton: React.FC<Props> = ({
     }
     setBusy(true)
     const params = {
+      exportOverride,
       id,
       locale,
-      exportOverride,
     }
     try {
       const response = await ky.post(`/api/${pluginConstants.apiUrlSlug}`, {
@@ -58,14 +59,14 @@ export const GeneratePDFButton: React.FC<Props> = ({
       let done = false
 
       while (!done) {
-        const { value, done: streamDone } = await reader.read()
+        const { done: streamDone, value } = await reader.read()
         if (value) {
           chunks.push(value)
         }
         done = streamDone
       }
 
-      const blob = new Blob(chunks, { type: 'application/pdf' })
+      const blob = new Blob(chunks as BlobPart[], { type: 'application/pdf' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
@@ -88,9 +89,8 @@ export const GeneratePDFButton: React.FC<Props> = ({
     <Button
       buttonStyle="primary"
       className={`${baseClass}__cancel`}
-      onClick={generatePdf}
       disabled={isBusy}
-    >
+      onClick={generatePdf}>
       {isBusy ? 'Generating PDF...' : 'Generate PDF'}
     </Button>
   )

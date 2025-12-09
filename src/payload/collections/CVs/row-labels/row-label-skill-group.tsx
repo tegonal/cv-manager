@@ -1,8 +1,9 @@
 'use client'
-import React, { useMemo, useState } from 'react'
 import { useLocale, useRowLabel } from '@payloadcms/ui'
-import { SkillGroup } from '@/types/payload-types'
 import ky from 'ky'
+import React, { useMemo, useState } from 'react'
+
+import { SkillGroup } from '@/types/payload-types'
 
 export const RowLabelSkillGroup: React.FC = (args) => {
   const { data } = useRowLabel<any>()

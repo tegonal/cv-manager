@@ -9,12 +9,13 @@ import {
   useModal,
   useTranslation,
 } from '@payloadcms/ui'
-import React, { useEffect, useMemo } from 'react'
-import { Company, Cv, Project } from '@/types/payload-types'
-import { I18nCollection } from '@/lib/i18nCollection'
-import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
-import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generatePdfButton'
 import ky from 'ky'
+import React, { useEffect, useMemo } from 'react'
+
+import { I18nCollection } from '@/lib/i18nCollection'
+import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generatePdfButton'
+import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
+import { Company, Cv, Project } from '@/types/payload-types'
 
 const profileKeys: (keyof Cv)[] = [
   'birthday',
@@ -34,14 +35,14 @@ const getLocalizedFieldLabel = (
 }
 
 type FormField = {
+  export: boolean
   key: string
   label: string
-  export: boolean
 }
 
 type FormSection = {
-  section: string
   fields: FormField[]
+  section: string
 }
 
 const fetchCv = async (id: any, serverURL: string) => {
@@ -101,24 +102,24 @@ export const ExportOverlay: React.FC = () => {
   const availableOptions = useMemo(() => {
     const profile = [
       {
-        section: getLocalizedFieldLabel('profile', locale.code),
         fields: profileKeys.map((key) => ({
+          export: formState[key] ?? true,
           key,
           label: getLocalizedFieldLabel(key as any, locale.code),
           value: cv && key in cv ? cv[key] : 'Unknown',
-          export: formState[key] ?? true,
         })),
+        section: getLocalizedFieldLabel('profile', locale.code),
       },
     ]
 
     const projects = [
       {
-        section: getLocalizedFieldLabel('projects', locale.code),
         fields: cv?.projects?.map((project) => ({
+          export: formState[`project_${project.id}`] ?? true,
           key: `project_${project.id}`,
           label: `<strong>${(project.company as Company).name} - ${(project.project as Project).name}</strong>`,
-          export: formState[`project_${project.id}`] ?? true,
         })),
+        section: getLocalizedFieldLabel('projects', locale.code),
       },
     ]
 
@@ -133,7 +134,7 @@ export const ExportOverlay: React.FC = () => {
   }
 
   return (
-    <Drawer slug={drawerSlug} Header={null}>
+    <Drawer Header={null} slug={drawerSlug}>
       <div className={'mt-12 grid grid-cols-[auto_min-content]'}>
         <div className={'flex flex-col gap-8'}>
           <h1 className={'text-2xl font-bold'}>Exporting CV of {cv?.fullName} as PDF</h1>
@@ -147,29 +148,27 @@ export const ExportOverlay: React.FC = () => {
           </p>
           <div>
             {availableOptions?.map((section) => (
-              <div key={section.section} className={'mb-12'}>
+              <div className={'mb-12'} key={section.section}>
                 <h2 className={'text-xl font-bold'}>{section.section}</h2>
                 <ul>
                   {section.fields?.map((field) => (
                     <li
-                      key={field.key}
                       className={
                         'flex select-none gap-2 p-2 hover:cursor-pointer hover:bg-emerald-200/15'
                       }
-                      onClick={() => onCheckboxChange(field.key)}
-                    >
+                      key={field.key}
+                      onClick={() => onCheckboxChange(field.key)}>
                       <input
-                        type="checkbox"
+                        checked={field.export}
                         id={field.key}
                         name={field.key}
-                        checked={field.export}
                         onChange={() => onCheckboxChange(field.key)}
+                        type="checkbox"
                       />
                       <label
-                        htmlFor={field.key}
                         className={''}
                         dangerouslySetInnerHTML={{ __html: field.label }}
-                      ></label>
+                        htmlFor={field.key}></label>
                     </li>
                   ))}
                 </ul>
@@ -178,17 +177,16 @@ export const ExportOverlay: React.FC = () => {
           </div>
           <div className={'basis-xs flex'}>
             <GeneratePDFButton
+              exportOverride={formState}
               id={id}
               locale={locale.code}
-              title={cv?.fullName || 'cv-export'}
-              exportOverride={formState}
               onTransferred={() => closeModal(drawerSlug)}
+              title={cv?.fullName || 'cv-export'}
             />
             <Button
               buttonStyle="secondary"
               className={`${baseClass}__cancel`}
-              onClick={() => closeModal(drawerSlug)}
-            >
+              onClick={() => closeModal(drawerSlug)}>
               {t('general:cancel')}
             </Button>
           </div>
@@ -197,8 +195,7 @@ export const ExportOverlay: React.FC = () => {
           <Button
             buttonStyle="icon-label"
             className={`${baseClass}__cancel size-10`}
-            onClick={() => closeModal(drawerSlug)}
-          >
+            onClick={() => closeModal(drawerSlug)}>
             <CloseMenuIcon />
           </Button>
         </div>

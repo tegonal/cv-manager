@@ -1,7 +1,8 @@
-import { CollectionAfterLoginHook } from 'payload'
-import { User } from '@/types/payload-types'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
 import { isNumber } from 'lodash-es'
+import { CollectionAfterLoginHook } from 'payload'
+
+import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { User } from '@/types/payload-types'
 
 export const recordSelectedOrganisation: CollectionAfterLoginHook<User> = async ({ req, user }) => {
   if (!user.selectedOrganisation) {
@@ -29,11 +30,11 @@ export const recordSelectedOrganisation: CollectionAfterLoginHook<User> = async 
     }
     try {
       await req.payload.update({
-        id: user.id,
         collection: 'users',
         data: {
           selectedOrganisation: 1,
         },
+        id: user.id,
         req,
       })
     } catch (err: unknown) {

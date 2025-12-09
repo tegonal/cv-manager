@@ -1,8 +1,9 @@
 'use client'
-import React, { useMemo, useState } from 'react'
 import { useLocale, useRowLabel } from '@payloadcms/ui'
-import { Lang } from '@/types/payload-types'
 import ky from 'ky'
+import React, { useMemo, useState } from 'react'
+
+import { Lang } from '@/types/payload-types'
 
 export const RowLabelLanguage: React.FC = (args) => {
   const { data } = useRowLabel<any>()

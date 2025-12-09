@@ -1,23 +1,23 @@
 'use server'
 
-import { getPayload, PayloadRequest } from 'payload'
 import configPromise from '@payload-config'
 import * as process from 'node:process'
-import { encodeToBase64 } from 'next/dist/build/webpack/loaders/utils'
-import { LANG_HEADER_KEY, PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
+import { getPayload, PayloadRequest } from 'payload'
 import puppeteer, { Browser, PuppeteerLifeCycleEvent, SupportedBrowser } from 'puppeteer'
 
+import { LANG_HEADER_KEY, PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
+
 type Props = {
+  exportOverride: Record<string, boolean>
   id: string
   locale: string
-  exportOverride: Record<string, boolean>
 }
 
 const DEFAULT_TIMEOUT = 60000
 
 export const requestHandler = async (
   req: PayloadRequest,
-  { id, locale, exportOverride }: Props,
+  { exportOverride, id, locale }: Props,
 ) => {
   const payload = await getPayload({
     config: configPromise,
@@ -28,8 +28,7 @@ export const requestHandler = async (
     throw new Error('PDF Printer: Payload token not found. Aborting..')
   }
 
-  const host =
-    process.env.INTERNAL_APP_URL || process.env.PUBLIC_URL || 'http://host.docker.internal:3000'
+  const host = process.env.INTERNAL_APP_URL || process.env.PUBLIC_URL || 'http://localhost:3000'
 
   if (!host) {
     throw new Error('PDF Printer: Host undefined. Aborting..')
@@ -44,7 +43,7 @@ export const requestHandler = async (
     secret: new Date().getTime().toString(),
   }
 
-  const searchParamString = encodeToBase64(searchParams)
+  const searchParamString = Buffer.from(JSON.stringify(searchParams)).toString('base64')
   const extraHeaders: Record<string, string> = {}
   extraHeaders[PRINTER_HEADER_KEY] = process.env.PRINTER_SECRET || ''
   extraHeaders[LANG_HEADER_KEY] = locale
@@ -55,8 +54,8 @@ export const requestHandler = async (
     if (process.env.NODE_ENV !== 'production') console.log({ url })
     // Launch the browser
     browser = await puppeteer.launch({
-      browser: (process.env.PUPPETER_BROWSER as SupportedBrowser) || 'firefox',
       args: ['--no-sandbox'],
+      browser: (process.env.PUPPETER_BROWSER as SupportedBrowser) || 'firefox',
       //enable those for debug purposes
       //dumpio: true,
       //headless: false
@@ -77,13 +76,13 @@ export const requestHandler = async (
     // create PDF
     const result = await page.pdf({
       format: 'A4',
+      landscape: false,
       margin: {
-        top: 0,
         bottom: 0,
         left: 0,
         right: 0,
+        top: 0,
       },
-      landscape: false,
     })
 
     return result
