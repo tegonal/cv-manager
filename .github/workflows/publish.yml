@@ -17,7 +17,7 @@ jobs:
       id-token: write
     steps:
       - name: Mattermost Notification
-        uses: mattermost/action-mattermost-notify@v2
+        uses: mattermost/action-mattermost-notify@2.0.0
         with:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           TEXT: |
@@ -60,7 +60,7 @@ jobs:
           fi
 
       - name: Mattermost Notification
-        uses: mattermost/action-mattermost-notify@v2
+        uses: mattermost/action-mattermost-notify@2.0.0
         with:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           TEXT: |
