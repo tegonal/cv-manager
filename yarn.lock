@@ -3538,16 +3538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:^4.17.12":
-  version: 4.17.12
-  resolution: "@types/lodash-es@npm:4.17.12"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 10/56b9a433348b11c31051c6fa9028540a033a08fb80b400c589d740446c19444d73b217cf1471d4036448ef686a83e8cf2a35d1fadcb3f2105f26701f94aebb07
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*, @types/lodash@npm:^4.17.7":
+"@types/lodash@npm:^4.17.7":
   version: 4.17.21
   resolution: "@types/lodash@npm:4.17.21"
   checksum: 10/34920830a3bc82ba619cda05e606fef00c148a69b4f19f770645d2587ccdb8e42ef3ddfc174b7884c0c709fc0a1aeb48f7326da969bad12a1464a03efbbe414c
@@ -4953,7 +4944,6 @@ __metadata:
     "@tailwindcss/typography": "npm:^0.5.19"
     "@types/jsdom": "npm:^27.0.0"
     "@types/jsonwebtoken": "npm:^9.0.10"
-    "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^24.10.2"
     "@types/nodemailer": "npm:^7.0.4"
     "@types/react": "npm:^19.2.7"
@@ -4965,11 +4955,11 @@ __metadata:
     env-cmd: "npm:^11.0.0"
     eslint: "npm:^9.39.1"
     eslint-config-next: "npm:15.5.7"
+    eslint-plugin-check-file: "npm:^3.3.1"
     eslint-plugin-perfectionist: "npm:^4.15.1"
     graphql: "npm:^16.12.0"
     jsonwebtoken: "npm:^9.0.3"
     ky: "npm:^1.14.1"
-    lodash-es: "npm:^4.17.21"
     lucide-react: "npm:^0.556.0"
     next: "npm:15.5.7"
     nodemailer: "npm:^7.0.11"
@@ -5912,6 +5902,18 @@ __metadata:
     eslint:
       optional: true
   checksum: 10/bd25d6610ec3abaa50e8f1beb0119541562bbb8dd02c035c7e887976fe1e0c5dd8175f4607ca8d86d1146df24d52a071bd3d1dd329f6902bd58df805a8ca16d3
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-check-file@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "eslint-plugin-check-file@npm:3.3.1"
+  dependencies:
+    is-glob: "npm:^4.0.3"
+    micromatch: "npm:^4.0.8"
+  peerDependencies:
+    eslint: ">=9.0.0"
+  checksum: 10/d367d66e63ba7e8c488fa295e5185e65a2978c33fa4e1802c51e1c5edce538e4ad83425a37d5b044bede6eccfb4d13c03a6267da6e18f3b7bfb0f653b5695d5c
   languageName: node
   linkType: hard
 
@@ -7627,13 +7629,6 @@ __metadata:
   dependencies:
     p-locate: "npm:^5.0.0"
   checksum: 10/72eb661788a0368c099a184c59d2fee760b3831c9c1c33955e8a19ae4a21b4116e53fa736dc086cdeb9fce9f7cc508f2f92d2d3aae516f133e16a2bb59a39f5a
-  languageName: node
-  linkType: hard
-
-"lodash-es@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash-es@npm:4.17.21"
-  checksum: 10/03f39878ea1e42b3199bd3f478150ab723f93cc8730ad86fec1f2804f4a07c6e30deaac73cad53a88e9c3db33348bb8ceeb274552390e7a75d7849021c02df43
   languageName: node
   linkType: hard
 

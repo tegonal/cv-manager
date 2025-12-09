@@ -3,13 +3,13 @@ import * as process from 'node:process'
 import React from 'react'
 
 import { HighlightEntry } from '@/app/cv/[id]/(lib)/components/highlight'
-import { I18nCollection } from '@/lib/i18nCollection'
-import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payloadLexicalReactRenderer'
+import { I18nCollection } from '@/lib/i18n-collection'
+import { PayloadLexicalReactRenderer } from '@/lib/lexical-render/src/payload-lexical-react-renderer'
 import { Company, Level, Project, Skill, SkillGroup } from '@/types/payload-types'
 
 import { LinkWithIcon, OptionalLink } from './(lib)/components/link'
 import { CvPageProps } from './page'
-import './default_page.scss'
+import './default-page.scss'
 import { filterEmptyLexicalNodes, formatDate, fromToYear, hasLexicalNodes } from './utilities'
 
 const DefaultPage: React.FC<CvPageProps> = async ({

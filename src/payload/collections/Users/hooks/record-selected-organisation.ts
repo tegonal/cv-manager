@@ -1,6 +1,6 @@
 import { CollectionAfterLoginHook } from 'payload'
 
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { User } from '@/types/payload-types'
 
 export const recordSelectedOrganisation: CollectionAfterLoginHook<User> = async ({ req, user }) => {

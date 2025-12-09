@@ -1,4 +1,4 @@
-import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer'
+import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payload-lexical-react-renderer'
 
 export const content2: PayloadLexicalReactRendererContent = {
   root: {

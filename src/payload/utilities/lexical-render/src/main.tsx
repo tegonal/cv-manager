@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { content } from '@/payload/utilities/lexical-render/src/content'
 import { content2 } from '@/payload/utilities/lexical-render/src/content2'
 
-import { PayloadLexicalReactRenderer } from './payloadLexicalReactRenderer'
+import { PayloadLexicalReactRenderer } from './payload-lexical-react-renderer'
 
 type Code = {
   content: string

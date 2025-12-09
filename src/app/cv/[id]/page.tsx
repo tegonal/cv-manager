@@ -8,7 +8,7 @@ import React from 'react'
 import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
 import { Cv, Media } from '@/types/payload-types'
 
-import DefaultPage from './default_page'
+import DefaultPage from './default-page'
 
 export type CvPageProps = {
   cv: Cv

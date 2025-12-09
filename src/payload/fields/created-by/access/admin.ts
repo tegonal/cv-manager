@@ -1,8 +1,8 @@
 import type { FieldAccess } from 'payload'
 
-import { checkUserRoles } from '@/payload/access/utils/checkUserRoles'
+import { checkUserRoles } from '@/payload/access/utils/check-user-roles'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
 export const organisationFieldAdminAccess: FieldAccess = ({ doc, req: { user } }) => {
   if (checkUserRoles([ROLE_SUPER_ADMIN], user)) {

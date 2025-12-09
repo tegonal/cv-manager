@@ -1,13 +1,13 @@
 import { Access, CollectionConfig } from 'payload'
 
-import { I18nCollection } from '@/lib/i18nCollection'
+import { I18nCollection } from '@/lib/i18n-collection'
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
-import { checkOrganisationRoles } from '@/payload/access/utils/checkOrganisationRoles'
+import { checkOrganisationRoles } from '@/payload/access/utils/check-organisation-roles'
 import { createdByField } from '@/payload/fields/created-by'
 import { updatedByField } from '@/payload/fields/updated-by'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { Organisation } from '@/types/payload-types'
 
 const createAccess: Access<Organisation> = async (args) => {

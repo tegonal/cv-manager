@@ -4,7 +4,7 @@ import ky from 'ky'
 import React from 'react'
 
 import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
-import { baseClass } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
+import { baseClass } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
 
 type Props = {
   exportOverride: Record<string, boolean>

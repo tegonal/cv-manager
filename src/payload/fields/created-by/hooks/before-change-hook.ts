@@ -1,6 +1,6 @@
 import { FieldHook } from 'payload'
 
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
 export const beforeChangeHook: FieldHook = async ({ req, req: { user }, siblingData }) => {
   if (!user || !req.user) return undefined

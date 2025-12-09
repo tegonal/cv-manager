@@ -2,6 +2,7 @@ import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
+import checkFile from 'eslint-plugin-check-file'
 import perfectionist from 'eslint-plugin-perfectionist'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -39,7 +40,15 @@ const config = [
         tsconfigRootDir: __dirname,
       },
     },
+    plugins: {
+      'check-file': checkFile,
+    },
     rules: {
+      'check-file/filename-naming-convention': [
+        'error',
+        { '**/*.{ts,tsx,js,json,css,scss,html,htm}': 'KEBAB_CASE' },
+        { ignoreMiddleExtensions: true },
+      ],
       'import/order': 'off',
     },
   },

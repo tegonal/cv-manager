@@ -1,7 +1,7 @@
 import type { Access } from 'payload'
 
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
 export const isOrganisationAdminAccess: Access = async ({ req, req: { payload, user } }) => {
   const lastSelectedOrganisation = getIdFromRelation(user?.selectedOrganisation)

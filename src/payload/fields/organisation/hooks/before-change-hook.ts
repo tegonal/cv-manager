@@ -1,7 +1,7 @@
 import { FieldHook } from 'payload'
 
-import { hasSuperAdminRole } from '@/payload/access/utils/hasSuperAdminRole'
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { hasSuperAdminRole } from '@/payload/access/utils/has-super-admin-role'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
 export const beforeChangeHook: FieldHook = async ({ data, req, req: { user } }) => {
   if (!user || !req.user) return undefined

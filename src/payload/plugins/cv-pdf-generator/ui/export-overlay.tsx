@@ -12,9 +12,9 @@ import {
 import ky from 'ky'
 import React, { useEffect, useMemo } from 'react'
 
-import { I18nCollection } from '@/lib/i18nCollection'
-import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generatePdfButton'
-import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
+import { I18nCollection } from '@/lib/i18n-collection'
+import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generate-pdf-button'
+import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
 import { Company, Cv, Project } from '@/types/payload-types'
 
 const profileKeys: (keyof Cv)[] = [

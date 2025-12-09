@@ -1,7 +1,7 @@
 import { TypedLocale } from 'payload'
 
-import { I18nCollection } from '@/lib/i18nCollection'
-import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payloadLexicalReactRenderer'
+import { I18nCollection } from '@/lib/i18n-collection'
+import { PayloadLexicalReactRendererContent } from '@/payload/utilities/lexical-render/src/payload-lexical-react-renderer'
 
 export const formatDate = (date: string, locale: string) => {
   const dateObj = new Date(date)

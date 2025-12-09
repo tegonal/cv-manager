@@ -1,14 +1,14 @@
 import { Access, CollectionConfig } from 'payload'
 
-import { I18nCollection } from '@/lib/i18nCollection'
+import { I18nCollection } from '@/lib/i18n-collection'
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isOrganisationAdminAccess } from '@/payload/access/is-organisation-admin-access'
 import { isOrganisationAdminFieldAccess } from '@/payload/access/is-organisation-admin-field-access'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
 import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access'
 import { whereOwnUserAccess } from '@/payload/access/where-own-user-access'
-import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/recordSelectedOrganisation'
-import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/userDefaultsAfterCreate'
+import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/record-selected-organisation'
+import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/user-defaults-after-create'
 import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
 
 const readAccess: Access = async (args) => {

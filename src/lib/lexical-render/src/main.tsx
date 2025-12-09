@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import {
   PayloadLexicalReactRenderer,
   PayloadLexicalReactRendererContent,
-} from './payloadLexicalReactRenderer'
+} from './payload-lexical-react-renderer'
 
 const content: PayloadLexicalReactRendererContent = {
   root: {

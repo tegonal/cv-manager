@@ -21,7 +21,7 @@ export const cvPdfPlugin =
             components: {
               edit: {
                 SaveButton:
-                  '/src/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer.tsx#SaveButtonReplacer',
+                  '/src/payload/plugins/cv-pdf-generator/ui/save-button-replacer.tsx#SaveButtonReplacer',
               },
             },
           },

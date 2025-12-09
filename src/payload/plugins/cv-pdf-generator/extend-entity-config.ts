@@ -1,7 +1,7 @@
 import { Field } from 'payload'
 
 import { logger } from '@/lib/logger'
-import { SaveButtonReplacer } from '@/payload/plugins/cv-pdf-generator/ui/saveButtonReplacer'
+import { SaveButtonReplacer } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
 
 import { CvPdfConfig } from './types'
 

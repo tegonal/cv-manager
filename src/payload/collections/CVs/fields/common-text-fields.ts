@@ -1,6 +1,6 @@
 import { Field } from 'payload'
 
-import { I18nCollection } from '@/lib/i18nCollection'
+import { I18nCollection } from '@/lib/i18n-collection'
 
 export const textNameRequired: Field = {
   label: I18nCollection.fieldLabel.name,

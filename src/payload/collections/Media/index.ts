@@ -2,7 +2,7 @@ import { CollectionConfig } from 'payload'
 
 import { defaultCollectionAccess } from '@/payload/access/default-collection-access'
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
-import { assignOrgToUpload } from '@/payload/collections/hooks/assignOrgToUpload'
+import { assignOrgToUpload } from '@/payload/collections/hooks/assign-org-to-upload'
 import { adminSettingsField } from '@/payload/fields/admin-settings'
 import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
 

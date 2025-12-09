@@ -1,6 +1,6 @@
 import { Field } from 'payload'
 
-import { I18nCollection } from '@/lib/i18nCollection'
+import { I18nCollection } from '@/lib/i18n-collection'
 import { textDescription } from '@/payload/collections/CVs/fields/common-text-fields'
 import { optional } from '@/payload/collections/CVs/fields/optional'
 import { selectCompany } from '@/payload/collections/CVs/fields/select-company'

@@ -3,7 +3,7 @@ import type { Field } from 'payload'
 import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access'
 
 import { organisationFieldAdminAccess } from './access/admin'
-import { beforeChangeHook } from './hooks/beforeChangeHook'
+import { beforeChangeHook } from './hooks/before-change-hook'
 
 export const createdByField: Field = {
   access: {

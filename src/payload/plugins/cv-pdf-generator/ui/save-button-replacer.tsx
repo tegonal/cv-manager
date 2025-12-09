@@ -1,7 +1,7 @@
 import { DrawerToggler, SaveButton } from '@payloadcms/ui'
 import React from 'react'
 
-import { ExportOverlay } from '@/payload/plugins/cv-pdf-generator/ui/exportOverlay'
+import { ExportOverlay } from '@/payload/plugins/cv-pdf-generator/ui/export-overlay'
 
 export const baseClass = 'cv-pdf-generator'
 export const drawerSlug = 'cv-pdf-chooser'

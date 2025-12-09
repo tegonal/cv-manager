@@ -1,4 +1,4 @@
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { User, UserOrganisations } from '@/types/payload-types'
 
 type NonEmptyArray<T> = T extends (infer U)[] ? (U[] extends [] ? never : T) : never

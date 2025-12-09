@@ -1,6 +1,6 @@
 import { Access } from 'payload'
 
-import { getIdFromRelation } from '@/payload/utilities/getIdFromRelation'
+import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
 export const whereSameOrganisationAccess: Access = async ({
   id,
