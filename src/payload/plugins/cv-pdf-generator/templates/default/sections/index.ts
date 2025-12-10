@@ -1,0 +1,5 @@
+export { CasualInfoSection } from './casual-info-section'
+export { EducationSection } from './education-section'
+export { ProfileSection } from './profile-section'
+export { SkillsSection } from './skills-section'
+export { WorkExperienceSection } from './work-experience-section'

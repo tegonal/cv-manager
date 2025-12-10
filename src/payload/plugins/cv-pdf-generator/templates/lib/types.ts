@@ -21,3 +21,15 @@ export type CvPdfTemplateProps = {
   locale: TypedLocale
   profileImageDataUrl: string
 }
+
+// Shared context passed to all PDF section components
+export type PdfSectionContext = {
+  cv: Cv
+  exportOverride: Record<string, boolean>
+  fontFamily: string
+  hasOverride: (key: string) => boolean
+  locale: 'de' | 'en'
+  primaryColor: string
+  secondaryColor: string
+  skillLevelDisplay: 'dots' | 'progressBar' | 'text'
+}

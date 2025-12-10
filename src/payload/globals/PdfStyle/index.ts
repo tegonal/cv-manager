@@ -94,6 +94,59 @@ export const PdfStyle: GlobalConfig = {
           ],
           type: 'select',
         },
+        {
+          admin: {
+            description: {
+              de: 'Abstand des Logos vom oberen Seitenrand in mm',
+              en: 'Distance of the logo from the top of the page in mm',
+            },
+            width: '33%',
+          },
+          defaultValue: 10,
+          label: {
+            de: 'Logo Rand oben',
+            en: 'Logo Top Margin',
+          },
+          min: 0,
+          name: 'logoMarginTop',
+          type: 'number',
+        },
+        {
+          admin: {
+            condition: (data) => data?.logoPosition === 'left',
+            description: {
+              de: 'Abstand des Logos vom linken Seitenrand in mm',
+              en: 'Distance of the logo from the left of the page in mm',
+            },
+            width: '33%',
+          },
+          defaultValue: 10,
+          label: {
+            de: 'Logo Rand links',
+            en: 'Logo Left Margin',
+          },
+          min: 0,
+          name: 'logoMarginLeft',
+          type: 'number',
+        },
+        {
+          admin: {
+            condition: (data) => data?.logoPosition !== 'left',
+            description: {
+              de: 'Abstand des Logos vom rechten Seitenrand in mm',
+              en: 'Distance of the logo from the right of the page in mm',
+            },
+            width: '33%',
+          },
+          defaultValue: 10,
+          label: {
+            de: 'Logo Rand rechts',
+            en: 'Logo Right Margin',
+          },
+          min: 0,
+          name: 'logoMarginRight',
+          type: 'number',
+        },
       ],
       label: {
         de: 'Logo-Einstellungen',
@@ -102,7 +155,7 @@ export const PdfStyle: GlobalConfig = {
       type: 'collapsible',
     },
 
-    // PDF Layout Settings - collapsible
+    // Style Settings - collapsible
     {
       admin: {
         initCollapsed: false,
@@ -203,73 +256,138 @@ export const PdfStyle: GlobalConfig = {
           ],
           type: 'select',
         },
+      ],
+      label: {
+        de: 'Stil',
+        en: 'Style',
+      },
+      type: 'collapsible',
+    },
+
+    // PDF Layout Settings - collapsible
+    {
+      admin: {
+        initCollapsed: false,
+      },
+      fields: [
+        // First page margins - only shown when logo is first page only
         {
           admin: {
-            description: {
-              de: 'Seitenrand oben in mm',
-              en: 'Top margin in mm',
+            condition: (data) => data?.logoDisplay === 'firstPageOnly',
+          },
+          fields: [
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 45,
+              label: {
+                de: '1. Seite oben (mm)',
+                en: '1st Page Top (mm)',
+              },
+              min: 10,
+              name: 'firstPageMarginTop',
+              type: 'number',
             },
-            width: '25%',
-          },
-          defaultValue: 45,
-          label: {
-            de: 'Rand oben',
-            en: 'Top Margin',
-          },
-          min: 10,
-          name: 'marginTop',
-          type: 'number',
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 15,
+              label: {
+                de: '1. Seite unten (mm)',
+                en: '1st Page Bottom (mm)',
+              },
+              min: 10,
+              name: 'firstPageMarginBottom',
+              type: 'number',
+            },
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 30,
+              label: {
+                de: '1. Seite links (mm)',
+                en: '1st Page Left (mm)',
+              },
+              min: 10,
+              name: 'firstPageMarginLeft',
+              type: 'number',
+            },
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 30,
+              label: {
+                de: '1. Seite rechts (mm)',
+                en: '1st Page Right (mm)',
+              },
+              min: 10,
+              name: 'firstPageMarginRight',
+              type: 'number',
+            },
+          ],
+          type: 'row',
         },
+        // Page margins (used for all pages when logo on all pages, or for other pages when logo first page only)
         {
-          admin: {
-            description: {
-              de: 'Seitenrand unten in mm',
-              en: 'Bottom margin in mm',
+          fields: [
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 45,
+              label: {
+                de: 'Rand oben (mm)',
+                en: 'Margin Top (mm)',
+              },
+              min: 10,
+              name: 'marginTop',
+              type: 'number',
             },
-            width: '25%',
-          },
-          defaultValue: 15,
-          label: {
-            de: 'Rand unten',
-            en: 'Bottom Margin',
-          },
-          min: 10,
-          name: 'marginBottom',
-          type: 'number',
-        },
-        {
-          admin: {
-            description: {
-              de: 'Seitenrand links in mm',
-              en: 'Left margin in mm',
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 15,
+              label: {
+                de: 'Rand unten (mm)',
+                en: 'Margin Bottom (mm)',
+              },
+              min: 10,
+              name: 'marginBottom',
+              type: 'number',
             },
-            width: '25%',
-          },
-          defaultValue: 30,
-          label: {
-            de: 'Rand links',
-            en: 'Left Margin',
-          },
-          min: 10,
-          name: 'marginLeft',
-          type: 'number',
-        },
-        {
-          admin: {
-            description: {
-              de: 'Seitenrand rechts in mm',
-              en: 'Right margin in mm',
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 30,
+              label: {
+                de: 'Rand links (mm)',
+                en: 'Margin Left (mm)',
+              },
+              min: 10,
+              name: 'marginLeft',
+              type: 'number',
             },
-            width: '25%',
-          },
-          defaultValue: 30,
-          label: {
-            de: 'Rand rechts',
-            en: 'Right Margin',
-          },
-          min: 10,
-          name: 'marginRight',
-          type: 'number',
+            {
+              admin: {
+                width: '25%',
+              },
+              defaultValue: 30,
+              label: {
+                de: 'Rand rechts (mm)',
+                en: 'Margin Right (mm)',
+              },
+              min: 10,
+              name: 'marginRight',
+              type: 'number',
+            },
+          ],
+          type: 'row',
         },
         {
           defaultValue: 'A4',
@@ -286,6 +404,31 @@ export const PdfStyle: GlobalConfig = {
             {
               label: 'Letter',
               value: 'LETTER',
+            },
+          ],
+          type: 'select',
+        },
+        {
+          defaultValue: 'centered',
+          label: {
+            de: 'Erste Seite Layout',
+            en: 'First Page Layout',
+          },
+          name: 'firstPageLayout',
+          options: [
+            {
+              label: {
+                de: 'Zentriert',
+                en: 'Centered',
+              },
+              value: 'centered',
+            },
+            {
+              label: {
+                de: 'Linksbündig',
+                en: 'Left-aligned',
+              },
+              value: 'leftAligned',
             },
           ],
           type: 'select',

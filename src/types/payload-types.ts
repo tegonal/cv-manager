@@ -1157,6 +1157,18 @@ export interface PdfStyle {
   logoWidth?: number | null;
   logoPosition?: ('left' | 'right') | null;
   logoDisplay?: ('firstPageOnly' | 'allPages') | null;
+  /**
+   * Distance of the logo from the top of the page in mm
+   */
+  logoMarginTop?: number | null;
+  /**
+   * Distance of the logo from the left of the page in mm
+   */
+  logoMarginLeft?: number | null;
+  /**
+   * Distance of the logo from the right of the page in mm
+   */
+  logoMarginRight?: number | null;
   fontFamily?: ('Rubik' | 'Open Sans' | 'Lato' | 'Roboto' | 'Merriweather' | 'Playfair Display') | null;
   /**
    * Primary color for borders (images, highlight boxes)
@@ -1167,23 +1179,16 @@ export interface PdfStyle {
    */
   secondaryColor?: string | null;
   skillLevelDisplay?: ('text' | 'dots' | 'progressBar') | null;
-  /**
-   * Top margin in mm
-   */
+  firstPageMarginTop?: number | null;
+  firstPageMarginBottom?: number | null;
+  firstPageMarginLeft?: number | null;
+  firstPageMarginRight?: number | null;
   marginTop?: number | null;
-  /**
-   * Bottom margin in mm
-   */
   marginBottom?: number | null;
-  /**
-   * Left margin in mm
-   */
   marginLeft?: number | null;
-  /**
-   * Right margin in mm
-   */
   marginRight?: number | null;
   pageFormat?: ('A4' | 'LETTER') | null;
+  firstPageLayout?: ('centered' | 'leftAligned') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1209,15 +1214,23 @@ export interface PdfStyleSelect<T extends boolean = true> {
   logoWidth?: T;
   logoPosition?: T;
   logoDisplay?: T;
+  logoMarginTop?: T;
+  logoMarginLeft?: T;
+  logoMarginRight?: T;
   fontFamily?: T;
   primaryColor?: T;
   secondaryColor?: T;
   skillLevelDisplay?: T;
+  firstPageMarginTop?: T;
+  firstPageMarginBottom?: T;
+  firstPageMarginLeft?: T;
+  firstPageMarginRight?: T;
   marginTop?: T;
   marginBottom?: T;
   marginLeft?: T;
   marginRight?: T;
   pageFormat?: T;
+  firstPageLayout?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

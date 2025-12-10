@@ -13,6 +13,9 @@ import { CompanyInfo, Cv, Media, PdfStyle } from '@/types/payload-types'
 
 import DefaultTemplate from './templates/default'
 import { CompanyInfoData, CvPdfTemplateProps } from './templates/lib'
+// Import fonts and hyphenation modules to ensure Font registrations happen
+import './templates/lib/fonts'
+import './templates/lib/hyphenation'
 
 type Props = {
   exportOverride: Record<string, boolean>
@@ -229,6 +232,7 @@ export const requestHandler = async (
     const companyInfo: CompanyInfoData = {
       address: companyInfoGlobal.address || '',
       city: companyInfoGlobal.city || '',
+      firstPageLayout: pdfStyleGlobal.firstPageLayout || 'centered',
       fontFamily: pdfStyleGlobal.fontFamily || 'Rubik',
       logoDataUrl: companyLogoDataUrl,
       logoDisplay: pdfStyleGlobal.logoDisplay || 'allPages',
@@ -261,12 +265,20 @@ export const requestHandler = async (
     }
 
     logger.debug(`PDF Generator: Rendering PDF with template`)
-    const pdfBuffer = await renderToBuffer(React.createElement(DefaultTemplate, props) as any)
-
-    logger.debug(`PDF Generator: Successfully generated PDF (${pdfBuffer.length} bytes)`)
-    return pdfBuffer
+    try {
+      const pdfBuffer = await renderToBuffer(React.createElement(DefaultTemplate, props) as any)
+      logger.debug(`PDF Generator: Successfully generated PDF (${pdfBuffer.length} bytes)`)
+      return pdfBuffer
+    } catch (renderError: any) {
+      logger.error(`PDF Generator: renderToBuffer failed - ${renderError.message}`)
+      logger.error(`PDF Generator: Error stack - ${renderError.stack}`)
+      throw renderError
+    }
   } catch (e: any) {
     logger.error(`PDF Generator: Failed to generate PDF - ${e.message || e}`)
+    if (e.stack) {
+      logger.error(`PDF Generator: Stack trace - ${e.stack}`)
+    }
     return Promise.reject({ error: e.message || 'PDF generation failed' })
   }
 }

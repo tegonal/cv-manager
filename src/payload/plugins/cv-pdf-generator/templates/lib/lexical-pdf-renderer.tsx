@@ -15,6 +15,8 @@ import type {
   TextNode,
 } from '@/lib/lexical-render/src/payload-lexical-react-renderer'
 
+import { tw } from './tw'
+
 /**
  * Lexical text format bit flags.
  * These match the constants defined in Lexical's TextNode:
@@ -31,41 +33,16 @@ const IS_SUBSCRIPT = 1 << 5 // 32
 const IS_SUPERSCRIPT = 1 << 6 // 64
 
 const styles = StyleSheet.create({
-  bold: {
-    fontWeight: 700,
-  },
-  italic: {
-    fontStyle: 'italic',
-  },
-  link: {
-    color: '#000000',
-    textDecoration: 'none',
-  },
-  listItem: {
-    flexDirection: 'row',
-  },
-  orderedList: {
-    marginLeft: 10,
-  },
   paragraph: {
     fontSize: 10,
     lineHeight: 1.33,
     marginBottom: 2,
-  },
-  strikethrough: {
-    textDecoration: 'line-through',
   },
   subscript: {
     fontSize: 7,
   },
   superscript: {
     fontSize: 7,
-  },
-  underline: {
-    textDecoration: 'underline',
-  },
-  unorderedList: {
-    marginLeft: 10,
   },
 })
 
@@ -103,7 +80,7 @@ function renderNode(node: Node, index: number): React.ReactNode {
       const linkNode = node as LinkNode
       const url = linkNode.fields?.url || ''
       return (
-        <Link key={index} src={url} style={styles.link}>
+        <Link key={index} src={url} style={tw('text-black no-underline')}>
           {linkNode.children?.map((child, i) => renderNode(child, i))}
         </Link>
       )
@@ -136,9 +113,8 @@ function renderNode(node: Node, index: number): React.ReactNode {
 
     case 'list': {
       const listNode = node as ListNode
-      const isOrdered = listNode.listType === 'number'
       return (
-        <View key={index} style={isOrdered ? styles.orderedList : styles.unorderedList}>
+        <View key={index} style={tw('ml-2.5')}>
           {listNode.children?.map((child, i) => renderNode(child, i))}
         </View>
       )
@@ -147,9 +123,9 @@ function renderNode(node: Node, index: number): React.ReactNode {
     case 'listitem': {
       const listItemNode = node as ListItemNode
       return (
-        <View key={index} style={styles.listItem}>
-          <Text style={{ marginRight: 4, width: 10 }}>{'\u2022'}</Text>
-          <Text style={{ flex: 1 }}>
+        <View key={index} style={tw('flex flex-row')}>
+          <Text style={[tw('mr-1'), { width: 10 }]}>{'\u2022'}</Text>
+          <Text style={tw('flex-1')}>
             {listItemNode.children?.map((child, i) => renderNode(child, i))}
           </Text>
         </View>
@@ -168,15 +144,8 @@ function renderNode(node: Node, index: number): React.ReactNode {
     case 'quote': {
       const quoteNode = node as QuoteNode
       return (
-        <View
-          key={index}
-          style={{
-            borderLeftColor: '#9ca3af',
-            borderLeftWidth: 2,
-            marginLeft: 10,
-            paddingLeft: 8,
-          }}>
-          <Text style={{ fontStyle: 'italic' }}>
+        <View key={index} style={[tw('ml-2.5 pl-2 border-l-2'), { borderLeftColor: '#9ca3af' }]}>
+          <Text style={tw('italic')}>
             {quoteNode.children?.map((child, i) => renderNode(child, i))}
           </Text>
         </View>
@@ -195,10 +164,10 @@ function renderTextNode(node: TextNode, index: number): React.ReactNode {
   const format = getTextStyle(node.format)
   const textStyles: Style[] = []
 
-  if (format.bold) textStyles.push(styles.bold)
-  if (format.italic) textStyles.push(styles.italic)
-  if (format.underline) textStyles.push(styles.underline)
-  if (format.strikethrough) textStyles.push(styles.strikethrough)
+  if (format.bold) textStyles.push(tw('font-bold'))
+  if (format.italic) textStyles.push(tw('italic'))
+  if (format.underline) textStyles.push(tw('underline'))
+  if (format.strikethrough) textStyles.push(tw('line-through'))
   if (format.subscript) textStyles.push(styles.subscript)
   if (format.superscript) textStyles.push(styles.superscript)
 
