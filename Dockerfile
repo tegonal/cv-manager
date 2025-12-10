@@ -10,9 +10,6 @@ COPY .yarnrc.yml ./
 COPY .yarn ./.yarn
 COPY package.json yarn.lock ./
 
-# Remove afterInstall hook for Docker build - we install Chromium via apk in runner stage
-RUN sed -i '/^afterInstall:/d' .yarnrc.yml
-
 RUN yarn --version
 RUN yarn install --immutable
 
@@ -31,20 +28,18 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Install Chromium and dependencies for Puppeteer PDF generation
+# Install dependencies for react-pdf (canvas/node-canvas)
 RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ca-certificates \
-    ttf-freefont \
-    font-noto \
-    font-noto-emoji
-
-# Tell Puppeteer to skip installing Chrome - we use the installed package
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+    build-base \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev \
+    pixman-dev \
+    pangomm-dev \
+    libjpeg-turbo-dev \
+    freetype-dev
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs

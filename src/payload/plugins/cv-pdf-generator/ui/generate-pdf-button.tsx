@@ -1,10 +1,8 @@
 'use client'
-import { Button } from '@payloadcms/ui'
-import ky from 'ky'
+import { Button, toast } from '@payloadcms/ui'
 import React from 'react'
 
-import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
-import { baseClass } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
+import { generatePdfAction } from '@/payload/plugins/cv-pdf-generator/actions'
 
 type Props = {
   exportOverride: Record<string, boolean>
@@ -25,47 +23,39 @@ export const GeneratePDFButton: React.FC<Props> = ({
 
   const generatePdf = async () => {
     if (!id) {
-      console.error('No document ID')
+      toast.error('No document ID provided')
       return
     }
     setBusy(true)
-    const params = {
-      exportOverride,
-      id,
-      locale,
-    }
+
     try {
-      const response = await ky.post(`/api/${pluginConstants.apiUrlSlug}`, {
-        json: params,
-        timeout: false,
+      const result = await generatePdfAction({
+        exportOverride,
+        id: String(id),
+        locale,
       })
 
-      if (response.status !== 200) {
-        console.error('Error generating PDF')
-        console.error(response)
+      if (result.error) {
+        toast.error(`PDF generation failed: ${result.error}`)
         setBusy(false)
         return
       }
 
-      const readableStream = response.body
-      if (!readableStream) {
-        console.error('No readable stream')
+      if (!result.data) {
+        toast.error('No PDF data returned from server')
         setBusy(false)
         return
       }
-      const reader = readableStream.getReader()
-      const chunks: Uint8Array[] = []
-      let done = false
 
-      while (!done) {
-        const { done: streamDone, value } = await reader.read()
-        if (value) {
-          chunks.push(value)
-        }
-        done = streamDone
+      // Convert base64 to blob
+      const binaryString = atob(result.data)
+      const bytes = new Uint8Array(binaryString.length)
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i)
       }
+      const blob = new Blob([bytes], { type: 'application/pdf' })
 
-      const blob = new Blob(chunks as BlobPart[], { type: 'application/pdf' })
+      // Trigger download
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
@@ -76,20 +66,17 @@ export const GeneratePDFButton: React.FC<Props> = ({
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
       setBusy(false)
+      toast.success('PDF generated successfully')
       onTransferred()
     } catch (error) {
-      console.error('Error generating PDF')
-      console.error(error)
+      const message = error instanceof Error ? error.message : 'Unknown error'
+      toast.error(`PDF generation failed: ${message}`)
       setBusy(false)
-      return
     }
   }
+
   return (
-    <Button
-      buttonStyle="primary"
-      className={`${baseClass}__cancel`}
-      disabled={isBusy}
-      onClick={generatePdf}>
+    <Button buttonStyle="primary" disabled={isBusy} onClick={generatePdf}>
       {isBusy ? 'Generating PDF...' : 'Generate PDF'}
     </Button>
   )

@@ -24,6 +24,8 @@ import { Projects } from '@/payload/collections/Projects'
 import { SkillGroups } from '@/payload/collections/SkillGroups'
 import { Skills } from '@/payload/collections/Skills'
 import { Users } from '@/payload/collections/Users'
+import { CompanyInfo } from '@/payload/globals/CompanyInfo'
+import { PdfStyle } from '@/payload/globals/PdfStyle'
 import { cvPdfPlugin } from '@/payload/plugins/cv-pdf-generator/plugin'
 
 import { migrations as mongodbMigrations } from './src/migrations/mongodb'
@@ -140,6 +142,7 @@ export default buildConfig({
         },
       })
     : undefined,
+  globals: [CompanyInfo, PdfStyle],
   i18n: {
     supportedLanguages: { de, en },
   },
@@ -180,13 +183,12 @@ export default buildConfig({
         },
         endpoint: process.env.S3_ENDPOINT || '',
         forcePathStyle: true,
-        region: 'auto', // Cloudflare R2 specific
+        region: process.env.S3_REGION || 'garage',
       },
       enabled: process.env.S3_ENDPOINT !== undefined,
     }),
     cvPdfPlugin({
       collections: [CV.slug],
-      templatePath: './data/cv-pdf/templates',
     }),
     OAuth2Plugin({
       authCollection: Users.slug,

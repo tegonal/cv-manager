@@ -3,16 +3,16 @@ import {
   Button,
   CloseMenuIcon,
   Drawer,
-  useConfig,
+  toast,
   useDocumentInfo,
   useLocale,
   useModal,
   useTranslation,
 } from '@payloadcms/ui'
-import ky from 'ky'
 import React, { useEffect, useMemo } from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
+import { fetchCvAction } from '@/payload/plugins/cv-pdf-generator/actions'
 import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generate-pdf-button'
 import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
 import { Company, Cv, Project } from '@/types/payload-types'
@@ -45,14 +45,6 @@ type FormSection = {
   section: string
 }
 
-const fetchCv = async (id: any, serverURL: string) => {
-  if (!id) {
-    return
-  }
-  const response = await ky.get<Cv>(`${serverURL}/api/cv/${id}`)
-  return await response.json()
-}
-
 export const ExportOverlay: React.FC = () => {
   const { id } = useDocumentInfo()
   const locale = useLocale()
@@ -62,36 +54,34 @@ export const ExportOverlay: React.FC = () => {
   const [cv, setCv] = React.useState<Cv>()
   const [formState, setFormState] = React.useState<Record<string, boolean>>({})
 
-  const { config } = useConfig()
-  const { serverURL } = config
-
   useEffect(() => {
-    if (!isOpen) {
+    if (!isOpen || !id) {
       return
     }
     const fetchData = async () => {
       try {
-        const data = await fetchCv(id, serverURL)
-        setCv(data)
+        const data = await fetchCvAction(id)
+        if (data) {
+          setCv(data)
+        }
       } catch (error) {
-        console.error(error)
+        const message = error instanceof Error ? error.message : 'Unknown error'
+        toast.error(`Failed to load CV data: ${message}`)
       }
     }
     fetchData()
-  }, [id, isOpen, serverURL])
+  }, [id, isOpen])
 
   useEffect(() => {
     if (!cv) {
       return
     }
-    const profile = profileKeys.reduce((acc, key) => {
-      // @ts-ignore
+    const profile = profileKeys.reduce<Record<string, boolean>>((acc, key) => {
       acc[key] = true
       return acc
     }, {})
 
-    const projects = cv?.projects?.reduce((acc, project) => {
-      // @ts-ignore
+    const projects = cv?.projects?.reduce<Record<string, boolean>>((acc, project) => {
       acc[`project_${project.id}`] = true
       return acc
     }, {})
@@ -105,7 +95,7 @@ export const ExportOverlay: React.FC = () => {
         fields: profileKeys.map((key) => ({
           export: formState[key] ?? true,
           key,
-          label: getLocalizedFieldLabel(key as any, locale.code),
+          label: getLocalizedFieldLabel(key as keyof typeof I18nCollection.fieldLabel, locale.code),
           value: cv && key in cv ? cv[key] : 'Unknown',
         })),
         section: getLocalizedFieldLabel('profile', locale.code),
@@ -154,7 +144,7 @@ export const ExportOverlay: React.FC = () => {
                   {section.fields?.map((field) => (
                     <li
                       className={
-                        'flex select-none gap-2 p-2 hover:cursor-pointer hover:bg-emerald-200/15'
+                        'flex gap-2 p-2 select-none hover:cursor-pointer hover:bg-emerald-200/15'
                       }
                       key={field.key}
                       onClick={() => onCheckboxChange(field.key)}>
@@ -175,7 +165,7 @@ export const ExportOverlay: React.FC = () => {
               </div>
             ))}
           </div>
-          <div className={'basis-xs flex'}>
+          <div className={'flex gap-4'}>
             <GeneratePDFButton
               exportOverride={formState}
               id={id}
@@ -183,10 +173,7 @@ export const ExportOverlay: React.FC = () => {
               onTransferred={() => closeModal(drawerSlug)}
               title={cv?.fullName || 'cv-export'}
             />
-            <Button
-              buttonStyle="secondary"
-              className={`${baseClass}__cancel`}
-              onClick={() => closeModal(drawerSlug)}>
+            <Button buttonStyle="secondary" onClick={() => closeModal(drawerSlug)}>
               {t('general:cancel')}
             </Button>
           </div>

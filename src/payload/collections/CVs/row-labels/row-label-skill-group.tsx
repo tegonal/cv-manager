@@ -1,39 +1,18 @@
 'use client'
-import { useLocale, useRowLabel } from '@payloadcms/ui'
-import ky from 'ky'
-import React, { useMemo, useState } from 'react'
+import { useRowLabel } from '@payloadcms/ui'
+import React from 'react'
 
-import { SkillGroup } from '@/types/payload-types'
+import { getSkillGroup } from './actions'
+import { SkillGroupRowData } from './types'
+import { useFetchedRelation } from './use-fetched-relation'
 
 export const RowLabelSkillGroup: React.FC = () => {
-  const { data } = useRowLabel<any>()
-  const locale = useLocale()
-  const [skillGroup, setSkillGroup] = useState<SkillGroup>()
-
-  const label = useMemo(() => {
-    const fetchSkill = async (id: string) => {
-      if (!id) {
-        return
-      }
-      try {
-        ky.get<SkillGroup>(`/api/skillGroup/${id}?locale=${locale.code}`)
-          .json()
-          .then((data) => setSkillGroup(data))
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    const groupId = data?.group
-    if (!skillGroup || (groupId && skillGroup.id !== groupId)) {
-      fetchSkill(groupId)
-    }
-    return skillGroup?.name
-  }, [data, skillGroup, locale.code])
+  const { data } = useRowLabel<SkillGroupRowData>()
+  const { data: skillGroup } = useFetchedRelation(data?.group, getSkillGroup)
 
   return (
     <div>
-      <span>{label}</span>
+      <span>{skillGroup?.name}</span>
     </div>
   )
 }

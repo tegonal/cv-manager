@@ -125,8 +125,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'de') | ('en' | 'de')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'company-info': CompanyInfo;
+    'pdf-style': PdfStyle;
+  };
+  globalsSelect: {
+    'company-info': CompanyInfoSelect<false> | CompanyInfoSelect<true>;
+    'pdf-style': PdfStyleSelect<false> | PdfStyleSelect<true>;
+  };
   locale: 'en' | 'de';
   user: User & {
     collection: 'users';
@@ -1124,6 +1130,97 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company-info".
+ */
+export interface CompanyInfo {
+  id: number;
+  name: string;
+  address?: string | null;
+  city?: string | null;
+  url?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pdf-style".
+ */
+export interface PdfStyle {
+  id: number;
+  logo?: (number | null) | Media;
+  /**
+   * Width of the logo in mm (height scales proportionally)
+   */
+  logoWidth?: number | null;
+  logoPosition?: ('left' | 'right') | null;
+  logoDisplay?: ('firstPageOnly' | 'allPages') | null;
+  fontFamily?: ('Rubik' | 'Open Sans' | 'Lato' | 'Roboto' | 'Merriweather' | 'Playfair Display') | null;
+  /**
+   * Primary color for borders (images, highlight boxes)
+   */
+  primaryColor?: string | null;
+  /**
+   * Secondary color for accents (dot ratings, progress bars)
+   */
+  secondaryColor?: string | null;
+  skillLevelDisplay?: ('text' | 'dots' | 'progressBar') | null;
+  /**
+   * Top margin in mm
+   */
+  marginTop?: number | null;
+  /**
+   * Bottom margin in mm
+   */
+  marginBottom?: number | null;
+  /**
+   * Left margin in mm
+   */
+  marginLeft?: number | null;
+  /**
+   * Right margin in mm
+   */
+  marginRight?: number | null;
+  pageFormat?: ('A4' | 'LETTER') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company-info_select".
+ */
+export interface CompanyInfoSelect<T extends boolean = true> {
+  name?: T;
+  address?: T;
+  city?: T;
+  url?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pdf-style_select".
+ */
+export interface PdfStyleSelect<T extends boolean = true> {
+  logo?: T;
+  logoWidth?: T;
+  logoPosition?: T;
+  logoDisplay?: T;
+  fontFamily?: T;
+  primaryColor?: T;
+  secondaryColor?: T;
+  skillLevelDisplay?: T;
+  marginTop?: T;
+  marginBottom?: T;
+  marginLeft?: T;
+  marginRight?: T;
+  pageFormat?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

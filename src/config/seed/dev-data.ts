@@ -1,8 +1,85 @@
+import fs from 'fs'
+import path from 'path'
 import { Payload } from 'payload'
 
 export const seedDevData = async (payload: Payload) => {
   if (process.env.NODE_ENV === 'production') {
     return
+  }
+
+  payload.logger.info('Running dev data seed...')
+
+  // Seed Company Info global
+  const companyInfo = await payload.findGlobal({ slug: 'company-info' })
+  const needsCompanyInfo = !companyInfo.name
+
+  if (needsCompanyInfo) {
+    payload.logger.info('Seeding company info...')
+    await payload.updateGlobal({
+      data: {
+        address: companyInfo.address || 'Musterstrasse 1',
+        city: companyInfo.city || '3000 Bern',
+        name: companyInfo.name || 'Acme Corp',
+        url: companyInfo.url || 'https://example.com',
+      },
+      slug: 'company-info',
+    })
+  }
+
+  // Seed PDF Style global
+  const pdfStyle = await payload.findGlobal({ slug: 'pdf-style' })
+  const needsPdfStyle = !pdfStyle.fontFamily
+  const needsLogo = !pdfStyle.logo
+
+  payload.logger.info(
+    `PDF style check: fontFamily=${pdfStyle.fontFamily}, logo=${pdfStyle.logo}, needsPdfStyle=${needsPdfStyle}, needsLogo=${needsLogo}`,
+  )
+
+  if (needsPdfStyle || needsLogo) {
+    payload.logger.info('Seeding PDF style...')
+
+    // Upload logo from seed-assets if needed
+    let logoId: number | undefined = pdfStyle.logo as number | undefined
+    if (needsLogo) {
+      const logoPath = path.join(process.cwd(), 'seed-assets', 'acme-logo.svg')
+      if (fs.existsSync(logoPath)) {
+        const logoBuffer = fs.readFileSync(logoPath)
+        const logoMedia = await payload.create({
+          collection: 'media',
+          context: { skipOrgPrefix: true },
+          data: {
+            alt: 'Acme Corp Logo',
+          },
+          file: {
+            data: logoBuffer,
+            mimetype: 'image/svg+xml',
+            name: 'acme-logo.svg',
+            size: logoBuffer.length,
+          },
+        })
+        logoId = logoMedia.id
+        payload.logger.info('Seeded company logo')
+      }
+    }
+
+    await payload.updateGlobal({
+      data: {
+        fontFamily: pdfStyle.fontFamily || 'Open Sans',
+        logo: logoId,
+        logoDisplay: pdfStyle.logoDisplay || 'allPages',
+        logoPosition: pdfStyle.logoPosition || 'left',
+        logoWidth: pdfStyle.logoWidth || 30,
+        marginBottom: pdfStyle.marginBottom || 15,
+        marginLeft: pdfStyle.marginLeft || 30,
+        marginRight: pdfStyle.marginRight || 30,
+        marginTop: pdfStyle.marginTop || 45,
+        pageFormat: pdfStyle.pageFormat || 'A4',
+        primaryColor: pdfStyle.primaryColor || '#3b82f6',
+        secondaryColor: pdfStyle.secondaryColor || '#64748b',
+        skillLevelDisplay: pdfStyle.skillLevelDisplay || 'dots',
+      },
+      slug: 'pdf-style',
+    })
   }
 
   // Check if data already exists
@@ -101,7 +178,7 @@ export const seedDevData = async (payload: Payload) => {
     }),
   ])
 
-  const [english, german, french] = languages
+  const [english, german, french, spanish] = languages
 
   // Seed Skill Groups
   const skillGroups = await Promise.all([
@@ -446,6 +523,78 @@ export const seedDevData = async (payload: Payload) => {
     agile,
   ] = skills
 
+  // Seed additional skills for sub-skills
+  const subSkills = await Promise.all([
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Next.js' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Redux' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'GraphQL' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'REST APIs' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Express.js' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'NestJS' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'AWS' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Terraform' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'GitHub Actions' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Redis' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Elasticsearch' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Leadership' },
+    }),
+    payload.create({
+      collection: 'skill',
+      data: { name: 'Kanban' },
+    }),
+  ])
+
+  const [
+    nextjs,
+    redux,
+    graphql,
+    restApis,
+    express,
+    nestjs,
+    aws,
+    terraform,
+    githubActions,
+    redis,
+    elasticsearch,
+    leadership,
+    kanban,
+  ] = subSkills
+
   // Seed Companies
   const companies = await Promise.all([
     payload.create({
@@ -546,6 +695,28 @@ export const seedDevData = async (payload: Payload) => {
   ])
 
   const [cvManager, ecommerce, cloudMigration] = projects
+
+  // Upload portrait image from seed-assets
+  let portraitImageId: number | undefined
+  const portraitPath = path.join(process.cwd(), 'seed-assets', 'clippy-portrait.jpg')
+  if (fs.existsSync(portraitPath)) {
+    const portraitBuffer = fs.readFileSync(portraitPath)
+    const portraitMedia = await payload.create({
+      collection: 'media',
+      context: { skipOrgPrefix: true },
+      data: {
+        alt: 'John Developer Portrait',
+      },
+      file: {
+        data: portraitBuffer,
+        mimetype: 'image/jpeg',
+        name: 'clippy-portrait.jpg',
+        size: portraitBuffer.length,
+      },
+    })
+    portraitImageId = portraitMedia.id
+    payload.logger.info('Seeded CV portrait image')
+  }
 
   // Seed CV
   await payload.create({
@@ -656,8 +827,63 @@ export const seedDevData = async (payload: Payload) => {
           toYear: '2014-07-01',
         },
       ],
+      eduHighlights: [
+        {
+          description: {
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      text: 'Graduated with honors, thesis on distributed systems and microservices architecture',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'paragraph',
+                  version: 1,
+                },
+              ],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1,
+            },
+          },
+          fromYear: '2012-09-01',
+          title: 'Master of Science in Software Engineering',
+          toYear: '2014-07-01',
+        },
+        {
+          description: {
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      text: 'Focus on algorithms, data structures, and software design patterns',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'paragraph',
+                  version: 1,
+                },
+              ],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1,
+            },
+          },
+          fromYear: '2008-09-01',
+          title: 'Bachelor of Science in Computer Science',
+          toYear: '2012-07-01',
+        },
+      ],
       email: 'john.developer@example.com',
       fullName: 'John Developer',
+      image: portraitImageId,
       introduction: {
         root: {
           children: [
@@ -711,6 +937,7 @@ export const seedDevData = async (payload: Payload) => {
         { language: english.id, level: native.id },
         { language: german.id, level: advanced.id },
         { language: french.id, level: intermediate.id },
+        { language: spanish.id, level: beginner.id },
       ],
       links: [
         { platform: 'linkedin', url: 'https://linkedin.com/in/johndeveloper' },
@@ -718,6 +945,24 @@ export const seedDevData = async (payload: Payload) => {
       ],
       nationalityStatus: 'Swiss Citizen',
       organisation: orgId,
+      otherSkills: [
+        {
+          level: advanced.id,
+          name: 'Technical Writing',
+        },
+        {
+          level: intermediate.id,
+          name: 'Public Speaking',
+        },
+        {
+          level: advanced.id,
+          name: 'Code Review',
+        },
+        {
+          level: expert.id,
+          name: 'Mentoring',
+        },
+      ],
       phoneNumber: '+41 79 123 45 67',
       projects: [
         {
@@ -804,33 +1049,174 @@ export const seedDevData = async (payload: Payload) => {
       skillGroups: [
         {
           group: backend.id,
+          skillGroupDescription: {
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      text: 'Strong focus on building robust, scalable APIs and microservices with modern technologies.',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'paragraph',
+                  version: 1,
+                },
+              ],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1,
+            },
+          },
           skills: [
-            { level: expert.id, skill: { relationTo: 'skill', value: typescript.id } },
-            { level: expert.id, skill: { relationTo: 'skill', value: nodejs.id } },
-            { level: advanced.id, skill: { relationTo: 'skill', value: python.id } },
+            {
+              level: expert.id,
+              skill: { relationTo: 'skill', value: typescript.id },
+              'sub-skill': [nodejs.id, nestjs.id],
+            },
+            {
+              level: expert.id,
+              skill: { relationTo: 'skill', value: nodejs.id },
+              'sub-skill': [express.id, nestjs.id],
+            },
+            {
+              level: advanced.id,
+              skill: { relationTo: 'skill', value: python.id },
+            },
+            {
+              level: intermediate.id,
+              skill: { relationTo: 'skill', value: java.id },
+            },
           ],
         },
         {
           group: frontend.id,
+          skillGroupDescription: {
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      text: 'Expertise in building modern, responsive web applications with a focus on user experience.',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'paragraph',
+                  version: 1,
+                },
+              ],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1,
+            },
+          },
           skills: [
-            { level: expert.id, skill: { relationTo: 'skill', value: react.id } },
-            { level: advanced.id, skill: { relationTo: 'skill', value: vuejs.id } },
-            { level: advanced.id, skill: { relationTo: 'skill', value: css.id } },
+            {
+              level: expert.id,
+              skill: { relationTo: 'skill', value: react.id },
+              'sub-skill': [nextjs.id, redux.id],
+            },
+            {
+              level: advanced.id,
+              skill: { relationTo: 'skill', value: vuejs.id },
+            },
+            {
+              level: advanced.id,
+              skill: { relationTo: 'skill', value: css.id },
+            },
           ],
         },
         {
           group: devops.id,
+          skillGroupDescription: {
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      text: 'Experience with containerization, orchestration, and CI/CD pipelines for modern cloud infrastructure.',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'paragraph',
+                  version: 1,
+                },
+              ],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1,
+            },
+          },
           skills: [
-            { level: advanced.id, skill: { relationTo: 'skill', value: docker.id } },
-            { level: intermediate.id, skill: { relationTo: 'skill', value: kubernetes.id } },
-            { level: advanced.id, skill: { relationTo: 'skill', value: cicd.id } },
+            {
+              level: advanced.id,
+              skill: { relationTo: 'skill', value: docker.id },
+              'sub-skill': [kubernetes.id],
+            },
+            {
+              level: intermediate.id,
+              skill: { relationTo: 'skill', value: kubernetes.id },
+            },
+            {
+              level: advanced.id,
+              skill: { relationTo: 'skill', value: cicd.id },
+              'sub-skill': [githubActions.id, terraform.id],
+            },
           ],
         },
         {
           group: databases.id,
           skills: [
-            { level: expert.id, skill: { relationTo: 'skill', value: postgresql.id } },
-            { level: advanced.id, skill: { relationTo: 'skill', value: mongodb.id } },
+            {
+              level: expert.id,
+              skill: { relationTo: 'skill', value: postgresql.id },
+            },
+            {
+              level: advanced.id,
+              skill: { relationTo: 'skill', value: mongodb.id },
+            },
+            {
+              level: intermediate.id,
+              skill: { relationTo: 'skillGroup', value: databases.id },
+              'sub-skill': [redis.id, elasticsearch.id],
+            },
+          ],
+        },
+        {
+          group: projectMgmt.id,
+          skillGroupDescription: {
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      text: 'Proven track record in leading teams and managing projects using agile methodologies.',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'paragraph',
+                  version: 1,
+                },
+              ],
+              direction: 'ltr',
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1,
+            },
+          },
+          skills: [
+            {
+              level: expert.id,
+              skill: { relationTo: 'skill', value: agile.id },
+              'sub-skill': [kanban.id],
+            },
           ],
         },
       ],
