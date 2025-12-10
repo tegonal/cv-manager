@@ -1,5 +1,9 @@
 export const I18nCollection = {
   collectionGroup: {
+    cvInformation: {
+      de: 'CV-Informationen',
+      en: 'CV Information',
+    },
     files: {
       de: 'Dateien',
       en: 'Files',

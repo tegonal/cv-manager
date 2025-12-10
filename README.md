@@ -1,245 +1,219 @@
 # CV Manager
 
-This is a customised Payload 3 App for managing your company's CVs.
-It gets delivered with a pre-define generic layout which can be customised to specific needs.
+A modern CV management system built on Payload CMS 3, designed for companies to create, manage, and export professional CVs.
 
-## Setup
+## Features
 
-### Pre-requisites
+- **Multi-language support** — German and English with localized content
+- **Flexible skill system** — Organize skills in hierarchical groups with customizable proficiency levels
+- **PDF export** — Generate professional PDFs with customizable branding and layout
+- **Multiple databases** — MongoDB, PostgreSQL, or SQLite
+- **S3 storage** — Optional cloud storage for media files
+- **OAuth integration** — Single sign-on with your identity provider
+- **Multi-tenant** — Manage CVs across multiple organizations
 
-The application has the following dependencies:
+## Quick Start
 
-- As a database to store the cv data. Support databases are MongoDB, Postgres or SQlite for local file based datastore
+### Docker Compose
 
-### Docker compose
+Ready-to-use configurations are provided in the [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory for MongoDB, PostgreSQL, and SQLite setups.
 
-This repository provides example docker compose configurations for a starting point to bring up your cv-manager instance.
-The configurations are documented in the respective [directory](https://github.com/tegonal/cv-manager/blob/main/docker-compose).
+1. Copy the environment file:
 
-### Configuration
+   ```bash
+   curl -o .env https://raw.githubusercontent.com/tegonal/cv-manager/refs/heads/main/.env.example
+   ```
 
-The provided docker compose configurations all support a local `.env` configuration file when starting the containers. To customize the installation you therefore can download/copy the existing [`.env.example`](https://raw.githubusercontent.com/tegonal/cv-manager/refs/heads/main/.env.example) configuration to your installation and adjust the properties accordingly.
+2. Set required values in `.env`:
 
-#### ⚠️ Secrets (required)
+   ```
+   PAYLOAD_SECRET=your-strong-secret-here
+   DATABASE_URI=postgres://user:pass@localhost:5432/cvmanager
+   ```
 
-Please provide your own strong secrets for the following environment properties used to protect and encrypt sensible data:
+3. Start the application using one of the provided docker-compose configurations.
 
-- `PAYLOAD_SECRET`
-- `PRINTER_SECRET`
+## Configuration
 
-#### Database (required)
+### Required Settings
 
-To database adapter will be used based on the URI schema of the `DATABASE_URI` configuration property.
+| Variable         | Description                             |
+| ---------------- | --------------------------------------- |
+| `PAYLOAD_SECRET` | Strong secret for encryption (required) |
+| `DATABASE_URI`   | Database connection string (see below)  |
 
-The following databases are supported by the cv-manager:
+### Database
 
-- MongoDB (starting with `mongodb://`)
-- Postgres (starting with `postgres://`)
-- SQLite (starting with `file://`)
+The adapter is auto-selected based on the URI scheme:
 
-#### Enable OAuth support
+| Database   | URI Format                          |
+| ---------- | ----------------------------------- |
+| PostgreSQL | `postgres://user:pass@host:5432/db` |
+| MongoDB    | `mongodb://user:pass@host:27017/db` |
+| SQLite     | `file:///path/to/database.db`       |
 
-The cv-manager support OAuth integration. To enable the oauth integration, provide the following configuration properties:
+### Media Storage
 
-- `OAUTH_ENABLED=true`
-- `OAUTH_CLIENT_ID`
-- `OAUTH_CLIENT_SECRET`
-- `OAUTH_TOKEN_ENDPOINT`
-- `OAUTH_AUTHORIZE_ENDPOINT`
-- `OAUTH_USERINFO_ENDPOINT`
+#### S3 Storage
 
-If enabled, an additional login button is added to the login form.
+For production deployments, configure S3-compatible storage:
 
-#### Media storage
-
-##### S3 Storage
-
-To support storing the media files in an S3 storage, define to following configuration properties:
-
-- `S3_ENDPOINT`
-- `S3_BUCKET`
-- `S3_SECRET_ACCESS_KEY`
-- `S3_ACCESS_KEY_ID`
-
-##### Local storage
-
-If no external storage provider is configured, the uploaded images are store locally in the `LOCAL_MEDIA_STORAGE_DIR` location which defaults to `/data/media`. Please ensure the configured path points to a mounted volume if used inside a docker image.
-
-#### Enable SMTP mail integration
-
-The SMTP integration is only used to send password recovery emails if using the internal authentication mechanism. To enable the SMTP integration, configure the following properties:
-
-- `SMTP_FROM_ADDRESS`
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-
-_If no SMTP provider is configured, password recovery information are printed to the applications standard output._
-
-#### Customize generating PDFs
-
-##### Using existing template
-
-The cv-manager comes with a ready-to-use template for generating a PDF based on the existing data structure. This PDF can be customized with your company's base information through the following properties:
-
-- `DEFAULT_PAGE_COMPANY_NAME`
-- `DEFAULT_PAGE_COMPANY_ADDRESS`
-- `DEFAULT_PAGE_COMPANY_CITY`
-- `DEFAULT_PAGE_COMPANY_URL`
-- `DEFAULT_PAGE_COMPANY_LOGO`
-- `DEFAULT_PAGE_COMPANY_LOGO_WIDTH`
-- `DEFAULT_PAGE_COMPANY_LOGO_HEIGHT`
-
-The `DEFAULT_PAGE_COMPANY_LOGO` property need to point to a valid file located in the `/public` directory of your cv-manager instance.
-Either copy the file to this location or, if starting the app based on the provided docker image, mount the file to this location.
-
-Example command would be:
-
-```
-docker run --env-file YOUR_CONFIGURATION -v  SOURCE_FILE:/app/public/LOGO_NAME tegonal/cv-manager:latest
+```env
+S3_ENDPOINT=https://s3.example.com
+S3_BUCKET=cv-manager-media
+S3_ACCESS_KEY_ID=your-access-key
+S3_SECRET_ACCESS_KEY=your-secret-key
+S3_REGION=us-east-1
 ```
 
-##### Customizing the layout
+#### Local Storage
 
-The PDF is generated from a react page which is rendered by [pagedjs](https://pagedjs.org) and converted to a pdf by [puppeter](https://pptr.dev/) based on a headless firefox instance (we use firefox as special fonts are embedded and renfered much clearer than with chromium).
-To customize the complete layout of your page, create a new react component in `src/app/cv/[id]/custom-page.tsx` with the following skeleton:
+Without S3 configuration, files are stored locally in `LOCAL_MEDIA_STORAGE_DIR` (default: `/data/media`). Ensure this path is a mounted volume in Docker deployments.
 
-```typescript
+### SMTP Email
 
-const CustomPage: React.FC<CvPageProps> = async ({
-  cv,
-  profileImageDataUrl,
-  hasOverride,
-  exportOverride,
-  locale,
-}) => {
-  return (<><h1>Your Custom CV</h1></>);
-}
+Configure SMTP for password recovery emails:
 
-export default CustomPage;
+```env
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-smtp-user
+SMTP_PASS=your-smtp-password
+SMTP_FROM_ADDRESS=noreply@example.com
 ```
 
-As a good starting point just copy-paste the `default-page.tsx` and start adjusting the layout to your needs.
+Without SMTP, password recovery tokens are printed to the application logs.
 
-ℹ️ If you start the application locally in development mode a `url` is printed to the console when generating a PDF.
-This url gives you access to the intermediate generated page before converting it to a PDF. To be able to access this URL your need to enable the configuration property `ALLOW_UNSECURED_CV_ACCESS=true`, otherwise accessing it through your browser will be declined.
+### OAuth (Optional)
+
+Enable single sign-on with your identity provider:
+
+```env
+OAUTH_ENABLED=true
+OAUTH_CLIENT_ID=your-client-id
+OAUTH_CLIENT_SECRET=your-client-secret
+OAUTH_TOKEN_ENDPOINT=https://auth.example.com/token
+OAUTH_AUTHORIZE_ENDPOINT=https://auth.example.com/authorize
+OAUTH_USERINFO_ENDPOINT=https://auth.example.com/userinfo
+```
+
+## PDF Customization
+
+### Admin Panel Settings
+
+Configure PDF appearance through the admin panel without code changes:
+
+| Setting          | Options                                                                      |
+| ---------------- | ---------------------------------------------------------------------------- |
+| **Company Info** | Name, address, city, website                                                 |
+| **Logo**         | Upload, width (mm), position (left/right), display (first page/all pages)    |
+| **Typography**   | Font family (Rubik, Open Sans, Lato, Roboto, Merriweather, Playfair Display) |
+| **Colors**       | Primary color (borders, highlights), secondary color (skill indicators)      |
+| **Skill Levels** | Display as text, dots, or progress bars                                      |
+| **Page Layout**  | Margins (top, bottom, left, right in mm), format (A4/Letter)                 |
+
+### Custom Templates
+
+For advanced customization, create your own PDF template:
+
+1. Copy the example template:
+
+   ```bash
+   cp src/payload/plugins/cv-pdf-generator/templates/custom-template/index.tsx.example \
+      src/payload/plugins/cv-pdf-generator/templates/custom-template/index.tsx
+   ```
+
+2. Customize the React components (uses [react-pdf](https://react-pdf.org/))
+
+3. Rebuild: `yarn build`
+
+The default template at `templates/default/index.tsx` serves as a reference. Shared utilities in `templates/lib/` provide date formatting, Lexical rich-text rendering, and Tailwind CSS helpers.
 
 ## Usage
 
-### Master data
+### Master Data
 
-To use the cv-manager you first have to provide some master data.
+Set up these entities before creating CVs:
 
-| Entity         | Description                                                                      |
-| -------------- | -------------------------------------------------------------------------------- |
-| User           | Local users or OAuth users (automatically added) having access to the cv-manager |
-| Organisationen | Manager the organisation you're create cvs for                                   |
-| Levels         | Define levels for your Skills                                                    |
-| Sprachen       | Languages available in the Cv                                                    |
-| Projects       | Projects are a list of projects one or multiple users where working with.        |
+| Entity        | Purpose                                               |
+| ------------- | ----------------------------------------------------- |
+| Organizations | Companies you create CVs for                          |
+| Skill Groups  | Categories like "Programming Languages", "Frameworks" |
+| Skills        | Individual skills within groups                       |
+| Levels        | Proficiency levels (e.g., Junior, Senior, Expert)     |
+| Languages     | Spoken languages with proficiency                     |
+| Projects      | Shared project references                             |
 
 ### CV Structure
 
-The Cv consists of the following information:
+Each CV contains:
 
-| Tab             | Description                                              |
-| --------------- | -------------------------------------------------------- |
-| Profil          | Generic information about the person.                    |
-| Fähigkeiten     | List of various skills                                   |
-| Ausbildung      | Educational information                                  |
-| Berufserfahrung | Experiences, mainly the projects a person was working on |
+| Section    | Content                               |
+| ---------- | ------------------------------------- |
+| Profile    | Personal info, contact details, links |
+| Skills     | Hierarchical skill groups with levels |
+| Education  | Degrees, certifications, training     |
+| Experience | Project history with descriptions     |
 
-#### Skills structure
+### Flexible Skill Organization
 
-The skills in the represented as either skills groups or skills.
+Skills can be nested to match different career profiles:
 
-| Entity       | Description                                                                                                  |
-| ------------ | ------------------------------------------------------------------------------------------------------------ |
-| Skill Groups | Skill groups represent a category in to which multiple skills can be assigned (i.e. `Programming languages`) |
-| Skill        | A skill represents a specific skill within a skill group (i.e. `Typescript` withing `Programming languages`) |
+**Frontend Developer:**
 
-They can be ordered in a tree-like structure, depending on the section. The following combination is allowed in the main skills sections:
+```
+Frontend Technologies
+├── React — Expert
+├── Vue.js — Senior
+└── Angular — Junior
+```
 
-- `Skill Group`
-  - `Skill Group` or `Skill` optionally assigned to a `Level`
-    - Additional list of `Skills`
+**Full Stack Developer:**
 
-This gives you the flexibility to group your skills in various ways, depending on the desired focus.
-I.e. a frontend developed might arrange his skills the following way:
-
-- Frontend technologies (`Skill Group`)
-  - React - Expert (`Skill`)
-  - Vue.js - Senior
-  - Angular - Junior
-
-Where a full stack developer want to list the skills on a higher level like:
-
-- Full stack development (`Skill Group`)
-  - Backend frameworks - Expert (`Skill Group`)
-    - Spring, Apache Pekko, Nodejs (`Skill`)
-  - Databases - Senior
-    - MongoDB, MariaDb, Postgres
-  - Frontend technologies - Advanced
-    - React, Angular
+```
+Full Stack Development
+├── Backend Frameworks — Expert
+│   └── Spring, Node.js, Django
+├── Databases — Senior
+│   └── PostgreSQL, MongoDB
+└── Frontend — Advanced
+    └── React, Vue.js
+```
 
 ## Development
 
-### Install dependencies
+### Setup
 
-```
+```bash
 nvm use
 yarn install
+yarn run services:start  # Start local Docker services
 ```
 
-This will additionally install a headless firefox instance used by puppeter to generate pdfs.
+### Run Development Server
 
-### Local docker images
-
-For local development, a docker-compose file is provided. You can use it through yarn:
-
-```
-nvm use
-yarn run services:start
+```bash
+yarn run dev:postgres  # or dev:mongodb, dev:sqlite
 ```
 
-This will bring up a docker image for
+Or with custom `.env`:
 
-- postgres as database adapter if running with postgres
-- mongodb as database adapter if running with mongodb
-- minio with initialized bucket as file storage
-- mailpit as local mailserver
-
-### Development mode with default local configuration
-
-After starting the local docker images, the application can be run with one of the following commands, depending on the desired database adapter to use:
-
-```
-yarn run dev:mongodb
-yarn run dev:postgres
-yarn run dev:sqlite
-```
-
-### Development mode with custom configuration
-
-To customize the local setup just copy the `.env.example` file to `.env`, customize it and start the server with
-
-```
+```bash
+cp .env.example .env
+# Edit .env with your settings
 yarn run dev
 ```
 
-### Code quality
+### Code Quality
 
-Run linting, formatting, and type checking:
-
-```
-yarn run check
+```bash
+yarn run check  # Lint, format, and type-check
 ```
 
-### Database migration
+### Database Migrations
 
-If you apply any changes to the database model you need to generate the appropriate database migrations scripts for **_all_** database adapters. Run the following command to generate them:
+After schema changes, generate migrations for all adapters:
 
-```
+```bash
 yarn run migrate:create:all
 ```

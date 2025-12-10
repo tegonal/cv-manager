@@ -11,7 +11,6 @@ Ready to use setup with the mongo database adapter and starting the following do
 Adjust at least the following secrets in the `.env` file to ensure you're running the instance with your own secrets:
 
 - `PAYLOAD_SECRET`
-- `PRINTER_SECRET`
 - `S3_SECRET_ACCESS_KEY`
 - `S3_ACCESS_KEY_ID`
 - `MONGO_INITDB_ROOT_USERNAME`

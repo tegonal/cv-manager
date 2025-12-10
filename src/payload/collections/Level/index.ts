@@ -13,7 +13,7 @@ export const Levels: CollectionConfig = {
     update: defaultCollectionAccess,
   },
   admin: {
-    group: I18nCollection.collectionGroup.settings,
+    group: I18nCollection.collectionGroup.cvInformation,
     useAsTitle: 'level',
   },
   fields: [

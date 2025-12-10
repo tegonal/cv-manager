@@ -13,7 +13,7 @@ export const Skills: CollectionConfig = {
     update: defaultCollectionAccess,
   },
   admin: {
-    group: I18nCollection.collectionGroup.settings,
+    group: I18nCollection.collectionGroup.cvInformation,
     useAsTitle: 'name',
   },
   fields: [

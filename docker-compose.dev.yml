@@ -33,28 +33,23 @@ services:
   #    volumes:
   #      - pgadmin-data:/var/lib/pgadmin
 
-  minio:
-    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+  garage:
+    image: dxflrs/garage:v2.1.0
+    container_name: cv-manager-garage
     ports:
-      - '9000:9000'
-      - '9001:9001'
-    environment:
-      MINIO_ROOT_USER: ${S3_SECRET_ACCESS_KEY}
-      MINIO_ROOT_PASSWORD: ${S3_ACCESS_KEY_ID}
+      - '3900:3900' # S3 API
+      - '3901:3901' # RPC
+      - '3902:3902' # Web
+      - '3903:3903' # Admin
     volumes:
-      - minio-data:/data
-    command: server --console-address ":9001" /data
-
-  createbucket:
-    image: quay.io/minio/mc:RELEASE.2025-04-22T21-15-12Z
-    depends_on:
-      - minio
-    entrypoint: >
-      /bin/sh -c "
-      /usr/bin/mc alias set myminio http://minio:9000 ${S3_SECRET_ACCESS_KEY} ${S3_ACCESS_KEY_ID};
-      /usr/bin/mc mb myminio/${S3_BUCKET};
-      exit 0;
-      "
+      - ./garage.toml:/etc/garage.toml:ro
+      - garage-data:/var/lib/garage/data
+    healthcheck:
+      test: ['CMD', '/garage', 'status']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   mailpit:
     image: axllent/mailpit
@@ -75,9 +70,9 @@ volumes:
     driver: local
   postgres-data:
     driver: local
-  minio-data:
-    driver: local
   pgadmin-data:
     driver: local
   mongodb-data:
+    driver: local
+  garage-data:
     driver: local

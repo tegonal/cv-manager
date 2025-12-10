@@ -4,19 +4,12 @@ import { defaultCollectionAccess } from '@/payload/access/default-collection-acc
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { assignOrgToUpload } from '@/payload/collections/hooks/assign-org-to-upload'
 import { adminSettingsField } from '@/payload/fields/admin-settings'
-import { PRINTER_HEADER_KEY } from '@/payload/utilities/constants'
 
 export const Media: CollectionConfig = {
   access: {
     create: isLoggedInAccess,
     delete: defaultCollectionAccess,
-    read: (args) => {
-      const printerSecret = args.req.headers.get(PRINTER_HEADER_KEY)
-      if (printerSecret === process.env.PRINTER_SECRET) {
-        return true
-      }
-      return defaultCollectionAccess(args)
-    },
+    read: defaultCollectionAccess,
     update: defaultCollectionAccess,
   },
   fields: [

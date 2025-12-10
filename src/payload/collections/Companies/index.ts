@@ -13,7 +13,7 @@ export const Companies: CollectionConfig = {
     update: defaultCollectionAccess,
   },
   admin: {
-    group: I18nCollection.collectionGroup.settings,
+    group: I18nCollection.collectionGroup.cvInformation,
     useAsTitle: 'name',
   },
   fields: [

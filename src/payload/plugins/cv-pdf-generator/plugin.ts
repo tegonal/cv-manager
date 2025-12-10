@@ -2,7 +2,6 @@ import type { Config, Plugin } from 'payload'
 
 import { CollectionConfig } from 'payload'
 
-import { logger } from '@/lib/logger'
 import { pluginConstants } from '@/payload/plugins/cv-pdf-generator/const'
 import { requestHandler } from '@/payload/plugins/cv-pdf-generator/handler'
 
@@ -39,7 +38,7 @@ export const cvPdfPlugin =
               return new Response(JSON.stringify({ error: 'No data provided' }), { status: 400 })
             }
             const body = await req.json()
-            logger.info('cvPdfPlugin endpoint', body)
+            req.payload.logger.debug({ body }, 'cvPdfPlugin endpoint called')
 
             const { exportOverride, id, locale } = body
             if (!id) {

@@ -10,7 +10,6 @@ Ready to use setup with the sqlite file db adapter and starting the following do
 Adjust at least the following secrets in the `.env` file to ensure you're running the instance with your own secrets:
 
 - `PAYLOAD_SECRET`
-- `PRINTER_SECRET`
 
 ### Run the application
 

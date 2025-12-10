@@ -1,6 +1,5 @@
 import { Field } from 'payload'
 
-import { logger } from '@/lib/logger'
 import { SaveButtonReplacer } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
 
 import { CvPdfConfig } from './types'
@@ -15,7 +14,6 @@ export const extendEntityConfig = <Entity extends { fields: Field[]; slug: strin
   entityConfig?: Entity[],
   cvPdfEntityConfig?: string[],
 ) => {
-  logger.info('extendEntityConfig', { cvPdfConfig, cvPdfEntityConfig, entityConfig })
   return entityConfig?.map((collection) => ({
     ...collection,
     fields: [

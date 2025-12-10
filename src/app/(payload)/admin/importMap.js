@@ -26,6 +26,7 @@ import { RowLabelSkill as RowLabelSkill_70f2a0da1a52d289645609f47a9b29ce } from 
 import { RowLabelSkillGroup as RowLabelSkillGroup_951d203d52378fa0d672264360155ea2 } from '../../../../src/payload/collections/CVs/row-labels/row-label-skill-group.tsx'
 import { RowLabelFirstText as RowLabelFirstText_3c155042d49e8cad65cddd438f13227f } from '../../../../src/payload/collections/utils/row-label-first-text.tsx'
 import { SaveButtonReplacer as SaveButtonReplacer_ad1b0d6ff6556ee78fe8ae85c420a2c2 } from '../../../../src/payload/plugins/cv-pdf-generator/ui/save-button-replacer.tsx'
+import { ColorPickerFieldComponent as ColorPickerFieldComponent_95f860801d0381344387ae1d8e2f4d24 } from '@innovixx/payload-color-picker-field/components'
 import { Icon as Icon_c91f387b1e1e266abbd316576a738bc6 } from 'src/graphics/Icon/index.tsx'
 import { Logo as Logo_0c05d89cc4c8a8bbbb6822cd8c3420f3 } from 'src/graphics/Logo/index.tsx'
 import { OAuthServerLoginButton as OAuthServerLoginButton_b203fbaee741012621fc45713338946f } from 'src/payload/components/oauth-server-login-button'
@@ -60,6 +61,7 @@ export const importMap = {
   "/src/payload/collections/CVs/row-labels/row-label-skill-group.tsx#RowLabelSkillGroup": RowLabelSkillGroup_951d203d52378fa0d672264360155ea2,
   "/src/payload/collections/utils/row-label-first-text.tsx#RowLabelFirstText": RowLabelFirstText_3c155042d49e8cad65cddd438f13227f,
   "/src/payload/plugins/cv-pdf-generator/ui/save-button-replacer.tsx#SaveButtonReplacer": SaveButtonReplacer_ad1b0d6ff6556ee78fe8ae85c420a2c2,
+  "@innovixx/payload-color-picker-field/components#ColorPickerFieldComponent": ColorPickerFieldComponent_95f860801d0381344387ae1d8e2f4d24,
   "src/graphics/Icon/index.tsx#Icon": Icon_c91f387b1e1e266abbd316576a738bc6,
   "src/graphics/Logo/index.tsx#Logo": Logo_0c05d89cc4c8a8bbbb6822cd8c3420f3,
   "src/payload/components/oauth-server-login-button#OAuthServerLoginButton": OAuthServerLoginButton_b203fbaee741012621fc45713338946f,
