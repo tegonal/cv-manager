@@ -5079,7 +5079,7 @@ __metadata:
     prettier-plugin-tailwindcss: "npm:^0.7.2"
     react: "npm:19.2.1"
     react-dom: "npm:19.2.1"
-    react-i18next: "npm:^15.7.4"
+    react-i18next: "npm:^16.0.0"
     react-pdf-tailwind: "npm:^3.0.0"
     sharp: "npm:0.34.5"
     tailwindcss: "npm:^4.1.17"
@@ -9500,14 +9500,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.7.4":
-  version: 15.7.4
-  resolution: "react-i18next@npm:15.7.4"
+"react-i18next@npm:^16.0.0":
+  version: 16.4.1
+  resolution: "react-i18next@npm:16.4.1"
   dependencies:
     "@babel/runtime": "npm:^7.27.6"
     html-parse-stringify: "npm:^3.0.1"
+    use-sync-external-store: "npm:^1.6.0"
   peerDependencies:
-    i18next: ">= 23.4.0"
+    i18next: ">= 25.6.2"
     react: ">= 16.8.0"
     typescript: ^5
   peerDependenciesMeta:
@@ -9517,7 +9518,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/bda66694f159e6874b090997e6fe99a3cd112f535ec8f7d7b04ec8766444a2842fc6688b1f8ed7513a167a94dbeb4aa3d487368d166e41c03d7998dc8b09eac4
+  checksum: 10/1c87be0c3f19b9267f45271739db930c95b0d70c9ad4ee27dda1589deb1715de0bf30cd032c8c47835237339eb4a35fcbb586ae4fd5bcc00bed74a1e9d3183df
   languageName: node
   linkType: hard
 
@@ -10923,6 +10924,15 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10/a52155ffa7d67a5107ef2033ae2c63f5290c3e3b198de30d4d4f78cd7921e1ab1ea31eeec387defb67ef61adb672d3b8d25b54b7dcc089bacc4f885abde96e9d
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "use-sync-external-store@npm:1.6.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10/b40ad2847ba220695bff2d4ba4f4d60391c0fb4fb012faa7a4c18eb38b69181936f5edc55a522c4d20a788d1a879b73c3810952c9d0fd128d01cb3f22042c09e
   languageName: node
   linkType: hard
 
