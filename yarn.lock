@@ -5087,7 +5087,7 @@ __metadata:
     graphql: "npm:^16.12.0"
     hyphen: "npm:^1.10.6"
     jsonwebtoken: "npm:^9.0.3"
-    lucide-react: "npm:^0.559.0"
+    lucide-react: "npm:^0.561.0"
     next: "npm:15.5.7"
     nodemailer: "npm:^7.0.11"
     payload: "npm:3.68.2"
@@ -7790,12 +7790,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.559.0":
-  version: 0.559.0
-  resolution: "lucide-react@npm:0.559.0"
+"lucide-react@npm:^0.561.0":
+  version: 0.561.0
+  resolution: "lucide-react@npm:0.561.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/72c55e4eb9e9a7238f6bcf5402453c5a75c45aa148dad599357b2f99bf9eea82c457ec7e15f8f1809f69286312436a4756423a1c37df3799756ae78d29f4d049
+  checksum: 10/fb305e06527849c2d475b245c524ac56c6554afe648ce1d0ede9d5105366ce296c0f2fa2cbf5c57ef0c14449462a2ec30f35db2656626e9fcf2c96fd124738d0
   languageName: node
   linkType: hard
 
