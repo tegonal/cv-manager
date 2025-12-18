@@ -47,7 +47,7 @@
     "graphql": "^16.12.0",
     "hyphen": "^1.10.6",
     "jsonwebtoken": "^9.0.3",
-    "lucide-react": "^0.559.0",
+    "lucide-react": "^0.562.0",
     "next": "15.5.7",
     "nodemailer": "^7.0.11",
     "payload": "3.68.2",
