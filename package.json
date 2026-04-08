@@ -50,7 +50,7 @@
     "lucide-react": "^0.559.0",
     "next": "15.5.7",
     "nodemailer": "^7.0.11",
-    "payload": "3.68.2",
+    "payload": "3.79.1",
     "payload-oauth2": "^1.0.19",
     "react": "19.2.1",
     "react-dom": "19.2.1",
