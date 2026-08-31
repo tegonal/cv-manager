@@ -2427,12 +2427,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:15.5.7":
-  version: 15.5.7
-  resolution: "@next/eslint-plugin-next@npm:15.5.7"
+"@next/eslint-plugin-next@npm:15.5.25":
+  version: 15.5.25
+  resolution: "@next/eslint-plugin-next@npm:15.5.25"
   dependencies:
     fast-glob: "npm:3.3.1"
-  checksum: 10/5b59860aeccc0d07a979c40e4405b410a9d7aa86a235d5dc0edbac8d2da35586f6f2fa3407cd3d80fd7e7d4f197c70291e9c6e71a64942d09b8fe82470e90ee0
+  checksum: 10/31ab5b8b4f42219f095a850d39fa96a076253f220d602b87fe921ec4522fecfd2b9886d4ef7b9c0524711b52b2b9f1791a14ea391cae2085fde895200e74be40
   languageName: node
   linkType: hard
 
@@ -5081,7 +5081,7 @@ __metadata:
     dotenv: "npm:^17.2.3"
     env-cmd: "npm:^11.0.0"
     eslint: "npm:^9.39.1"
-    eslint-config-next: "npm:15.5.7"
+    eslint-config-next: "npm:15.5.25"
     eslint-plugin-check-file: "npm:^3.3.1"
     eslint-plugin-perfectionist: "npm:^4.15.1"
     graphql: "npm:^16.12.0"
@@ -5862,11 +5862,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:15.5.7":
-  version: 15.5.7
-  resolution: "eslint-config-next@npm:15.5.7"
+"eslint-config-next@npm:15.5.25":
+  version: 15.5.25
+  resolution: "eslint-config-next@npm:15.5.25"
   dependencies:
-    "@next/eslint-plugin-next": "npm:15.5.7"
+    "@next/eslint-plugin-next": "npm:15.5.25"
     "@rushstack/eslint-patch": "npm:^1.10.3"
     "@typescript-eslint/eslint-plugin": "npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
     "@typescript-eslint/parser": "npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
@@ -5882,7 +5882,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/fd1813c7ef4e33ec297b86dd0de75879e10514b12cb04a103e7a5b8c5f27d2ea0a91dd15e6d530006c9fe3e7e18f815e900bd6ba117c3b8fbe311c38c340d899
+  checksum: 10/d3dedc95617fd463781558fbeb81ea91fe91a00949add6c8e8e74a0d3e47fd031179d3353f58f52ff9ba1c252ef6e3b40b1afaa80fdd801beb280579f6648e44
   languageName: node
   linkType: hard
 
