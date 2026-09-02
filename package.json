@@ -49,7 +49,7 @@
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.559.0",
     "next": "15.5.7",
-    "nodemailer": "^7.0.11",
+    "nodemailer": "^9.0.0",
     "payload": "3.68.2",
     "payload-oauth2": "^1.0.19",
     "react": "19.2.1",
