@@ -66,6 +66,8 @@ S3_SECRET_ACCESS_KEY=your-secret-key
 S3_REGION=us-east-1
 ```
 
+The Postgres and MongoDB [docker compose setups](https://github.com/tegonal/cv-manager/blob/main/docker-compose) include [Garage](https://garagehq.deuxfleurs.fr/) as S3-compatible storage. For local development, `yarn run services:start` starts Garage as well; the matching credentials are in `.env.example`.
+
 #### Local Storage
 
 Without S3 configuration, files are stored locally in `LOCAL_MEDIA_STORAGE_DIR` (default: `/data/media`). Ensure this path is a mounted volume in Docker deployments.

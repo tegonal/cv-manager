@@ -4,6 +4,7 @@ Ready to use setup with postgres database adapter and starting the following doc
 
 - caddy as proxy server with self-signed certificates
 - postgres
+- garage as S3-compatible storage for media files
 - pgadmin (optional)
 - pgbackup (optional)
 - cv-manager
@@ -15,8 +16,23 @@ Adjust at least the following secrets in the `.env` file to ensure you're runnin
 - `PAYLOAD_SECRET`
 - `S3_SECRET_ACCESS_KEY`
 - `S3_ACCESS_KEY_ID`
+- `GARAGE_RPC_SECRET`
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
+
+Garage requires a specific format for the S3 credentials. Generate your own values with:
+
+```
+echo "S3_ACCESS_KEY_ID=GK$(openssl rand -hex 12)"
+echo "S3_SECRET_ACCESS_KEY=$(openssl rand -hex 32)"
+echo "GARAGE_RPC_SECRET=$(openssl rand -hex 32)"
+```
+
+Garage creates the access key and the `S3_BUCKET` bucket on startup. If you change the S3 credentials after the first start, the new key is added on the next start and the previous key stays valid until you delete it:
+
+```
+docker compose exec garage /garage key delete --yes <previous S3_ACCESS_KEY_ID>
+```
 
 ### Run the application
 

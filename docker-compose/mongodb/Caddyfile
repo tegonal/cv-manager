@@ -32,11 +32,6 @@ http://caddy {
   }
 }
 
-# Make minio UI available
-# localhost:9001 {
-#      reverse_proxy minio:9001
-# }
-
 # Make pg_admin UI available
 # localhost:5050 {
 #      reverse_proxy pgadmin:80

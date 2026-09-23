@@ -34,8 +34,15 @@ services:
   #      - pgadmin-data:/var/lib/pgadmin
 
   garage:
-    image: dxflrs/garage:v2.1.0
+    image: dxflrs/garage:v2.4.1
     container_name: cv-manager-garage
+    # Single-node layout, access key and bucket are set up automatically on startup
+    command: ['/garage', 'server', '--single-node', '--default-bucket']
+    environment:
+      # Development-only credentials, also used in .env.example and .env.local_*
+      GARAGE_DEFAULT_ACCESS_KEY: GK7ddba4277f25c63c58310c19
+      GARAGE_DEFAULT_SECRET_KEY: d1a331278d2ceeb29860987a069ce7817d9c67bf71789968bc3da9bd130194cf
+      GARAGE_DEFAULT_BUCKET: tegonal-cv
     ports:
       - '3900:3900' # S3 API
       - '3901:3901' # RPC
