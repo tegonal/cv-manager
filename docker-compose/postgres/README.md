@@ -20,7 +20,7 @@ Adjust at least the following secrets in the `.env` file to ensure you're runnin
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
 
-Garage requires a specific format for the S3 credentials. Generate your own values with:
+`S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` and `GARAGE_RPC_SECRET` have no defaults, `docker compose up` stops with an error until they are set. Garage requires a specific format, generate them with:
 
 ```
 echo "S3_ACCESS_KEY_ID=GK$(openssl rand -hex 12)"
