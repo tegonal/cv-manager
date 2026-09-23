@@ -433,37 +433,34 @@ export function PayloadLexicalReactRenderer<Blocks extends { [key: string]: any 
     [renderMark],
   )
 
-  const serialize = React.useCallback(
-    (children: Node[]): null | React.ReactNode[] =>
-      children.map((node, index) => {
-        if (node.type === 'text') {
-          return <React.Fragment key={index}>{renderText(node)}</React.Fragment>
+  // Plain function (not memoized) so it can recurse into child nodes
+  function serialize(children: Node[]): React.ReactNode[] {
+    return children.map((node, index) => {
+      if (node.type === 'text') {
+        return <React.Fragment key={index}>{renderText(node)}</React.Fragment>
+      }
+
+      if (node.type === 'block') {
+        const renderer = blockRenderers[node.fields.blockType] as (
+          props: unknown,
+        ) => React.ReactNode
+
+        if (typeof renderer !== 'function') {
+          throw new Error(`Missing block renderer for block type '${node.fields.blockType}'`)
         }
 
-        if (node.type === 'block') {
-          const renderer = blockRenderers[node.fields.blockType] as (
-            props: unknown,
-          ) => React.ReactNode
+        return <React.Fragment key={index}>{renderer(node)}</React.Fragment>
+      }
 
-          if (typeof renderer !== 'function') {
-            throw new Error(`Missing block renderer for block type '${node.fields.blockType}'`)
-          }
+      if (node.type === 'linebreak' || node.type === 'tab' || node.type === 'upload') {
+        return <React.Fragment key={index}>{renderElement(node)}</React.Fragment>
+      }
 
-          return <React.Fragment key={index}>{renderer(node)}</React.Fragment>
-        }
-
-        if (node.type === 'linebreak' || node.type === 'tab' || node.type === 'upload') {
-          return <React.Fragment key={index}>{renderElement(node)}</React.Fragment>
-        }
-
-        return (
-          <React.Fragment key={index}>
-            {renderElement(node, serialize(node.children))}
-          </React.Fragment>
-        )
-      }),
-    [renderElement, renderText, blockRenderers],
-  )
+      return (
+        <React.Fragment key={index}>{renderElement(node, serialize(node.children))}</React.Fragment>
+      )
+    })
+  }
 
   if (!content || !content.root) {
     return null

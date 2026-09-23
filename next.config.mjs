@@ -13,6 +13,12 @@ const nextConfig = {
     ]
   },
   images: {
+    // Next 16 requires local images with query strings (e.g. ?prefix=) to be allowlisted
+    localPatterns: [
+      {
+        pathname: '/api/media/file/**',
+      },
+    ],
     remotePatterns: [
       {
         protocol: 'https',

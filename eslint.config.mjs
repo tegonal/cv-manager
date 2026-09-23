@@ -1,18 +1,11 @@
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 import checkFile from 'eslint-plugin-check-file'
 import perfectionist from 'eslint-plugin-perfectionist'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-})
 
 const config = [
   {
@@ -32,7 +25,7 @@ const config = [
       '**/payload-types.ts',
     ],
   },
-  ...compat.extends('next/core-web-vitals'),
+  ...nextCoreWebVitals,
   {
     languageOptions: {
       parserOptions: {

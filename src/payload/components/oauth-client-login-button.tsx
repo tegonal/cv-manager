@@ -8,14 +8,13 @@ export const OAuthClientLoginButton: React.FC<ClientButtonProps> = ({ oauthEnabl
   <>
     {oauthEnabled && (
       <div className={'w-full'}>
-        <button
+        <a
           className={
             'btn btn--icon-style-without-border btn--size-large btn--style-secondary w-full'
           }
-          onClick={() => (window.location.href = '/api/users/oauth/authorize')}
-          type={'button'}>
+          href={'/api/users/oauth/authorize'}>
           <span className={'btn__content'}>Login using OAuth</span>
-        </button>
+        </a>
       </div>
     )}
   </>

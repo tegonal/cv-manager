@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 import { LANG_HEADER_KEY } from './payload/utilities/constants'
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const queryParams = req.nextUrl.searchParams
   const lang = queryParams.get(LANG_HEADER_KEY)
 
@@ -23,7 +23,7 @@ export function middleware(req: NextRequest) {
   return NextResponse.next()
 }
 
-// Apply middleware to all cv routes
+// Apply proxy to all cv routes
 export const config = {
   matcher: '/cv/:path*',
 }

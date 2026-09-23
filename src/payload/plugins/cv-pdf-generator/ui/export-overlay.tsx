@@ -34,6 +34,21 @@ const getLocalizedFieldLabel = (
   return fieldLabel ? (fieldLabel as Record<string, string>)[localeCode] : 'Unknown'
 }
 
+// Every profile field and project is exported unless deselected
+const getDefaultExportState = (cv: Cv): Record<string, boolean> => {
+  const profile = profileKeys.reduce<Record<string, boolean>>((acc, key) => {
+    acc[key] = true
+    return acc
+  }, {})
+
+  const projects = cv.projects?.reduce<Record<string, boolean>>((acc, project) => {
+    acc[`project_${project.id}`] = true
+    return acc
+  }, {})
+
+  return { ...profile, ...projects }
+}
+
 type FormField = {
   export: boolean
   key: string
@@ -63,6 +78,7 @@ export const ExportOverlay: React.FC = () => {
         const data = await fetchCvAction(id)
         if (data) {
           setCv(data)
+          setFormState(getDefaultExportState(data))
         }
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown error'
@@ -71,23 +87,6 @@ export const ExportOverlay: React.FC = () => {
     }
     fetchData()
   }, [id, isOpen])
-
-  useEffect(() => {
-    if (!cv) {
-      return
-    }
-    const profile = profileKeys.reduce<Record<string, boolean>>((acc, key) => {
-      acc[key] = true
-      return acc
-    }, {})
-
-    const projects = cv?.projects?.reduce<Record<string, boolean>>((acc, project) => {
-      acc[`project_${project.id}`] = true
-      return acc
-    }, {})
-
-    setFormState({ ...profile, ...projects })
-  }, [cv])
 
   const availableOptions = useMemo(() => {
     const profile = [

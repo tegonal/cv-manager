@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Document, Image, Page, Text, View } from '@react-pdf/renderer'
+import { Style } from '@react-pdf/types'
 import React from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 
 import {
+  CompanyInfoData,
   CvPdfTemplateProps,
   LexicalContent,
   mmToPt,
@@ -13,7 +15,7 @@ import {
   styles,
   tw,
 } from '../lib'
-import { FirstPageCentered, FirstPageLeftAligned } from './first-pages'
+import { FirstPageCentered, FirstPageLeftAligned, FirstPageProps } from './first-pages'
 import {
   CasualInfoSection,
   EducationSection,
@@ -24,6 +26,61 @@ import {
 
 // Re-export LexicalContent type for use in template
 export type { LexicalContent }
+
+// Logo component (reusable)
+const LogoView = ({
+  companyInfo,
+  fixed = false,
+}: {
+  companyInfo: CompanyInfoData
+  fixed?: boolean
+}) =>
+  companyInfo.logoDataUrl ? (
+    <View
+      fixed={fixed}
+      style={{
+        left:
+          companyInfo.logoPosition === 'left'
+            ? mmToPt(companyInfo.logoMarginLeft ?? 10)
+            : undefined,
+        position: 'absolute',
+        right:
+          companyInfo.logoPosition !== 'left'
+            ? mmToPt(companyInfo.logoMarginRight ?? 10)
+            : undefined,
+        top: mmToPt(companyInfo.logoMarginTop ?? 10),
+      }}>
+      <Image
+        src={companyInfo.logoDataUrl}
+        style={{
+          height: companyInfo.logoHeight ? mmToPt(companyInfo.logoHeight) : 'auto',
+          width: mmToPt(companyInfo.logoWidth || 30),
+        }}
+      />
+    </View>
+  ) : null
+
+// Footer component (reusable)
+const FooterView = ({ companyInfo, style }: { companyInfo: CompanyInfoData; style: Style }) => (
+  <View fixed style={style}>
+    <View style={tw('flex flex-row justify-between')}>
+      <Text>
+        {companyInfo.name && `${companyInfo.name} - `}
+        {companyInfo.address && `${companyInfo.address} - `}
+        {companyInfo.city && `${companyInfo.city} - `}
+        {companyInfo.url}
+      </Text>
+      <Text render={({ pageNumber }) => `${pageNumber}`} />
+    </View>
+  </View>
+)
+
+// First page content component (reusable)
+const FirstPageContent = ({
+  layout,
+  ...props
+}: FirstPageProps & { layout: CompanyInfoData['firstPageLayout'] }) =>
+  layout === 'leftAligned' ? <FirstPageLeftAligned {...props} /> : <FirstPageCentered {...props} />
 
 const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   companyInfo,
@@ -100,67 +157,16 @@ const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   // Dynamic heading styles with selected font
   const h1Style = { ...styles.h1, fontFamily }
 
-  // Logo component (reusable)
-  const LogoView = ({ fixed = false }: { fixed?: boolean }) =>
-    companyInfo.logoDataUrl ? (
-      <View
-        fixed={fixed}
-        style={{
-          left:
-            companyInfo.logoPosition === 'left'
-              ? mmToPt(companyInfo.logoMarginLeft ?? 10)
-              : undefined,
-          position: 'absolute',
-          right:
-            companyInfo.logoPosition !== 'left'
-              ? mmToPt(companyInfo.logoMarginRight ?? 10)
-              : undefined,
-          top: mmToPt(companyInfo.logoMarginTop ?? 10),
-        }}>
-        <Image
-          src={companyInfo.logoDataUrl}
-          style={{
-            height: companyInfo.logoHeight ? mmToPt(companyInfo.logoHeight) : 'auto',
-            width: mmToPt(companyInfo.logoWidth || 30),
-          }}
-        />
-      </View>
-    ) : null
-
-  // Footer component (reusable)
-  const FooterView = ({ style }: { style: typeof footerStyle }) => (
-    <View fixed style={style}>
-      <View style={tw('flex flex-row justify-between')}>
-        <Text>
-          {companyInfo.name && `${companyInfo.name} - `}
-          {companyInfo.address && `${companyInfo.address} - `}
-          {companyInfo.city && `${companyInfo.city} - `}
-          {companyInfo.url}
-        </Text>
-        <Text render={({ pageNumber }) => `${pageNumber}`} />
-      </View>
-    </View>
+  const firstPageContent = (
+    <FirstPageContent
+      cv={cv}
+      h1Style={h1Style}
+      layout={firstPageLayout}
+      primaryColor={primaryColor}
+      profileImageDataUrl={profileImageDataUrl}
+      styles={{ lead: styles.lead }}
+    />
   )
-
-  // First page content component (reusable)
-  const FirstPageContent = () =>
-    firstPageLayout === 'leftAligned' ? (
-      <FirstPageLeftAligned
-        cv={cv}
-        h1Style={h1Style}
-        primaryColor={primaryColor}
-        profileImageDataUrl={profileImageDataUrl}
-        styles={{ lead: styles.lead }}
-      />
-    ) : (
-      <FirstPageCentered
-        cv={cv}
-        h1Style={h1Style}
-        primaryColor={primaryColor}
-        profileImageDataUrl={profileImageDataUrl}
-        styles={{ lead: styles.lead }}
-      />
-    )
 
   const ctx: PdfSectionContext = {
     cv,
@@ -179,14 +185,14 @@ const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
       <Document>
         {/* First Page with its own margins */}
         <Page dpi={300} size={pageFormat} style={firstPageStyle}>
-          <LogoView />
-          <FooterView style={firstPageFooterStyle} />
-          <FirstPageContent />
+          <LogoView companyInfo={companyInfo} />
+          <FooterView companyInfo={companyInfo} style={firstPageFooterStyle} />
+          {firstPageContent}
         </Page>
 
         {/* Subsequent pages with standard margins */}
         <Page dpi={300} size={pageFormat} style={pageStyle}>
-          <FooterView style={footerStyle} />
+          <FooterView companyInfo={companyInfo} style={footerStyle} />
 
           {/* Profile */}
           <ProfileSection ctx={ctx} />
@@ -217,11 +223,11 @@ const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   return (
     <Document>
       <Page dpi={300} size={pageFormat} style={pageStyle}>
-        <LogoView fixed />
-        <FooterView style={footerStyle} />
+        <LogoView companyInfo={companyInfo} fixed />
+        <FooterView companyInfo={companyInfo} style={footerStyle} />
 
         {/* First Page - conditionally render based on layout setting */}
-        <FirstPageContent />
+        {firstPageContent}
 
         {/* Force page break after intro */}
         <View break />

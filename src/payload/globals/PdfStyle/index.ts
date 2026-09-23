@@ -1,8 +1,8 @@
-import { colorPickerField } from '@innovixx/payload-color-picker-field'
 import { GlobalConfig } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
+import { colorField } from '@/payload/fields/color'
 
 export const PdfStyle: GlobalConfig = {
   access: {
@@ -196,7 +196,7 @@ export const PdfStyle: GlobalConfig = {
           ],
           type: 'select',
         },
-        colorPickerField({
+        colorField({
           admin: {
             description: {
               de: 'Primärfarbe für Rahmen (Bilder, Highlight-Boxen)',
@@ -210,7 +210,7 @@ export const PdfStyle: GlobalConfig = {
           },
           name: 'primaryColor',
         }),
-        colorPickerField({
+        colorField({
           admin: {
             description: {
               de: 'Sekundärfarbe für Akzente (Punkte-Bewertung, Fortschrittsbalken)',

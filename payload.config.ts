@@ -19,6 +19,7 @@ import { CV } from '@/payload/collections/CVs'
 import { Languages } from '@/payload/collections/Languages'
 import { Levels } from '@/payload/collections/Level'
 import { Media } from '@/payload/collections/Media'
+import { MEDIA_PREFIX } from '@/payload/collections/Media/constants'
 import { Organisations } from '@/payload/collections/Organisations'
 import { Projects } from '@/payload/collections/Projects'
 import { SkillGroups } from '@/payload/collections/SkillGroups'
@@ -173,7 +174,7 @@ export default buildConfig({
     s3Storage({
       bucket: process.env.S3_BUCKET || '',
       collections: {
-        media: { prefix: 'media' },
+        media: { prefix: MEDIA_PREFIX },
       },
       config: {
         bucketEndpoint: false,
