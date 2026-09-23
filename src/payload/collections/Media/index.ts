@@ -24,8 +24,8 @@ export const Media: CollectionConfig = {
   },
   slug: 'media',
   upload: {
-    // disable local storage if attached to an external S3 storage
-    disableLocalStorage: process.env.S3_ENDPOINT !== undefined,
+    // Files are stored in S3 only (see s3Storage in payload.config.ts)
+    disableLocalStorage: true,
     imageSizes: [
       {
         height: 200,
@@ -47,6 +47,5 @@ export const Media: CollectionConfig = {
       },
     ],
     mimeTypes: ['image/*'],
-    staticDir: process.env.LOCAL_MEDIA_STORAGE_DIR || '/data/media',
   },
 }

@@ -21,11 +21,7 @@ services:
     image: tegonal/cv-manager:latest
     container_name: app
     restart: unless-stopped
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    # The image defines its own healthcheck
     depends_on:
       postgres:
         condition: service_healthy
@@ -33,6 +29,8 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET:?Set PAYLOAD_SECRET in .env (see README)}
     networks:
       - internal
 
@@ -41,12 +39,14 @@ services:
     container_name: postgres
     restart: unless-stopped
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      test: ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}"']
       interval: 10s
       timeout: 5s
       retries: 5
     env_file:
       - .env
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env (see README)}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:

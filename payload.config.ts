@@ -1,6 +1,4 @@
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
@@ -29,44 +27,29 @@ import { CompanyInfo } from '@/payload/globals/CompanyInfo'
 import { PdfStyle } from '@/payload/globals/PdfStyle'
 import { cvPdfPlugin } from '@/payload/plugins/cv-pdf-generator/plugin'
 
-import { migrations as mongodbMigrations } from './src/migrations/mongodb'
-import { migrations as postgresMigrations } from './src/migrations/postgres'
-import { migrations as sqliteMigrations } from './src/migrations/sqlite'
+import { migrations } from './src/migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const determineDatabase = (url?: string) => {
-  if (url?.startsWith('postgres://')) {
-    return postgresAdapter({
-      migrationDir: './src/migrations/postgres',
-      pool: {
-        connectionString: url,
-      },
-      prodMigrations: postgresMigrations,
-    })
-  } else if (url?.startsWith('mongodb://')) {
-    return mongooseAdapter({
-      migrationDir: './src/migrations/mongodb',
-      url: url,
-    })
-  } else if (url?.startsWith('file://')) {
-    return sqliteAdapter({
-      client: {
-        url: url,
-      },
-      migrationDir: './src/migrations/sqlite',
-      prodMigrations: sqliteMigrations,
-    })
-  } else {
-    console.log('No supported database configured, default to sqlite')
-    return sqliteAdapter({
-      client: {
-        url: 'file:///tmp/cv-manager.db',
-      },
-      migrationDir: './src/migrations/sqlite',
-      prodMigrations: sqliteMigrations,
-    })
+const databaseUri = process.env.DATABASE_URI
+if (databaseUri && !/^postgres(ql)?:\/\//.test(databaseUri)) {
+  throw new Error(
+    'DATABASE_URI must be a postgres:// connection string. MongoDB and SQLite support was removed in 4.0.0, see the release notes.',
+  )
+}
+
+// Checked on startup instead of on import, so that builds work without runtime configuration
+const assertRuntimeConfig = () => {
+  const missing = [
+    'DATABASE_URI',
+    'S3_ENDPOINT',
+    'S3_BUCKET',
+    'S3_ACCESS_KEY_ID',
+    'S3_SECRET_ACCESS_KEY',
+  ].filter((name) => !process.env[name])
+  if (missing.length > 0) {
+    throw new Error(`Missing required configuration: ${missing.join(', ')}. See .env.example.`)
   }
 }
 
@@ -127,7 +110,13 @@ export default buildConfig({
     Media,
     Organisations,
   ],
-  db: determineDatabase(process.env.DATABASE_URI),
+  db: postgresAdapter({
+    migrationDir: './src/migrations',
+    pool: {
+      connectionString: databaseUri,
+    },
+    prodMigrations: migrations,
+  }),
   editor: lexicalEditor(),
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
@@ -167,6 +156,7 @@ export default buildConfig({
     },
   },
   async onInit(payload) {
+    assertRuntimeConfig()
     await seedDevUser(payload)
     await seedDevData(payload)
   },
@@ -186,7 +176,6 @@ export default buildConfig({
         forcePathStyle: true,
         region: process.env.S3_REGION || 'garage',
       },
-      enabled: process.env.S3_ENDPOINT !== undefined,
     }),
     cvPdfPlugin({
       collections: [CV.slug],

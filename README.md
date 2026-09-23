@@ -7,8 +7,8 @@ A modern CV management system built on Payload CMS 3 and Next.js 16, designed fo
 - **Multi-language support** — German and English with localized content
 - **Flexible skill system** — Organize skills in hierarchical groups with customizable proficiency levels
 - **PDF export** — Generate professional PDFs with customizable branding and layout
-- **Multiple databases** — MongoDB, PostgreSQL, or SQLite
-- **S3 storage** — Optional cloud storage for media files
+- **PostgreSQL** — Migrations run automatically on startup
+- **S3 storage** — Media files in any S3-compatible storage, [Garage](https://garagehq.deuxfleurs.fr/) included in the provided setups
 - **OAuth integration** — Single sign-on with your identity provider
 - **Multi-tenant** — Manage CVs across multiple organizations
 
@@ -16,10 +16,10 @@ A modern CV management system built on Payload CMS 3 and Next.js 16, designed fo
 
 ### Docker Compose
 
-Ready-to-use configurations are provided in the [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory for PostgreSQL and MongoDB (both with [Garage](https://garagehq.deuxfleurs.fr/) for media files) and SQLite (local media storage). They run the `tegonal/cv-manager` image behind Caddy.
+A ready-to-use configuration is provided in the [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory. It runs the `tegonal/cv-manager` image with PostgreSQL and Garage behind Caddy.
 
-1. Copy one of the setup directories (`postgres`, `mongodb` or `sqlite`) with all its files, including `.env`.
-2. Set your own secrets in its `.env` as described in the setup's README. The Postgres and MongoDB setups refuse to start until the S3/Garage secrets are set.
+1. Copy the directory with all its files, including `.env`.
+2. Set your own secrets in `.env` as described in its [README](https://github.com/tegonal/cv-manager/blob/main/docker-compose/README.md). The stack refuses to start until they are set.
 3. Run `docker compose up -d` in that directory and open `https://localhost` (or your `PUBLIC_URL`).
 
 Database migrations run automatically on startup, also when upgrading to a new version.
@@ -28,27 +28,15 @@ Database migrations run automatically on startup, also when upgrading to a new v
 
 ### Main Settings
 
-| Variable         | Description                                                                                              |
-| ---------------- | -------------------------------------------------------------------------------------------------------- |
-| `PAYLOAD_SECRET` | Strong secret for encryption (required)                                                                  |
-| `PUBLIC_URL`     | URL under which the instance is reachable, defaults to `http://localhost:3000`                           |
-| `DATABASE_URI`   | Database connection string (see below), defaults to a non-persistent SQLite file at `/tmp/cv-manager.db` |
-
-### Database
-
-The adapter is auto-selected based on the URI scheme:
-
-| Database   | URI Format                          |
-| ---------- | ----------------------------------- |
-| PostgreSQL | `postgres://user:pass@host:5432/db` |
-| MongoDB    | `mongodb://user:pass@host:27017/db` |
-| SQLite     | `file:///path/to/database.db`       |
+| Variable         | Description                                                                       |
+| ---------------- | --------------------------------------------------------------------------------- |
+| `PAYLOAD_SECRET` | Strong secret for encryption (required)                                           |
+| `PUBLIC_URL`     | URL under which the instance is reachable, defaults to `http://localhost:3000`    |
+| `DATABASE_URI`   | PostgreSQL connection string, e.g. `postgres://user:pass@host:5432/db` (required) |
 
 ### Media Storage
 
-#### S3 Storage
-
-For production deployments, configure S3-compatible storage. S3 is used as soon as `S3_ENDPOINT` is set:
+Media files are stored in S3-compatible storage (required):
 
 ```env
 S3_ENDPOINT=https://s3.example.com
@@ -58,11 +46,7 @@ S3_SECRET_ACCESS_KEY=your-secret-key
 S3_REGION=us-east-1  # defaults to garage
 ```
 
-The Postgres and MongoDB [docker compose setups](https://github.com/tegonal/cv-manager/blob/main/docker-compose) include [Garage](https://garagehq.deuxfleurs.fr/) as S3-compatible storage. For local development, `yarn run services:start` starts Garage as well; the matching credentials are in `.env.example`.
-
-#### Local Storage
-
-Without S3 configuration, files are stored locally in `LOCAL_MEDIA_STORAGE_DIR` (default: `/data/media`). Ensure this path is a mounted volume in Docker deployments.
+The provided [docker compose setup](https://github.com/tegonal/cv-manager/blob/main/docker-compose) includes [Garage](https://garagehq.deuxfleurs.fr/) as S3-compatible storage, and so do the local development services.
 
 ### SMTP Email
 
@@ -171,24 +155,12 @@ Requires Node.js 24 and Docker.
 ```bash
 nvm use
 yarn install
-yarn run services:start  # Start Postgres, MongoDB, Garage (S3) and Mailpit
-```
-
-### Run Development Server
-
-```bash
-yarn run dev:postgres  # or dev:mongodb, dev:sqlite
-```
-
-The `.env.local_*` files used by these scripts are preconfigured for the local services. Mails are caught by Mailpit at http://localhost:8025. On first start, an admin user `admin@test.com` / `admin` and demo data are created.
-
-Or with custom `.env`:
-
-```bash
-cp .env.example .env
-# Edit .env with your settings
+yarn run services:start  # Start Postgres, Garage (S3) and Mailpit
+cp .env.example .env     # Preconfigured for the local services
 yarn run dev
 ```
+
+Mails are caught by Mailpit at http://localhost:8025. On first start, an admin user `admin@test.com` / `admin` and demo data are created.
 
 ### Code Quality
 
@@ -198,8 +170,8 @@ yarn run check  # Lint, format, and type-check
 
 ### Database Migrations
 
-After schema changes, generate migrations for all adapters:
+After schema changes, generate a migration:
 
 ```bash
-yarn run migrate:create:all
+yarn run migrate:create
 ```

@@ -3,7 +3,6 @@
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import configPromise from '@payload-config'
 import { renderToBuffer } from '@react-pdf/renderer'
-import fs from 'fs/promises'
 import path from 'path'
 import { getPayload, PayloadRequest, TypedLocale } from 'payload'
 import React from 'react'
@@ -87,36 +86,6 @@ const loadImageFromS3 = async (
   return `data:${mimeType};base64,${Buffer.from(buffer).toString('base64')}`
 }
 
-const loadImageFromLocalStorage = async (
-  filename: string,
-  targetWidth?: number,
-): Promise<string> => {
-  const mediaDir = process.env.LOCAL_MEDIA_STORAGE_DIR || '/data/media'
-  // Runtime data directory: exclude from Turbopack output file tracing
-  const filePath = path.join(/* turbopackIgnore: true */ mediaDir, filename)
-
-  let buffer: Uint8Array = await fs.readFile(filePath)
-  // Determine mime type from extension
-  const ext = path.extname(filename).toLowerCase()
-  const mimeTypes: Record<string, string> = {
-    '.gif': 'image/gif',
-    '.jpeg': 'image/jpeg',
-    '.jpg': 'image/jpeg',
-    '.png': 'image/png',
-    '.svg': 'image/svg+xml',
-    '.webp': 'image/webp',
-  }
-  let mimeType = mimeTypes[ext] || 'image/jpeg'
-
-  // Convert SVG to JPEG for react-pdf compatibility
-  if (isSvg(filename, mimeType)) {
-    buffer = await convertSvgToJpeg(Buffer.from(buffer), targetWidth)
-    mimeType = 'image/jpeg'
-  }
-
-  return `data:${mimeType};base64,${Buffer.from(buffer).toString('base64')}`
-}
-
 const loadImage = async (
   media: Media,
   logger: { debug: (msg: string) => void; error: (msg: string) => void },
@@ -128,21 +97,14 @@ const loadImage = async (
     return ''
   }
 
-  logger.debug(`loadImage: Loading image ${filename} (S3: ${!!process.env.S3_ENDPOINT})`)
+  logger.debug(`loadImage: Loading image ${filename}`)
 
   try {
-    if (process.env.S3_ENDPOINT) {
-      // Load from S3, using the folder the storage adapter stored the file in
-      const prefix = [media.prefix || MEDIA_PREFIX, media._objectKey].filter(Boolean).join('/')
-      const result = await loadImageFromS3(filename, prefix, targetWidth)
-      logger.debug(`loadImage: Loaded from S3, data URL length: ${result.length}`)
-      return result
-    } else {
-      // Load from local storage
-      const result = await loadImageFromLocalStorage(filename, targetWidth)
-      logger.debug(`loadImage: Loaded from local storage, data URL length: ${result.length}`)
-      return result
-    }
+    // Use the folder the storage adapter stored the file in
+    const prefix = [media.prefix || MEDIA_PREFIX, media._objectKey].filter(Boolean).join('/')
+    const result = await loadImageFromS3(filename, prefix, targetWidth)
+    logger.debug(`loadImage: Loaded from S3, data URL length: ${result.length}`)
+    return result
   } catch (error) {
     logger.error(`Failed to load image: ${error}`)
     return ''

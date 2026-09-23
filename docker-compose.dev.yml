@@ -12,16 +12,6 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  mongodb:
-    image: mongo:8.2
-    ports:
-      - '27017:27017'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-    volumes:
-      - mongodb-data:/data/db
-
   #  pgadmin:
   #    image: dpage/pgadmin4
   #    restart: unless-stopped
@@ -78,8 +68,6 @@ volumes:
   postgres-data:
     driver: local
   pgadmin-data:
-    driver: local
-  mongodb-data:
     driver: local
   garage-data:
     driver: local

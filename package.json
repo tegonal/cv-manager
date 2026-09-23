@@ -5,9 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "dev:mongodb": "env-cmd -f .env.local_mongodb -- yarn run dev",
-    "dev:postgres": "env-cmd -f .env.local_postgres -- yarn run dev",
-    "dev:sqlite": "env-cmd -f .env.local_sqlite -- yarn run dev",
     "services:start": "docker compose -f docker-compose.dev.yml up -d --wait --remove-orphans",
     "services:stop": "docker compose -f docker-compose.dev.yml down --remove-orphans",
     "services:destroy": "docker compose -f docker-compose.dev.yml down --volumes --remove-orphans",
@@ -16,10 +13,6 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
-    "migrate:create:mongodb": "env-cmd -f .env.local_mongodb -- yarn run migrate:create",
-    "migrate:create:postgres": "env-cmd -f .env.local_postgres -- yarn run migrate:create",
-    "migrate:create:sqlite": "env-cmd -f .env.local_sqlite -- yarn run migrate:create",
-    "migrate:create:all": "yarn run migrate:create:postgres && yarn run migrate:create:sqlite",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && yarn run check",
     "generate:importMap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importMap && yarn run check",
@@ -32,9 +25,7 @@
     "node": "^24"
   },
   "dependencies": {
-    "@payloadcms/db-mongodb": "3.90.1",
     "@payloadcms/db-postgres": "3.90.1",
-    "@payloadcms/db-sqlite": "3.90.1",
     "@payloadcms/email-nodemailer": "3.90.1",
     "@payloadcms/next": "3.90.1",
     "@payloadcms/richtext-lexical": "3.90.1",
@@ -68,7 +59,6 @@
     "@types/react-dom": "^19.2.3",
     "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
-    "env-cmd": "^11.0.0",
     "eslint": "^9.39.1",
     "eslint-config-next": "16.3.6",
     "eslint-plugin-check-file": "^3.3.1",
