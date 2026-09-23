@@ -1,6 +1,6 @@
 # CV Manager
 
-A modern CV management system built on Payload CMS 3, designed for companies to create, manage, and export professional CVs.
+A modern CV management system built on Payload CMS 3 and Next.js 16, designed for companies to create, manage, and export professional CVs.
 
 ## Features
 
@@ -16,31 +16,23 @@ A modern CV management system built on Payload CMS 3, designed for companies to 
 
 ### Docker Compose
 
-Ready-to-use configurations are provided in the [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory for MongoDB, PostgreSQL, and SQLite setups.
+Ready-to-use configurations are provided in the [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory for PostgreSQL and MongoDB (both with [Garage](https://garagehq.deuxfleurs.fr/) for media files) and SQLite (local media storage). They run the `tegonal/cv-manager` image behind Caddy.
 
-1. Copy the environment file:
+1. Copy one of the setup directories (`postgres`, `mongodb` or `sqlite`) with all its files, including `.env`.
+2. Set your own secrets in its `.env` as described in the setup's README. The Postgres and MongoDB setups refuse to start until the S3/Garage secrets are set.
+3. Run `docker compose up -d` in that directory and open `https://localhost` (or your `PUBLIC_URL`).
 
-   ```bash
-   curl -o .env https://raw.githubusercontent.com/tegonal/cv-manager/refs/heads/main/.env.example
-   ```
-
-2. Set required values in `.env`:
-
-   ```
-   PAYLOAD_SECRET=your-strong-secret-here
-   DATABASE_URI=postgres://user:pass@localhost:5432/cvmanager
-   ```
-
-3. Start the application using one of the provided docker-compose configurations.
+Database migrations run automatically on startup, also when upgrading to a new version.
 
 ## Configuration
 
-### Required Settings
+### Main Settings
 
-| Variable         | Description                             |
-| ---------------- | --------------------------------------- |
-| `PAYLOAD_SECRET` | Strong secret for encryption (required) |
-| `DATABASE_URI`   | Database connection string (see below)  |
+| Variable         | Description                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `PAYLOAD_SECRET` | Strong secret for encryption (required)                                                                  |
+| `PUBLIC_URL`     | URL under which the instance is reachable, defaults to `http://localhost:3000`                           |
+| `DATABASE_URI`   | Database connection string (see below), defaults to a non-persistent SQLite file at `/tmp/cv-manager.db` |
 
 ### Database
 
@@ -56,14 +48,14 @@ The adapter is auto-selected based on the URI scheme:
 
 #### S3 Storage
 
-For production deployments, configure S3-compatible storage:
+For production deployments, configure S3-compatible storage. S3 is used as soon as `S3_ENDPOINT` is set:
 
 ```env
 S3_ENDPOINT=https://s3.example.com
 S3_BUCKET=cv-manager-media
 S3_ACCESS_KEY_ID=your-access-key
 S3_SECRET_ACCESS_KEY=your-secret-key
-S3_REGION=us-east-1
+S3_REGION=us-east-1  # defaults to garage
 ```
 
 The Postgres and MongoDB [docker compose setups](https://github.com/tegonal/cv-manager/blob/main/docker-compose) include [Garage](https://garagehq.deuxfleurs.fr/) as S3-compatible storage. For local development, `yarn run services:start` starts Garage as well; the matching credentials are in `.env.example`.
@@ -103,33 +95,20 @@ OAUTH_USERINFO_ENDPOINT=https://auth.example.com/userinfo
 
 ### Admin Panel Settings
 
-Configure PDF appearance through the admin panel without code changes:
+Configure PDF appearance through the admin panel (**Settings**) without code changes:
 
-| Setting          | Options                                                                      |
-| ---------------- | ---------------------------------------------------------------------------- |
-| **Company Info** | Name, address, city, website                                                 |
-| **Logo**         | Upload, width (mm), position (left/right), display (first page/all pages)    |
-| **Typography**   | Font family (Rubik, Open Sans, Lato, Roboto, Merriweather, Playfair Display) |
-| **Colors**       | Primary color (borders, highlights), secondary color (skill indicators)      |
-| **Skill Levels** | Display as text, dots, or progress bars                                      |
-| **Page Layout**  | Margins (top, bottom, left, right in mm), format (A4/Letter)                 |
+| Setting          | Where        | Options                                                                                             |
+| ---------------- | ------------ | --------------------------------------------------------------------------------------------------- |
+| **Footer**       | Company Info | Name, address, city, website                                                                        |
+| **Logo**         | PDF Style    | Upload (SVG, PNG, JPG), width (mm), position (left/right), margins, first page only/all pages       |
+| **Typography**   | PDF Style    | Font family (Rubik, Open Sans, Lato, Roboto, Merriweather, Playfair Display)                        |
+| **Colors**       | PDF Style    | Primary color (borders, highlights), secondary color (skill indicators)                             |
+| **Skill Levels** | PDF Style    | Display as text, dots, or progress bars                                                             |
+| **Page Layout**  | PDF Style    | Format (A4/Letter), margins in mm, separate first page margins, first page centered or left-aligned |
 
-### Custom Templates
+### Custom Layouts
 
-For advanced customization, create your own PDF template:
-
-1. Copy the example template:
-
-   ```bash
-   cp src/payload/plugins/cv-pdf-generator/templates/custom-template/index.tsx.example \
-      src/payload/plugins/cv-pdf-generator/templates/custom-template/index.tsx
-   ```
-
-2. Customize the React components (uses [react-pdf](https://react-pdf.org/))
-
-3. Rebuild: `yarn build`
-
-The default template at `templates/default/index.tsx` serves as a reference. Shared utilities in `templates/lib/` provide date formatting, Lexical rich-text rendering, and Tailwind CSS helpers.
+Layouts beyond these settings are code: fork the repository, adapt the [react-pdf](https://react-pdf.org/) template in `src/payload/plugins/cv-pdf-generator/templates/default/index.tsx` and build your own image. Shared utilities in `templates/lib/` provide date formatting, Lexical rich-text rendering, and Tailwind CSS helpers.
 
 ## Usage
 
@@ -137,25 +116,26 @@ The default template at `templates/default/index.tsx` serves as a reference. Sha
 
 Set up these entities before creating CVs:
 
-| Entity        | Purpose                                               |
-| ------------- | ----------------------------------------------------- |
-| Organizations | Companies you create CVs for                          |
-| Skill Groups  | Categories like "Programming Languages", "Frameworks" |
-| Skills        | Individual skills within groups                       |
-| Levels        | Proficiency levels (e.g., Junior, Senior, Expert)     |
-| Languages     | Spoken languages with proficiency                     |
-| Projects      | Shared project references                             |
+| Entity        | Purpose                                                           |
+| ------------- | ----------------------------------------------------------------- |
+| Organizations | Tenants, users and their data belong to an organization           |
+| Skill Groups  | Categories like "Programming Languages", "Frameworks"             |
+| Skills        | Individual skills within groups                                   |
+| Levels        | Proficiency levels for skills and languages (e.g. Junior, Expert) |
+| Languages     | Spoken languages, the proficiency is set per CV                   |
+| Companies     | Employers and clients referenced in the work experience           |
+| Projects      | Shared project references                                         |
 
 ### CV Structure
 
 Each CV contains:
 
-| Section    | Content                               |
-| ---------- | ------------------------------------- |
-| Profile    | Personal info, contact details, links |
-| Skills     | Hierarchical skill groups with levels |
-| Education  | Degrees, certifications, training     |
-| Experience | Project history with descriptions     |
+| Section    | Content                                                                    |
+| ---------- | -------------------------------------------------------------------------- |
+| Profile    | Personal info, photo, introduction, contact details, links                 |
+| Skills     | Languages, highlights, hierarchical skill groups with levels, other skills |
+| Education  | Highlights, degrees, certifications, courses                               |
+| Experience | Highlights and project history with descriptions                           |
 
 ### Flexible Skill Organization
 
@@ -186,10 +166,12 @@ Full Stack Development
 
 ### Setup
 
+Requires Node.js 24 and Docker.
+
 ```bash
 nvm use
 yarn install
-yarn run services:start  # Start local Docker services
+yarn run services:start  # Start Postgres, MongoDB, Garage (S3) and Mailpit
 ```
 
 ### Run Development Server
@@ -197,6 +179,8 @@ yarn run services:start  # Start local Docker services
 ```bash
 yarn run dev:postgres  # or dev:mongodb, dev:sqlite
 ```
+
+The `.env.local_*` files used by these scripts are preconfigured for the local services. Mails are caught by Mailpit at http://localhost:8025. On first start, an admin user `admin@test.com` / `admin` and demo data are created.
 
 Or with custom `.env`:
 

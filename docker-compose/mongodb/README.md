@@ -45,7 +45,7 @@ Open https://localhost or the provided `PUBLIC_URL` in your browser and log-in w
 - Username: admin@test.com
 - Password: admin
 
-⚠️ Please change the use account as soon as possible.
+⚠️ Please change the user account as soon as possible.
 
 ### Public URL
 

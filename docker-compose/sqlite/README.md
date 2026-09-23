@@ -1,9 +1,9 @@
-## CV-Manager with MongoDB backend
+## CV-Manager with SQLite backend
 
 Ready to use setup with the sqlite file db adapter and starting the following docker images:
 
 - caddy as proxy server with self-signed certificates
-- cv-manager
+- cv-manager, storing the database and media files in the `app-data` volume
 
 ### Secrets
 
@@ -24,7 +24,7 @@ Open https://localhost or the provided `PUBLIC_URL` in your browser and log-in w
 - Username: admin@test.com
 - Password: admin
 
-⚠️ Please change the use account as soon as possible.
+⚠️ Please change the user account as soon as possible.
 
 ### Public URL
 
