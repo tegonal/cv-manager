@@ -9769,13 +9769,13 @@ __metadata:
   linkType: hard
 
 "payload-oauth2@npm:^1.0.19":
-  version: 1.0.19
-  resolution: "payload-oauth2@npm:1.0.19"
+  version: 1.0.21
+  resolution: "payload-oauth2@npm:1.0.21"
   peerDependencies:
     payload: ^3
   bin:
     generate-apple-client-secret: bin/generate-apple-client-secret.mjs
-  checksum: 10/47f00ecdf334f586fde8654b3975121157e8dfe0e6964169b7da5a10ca391a5f88e3c607cdccef1fd2f86e859f5d6f9a0f9b68d9720c28dbaa0318f00dcd448d
+  checksum: 10/d9fbe8a2b6ea589aa11c25da25cbc3d8135abc399aa0baf5c794eb0955d240883fffe3240e4f6cef152646fdbcab710a51ad1b364f5ed637248204f51a6ac7e3
   languageName: node
   linkType: hard
 
