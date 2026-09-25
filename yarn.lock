@@ -168,54 +168,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-sesv2@npm:^3.839.0":
-  version: 3.948.0
-  resolution: "@aws-sdk/client-sesv2@npm:3.948.0"
-  dependencies:
-    "@aws-crypto/sha256-browser": "npm:5.2.0"
-    "@aws-crypto/sha256-js": "npm:5.2.0"
-    "@aws-sdk/core": "npm:3.947.0"
-    "@aws-sdk/credential-provider-node": "npm:3.948.0"
-    "@aws-sdk/middleware-host-header": "npm:3.936.0"
-    "@aws-sdk/middleware-logger": "npm:3.936.0"
-    "@aws-sdk/middleware-recursion-detection": "npm:3.948.0"
-    "@aws-sdk/middleware-user-agent": "npm:3.947.0"
-    "@aws-sdk/region-config-resolver": "npm:3.936.0"
-    "@aws-sdk/signature-v4-multi-region": "npm:3.947.0"
-    "@aws-sdk/types": "npm:3.936.0"
-    "@aws-sdk/util-endpoints": "npm:3.936.0"
-    "@aws-sdk/util-user-agent-browser": "npm:3.936.0"
-    "@aws-sdk/util-user-agent-node": "npm:3.947.0"
-    "@smithy/config-resolver": "npm:^4.4.3"
-    "@smithy/core": "npm:^3.18.7"
-    "@smithy/fetch-http-handler": "npm:^5.3.6"
-    "@smithy/hash-node": "npm:^4.2.5"
-    "@smithy/invalid-dependency": "npm:^4.2.5"
-    "@smithy/middleware-content-length": "npm:^4.2.5"
-    "@smithy/middleware-endpoint": "npm:^4.3.14"
-    "@smithy/middleware-retry": "npm:^4.4.14"
-    "@smithy/middleware-serde": "npm:^4.2.6"
-    "@smithy/middleware-stack": "npm:^4.2.5"
-    "@smithy/node-config-provider": "npm:^4.3.5"
-    "@smithy/node-http-handler": "npm:^4.4.5"
-    "@smithy/protocol-http": "npm:^5.3.5"
-    "@smithy/smithy-client": "npm:^4.9.10"
-    "@smithy/types": "npm:^4.9.0"
-    "@smithy/url-parser": "npm:^4.2.5"
-    "@smithy/util-base64": "npm:^4.3.0"
-    "@smithy/util-body-length-browser": "npm:^4.2.0"
-    "@smithy/util-body-length-node": "npm:^4.2.1"
-    "@smithy/util-defaults-mode-browser": "npm:^4.3.13"
-    "@smithy/util-defaults-mode-node": "npm:^4.2.16"
-    "@smithy/util-endpoints": "npm:^3.2.5"
-    "@smithy/util-middleware": "npm:^4.2.5"
-    "@smithy/util-retry": "npm:^4.2.5"
-    "@smithy/util-utf8": "npm:^4.2.0"
-    tslib: "npm:^2.6.2"
-  checksum: 10/56f32f48b3fb268d3a06face4f66fccb3265ecc519b46d46fd809dcfb384e82ccdc491df1a002e3fa4952cb2f66feaffae030c34b17e4b42c3aebbc8c402febe
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/client-sso@npm:3.948.0":
   version: 3.948.0
   resolution: "@aws-sdk/client-sso@npm:3.948.0"
@@ -4658,12 +4610,11 @@ __metadata:
   linkType: hard
 
 "@types/nodemailer@npm:^7.0.4":
-  version: 7.0.4
-  resolution: "@types/nodemailer@npm:7.0.4"
+  version: 7.0.12
+  resolution: "@types/nodemailer@npm:7.0.12"
   dependencies:
-    "@aws-sdk/client-sesv2": "npm:^3.839.0"
     "@types/node": "npm:*"
-  checksum: 10/dbba903cd64d6501b2dfba9ea268b71996dcff3dba24e839385954a4462ae6515d53afc93e8eff3a5b657e5319acdfb6dcd85c10a3216bacbc3c08fabdcf4125
+  checksum: 10/8b5f0eaac68d2b054489a38bfb55a09c75c3ae66e355e624758dcbc88d5345d794691eccdabeb72aa737f7d13d7d74dfdd79f8786f55cd3388c1ec21292d9293
   languageName: node
   linkType: hard
 
