@@ -45,12 +45,7 @@ Start the stack in this directory:
 docker compose up -d
 ```
 
-Open https://localhost or the provided `PUBLIC_URL` in your browser and log in with the default credentials:
-
-- Username: admin@test.com
-- Password: admin
-
-⚠️ Please change the user account as soon as possible.
+Open https://localhost or the provided `PUBLIC_URL` in your browser and create the first user. It becomes the administrator of the instance and of its default organisation. Do this right after the first start: until a user exists, anyone who can reach the instance can create it.
 
 ### Public URL
 

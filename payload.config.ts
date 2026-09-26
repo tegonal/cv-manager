@@ -26,6 +26,7 @@ import { Users } from '@/payload/collections/Users'
 import { CompanyInfo } from '@/payload/globals/CompanyInfo'
 import { PdfStyle } from '@/payload/globals/PdfStyle'
 import { cvPdfPlugin } from '@/payload/plugins/cv-pdf-generator/plugin'
+import { oauthGetUserInfo } from '@/payload/utilities/oauth-get-user-info'
 
 import { migrations } from './src/migrations'
 
@@ -189,21 +190,7 @@ export default buildConfig({
         console.error({ error, msg: 'failureRedirect' })
         return '/oauth-error'
       },
-      getUserInfo: async (accessToken) => {
-        try {
-          const response = await fetch(process.env.OAUTH_USERINFO_ENDPOINT || '', {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          })
-          const user = await response.json()
-          return {
-            email: user.email,
-            sub: user.sub,
-          }
-        } catch (error) {
-          console.error(error)
-          return {}
-        }
-      },
+      getUserInfo: oauthGetUserInfo,
       providerAuthorizationUrl: process.env.OAUTH_AUTHORIZE_ENDPOINT || '',
       scopes: ['email', 'profile', 'openid'],
       serverURL: process.env.PUBLIC_URL || 'http://localhost:3000',

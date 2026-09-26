@@ -3,6 +3,11 @@ import { Payload } from 'payload'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 
 export const seedDevUser = async (payload: Payload) => {
+  // Production instances create their first user in the admin UI (see userDefaultsBeforeCreate)
+  if (process.env.NODE_ENV === 'production') {
+    return
+  }
+
   // Create a default user if one doesn't exist
   const existingUsers = await payload.find({
     collection: 'users',

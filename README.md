@@ -73,7 +73,11 @@ OAUTH_CLIENT_SECRET=your-client-secret
 OAUTH_TOKEN_ENDPOINT=https://auth.example.com/token
 OAUTH_AUTHORIZE_ENDPOINT=https://auth.example.com/authorize
 OAUTH_USERINFO_ENDPOINT=https://auth.example.com/userinfo
+# Users of these email domains get an account on their first login
+OAUTH_ALLOWED_EMAIL_DOMAINS=example.com
 ```
+
+Without `OAUTH_ALLOWED_EMAIL_DOMAINS`, only users that already have an account can log in with OAuth. New accounts join the default organisation with the user role. Logins with an email the provider reports as not verified (`email_verified: false`) are rejected.
 
 ## PDF Customization
 
