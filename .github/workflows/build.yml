@@ -9,6 +9,9 @@ on:
       - '**'
     tags-ignore: ['*']
 
+permissions:
+  contents: read
+
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -25,6 +28,6 @@ jobs:
           echo "Checking version..."
           yarn next -v
           echo "Going to run checks..."
-          yarn run check
+          yarn run check:ci
           echo "Going to build application..."
           yarn run build

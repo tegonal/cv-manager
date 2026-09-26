@@ -12,11 +12,9 @@ jobs:
     # Run only in non-forked repository
     if: github.repository == 'tegonal/cv-manager'
     runs-on: ubuntu-latest
+    # Images go to Docker Hub with its own credentials
     permissions:
       contents: read
-      packages: write
-      attestations: write
-      id-token: write
     steps:
       - name: Mattermost Notification
         uses: mattermost/action-mattermost-notify@2.0.0
@@ -58,6 +56,8 @@ jobs:
 
       - name: Set Status Message
         id: set_status
+        # Also after a failed step, to report the failure
+        if: always()
         shell: bash
         run: |
           if [ "${{ job.status }}" == "success" ]; then
@@ -67,6 +67,7 @@ jobs:
           fi
 
       - name: Mattermost Notification
+        if: always()
         uses: mattermost/action-mattermost-notify@2.0.0
         with:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
