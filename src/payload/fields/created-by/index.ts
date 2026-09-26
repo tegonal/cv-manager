@@ -1,14 +1,14 @@
 import type { Field } from 'payload'
 
+import { recordOrganisationAdminFieldAccess } from '@/payload/access/record-organisation-admin-field-access'
 import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access'
 
-import { organisationFieldAdminAccess } from './access/admin'
 import { beforeChangeHook } from './hooks/before-change-hook'
 
 export const createdByField: Field = {
   access: {
     create: superAdminFieldAccess,
-    read: organisationFieldAdminAccess,
+    read: recordOrganisationAdminFieldAccess,
     update: superAdminFieldAccess,
   },
   hooks: {

@@ -1,17 +1,17 @@
 import type { Field } from 'payload'
 
+import { recordOrganisationAdminFieldAccess } from '@/payload/access/record-organisation-admin-field-access'
 import { checkOrganisationRoles } from '@/payload/access/utils/check-organisation-roles'
 import { checkUserRoles } from '@/payload/access/utils/check-user-roles'
 import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
-import { organisationFieldAdminAccess } from '@/payload/fields/created-by/access/admin'
 import { beforeChangeHook } from '@/payload/fields/organisation/hooks/before-change-hook'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 
 export const organisationField: Field = {
   access: {
     // create: superAdminFieldAccess,
-    // read: organisationFieldAdminAccess,
-    update: organisationFieldAdminAccess,
+    // read: recordOrganisationAdminFieldAccess,
+    update: recordOrganisationAdminFieldAccess,
   },
   admin: {
     condition: (a, b, { user }) => {
