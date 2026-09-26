@@ -9,7 +9,7 @@ Ready to use setup that starts the following docker images:
 - pgadmin (optional)
 - pgbackup (optional)
 
-Copy this directory, including the `.env` file, and adapt it to your needs. All options are described in the [configuration section](https://github.com/tegonal/cv-manager/blob/main/README.md#configuration).
+The [Quick Start](https://github.com/tegonal/cv-manager/blob/main/README.md#quick-start) describes how to download it and run it locally or on a server. All options are described in the [configuration section](https://github.com/tegonal/cv-manager/blob/main/README.md#configuration).
 
 ### Secrets
 
@@ -21,31 +21,13 @@ The following secrets have no defaults, `docker compose up` stops with an error 
 - `S3_SECRET_ACCESS_KEY`
 - `GARAGE_RPC_SECRET`
 
-Garage requires a specific format for the S3 credentials. Generate all of them with:
+Garage requires a specific format for the S3 credentials, [generate the secrets](https://github.com/tegonal/cv-manager/blob/main/README.md#generate-the-secrets) as described in the Quick Start.
 
-```
-echo "PAYLOAD_SECRET=$(openssl rand -hex 32)"
-echo "POSTGRES_PASSWORD=$(openssl rand -hex 32)"
-echo "S3_ACCESS_KEY_ID=GK$(openssl rand -hex 12)"
-echo "S3_SECRET_ACCESS_KEY=$(openssl rand -hex 32)"
-echo "GARAGE_RPC_SECRET=$(openssl rand -hex 32)"
-```
-
-Garage creates the access key and the `S3_BUCKET` bucket on startup. If you change the S3 credentials after the first start, the new key is added on the next start and the previous key stays valid until you delete it:
+Garage creates the access key and the `S3_BUCKET` bucket on startup. To change the S3 credentials after the first start, change both `S3_ACCESS_KEY_ID` and `S3_SECRET_ACCESS_KEY`: Garage does not start when the secret of an existing key changes. The new key is added on the next start and the previous key stays valid until you delete it:
 
 ```
 docker compose exec garage /garage key delete --yes <previous S3_ACCESS_KEY_ID>
 ```
-
-### Run the application
-
-Start the stack in this directory:
-
-```
-docker compose up -d
-```
-
-Open https://localhost or the provided `PUBLIC_URL` in your browser and create the first user. It becomes the administrator of the instance and of its default organisation. Do this right after the first start: until a user exists, anyone who can reach the instance can create it.
 
 ### Upgrading
 
@@ -56,11 +38,3 @@ docker compose pull && docker compose up -d
 ```
 
 Database migrations run when the application starts.
-
-### Public URL
-
-The configuration enables running the instance on localhost so everyone can start the server and try it out. In reality the server would run on a different host and needs to be accessible from the clients/hosts using the application.
-To use this setup on a well known host, the following adjustments have to be made:
-
-- Set the `PUBLIC_URL` to the URL under which the instance should be accessible
-- Define the same hostname in the `Caddyfile` configuration.

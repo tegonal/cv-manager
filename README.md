@@ -14,15 +14,58 @@ A modern CV management system built on Payload CMS 3 and Next.js 16, designed fo
 
 ## Quick Start
 
-### Docker Compose
+The [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory runs the `tegonal/cv-manager` image with PostgreSQL, Garage (S3 storage for media files) and Caddy (HTTPS). You need Docker with Compose. To work on the code instead, see [Development](#development).
 
-A ready-to-use configuration is provided in the [`docker-compose`](https://github.com/tegonal/cv-manager/blob/main/docker-compose) directory. It runs the `tegonal/cv-manager` image with PostgreSQL and Garage behind Caddy.
+### Get the setup
 
-1. Copy the directory with all its files, including `.env`.
-2. Set your own secrets in `.env` as described in its [README](https://github.com/tegonal/cv-manager/blob/main/docker-compose/README.md). The stack refuses to start until they are set.
-3. Run `docker compose up -d` in that directory and open `https://localhost` (or your `PUBLIC_URL`).
+```bash
+curl -fsSL https://github.com/tegonal/cv-manager/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=1 cv-manager-main/docker-compose
+cd docker-compose
+```
 
-Database migrations run automatically on startup, also when upgrading to a new version.
+### Generate the secrets
+
+The stack does not start until the secrets in `.env` are set. This fills in the empty ones and leaves existing values untouched:
+
+```bash
+for key in PAYLOAD_SECRET POSTGRES_PASSWORD S3_SECRET_ACCESS_KEY GARAGE_RPC_SECRET; do
+  sed -i.bak "s/^$key=\$/$key=$(openssl rand -hex 32)/" .env
+done
+sed -i.bak "s/^S3_ACCESS_KEY_ID=\$/S3_ACCESS_KEY_ID=GK$(openssl rand -hex 12)/" .env
+rm .env.bak
+```
+
+Keep a copy of `.env`. The database is created with `POSTGRES_PASSWORD`, changing it in `.env` later locks the application out.
+
+### Run locally
+
+```bash
+docker compose up -d
+```
+
+Open https://localhost/admin and create the first user, it becomes the administrator.
+
+- The browser warns about the certificate: Caddy signs `localhost` with its own local authority.
+- Ports 80 and 443 must be free.
+- The image is built for amd64, on Apple Silicon it runs emulated and slower.
+
+### Run on a server
+
+Point a DNS name to the server and open ports 80 and 443, Caddy then gets a certificate from Let's Encrypt.
+
+1. Set `PUBLIC_URL=https://cv.example.com` in `.env` and replace `localhost` with `cv.example.com` in the `Caddyfile`.
+2. Optionally set up [SMTP](#smtp-email) for password reset emails and [OAuth](#oauth-optional) in `.env`.
+3. Run `docker compose up -d`, open https://cv.example.com/admin and create the first user right away: until a user exists, anyone who can reach the instance can create it.
+4. Once HTTPS works, enable the `Strict-Transport-Security` header in the `Caddyfile` and run `docker compose restart proxy`.
+
+Back up the `postgres-data` and `garage-data` volumes and `.env`. A database dump:
+
+```bash
+docker compose exec -T postgres pg_dump -U postgres -Fc cv-manager > cv-manager.pgdump
+```
+
+To upgrade, set a new `CV_MANAGER_VERSION` as described in the [docker compose README](https://github.com/tegonal/cv-manager/blob/main/docker-compose/README.md#upgrading). Database migrations run automatically on startup.
 
 ## Configuration
 
