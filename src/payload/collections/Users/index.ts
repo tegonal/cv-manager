@@ -175,6 +175,18 @@ export const Users: CollectionConfig = {
       relationTo: 'organisations',
       type: 'relationship',
     },
+    // OAuth subject. payload-oauth2 adds the same field only when OAuth is enabled, which made
+    // the database schema depend on OAUTH_ENABLED. Defined here, it exists in every setup.
+    {
+      access: {
+        create: () => true,
+        read: () => true,
+        update: () => false,
+      },
+      index: true,
+      name: 'sub',
+      type: 'text',
+    },
   ],
   hooks: {
     afterChange: [userDefaultsAfterCreate],

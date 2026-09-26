@@ -532,6 +532,7 @@ export interface User {
   roles?: ('admin' | 'user')[] | null;
   organisations?: UserOrganisations;
   selectedOrganisation?: (number | null) | Organisation;
+  sub?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -923,6 +924,7 @@ export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   organisations?: T | UserOrganisationsSelect<T>;
   selectedOrganisation?: T;
+  sub?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
