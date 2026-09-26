@@ -2,6 +2,15 @@ import { Field } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 
+// Platforms of external profile links, the labels are also printed in the PDF
+export const socialPlatformOptions = [
+  { label: 'LinkedIn', value: 'linkedin' },
+  { label: 'X', value: 'x' },
+  { label: 'Mastodon', value: 'mastodon' },
+  { label: 'Facebook', value: 'facebook' },
+  { label: 'GitHub', value: 'github' },
+]
+
 export const ProfileTabFields: Field[] = [
   {
     admin: {
@@ -83,13 +92,7 @@ export const ProfileTabFields: Field[] = [
       {
         label: I18nCollection.fieldLabel.socialMediaSite,
         name: 'platform',
-        options: [
-          { label: 'LinkedIn', value: 'linkedin' },
-          { label: 'X', value: 'x' },
-          { label: 'Mastodon', value: 'mastodon' },
-          { label: 'Facebook', value: 'facebook' },
-          { label: 'GitHub', value: 'github' },
-        ],
+        options: socialPlatformOptions,
         required: true,
         type: 'select',
       },

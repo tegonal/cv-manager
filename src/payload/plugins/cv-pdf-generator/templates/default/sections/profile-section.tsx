@@ -2,6 +2,7 @@ import { Text } from '@react-pdf/renderer'
 import React from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
+import { socialPlatformOptions } from '@/payload/collections/CVs/tabs/profile'
 
 import { createHeadingStyles, formatDate, PdfSectionContext } from '../../lib'
 import { Grid3Cols, GridCol, GridColSpan2, LinkWithIcon, Section } from '../components'
@@ -42,7 +43,8 @@ export const ProfileSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) =>
             <Text style={h3}>{I18nCollection.fieldLabel.externalProfiles[locale]}</Text>
             {cv.links?.map((link) => (
               <LinkWithIcon color={secondaryColor} href={link.url} key={link.id}>
-                {link.platform.charAt(0).toUpperCase() + link.platform.slice(1)}
+                {socialPlatformOptions.find(({ value }) => value === link.platform)?.label ??
+                  link.platform}
               </LinkWithIcon>
             ))}
           </GridCol>
