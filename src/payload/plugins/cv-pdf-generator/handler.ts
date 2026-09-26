@@ -1,10 +1,8 @@
-'use server'
-
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import configPromise from '@payload-config'
 import { renderToBuffer } from '@react-pdf/renderer'
 import path from 'path'
-import { getPayload, PayloadRequest, TypedLocale } from 'payload'
+import { getPayload, TypedLocale, TypedUser } from 'payload'
 import React from 'react'
 import sharp from 'sharp'
 
@@ -21,6 +19,8 @@ type Props = {
   exportOverride: Record<string, boolean>
   id: string
   locale: string
+  // The CV is read with this user's access
+  user: TypedUser
 }
 
 const isSvg = (filename: string, mimeType?: string): boolean => {
@@ -111,10 +111,7 @@ const loadImage = async (
   }
 }
 
-export const requestHandler = async (
-  req: null | PayloadRequest,
-  { exportOverride, id, locale }: Props,
-) => {
+export const requestHandler = async ({ exportOverride, id, locale, user }: Props) => {
   const payload = await getPayload({
     config: configPromise,
   })
@@ -122,23 +119,15 @@ export const requestHandler = async (
 
   logger.debug(`PDF Generator: Starting generation for CV ${id} (locale: ${locale})`)
 
-  // When called from REST API endpoint, verify auth via cookie
-  // When called from server action (req is null), auth is already handled by Next.js
-  if (req !== null) {
-    const payloadToken = req.headers.get('cookie')?.replace('payload-token=', '')
-    if (!payloadToken) {
-      logger.error('PDF Generator: Payload token not found')
-      throw new Error('PDF Generator: Payload token not found. Aborting..')
-    }
-  }
-
   try {
-    // Fetch the CV data
+    // Fetch the CV data, a CV the user may not read is not found
     const cv = (await payload
       .find({
         collection: 'cv',
         depth: 1,
         locale: locale as TypedLocale,
+        overrideAccess: false,
+        user,
         where: {
           id: {
             equals: id,
@@ -174,6 +163,8 @@ export const requestHandler = async (
     const logoWidthPx = Math.round(logoWidthMm * 2.83465 * DPI_SCALE)
 
     if (pdfStyleGlobal.logo) {
+      // Read without the user's access on purpose: the logo is shared configuration and may be
+      // stored under another organisation
       const logoMedia =
         typeof pdfStyleGlobal.logo === 'object'
           ? pdfStyleGlobal.logo

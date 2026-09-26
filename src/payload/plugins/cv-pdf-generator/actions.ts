@@ -1,8 +1,6 @@
 'use server'
 
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-
+import { getAuthenticatedPayload } from '@/payload/utilities/get-authenticated-payload'
 import { Cv } from '@/types/payload-types'
 
 import { requestHandler } from './handler'
@@ -11,7 +9,7 @@ import { requestHandler } from './handler'
  * Server action to fetch CV data using Payload's local API
  */
 export async function fetchCvAction(id: number | string): Promise<Cv | null> {
-  const payload = await getPayload({ config: configPromise })
+  const { payload, user } = await getAuthenticatedPayload()
   const { logger } = payload
 
   try {
@@ -19,6 +17,8 @@ export async function fetchCvAction(id: number | string): Promise<Cv | null> {
     const cv = await payload.findByID({
       collection: 'cv',
       id,
+      overrideAccess: false,
+      user,
     })
     logger.debug(`fetchCvAction: Successfully fetched CV ${id}`)
     return cv as Cv
@@ -37,17 +37,17 @@ export async function generatePdfAction(params: {
   id: string
   locale: string
 }): Promise<{ data?: string; error?: string }> {
-  const payload = await getPayload({ config: configPromise })
+  const { payload, user } = await getAuthenticatedPayload()
   const { logger } = payload
 
   try {
     logger.debug(`generatePdfAction: Starting PDF generation for CV ${params.id}`)
 
-    // Pass null for req - auth is handled by Next.js server action context
-    const pdfBuffer = await requestHandler(null, {
+    const pdfBuffer = await requestHandler({
       exportOverride: params.exportOverride,
       id: params.id,
       locale: params.locale,
+      user,
     })
 
     // Convert buffer to base64 for transfer to client
