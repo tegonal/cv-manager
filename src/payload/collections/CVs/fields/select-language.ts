@@ -8,7 +8,7 @@ export const selectLanguage: Field = {
     sortOptions: 'name',
     width: '50%',
   },
-  label: I18nCollection.fieldLabel.skills,
+  label: I18nCollection.fieldLabel.language,
   name: 'language',
   relationTo: 'langs',
   required: true,

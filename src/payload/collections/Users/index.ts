@@ -119,11 +119,11 @@ export const Users: CollectionConfig = {
       name: 'roles',
       options: [
         {
-          label: 'Admin',
+          label: I18nCollection.roles.admin,
           value: ROLE_SUPER_ADMIN,
         },
         {
-          label: 'User',
+          label: I18nCollection.roles.user,
           value: ROLE_USER,
         },
       ],
@@ -147,11 +147,11 @@ export const Users: CollectionConfig = {
           name: 'roles',
           options: [
             {
-              label: 'Admin',
+              label: I18nCollection.roles.admin,
               value: ROLE_SUPER_ADMIN,
             },
             {
-              label: 'Users',
+              label: I18nCollection.roles.user,
               value: ROLE_USER,
             },
           ],

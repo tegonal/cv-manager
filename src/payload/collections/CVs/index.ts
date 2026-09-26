@@ -17,7 +17,7 @@ export const CV: CollectionConfig = {
     update: defaultCollectionAccess,
   },
   admin: {
-    defaultColumns: ['id', 'fullName', 'jobTitle', 'birthday', 'skillGroup', 'updatedAt'],
+    defaultColumns: ['id', 'fullName', 'jobTitle', 'birthday', 'updatedAt'],
     description: 'Curriculum Vitae',
     useAsTitle: 'fullName',
   },
