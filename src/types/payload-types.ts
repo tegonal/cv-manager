@@ -162,6 +162,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Curriculum Vitae
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "cv".
  */
