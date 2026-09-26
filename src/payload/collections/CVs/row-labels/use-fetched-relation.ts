@@ -5,6 +5,13 @@ import { useEffect, useState } from 'react'
 
 type FetchAction<T> = (id: string, locale: TypedLocale) => Promise<null | T>
 
+type Fetched<T> = {
+  data: null | T
+  fetchAction: FetchAction<T>
+  id: number | string
+  locale: string
+}
+
 type UseFetchedRelationResult<T> = {
   data: T | undefined
   isLoading: boolean
@@ -12,34 +19,38 @@ type UseFetchedRelationResult<T> = {
 
 /**
  * Custom hook for fetching related data in row labels using server actions.
- * Handles caching to prevent unnecessary refetches when the ID hasn't changed.
+ * Fetches once per relation id, locale and fetch action.
  */
-export function useFetchedRelation<T extends { id: number | string }>(
-  id: string | undefined,
+export function useFetchedRelation<T>(
+  id: null | number | string | undefined,
   fetchAction: FetchAction<T>,
 ): UseFetchedRelationResult<T> {
   const locale = useLocale()
-  const [data, setData] = useState<T>()
-  const [isLoading, setIsLoading] = useState(false)
+  const [fetched, setFetched] = useState<Fetched<T>>()
+
+  const hasId = id !== undefined && id !== null && id !== ''
+  const isCurrent =
+    hasId &&
+    fetched?.id === id &&
+    fetched.locale === locale.code &&
+    fetched.fetchAction === fetchAction
 
   useEffect(() => {
-    if (!id) return
+    if (!hasId || isCurrent) return
 
-    // Skip if we already have the data for this ID
-    if (data?.id === id) return
-
-    const fetchData = async () => {
-      setIsLoading(true)
-      try {
-        const result = await fetchAction(id, locale.code as TypedLocale)
-        if (result) setData(result)
-      } finally {
-        setIsLoading(false)
-      }
+    let cancelled = false
+    const record = (data: null | T) => {
+      if (!cancelled) setFetched({ data, fetchAction, id, locale: locale.code })
     }
+    fetchAction(String(id), locale.code as TypedLocale).then(record, () => record(null))
 
-    fetchData()
-  }, [id, locale.code, data?.id, fetchAction])
+    return () => {
+      cancelled = true
+    }
+  }, [hasId, isCurrent, id, locale.code, fetchAction])
 
-  return { data, isLoading }
+  return {
+    data: isCurrent ? (fetched.data ?? undefined) : undefined,
+    isLoading: hasId && !isCurrent,
+  }
 }

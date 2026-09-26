@@ -1,31 +1,18 @@
-import { Lang, Skill, SkillGroup } from '@/types/payload-types'
-
 export type LanguageRowData = {
-  language?: string
+  language?: RelationId
 }
 
-// Named entity type for items with an id and name
-export type NamedEntity = Lang | Skill | SkillGroup
-
-// Row label data types based on CV collection field structure
 export type SkillGroupRowData = {
-  group?: string
+  group?: RelationId
 }
-
-export type SkillOrSkillGroup = (Skill | SkillGroup) & { type: 'skill' | 'skillGroup' }
 
 export type SkillRowData = {
-  language?: {
-    relationTo: 'skill' | 'skillGroup'
-    value: string
-  }
   name?: string
   skill?: {
     relationTo: 'skill' | 'skillGroup'
-    value: string
-  }
-  softSkill?: {
-    relationTo: 'skill' | 'skillGroup'
-    value: string
+    value: RelationId
   }
 }
+
+// Relation values are the ids of the related documents (numbers with Postgres)
+type RelationId = number | string
