@@ -11,11 +11,15 @@ export const cvPdfPlugin =
       ...config,
       collections: config.collections?.map((collection) => {
         if (!pluginConfig?.collections?.includes(collection.slug)) return collection
+        // Adds the PDF button next to the save button, keeping the collection's own admin config
         return {
           ...collection,
           admin: {
+            ...collection.admin,
             components: {
+              ...collection.admin?.components,
               edit: {
+                ...collection.admin?.components?.edit,
                 SaveButton:
                   '/src/payload/plugins/cv-pdf-generator/ui/save-button-replacer.tsx#SaveButtonReplacer',
               },
