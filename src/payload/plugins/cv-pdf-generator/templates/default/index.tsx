@@ -11,7 +11,6 @@ import {
   LexicalContent,
   mmToPt,
   PdfSectionContext,
-  registerHyphenation,
   styles,
   tw,
 } from '../lib'
@@ -90,9 +89,6 @@ const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   locale,
   profileImageDataUrl,
 }) => {
-  // Register locale-specific hyphenation (uses global Font.registerHyphenationCallback)
-  registerHyphenation(locale)
-
   const skillLevelDisplay = companyInfo.skillLevelDisplay || 'text'
   const primaryColor = companyInfo.primaryColor || '#64748b'
   const secondaryColor = companyInfo.secondaryColor || '#4d4d4d'

@@ -10,10 +10,9 @@ import { MEDIA_PREFIX } from '@/payload/collections/Media/constants'
 import { CompanyInfo, Cv, Media, PdfStyle } from '@/types/payload-types'
 
 import DefaultTemplate from './templates/default'
-import { CompanyInfoData, CvPdfTemplateProps } from './templates/lib'
-// Import fonts and hyphenation modules to ensure Font registrations happen
+import { CompanyInfoData, CvPdfTemplateProps, withHyphenationLocale } from './templates/lib'
+// Import fonts module to ensure Font registrations happen
 import './templates/lib/fonts'
-import './templates/lib/hyphenation'
 
 type Props = {
   exportOverride: Record<string, boolean>
@@ -222,7 +221,9 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
 
     logger.debug(`PDF Generator: Rendering PDF with template`)
     try {
-      const pdfBuffer = await renderToBuffer(React.createElement(DefaultTemplate, props) as any)
+      const pdfBuffer = await withHyphenationLocale(locale, () =>
+        renderToBuffer(React.createElement(DefaultTemplate, props) as any),
+      )
       logger.debug(`PDF Generator: Successfully generated PDF (${pdfBuffer.length} bytes)`)
       return pdfBuffer
     } catch (renderError: any) {

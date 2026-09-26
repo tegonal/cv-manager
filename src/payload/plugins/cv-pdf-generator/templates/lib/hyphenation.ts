@@ -3,12 +3,13 @@ import type { HyphenationOptions } from 'hyphen'
 import { Font } from '@react-pdf/renderer'
 import hyphenDE from 'hyphen/de'
 import hyphenEN from 'hyphen/en'
+import { AsyncLocalStorage } from 'node:async_hooks'
 
 const { hyphenateSync: hyphenateDE } = hyphenDE
 const { hyphenateSync: hyphenateEN } = hyphenEN
 
 // Soft hyphen character used by the hyphen library
-const SOFT_HYPHEN = '\u00AD'
+const SOFT_HYPHEN = '­'
 
 // Hyphenation options
 const HYPHENATION_OPTIONS: HyphenationOptions = {
@@ -22,9 +23,6 @@ const hyphenators: Record<string, (text: string, options?: HyphenationOptions) =
   en: hyphenateEN,
 }
 
-// Track current locale for hyphenation
-let currentHyphenationLocale: string = 'en'
-
 /**
  * Create hyphenation callback for a given locale.
  */
@@ -37,17 +35,18 @@ export const createHyphenationCallback = (locale: string) => {
       return [word]
     }
 
+    // The patterns work on lowercase words, the syllables are cut from the original word at the
+    // same positions to keep its casing
+    const lowerWord = word.toLowerCase()
+    if (lowerWord.length !== word.length) {
+      return [word]
+    }
+
     try {
-      const lowerWord = word.toLowerCase()
-      const hyphenated = hyphenate(lowerWord, HYPHENATION_OPTIONS)
-      const syllables = hyphenated.split(SOFT_HYPHEN)
-
-      // Restore original casing for first syllable if word was capitalized
-      if (word[0] === word[0].toUpperCase() && syllables.length > 0) {
-        syllables[0] = word[0] + syllables[0].slice(1)
-      }
-
-      return syllables
+      let offset = 0
+      return hyphenate(lowerWord, HYPHENATION_OPTIONS)
+        .split(SOFT_HYPHEN)
+        .map((syllable) => word.slice(offset, (offset += syllable.length)))
     } catch {
       // Fallback: return word as-is (no hyphenation)
       return [word]
@@ -55,33 +54,21 @@ export const createHyphenationCallback = (locale: string) => {
   }
 }
 
-/**
- * Disable hyphenation callback - returns word as-is without any breaks.
- */
-export const createNoHyphenationCallback = () => {
-  return (word: string): string[] => [word]
+const hyphenationCallbacks: Record<string, (word: string) => string[]> = {
+  de: createHyphenationCallback('de'),
+  en: createHyphenationCallback('en'),
 }
 
-// Register default English hyphenation at module load
-Font.registerHyphenationCallback(createHyphenationCallback('en'))
+// Locale of the PDF being rendered. react-pdf only has a process-wide hyphenation callback, and
+// PDFs in different locales can be rendered at the same time.
+const renderLocale = new AsyncLocalStorage<string>()
+
+Font.registerHyphenationCallback((word) =>
+  (hyphenationCallbacks[renderLocale.getStore() ?? 'en'] ?? hyphenationCallbacks.en)(word),
+)
 
 /**
- * Register hyphenation callback for a specific locale.
- * Call this before rendering a PDF to ensure correct hyphenation.
+ * Runs a PDF render with hyphenation for the given locale.
  */
-export const registerHyphenation = (locale: string): void => {
-  // Only re-register if locale changed
-  if (currentHyphenationLocale === locale) {
-    return
-  }
-
-  currentHyphenationLocale = locale
-  Font.registerHyphenationCallback(createHyphenationCallback(locale))
-}
-
-/**
- * Disable hyphenation globally.
- */
-export const disableHyphenation = (): void => {
-  Font.registerHyphenationCallback(createNoHyphenationCallback())
-}
+export const withHyphenationLocale = <T>(locale: string, render: () => Promise<T>): Promise<T> =>
+  renderLocale.run(locale, render)

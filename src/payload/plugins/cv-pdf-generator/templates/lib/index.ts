@@ -7,12 +7,7 @@ export {
   fromToYear,
   hasLexicalNodes,
 } from './helpers'
-export {
-  createHyphenationCallback,
-  createNoHyphenationCallback,
-  disableHyphenation,
-  registerHyphenation,
-} from './hyphenation'
+export { createHyphenationCallback, withHyphenationLocale } from './hyphenation'
 export { LexicalPdfRenderer } from './lexical-pdf-renderer'
 export {
   createHeadingStyles,
