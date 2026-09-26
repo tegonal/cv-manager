@@ -21,7 +21,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "users_sessions_parent_id_idx" ON "users_sessions" USING btree ("_parent_id");
   CREATE UNIQUE INDEX "payload_kv_key_idx" ON "payload_kv" USING btree ("key");`)
   // This migration was generated without OAuth enabled and dropped users.sub (the OAuth subject).
-  // The drop was removed in 4.0.1; databases that already lost the column get it back in
+  // The drop was removed in 4.1.0; databases that already lost the column get it back in
   // 20260926_140326_restore_users_sub.
 }
 
