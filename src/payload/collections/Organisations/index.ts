@@ -49,6 +49,10 @@ const updateAccess: Access<Organisation> = async (args) => {
     return false
   }
 
+  if (isSuperAdminAccess(args)) {
+    return true
+  }
+
   const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation)
 
   if (
@@ -56,9 +60,10 @@ const updateAccess: Access<Organisation> = async (args) => {
     typeof selectedOrganisation === 'number' &&
     checkOrganisationRoles([ROLE_SUPER_ADMIN], args.req.user, selectedOrganisation)
   ) {
+    // Only the organisation the admin role was checked for, whatever id is requested
     return {
       id: {
-        equals: args.id || selectedOrganisation,
+        equals: selectedOrganisation,
       },
     }
   }
