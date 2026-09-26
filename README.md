@@ -60,7 +60,7 @@ SMTP_PASS=your-smtp-password
 SMTP_FROM_ADDRESS=noreply@example.com
 ```
 
-Without SMTP, password recovery tokens are printed to the application logs.
+Without SMTP, no emails are sent and password recovery does not work (Payload logs a warning at startup). Super admins can set a new password for a user in the admin panel.
 
 ### OAuth (Optional)
 
