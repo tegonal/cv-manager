@@ -101,7 +101,10 @@ SMTP_PORT=587
 SMTP_USER=your-smtp-user
 SMTP_PASS=your-smtp-password
 SMTP_FROM_ADDRESS=noreply@example.com
+SMTP_FROM_NAME=CV Manager  # optional, the sender name
 ```
+
+Port 465 uses TLS from the start, other ports upgrade to TLS when the server offers it. `SMTP_USER` and `SMTP_PASS` can be left out for servers that accept mail without login.
 
 Without SMTP, no emails are sent and password recovery does not work (Payload logs a warning at startup). Super admins can set a new password for a user in the admin panel.
 
@@ -212,7 +215,8 @@ Mails are caught by Mailpit at http://localhost:8025. On first start, an admin u
 ### Code Quality
 
 ```bash
-yarn run check  # Lint, format, and type-check
+yarn run check     # Lint, format (with fixes), and type-check
+yarn run check:ci  # The same without fixes, as run by CI
 ```
 
 ### Database Migrations
@@ -221,4 +225,12 @@ After schema changes, generate a migration:
 
 ```bash
 yarn run migrate:create
+```
+
+### Scripts
+
+Run one-off scripts with the Payload config and `.env` loaded, e.g. to query data with the Local API:
+
+```bash
+yarn payload run path/to/script.ts
 ```

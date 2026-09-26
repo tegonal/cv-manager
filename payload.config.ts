@@ -40,6 +40,8 @@ if (databaseUri && !/^postgres(ql)?:\/\//.test(databaseUri)) {
   )
 }
 
+const smtpPort = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587
+
 // Checked on startup instead of on import, so that builds work without runtime configuration
 const assertRuntimeConfig = () => {
   const missing = [
@@ -130,14 +132,16 @@ export default buildConfig({
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
         defaultFromAddress: process.env.SMTP_FROM_ADDRESS || '',
-        defaultFromName: process.env.SMTP_FROM_ADDRESS || '',
+        defaultFromName: process.env.SMTP_FROM_NAME || 'CV Manager',
         transportOptions: {
-          auth: {
-            pass: process.env.SMTP_PASS || '',
-            user: process.env.SMTP_USER || '',
-          },
-          host: process.env.SMTP_HOST || '',
-          port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587,
+          // Credentials only when configured, relays may accept mail without them
+          ...(process.env.SMTP_USER && {
+            auth: { pass: process.env.SMTP_PASS || '', user: process.env.SMTP_USER },
+          }),
+          host: process.env.SMTP_HOST,
+          port: smtpPort,
+          // Port 465 uses TLS from the start, other ports upgrade with STARTTLS when offered
+          secure: smtpPort === 465,
         },
       })
     : undefined,
