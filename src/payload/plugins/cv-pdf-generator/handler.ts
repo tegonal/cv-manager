@@ -1,7 +1,6 @@
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import configPromise from '@payload-config'
 import { renderToBuffer } from '@react-pdf/renderer'
-import path from 'path'
 import { getPayload, TypedLocale, TypedUser } from 'payload'
 import React from 'react'
 import sharp from 'sharp'
@@ -22,34 +21,17 @@ type Props = {
   user: TypedUser
 }
 
-const isSvg = (filename: string, mimeType?: string): boolean => {
-  return mimeType === 'image/svg+xml' || path.extname(filename).toLowerCase() === '.svg'
-}
-
 // PDF DPI setting - must match Page dpi prop in template
 const PDF_DPI = 300
 const DPI_SCALE = PDF_DPI / 72 // ~4.17x scale for 300 DPI
 
-const convertSvgToJpeg = async (
-  svgBuffer: Buffer,
-  targetWidth?: number,
-): Promise<Buffer<ArrayBufferLike>> => {
-  // Convert SVG to JPEG using sharp (react-pdf doesn't support SVG in Image component)
-  // Render at DPI_SCALE times the target width for crisp display at 300 DPI
-  const renderWidth = Math.round(targetWidth ? targetWidth * DPI_SCALE : 600)
-  return sharp(svgBuffer)
-    .resize({ width: renderWidth })
-    .flatten({ background: { b: 255, g: 255, r: 255 } }) // White background for transparency
-    .jpeg({ quality: 85 })
-    .toBuffer()
-}
+// Largest size the profile image is printed at, in points (see CircularImage)
+const PROFILE_IMAGE_WIDTH_PT = 192
+const MM_TO_PT = 72 / 25.4
 
-const loadImageFromS3 = async (
-  filename: string,
-  prefix: string,
-  targetWidth?: number,
-): Promise<string> => {
-  const s3Client = new S3Client({
+let s3Client: S3Client | undefined
+const getS3Client = () =>
+  (s3Client ??= new S3Client({
     credentials: {
       accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
@@ -57,38 +39,49 @@ const loadImageFromS3 = async (
     endpoint: process.env.S3_ENDPOINT,
     forcePathStyle: true,
     region: process.env.S3_REGION || 'garage',
-  })
+  }))
 
+/**
+ * react-pdf only embeds JPEG and PNG. Images are converted to one of them (PNG if they have
+ * transparency), turned upright according to their EXIF orientation and scaled to the size they
+ * are printed at, instead of embedding the uploaded original.
+ */
+const toPdfImage = async (buffer: Uint8Array, widthPt: number): Promise<string> => {
+  const widthPx = Math.round(widthPt * DPI_SCALE)
+  const { format, hasAlpha, width } = await sharp(buffer).metadata()
+  // Vector images are rasterised at the density that yields the printed size
+  const density = format === 'svg' && width ? (72 * widthPx) / width : undefined
+
+  const image = sharp(buffer, { density })
+    .rotate()
+    .resize({ width: widthPx, withoutEnlargement: true })
+  const [mimeType, data] = hasAlpha
+    ? ['image/png', await image.png().toBuffer()]
+    : ['image/jpeg', await image.jpeg({ quality: 85 }).toBuffer()]
+
+  return `data:${mimeType};base64,${data.toString('base64')}`
+}
+
+const loadImageFromS3 = async (filename: string, prefix: string): Promise<Uint8Array> => {
   const key = prefix ? `${prefix}/${filename}` : filename
-
-  const command = new GetObjectCommand({
-    Bucket: process.env.S3_BUCKET,
-    Key: key,
-  })
-
-  const response = await s3Client.send(command)
+  const response = await getS3Client().send(
+    new GetObjectCommand({
+      Bucket: process.env.S3_BUCKET,
+      Key: key,
+    }),
+  )
 
   if (!response.Body) {
     throw new Error(`No body in S3 response for ${key}`)
   }
 
-  // Use SDK's built-in method to convert stream to bytes
-  let buffer: Uint8Array = await response.Body.transformToByteArray()
-  let mimeType = response.ContentType || 'image/jpeg'
-
-  // Convert SVG to JPEG for react-pdf compatibility
-  if (isSvg(filename, mimeType)) {
-    buffer = await convertSvgToJpeg(Buffer.from(buffer), targetWidth)
-    mimeType = 'image/jpeg'
-  }
-
-  return `data:${mimeType};base64,${Buffer.from(buffer).toString('base64')}`
+  return response.Body.transformToByteArray()
 }
 
 const loadImage = async (
   media: Media,
   logger: { debug: (msg: string) => void; error: (msg: string) => void },
-  targetWidth?: number,
+  widthPt: number,
 ): Promise<string> => {
   const filename = media.filename
   if (!filename) {
@@ -101,7 +94,7 @@ const loadImage = async (
   try {
     // Use the folder the storage adapter stored the file in
     const prefix = [media.prefix || MEDIA_PREFIX, media._objectKey].filter(Boolean).join('/')
-    const result = await loadImageFromS3(filename, prefix, targetWidth)
+    const result = await toPdfImage(await loadImageFromS3(filename, prefix), widthPt)
     logger.debug(`loadImage: Loaded from S3, data URL length: ${result.length}`)
     return result
   } catch (error) {
@@ -142,7 +135,9 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
 
     // Load profile image directly from storage
     logger.debug(`PDF Generator: CV image field: ${cv.image ? 'present' : 'absent'}`)
-    const profileImageDataUrl = cv.image ? await loadImage(cv.image as Media, logger) : ''
+    const profileImageDataUrl = cv.image
+      ? await loadImage(cv.image as Media, logger, PROFILE_IMAGE_WIDTH_PT)
+      : ''
     logger.debug(`PDF Generator: Profile image data URL length: ${profileImageDataUrl.length}`)
 
     // Fetch company info and PDF style from globals
@@ -158,8 +153,6 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
     let companyLogoDataUrl = ''
     let logoHeight: number | undefined
     const logoWidthMm = pdfStyleGlobal.logoWidth || 30
-    // Convert mm to pixels for image loading (at 300 DPI)
-    const logoWidthPx = Math.round(logoWidthMm * 2.83465 * DPI_SCALE)
 
     if (pdfStyleGlobal.logo) {
       // Read without the user's access on purpose: the logo is shared configuration and may be
@@ -170,7 +163,7 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
           : await payload.findByID({ collection: 'media', id: pdfStyleGlobal.logo })
       if (logoMedia) {
         const media = logoMedia as Media
-        companyLogoDataUrl = await loadImage(media, logger, logoWidthPx)
+        companyLogoDataUrl = await loadImage(media, logger, logoWidthMm * MM_TO_PT)
         logger.debug(`PDF Generator: Company logo loaded (${companyLogoDataUrl.length} bytes)`)
 
         // Calculate proportional height in mm based on original dimensions
