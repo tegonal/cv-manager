@@ -40,11 +40,17 @@ export async function generatePdfAction(params: {
   const { payload, user } = await getAuthenticatedPayload()
   const { logger } = payload
 
+  // Only configured locales, Payload would otherwise fall back silently or return all locales ('*')
+  const { localization } = payload.config
+  if (!localization || !localization.localeCodes.includes(params.locale)) {
+    return { error: `Unknown locale: ${params.locale}` }
+  }
+
   try {
     logger.debug(`generatePdfAction: Starting PDF generation for CV ${params.id}`)
 
     const pdfBuffer = await requestHandler({
-      exportOverride: params.exportOverride,
+      exportOverride: params.exportOverride ?? {},
       id: params.id,
       locale: params.locale,
       user,

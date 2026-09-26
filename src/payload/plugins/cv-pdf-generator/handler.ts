@@ -237,6 +237,6 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
     if (e.stack) {
       logger.error(`PDF Generator: Stack trace - ${e.stack}`)
     }
-    return Promise.reject({ error: e.message || 'PDF generation failed' })
+    throw e
   }
 }
