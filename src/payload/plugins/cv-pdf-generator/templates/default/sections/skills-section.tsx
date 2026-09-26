@@ -9,6 +9,7 @@ import {
   LexicalContent,
   LexicalPdfRenderer,
   PdfSectionContext,
+  relationNames,
   styles,
   tw,
 } from '../../lib'
@@ -75,10 +76,8 @@ export const SkillsSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => 
                       level={item.level as Level}
                     />
                   )}
-                  {(item['sub-skill']?.length ?? 0) > 0 && (
-                    <Small italic>
-                      {item['sub-skill']?.map((i) => (i as Skill).name).join(', ')}
-                    </Small>
+                  {relationNames(item['sub-skill'] ?? []).length > 0 && (
+                    <Small italic>{relationNames(item['sub-skill'] ?? []).join(', ')}</Small>
                   )}
                 </GridCol>
               ))}

@@ -63,3 +63,12 @@ export const hasLexicalNodes = (data: LexicalContent | null | undefined): boolea
   const filtered = filterEmptyLexicalNodes(data)
   return (filtered?.root?.children?.length ?? 0) > 0
 }
+
+/**
+ * Names of populated relations. Relations the user may not read (e.g. of another organisation)
+ * are not populated, only their id is present, and are left out.
+ */
+export const relationNames = (relations: (number | { name?: null | string })[] = []): string[] =>
+  relations.flatMap((relation) =>
+    typeof relation === 'object' && relation.name ? [relation.name] : [],
+  )

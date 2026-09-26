@@ -6,6 +6,7 @@ export {
   formatYear,
   fromToYear,
   hasLexicalNodes,
+  relationNames,
 } from './helpers'
 export { createHyphenationCallback, withHyphenationLocale } from './hyphenation'
 export { LexicalPdfRenderer } from './lexical-pdf-renderer'
