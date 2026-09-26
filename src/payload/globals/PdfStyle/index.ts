@@ -1,12 +1,14 @@
 import { GlobalConfig } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
+import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
 import { colorField } from '@/payload/fields/color'
 
 export const PdfStyle: GlobalConfig = {
   access: {
-    read: () => true,
+    // The PDF export reads the settings server-side, the admin panel needs a login anyway
+    read: isLoggedInAccess,
     update: isSuperAdminAccess,
   },
   admin: {
