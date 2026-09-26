@@ -2,3 +2,5 @@
 node_modules
 .git
 .next
+# Local configuration and secrets, next build would copy .env files into the image
+**/.env*
