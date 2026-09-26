@@ -115,6 +115,7 @@ export const seedDevData = async (payload: Payload) => {
         description: 'Basic understanding and limited experience',
         level: 'Beginner',
         levelType: ['skill', 'language'],
+        organisation: orgId,
         points: 1,
       },
     }),
@@ -124,6 +125,7 @@ export const seedDevData = async (payload: Payload) => {
         description: 'Good working knowledge and regular usage',
         level: 'Intermediate',
         levelType: ['skill', 'language'],
+        organisation: orgId,
         points: 2,
       },
     }),
@@ -133,6 +135,7 @@ export const seedDevData = async (payload: Payload) => {
         description: 'Strong proficiency and extensive experience',
         level: 'Advanced',
         levelType: ['skill', 'language'],
+        organisation: orgId,
         points: 3,
       },
     }),
@@ -142,6 +145,7 @@ export const seedDevData = async (payload: Payload) => {
         description: 'Mastery level with deep expertise',
         level: 'Expert',
         levelType: ['skill', 'language'],
+        organisation: orgId,
         points: 4,
       },
     }),
@@ -151,6 +155,7 @@ export const seedDevData = async (payload: Payload) => {
         description: 'Native speaker level',
         level: 'Native',
         levelType: ['language'],
+        organisation: orgId,
         points: 5,
       },
     }),
@@ -162,19 +167,19 @@ export const seedDevData = async (payload: Payload) => {
   const languages = await Promise.all([
     payload.create({
       collection: 'langs',
-      data: { name: 'English' },
+      data: { name: 'English', organisation: orgId },
     }),
     payload.create({
       collection: 'langs',
-      data: { name: 'German' },
+      data: { name: 'German', organisation: orgId },
     }),
     payload.create({
       collection: 'langs',
-      data: { name: 'French' },
+      data: { name: 'French', organisation: orgId },
     }),
     payload.create({
       collection: 'langs',
-      data: { name: 'Spanish' },
+      data: { name: 'Spanish', organisation: orgId },
     }),
   ])
 
@@ -184,23 +189,23 @@ export const seedDevData = async (payload: Payload) => {
   const skillGroups = await Promise.all([
     payload.create({
       collection: 'skillGroup',
-      data: { name: 'Backend Development' },
+      data: { name: 'Backend Development', organisation: orgId },
     }),
     payload.create({
       collection: 'skillGroup',
-      data: { name: 'Frontend Development' },
+      data: { name: 'Frontend Development', organisation: orgId },
     }),
     payload.create({
       collection: 'skillGroup',
-      data: { name: 'DevOps & Infrastructure' },
+      data: { name: 'DevOps & Infrastructure', organisation: orgId },
     }),
     payload.create({
       collection: 'skillGroup',
-      data: { name: 'Databases' },
+      data: { name: 'Databases', organisation: orgId },
     }),
     payload.create({
       collection: 'skillGroup',
-      data: { name: 'Project Management' },
+      data: { name: 'Project Management', organisation: orgId },
     }),
   ])
 
@@ -229,6 +234,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'TypeScript',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -253,6 +259,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Node.js',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -275,6 +282,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Python',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -297,6 +305,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Java',
+        organisation: orgId,
       },
     }),
     // Frontend skills
@@ -322,6 +331,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'React',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -344,6 +354,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Vue.js',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -366,6 +377,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'CSS/Tailwind',
+        organisation: orgId,
       },
     }),
     // DevOps skills
@@ -389,6 +401,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Docker',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -411,6 +424,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Kubernetes',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -435,6 +449,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'CI/CD',
+        organisation: orgId,
       },
     }),
     // Database skills
@@ -458,6 +473,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'PostgreSQL',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -480,6 +496,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'MongoDB',
+        organisation: orgId,
       },
     }),
     // Project management skills
@@ -503,6 +520,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Agile/Scrum',
+        organisation: orgId,
       },
     }),
   ])
@@ -527,55 +545,55 @@ export const seedDevData = async (payload: Payload) => {
   const subSkills = await Promise.all([
     payload.create({
       collection: 'skill',
-      data: { name: 'Next.js' },
+      data: { name: 'Next.js', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Redux' },
+      data: { name: 'Redux', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'GraphQL' },
+      data: { name: 'GraphQL', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'REST APIs' },
+      data: { name: 'REST APIs', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Express.js' },
+      data: { name: 'Express.js', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'NestJS' },
+      data: { name: 'NestJS', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'AWS' },
+      data: { name: 'AWS', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Terraform' },
+      data: { name: 'Terraform', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'GitHub Actions' },
+      data: { name: 'GitHub Actions', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Redis' },
+      data: { name: 'Redis', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Elasticsearch' },
+      data: { name: 'Elasticsearch', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Leadership' },
+      data: { name: 'Leadership', organisation: orgId },
     }),
     payload.create({
       collection: 'skill',
-      data: { name: 'Kanban' },
+      data: { name: 'Kanban', organisation: orgId },
     }),
   ])
 
@@ -599,19 +617,19 @@ export const seedDevData = async (payload: Payload) => {
   const companies = await Promise.all([
     payload.create({
       collection: 'company',
-      data: { name: 'Tegonal GmbH' },
+      data: { name: 'Tegonal GmbH', organisation: orgId },
     }),
     payload.create({
       collection: 'company',
-      data: { name: 'Tech Startup Inc.' },
+      data: { name: 'Tech Startup Inc.', organisation: orgId },
     }),
     payload.create({
       collection: 'company',
-      data: { name: 'Enterprise Solutions AG' },
+      data: { name: 'Enterprise Solutions AG', organisation: orgId },
     }),
     payload.create({
       collection: 'company',
-      data: { name: 'Digital Agency Ltd.' },
+      data: { name: 'Digital Agency Ltd.', organisation: orgId },
     }),
   ])
 
@@ -642,6 +660,7 @@ export const seedDevData = async (payload: Payload) => {
         },
         link: 'https://github.com/tegonal/cv-manager',
         name: 'CV Manager',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -666,6 +685,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'E-Commerce Platform',
+        organisation: orgId,
       },
     }),
     payload.create({
@@ -690,6 +710,7 @@ export const seedDevData = async (payload: Payload) => {
           },
         },
         name: 'Cloud Migration',
+        organisation: orgId,
       },
     }),
   ])
@@ -706,6 +727,7 @@ export const seedDevData = async (payload: Payload) => {
       context: { skipOrgPrefix: true },
       data: {
         alt: 'John Developer Portrait',
+        organisation: orgId,
       },
       file: {
         data: portraitBuffer,
