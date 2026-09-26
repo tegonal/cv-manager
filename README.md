@@ -30,7 +30,7 @@ Database migrations run automatically on startup, also when upgrading to a new v
 
 | Variable         | Description                                                                       |
 | ---------------- | --------------------------------------------------------------------------------- |
-| `PAYLOAD_SECRET` | Strong secret for encryption (required)                                           |
+| `PAYLOAD_SECRET` | Signs login tokens, at least 32 random characters in production (required)        |
 | `PUBLIC_URL`     | URL under which the instance is reachable, defaults to `http://localhost:3000`    |
 | `DATABASE_URI`   | PostgreSQL connection string, e.g. `postgres://user:pass@host:5432/db` (required) |
 

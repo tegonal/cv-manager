@@ -43,6 +43,7 @@ if (databaseUri && !/^postgres(ql)?:\/\//.test(databaseUri)) {
 // Checked on startup instead of on import, so that builds work without runtime configuration
 const assertRuntimeConfig = () => {
   const missing = [
+    'PAYLOAD_SECRET',
     'DATABASE_URI',
     'S3_ENDPOINT',
     'S3_BUCKET',
@@ -51,6 +52,13 @@ const assertRuntimeConfig = () => {
   ].filter((name) => !process.env[name])
   if (missing.length > 0) {
     throw new Error(`Missing required configuration: ${missing.join(', ')}. See .env.example.`)
+  }
+
+  // Login tokens are signed with the secret, deployment templates before 4.0.0 shipped "secret"
+  if (process.env.NODE_ENV === 'production' && process.env.PAYLOAD_SECRET!.length < 32) {
+    throw new Error(
+      'PAYLOAD_SECRET must be a random value of at least 32 characters, e.g. `openssl rand -hex 32`. Changing it logs out all users.',
+    )
   }
 }
 
