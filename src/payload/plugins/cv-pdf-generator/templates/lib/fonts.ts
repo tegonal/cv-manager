@@ -85,6 +85,43 @@ Font.register({
   ],
 })
 
+// Lato has no weight 500, medium text falls back to the nearest weight
+Font.register({
+  family: 'Lato',
+  fonts: [
+    {
+      fontStyle: 'normal',
+      fontWeight: 300,
+      src: 'https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh7USew8.ttf',
+    },
+    {
+      fontStyle: 'normal',
+      fontWeight: 400,
+      src: 'https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHvxk.ttf',
+    },
+    {
+      fontStyle: 'normal',
+      fontWeight: 700,
+      src: 'https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVew8.ttf',
+    },
+    {
+      fontStyle: 'italic',
+      fontWeight: 300,
+      src: 'https://fonts.gstatic.com/s/lato/v25/S6u_w4BMUTPHjxsI9w2PHA.ttf',
+    },
+    {
+      fontStyle: 'italic',
+      fontWeight: 400,
+      src: 'https://fonts.gstatic.com/s/lato/v25/S6u8w4BMUTPHjxswWw.ttf',
+    },
+    {
+      fontStyle: 'italic',
+      fontWeight: 700,
+      src: 'https://fonts.gstatic.com/s/lato/v25/S6u_w4BMUTPHjxsI5wqPHA.ttf',
+    },
+  ],
+})
+
 Font.register({
   family: 'Roboto',
   fonts: [
@@ -202,6 +239,7 @@ Font.register({
 export const availableFonts = [
   'Rubik',
   'Open Sans',
+  'Lato',
   'Roboto',
   'Merriweather',
   'Playfair Display',
