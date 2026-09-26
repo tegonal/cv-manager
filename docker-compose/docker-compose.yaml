@@ -12,7 +12,6 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
-      - caddy-certs:/certs
     networks:
       - external
       - internal
@@ -115,7 +114,6 @@ services:
 #     - .env
 #   volumes:
 #     - caddy-data:/backup/caddy:ro
-#     - caddy-certs:/backup/certs:ro
 #     - garage-data:/backup/garage:ro
 #     - pgbackup-data:/backup/pgbackup:ro
 #     - pgadmin-data:/backup/pgadmin:ro
@@ -126,7 +124,6 @@ services:
 
 volumes:
   caddy-data:
-  caddy-certs:
   garage-data:
   postgres-data:
   #pgbackup-data:
