@@ -7,8 +7,10 @@ import { isOrganisationAdminFieldAccess } from '@/payload/access/is-organisation
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
 import { superAdminFieldAccess } from '@/payload/access/super-admin-field-access'
 import { whereOwnUserAccess } from '@/payload/access/where-own-user-access'
+import { whereSelectedOrganisationMembersAccess } from '@/payload/access/where-selected-organisation-members-access'
+import { guardUserChanges } from '@/payload/collections/Users/hooks/guard-user-changes'
 import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/record-selected-organisation'
-import { userDefaultsAfterCreate } from '@/payload/collections/Users/hooks/user-defaults-after-create'
+import { userDefaultsBeforeCreate } from '@/payload/collections/Users/hooks/user-defaults-before-create'
 import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
 
 const readAccess: Access = async (args) => {
@@ -21,7 +23,7 @@ const readAccess: Access = async (args) => {
   }
 
   if (await isOrganisationAdminAccess(args)) {
-    return true
+    return whereSelectedOrganisationMembersAccess(args)
   }
 
   if (whereOwnUserAccess(args)) {
@@ -56,8 +58,9 @@ const updateAccess: Access = async (args) => {
     return true
   }
 
+  // Further limited by the guardUserChanges hook
   if (await isOrganisationAdminAccess(args)) {
-    return true
+    return whereSelectedOrganisationMembersAccess(args)
   }
 
   if (whereOwnUserAccess(args)) {
@@ -189,8 +192,8 @@ export const Users: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [userDefaultsAfterCreate],
     afterLogin: [recordSelectedOrganisation],
+    beforeChange: [userDefaultsBeforeCreate, guardUserChanges],
   },
   slug: 'users',
 }
