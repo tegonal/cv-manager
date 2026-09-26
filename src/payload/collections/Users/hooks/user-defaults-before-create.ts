@@ -1,7 +1,12 @@
 import { CollectionBeforeChangeHook, PayloadRequest } from 'payload'
 
 import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
-import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
+import {
+  ORGANISATION_ROLE_ADMIN,
+  ORGANISATION_ROLE_USER,
+  ROLE_SUPER_ADMIN,
+  ROLE_USER,
+} from '@/payload/utilities/constants'
 import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { User } from '@/types/payload-types'
 
@@ -39,17 +44,19 @@ export const userDefaultsBeforeCreate: CollectionBeforeChangeHook<User> = async 
 
   // The first user of an instance (created through the admin UI) administers it
   const { totalDocs: existingUsers } = await req.payload.count({ collection: 'users', req })
-  const role = existingUsers === 0 ? ROLE_SUPER_ADMIN : ROLE_USER
+  const isFirstUser = existingUsers === 0
 
   if (!data.roles?.length) {
-    data.roles = [role]
+    data.roles = [isFirstUser ? ROLE_SUPER_ADMIN : ROLE_USER]
   }
 
   if (!data.organisations?.length) {
     // New users join the organisation of the user creating them, users created without one
     // (first user, OAuth sign-up) join the default organisation
     const organisation = getSelectedOrganisation(req.user) ?? (await getDefaultOrganisation(req))
-    data.organisations = [{ organisation, roles: [role] }]
+    data.organisations = [
+      { organisation, roles: [isFirstUser ? ORGANISATION_ROLE_ADMIN : ORGANISATION_ROLE_USER] },
+    ]
   }
 
   if (!data.selectedOrganisation) {

@@ -7,7 +7,7 @@ import { checkOrganisationRoles } from '@/payload/access/utils/check-organisatio
 import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { createdByField } from '@/payload/fields/created-by'
 import { updatedByField } from '@/payload/fields/updated-by'
-import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
+import { ORGANISATION_ROLE_ADMIN } from '@/payload/utilities/constants'
 import { Organisation } from '@/types/payload-types'
 
 const createAccess: Access<Organisation> = async (args) => {
@@ -57,7 +57,7 @@ const updateAccess: Access<Organisation> = async (args) => {
 
   if (
     selectedOrganisation &&
-    checkOrganisationRoles([ROLE_SUPER_ADMIN], args.req.user, selectedOrganisation)
+    checkOrganisationRoles([ORGANISATION_ROLE_ADMIN], args.req.user, selectedOrganisation)
   ) {
     // Only the organisation the admin role was checked for, whatever id is requested
     return {

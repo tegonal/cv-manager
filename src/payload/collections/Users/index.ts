@@ -11,7 +11,12 @@ import { whereSelectedOrganisationMembersAccess } from '@/payload/access/where-s
 import { guardUserChanges } from '@/payload/collections/Users/hooks/guard-user-changes'
 import { recordSelectedOrganisation } from '@/payload/collections/Users/hooks/record-selected-organisation'
 import { userDefaultsBeforeCreate } from '@/payload/collections/Users/hooks/user-defaults-before-create'
-import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
+import {
+  ORGANISATION_ROLE_ADMIN,
+  ORGANISATION_ROLE_USER,
+  ROLE_SUPER_ADMIN,
+  ROLE_USER,
+} from '@/payload/utilities/constants'
 
 const readAccess: Access = async (args) => {
   if (!isLoggedInAccess(args)) {
@@ -148,11 +153,11 @@ export const Users: CollectionConfig = {
           options: [
             {
               label: I18nCollection.roles.admin,
-              value: ROLE_SUPER_ADMIN,
+              value: ORGANISATION_ROLE_ADMIN,
             },
             {
               label: I18nCollection.roles.user,
-              value: ROLE_USER,
+              value: ORGANISATION_ROLE_USER,
             },
           ],
           required: true,

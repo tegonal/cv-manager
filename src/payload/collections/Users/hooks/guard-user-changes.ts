@@ -1,7 +1,7 @@
 import { CollectionBeforeChangeHook, Forbidden } from 'payload'
 
 import { hasSuperAdminRole } from '@/payload/access/utils/has-super-admin-role'
-import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
+import { ORGANISATION_ROLE_ADMIN } from '@/payload/utilities/constants'
 import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { User, UserOrganisations } from '@/types/payload-types'
 
@@ -35,7 +35,7 @@ export const guardUserChanges: CollectionBeforeChangeHook<User> = ({
 
   if (data.organisations) {
     const administeredOrganisations = (actor.organisations ?? [])
-      .filter(({ roles }) => roles.includes(ROLE_SUPER_ADMIN))
+      .filter(({ roles }) => roles.includes(ORGANISATION_ROLE_ADMIN))
       .map(({ organisation }) => getIdFromRelation(organisation))
 
     // Memberships in organisations the actor does not administer must stay as they are

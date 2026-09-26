@@ -1,6 +1,6 @@
 import { Payload } from 'payload'
 
-import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
+import { ORGANISATION_ROLE_ADMIN, ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 
 export const seedDevUser = async (payload: Payload) => {
   // Production instances create their first user in the admin UI (see userDefaultsBeforeCreate)
@@ -34,7 +34,7 @@ export const seedDevUser = async (payload: Payload) => {
         organisations: [
           {
             organisation: testOrg.id,
-            roles: [ROLE_SUPER_ADMIN],
+            roles: [ORGANISATION_ROLE_ADMIN],
           },
         ],
         password: 'admin',

@@ -5,7 +5,7 @@ import { checkOrganisationRoles } from '@/payload/access/utils/check-organisatio
 import { checkUserRoles } from '@/payload/access/utils/check-user-roles'
 import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { beforeChangeHook } from '@/payload/fields/organisation/hooks/before-change-hook'
-import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
+import { ORGANISATION_ROLE_ADMIN, ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
 
 export const organisationField: Field = {
   access: {
@@ -19,7 +19,7 @@ export const organisationField: Field = {
       const selectedOrganisation = getSelectedOrganisation(user)
       return Boolean(
         selectedOrganisation &&
-        checkOrganisationRoles([ROLE_SUPER_ADMIN], user, selectedOrganisation),
+        checkOrganisationRoles([ORGANISATION_ROLE_ADMIN], user, selectedOrganisation),
       )
     },
     description:
