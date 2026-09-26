@@ -1,35 +1,15 @@
 # Replace with the hostname of PUBLIC_URL
 localhost {
-  @DirectAccess {
-    # exclude direct access to cv data used to render pdf
-    not path /cv/*
+  header {
+    # Enable HSTS once the hostname above is your real one (browsers remember it, also for localhost)
+    # Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "strict-origin-when-cross-origin"
+    -Server
   }
 
-  handle @DirectAccess {
-    reverse_proxy app:3000
-  }
-
-  handle {
-    # abort unhandled requests
-    respond "not-authorized" 403
-  }
-}
-
-# used as internal route to render cv data, forcing http
-http://caddy {  
-  @print_request {
-      header x-http-pdfprinter *
-      host caddy
-  }
-
-  handle @print_request {
-    reverse_proxy app:3000
-  }
-
-  handle {
-    # abort unhandled requests
-    respond "not-authorized" 403
-  }
+  reverse_proxy app:3000
 }
 
 # Make pg_admin UI available
