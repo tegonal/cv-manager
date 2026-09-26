@@ -17,7 +17,7 @@ services:
       - internal
 
   app:
-    image: tegonal/cv-manager:latest
+    image: tegonal/cv-manager:${CV_MANAGER_VERSION:?Set CV_MANAGER_VERSION in .env (see README)}
     container_name: app
     restart: unless-stopped
     # The image defines its own healthcheck

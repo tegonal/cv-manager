@@ -47,6 +47,16 @@ docker compose up -d
 
 Open https://localhost or the provided `PUBLIC_URL` in your browser and create the first user. It becomes the administrator of the instance and of its default organisation. Do this right after the first start: until a user exists, anyone who can reach the instance can create it.
 
+### Upgrading
+
+`CV_MANAGER_VERSION` in `.env` selects the release. Read the release notes of every version in between, set the new version and restart:
+
+```
+docker compose pull && docker compose up -d
+```
+
+Database migrations run when the application starts.
+
 ### Public URL
 
 The configuration enables running the instance on localhost so everyone can start the server and try it out. In reality the server would run on a different host and needs to be accessible from the clients/hosts using the application.
