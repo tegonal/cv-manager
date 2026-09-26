@@ -16,7 +16,6 @@
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && yarn run check",
     "generate:importMap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importMap && yarn run check",
-    "standalone-script": "tsx ./src/scripts/standalone-script.ts",
     "check": "eslint . --fix && prettier --write --log-level warn . && tsc --build --noEmit && echo '✓ All checks passed!'",
     "check:ci": "eslint . && prettier --check --log-level warn . && tsc --build --noEmit",
     "up": "yarn upgrade-interactive",
