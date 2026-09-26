@@ -195,8 +195,9 @@ export default buildConfig({
       clientSecret: process.env.OAUTH_CLIENT_SECRET || '',
       enabled: process.env.OAUTH_ENABLED === 'true' || false,
       failureRedirect: (req, error) => {
-        console.error({ error, msg: 'failureRedirect' })
-        return '/oauth-error'
+        req.payload.logger.error({ err: error, msg: 'OAuth login failed' })
+        // The OAuth login button on the login page shows the failure
+        return '/admin/login?oauth=failed'
       },
       getUserInfo: oauthGetUserInfo,
       providerAuthorizationUrl: process.env.OAUTH_AUTHORIZE_ENDPOINT || '',
