@@ -2,12 +2,12 @@ import { CollectionConfig } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 import { defaultCollectionAccess } from '@/payload/access/default-collection-access'
-import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
+import { hasSelectedOrganisationAccess } from '@/payload/access/has-selected-organisation-access'
 import { adminSettingsField } from '@/payload/fields/admin-settings'
 
 export const Levels: CollectionConfig = {
   access: {
-    create: isLoggedInAccess,
+    create: hasSelectedOrganisationAccess,
     delete: defaultCollectionAccess,
     read: defaultCollectionAccess,
     update: defaultCollectionAccess,

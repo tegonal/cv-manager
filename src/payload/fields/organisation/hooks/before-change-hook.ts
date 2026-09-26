@@ -1,21 +1,30 @@
-import { FieldHook } from 'payload'
+import { FieldHook, ValidationError } from 'payload'
 
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { hasSuperAdminRole } from '@/payload/access/utils/has-super-admin-role'
-import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
-export const beforeChangeHook: FieldHook = async ({ data, req, req: { user } }) => {
-  if (!user || !req.user) return undefined
+// Records belong to the organisation the user works in, super admins can choose another one
+export const beforeChangeHook: FieldHook = ({ collection, data, path, req: { t, user } }) => {
+  // System operations (seed, migrations) keep the organisation they set
+  if (!user) return undefined
 
-  if (hasSuperAdminRole(req.user) && data?.organisation) {
+  if (hasSuperAdminRole(user) && data?.organisation) {
     return data.organisation
   }
 
-  const selectedOrganisation = getIdFromRelation(user.selectedOrganisation)
+  const selectedOrganisation = getSelectedOrganisation(user)
 
-  if (selectedOrganisation) {
-    return selectedOrganisation
+  if (!selectedOrganisation) {
+    throw new ValidationError(
+      {
+        collection: collection?.slug,
+        errors: [
+          { message: 'Select the organisation this record belongs to', path: path.join('.') },
+        ],
+      },
+      t,
+    )
   }
 
-  // If no organisation is selected, return 1 - this is the default organisation and prevents entries from going missing
-  return 1
+  return selectedOrganisation
 }

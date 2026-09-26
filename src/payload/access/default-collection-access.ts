@@ -4,7 +4,7 @@ import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
 import { whereSameOrganisationAccess } from '@/payload/access/where-same-organisation-access'
 
-export const defaultCollectionAccess: Access = async (args) => {
+export const defaultCollectionAccess: Access = (args) => {
   if (!isLoggedInAccess(args)) {
     return false
   }
@@ -13,9 +13,5 @@ export const defaultCollectionAccess: Access = async (args) => {
     return true
   }
 
-  if (whereSameOrganisationAccess(args)) {
-    return whereSameOrganisationAccess(args)
-  }
-
-  return false
+  return whereSameOrganisationAccess(args)
 }

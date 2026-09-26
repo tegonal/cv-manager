@@ -1,5 +1,6 @@
 import { CollectionBeforeChangeHook, PayloadRequest } from 'payload'
 
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { ROLE_SUPER_ADMIN, ROLE_USER } from '@/payload/utilities/constants'
 import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { User } from '@/types/payload-types'
@@ -47,10 +48,7 @@ export const userDefaultsBeforeCreate: CollectionBeforeChangeHook<User> = async 
   if (!data.organisations?.length) {
     // New users join the organisation of the user creating them, users created without one
     // (first user, OAuth sign-up) join the default organisation
-    const selectedOrganisation = getIdFromRelation(req.user?.selectedOrganisation)
-    const organisation = selectedOrganisation
-      ? Number(selectedOrganisation)
-      : await getDefaultOrganisation(req)
+    const organisation = getSelectedOrganisation(req.user) ?? (await getDefaultOrganisation(req))
     data.organisations = [{ organisation, roles: [role] }]
   }
 

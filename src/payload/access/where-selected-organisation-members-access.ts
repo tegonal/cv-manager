@@ -1,10 +1,10 @@
 import type { Access, Where } from 'payload'
 
-import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 
-// The user itself and the members of the organisation the user has selected
+// The user itself and the members of the organisation the user works in
 export const whereSelectedOrganisationMembersAccess: Access = ({ req: { user } }) => {
-  const selectedOrganisation = getIdFromRelation(user?.selectedOrganisation)
+  const selectedOrganisation = getSelectedOrganisation(user)
 
   if (!user || !selectedOrganisation) {
     return false

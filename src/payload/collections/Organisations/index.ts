@@ -4,10 +4,10 @@ import { I18nCollection } from '@/lib/i18n-collection'
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
 import { checkOrganisationRoles } from '@/payload/access/utils/check-organisation-roles'
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { createdByField } from '@/payload/fields/created-by'
 import { updatedByField } from '@/payload/fields/updated-by'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
-import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 import { Organisation } from '@/types/payload-types'
 
 const createAccess: Access<Organisation> = async (args) => {
@@ -31,9 +31,9 @@ const readAccess: Access<Organisation> = (args) => {
     return true
   }
 
-  const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation)
+  const selectedOrganisation = getSelectedOrganisation(args.req.user)
 
-  if (selectedOrganisation && typeof selectedOrganisation === 'number') {
+  if (selectedOrganisation) {
     return {
       id: {
         equals: selectedOrganisation,
@@ -53,11 +53,10 @@ const updateAccess: Access<Organisation> = async (args) => {
     return true
   }
 
-  const selectedOrganisation = getIdFromRelation(args.req.user?.selectedOrganisation)
+  const selectedOrganisation = getSelectedOrganisation(args.req.user)
 
   if (
     selectedOrganisation &&
-    typeof selectedOrganisation === 'number' &&
     checkOrganisationRoles([ROLE_SUPER_ADMIN], args.req.user, selectedOrganisation)
   ) {
     // Only the organisation the admin role was checked for, whatever id is requested

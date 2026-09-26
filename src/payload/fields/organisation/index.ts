@@ -2,10 +2,10 @@ import type { Field } from 'payload'
 
 import { checkOrganisationRoles } from '@/payload/access/utils/check-organisation-roles'
 import { checkUserRoles } from '@/payload/access/utils/check-user-roles'
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { organisationFieldAdminAccess } from '@/payload/fields/created-by/access/admin'
 import { beforeChangeHook } from '@/payload/fields/organisation/hooks/before-change-hook'
 import { ROLE_SUPER_ADMIN } from '@/payload/utilities/constants'
-import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
 export const organisationField: Field = {
   access: {
@@ -16,13 +16,11 @@ export const organisationField: Field = {
   admin: {
     condition: (a, b, { user }) => {
       if (checkUserRoles([ROLE_SUPER_ADMIN], user)) return true
-      const selectedOrganisation = getIdFromRelation(user?.selectedOrganisation)
-      if (selectedOrganisation) {
-        if (checkOrganisationRoles([ROLE_SUPER_ADMIN], user, selectedOrganisation as number)) {
-          return true
-        }
-      }
-      return false
+      const selectedOrganisation = getSelectedOrganisation(user)
+      return Boolean(
+        selectedOrganisation &&
+        checkOrganisationRoles([ROLE_SUPER_ADMIN], user, selectedOrganisation),
+      )
     },
     description:
       "The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.",

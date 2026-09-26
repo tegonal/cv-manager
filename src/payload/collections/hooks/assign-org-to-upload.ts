@@ -1,5 +1,6 @@
 import { CollectionBeforeChangeHook } from 'payload'
 
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 import { MEDIA_PREFIX } from '@/payload/collections/Media/constants'
 import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
 
@@ -18,6 +19,8 @@ export const assignOrgToUpload: CollectionBeforeChangeHook = async ({
   if (operation !== 'create') {
     return data
   }
-  data.prefix = `${MEDIA_PREFIX}/${getIdFromRelation(user?.selectedOrganisation)}`
+  // The organisation field hook assigns the same organisation (or rejects the upload without one)
+  const organisation = getIdFromRelation(data.organisation) ?? getSelectedOrganisation(user)
+  data.prefix = organisation ? `${MEDIA_PREFIX}/${organisation}` : MEDIA_PREFIX
   return data
 }

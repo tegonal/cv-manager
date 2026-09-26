@@ -1,22 +1,18 @@
 import { Access } from 'payload'
 
-import { getIdFromRelation } from '@/payload/utilities/get-id-from-relation'
+import { getSelectedOrganisation } from '@/payload/access/utils/get-selected-organisation'
 
-export const whereSameOrganisationAccess: Access = async ({
-  id,
-  req,
-  req: { payload, user, ...rest },
-}) => {
-  const userLastLoggedInOrgId = getIdFromRelation(user?.selectedOrganisation)
+// Records of the organisation the user works in
+export const whereSameOrganisationAccess: Access = ({ req: { user } }) => {
+  const selectedOrganisation = getSelectedOrganisation(user)
 
-  if (!userLastLoggedInOrgId) {
-    req.payload.logger.info({ msg: 'whereSameOrganisationAccess: No organisation selected' })
+  if (!selectedOrganisation) {
     return false
   }
 
   return {
     organisation: {
-      equals: userLastLoggedInOrgId,
+      equals: selectedOrganisation,
     },
   }
 }

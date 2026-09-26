@@ -2,7 +2,7 @@ import { CollectionConfig } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 import { defaultCollectionAccess } from '@/payload/access/default-collection-access'
-import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
+import { hasSelectedOrganisationAccess } from '@/payload/access/has-selected-organisation-access'
 import { EducationTabFields } from '@/payload/collections/CVs/tabs/education'
 import { ProfileTabFields } from '@/payload/collections/CVs/tabs/profile'
 import { SkillsTabFields } from '@/payload/collections/CVs/tabs/skills'
@@ -11,7 +11,7 @@ import { adminSettingsField } from '@/payload/fields/admin-settings'
 
 export const CV: CollectionConfig = {
   access: {
-    create: isLoggedInAccess,
+    create: hasSelectedOrganisationAccess,
     delete: defaultCollectionAccess,
     read: defaultCollectionAccess,
     update: defaultCollectionAccess,
