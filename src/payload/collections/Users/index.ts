@@ -186,9 +186,10 @@ export const Users: CollectionConfig = {
     // OAuth subject. payload-oauth2 adds the same field only when OAuth is enabled, which made
     // the database schema depend on OAUTH_ENABLED. Defined here, it exists in every setup.
     {
+      // payload-oauth2 writes it through the Local API, which skips field access
       access: {
-        create: () => true,
-        read: () => true,
+        create: superAdminFieldAccess,
+        read: superAdminFieldAccess,
         update: () => false,
       },
       index: true,

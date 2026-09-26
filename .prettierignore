@@ -1,6 +1,5 @@
 **/*.log
 **/.DS_Store
-*.
 .vscode/settings.json
 .history
 node_modules
