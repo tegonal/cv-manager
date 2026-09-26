@@ -27,9 +27,5 @@ export const cvPdfPlugin =
           },
         } satisfies CollectionConfig
       }),
-      custom: {
-        ...config.custom,
-        cvPdfConfig: pluginConfig,
-      },
     }
   }

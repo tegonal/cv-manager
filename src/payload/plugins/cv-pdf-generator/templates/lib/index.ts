@@ -1,5 +1,3 @@
-export { availableFonts } from './fonts'
-export type { AvailableFont } from './fonts'
 export {
   filterEmptyLexicalNodes,
   formatDate,

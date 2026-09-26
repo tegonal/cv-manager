@@ -5,15 +5,15 @@ import React from 'react'
 
 import type {
   HeadingNode,
+  LexicalContent,
   LinkNode,
   ListItemNode,
   ListNode,
   Node,
   ParagraphNode,
-  PayloadLexicalReactRendererContent,
   QuoteNode,
   TextNode,
-} from '@/lib/lexical-render/src/payload-lexical-react-renderer'
+} from './lexical-types'
 
 import { tw } from './tw'
 
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  content: PayloadLexicalReactRendererContent
+  content: LexicalContent
 }
 
 type TextStyle = {

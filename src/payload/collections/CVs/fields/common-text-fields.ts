@@ -10,21 +10,6 @@ export const textNameRequired: Field = {
   type: 'text',
 }
 
-export const textName: Field = {
-  label: I18nCollection.fieldLabel.name,
-  localized: true,
-  name: 'name',
-  type: 'text',
-}
-
-export const textDescriptionRequired: Field = {
-  label: I18nCollection.fieldLabel.description,
-  localized: true,
-  name: 'description',
-  required: true,
-  type: 'textarea',
-}
-
 export const textDescription: Field = {
   label: I18nCollection.fieldLabel.description,
   localized: true,

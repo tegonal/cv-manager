@@ -236,15 +236,3 @@ Font.register({
     },
   ],
 })
-
-// Available font families for reference
-export const availableFonts = [
-  'Rubik',
-  'Open Sans',
-  'Lato',
-  'Roboto',
-  'Merriweather',
-  'Playfair Display',
-] as const
-
-export type AvailableFont = (typeof availableFonts)[number]

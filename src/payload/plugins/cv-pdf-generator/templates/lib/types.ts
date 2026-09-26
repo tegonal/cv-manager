@@ -1,10 +1,11 @@
 import { TypedLocale } from 'payload'
 
-import { PayloadLexicalReactRendererContent } from '@/lib/lexical-render/src/payload-lexical-react-renderer'
 import { CompanyInfo, Cv, PdfStyle } from '@/types/payload-types'
 
+import { LexicalContent } from './lexical-types'
+
 // Re-export for convenience
-export type { PayloadLexicalReactRendererContent as LexicalContent }
+export type { LexicalContent }
 
 // Combined data from CompanyInfo and PdfStyle globals for PDF rendering
 export type CompanyInfoData = Omit<CompanyInfo, 'id' | 'updatedAt'> &

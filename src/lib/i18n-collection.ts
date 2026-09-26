@@ -4,10 +4,6 @@ export const I18nCollection = {
       de: 'CV-Informationen',
       en: 'CV Information',
     },
-    files: {
-      de: 'Dateien',
-      en: 'Files',
-    },
     settings: {
       de: 'Einstellungen',
       en: 'Settings',
@@ -27,10 +23,6 @@ export const I18nCollection = {
     advanced: {
       de: 'Fortgeschritten',
       en: 'Advanced',
-    },
-    basic: {
-      de: 'Grundkenntnisse',
-      en: 'Basic',
     },
     birthday: {
       de: 'Geburtstag',
@@ -63,10 +55,6 @@ export const I18nCollection = {
     description: {
       de: 'Beschreibung',
       en: 'Description',
-    },
-    displayName: {
-      de: 'Anzeigename',
-      en: 'Display name',
     },
     education: {
       de: 'Ausbildung',
@@ -128,10 +116,6 @@ export const I18nCollection = {
       de: 'Einleitung',
       en: 'Introduction',
     },
-    italian: {
-      de: 'Italienisch',
-      en: 'Italian',
-    },
     jobHighlights: {
       de: 'Job Highlights',
       en: 'Job highlights',
@@ -192,10 +176,6 @@ export const I18nCollection = {
       de: 'Andere Fähigkeiten',
       en: 'Other skills',
     },
-    personalInformation: {
-      de: 'Persönliche Informationen',
-      en: 'Personal information',
-    },
     phoneNumber: {
       de: 'Telefonnummer',
       en: 'Phone number',
@@ -251,10 +231,6 @@ export const I18nCollection = {
     socialMediaSite: {
       de: 'Soziales Netzwerk',
       en: 'Social media site',
-    },
-    softSkills: {
-      de: 'Soft Skills',
-      en: 'Soft skills',
     },
     spanish: {
       de: 'Spanisch',
