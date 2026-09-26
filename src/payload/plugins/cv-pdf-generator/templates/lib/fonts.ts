@@ -1,7 +1,9 @@
 import { Font } from '@react-pdf/renderer'
+import path from 'path'
 
-// Static font URLs from Google Fonts (via google-webfonts-helper API)
-// Last updated: 2025-12-10
+// Fonts from Google Fonts ship with the app (public/fonts, with their licenses), so rendering does
+// not depend on fonts.gstatic.com: react-pdf keeps a failed font download until the process restarts
+const fontFile = (file: string) => path.join(process.cwd(), 'public', 'fonts', file)
 
 Font.register({
   family: 'Rubik',
@@ -9,37 +11,37 @@ Font.register({
     {
       fontStyle: 'normal',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYiFV0Uw.ttf',
+      src: fontFile('rubik/rubik-300.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-B4iFV0Uw.ttf',
+      src: fontFile('rubik/rubik-400.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 500,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-NYiFV0Uw.ttf',
+      src: fontFile('rubik/rubik-500.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-4I-FV0Uw.ttf',
+      src: fontFile('rubik/rubik-700.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWbBXyIfDnIV7nEt3KSJbVDV49rz8sDE3U3f4c.ttf',
+      src: fontFile('rubik/rubik-300-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWbBXyIfDnIV7nEt3KSJbVDV49rz8tdE3U3f4c.ttf',
+      src: fontFile('rubik/rubik-400-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/rubik/v31/iJWbBXyIfDnIV7nEt3KSJbVDV49rz8u6FHU3f4c.ttf',
+      src: fontFile('rubik/rubik-700-italic.ttf'),
     },
   ],
 })
@@ -50,37 +52,37 @@ Font.register({
     {
       fontStyle: 'normal',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVc.ttf',
+      src: fontFile('open-sans/open-sans-300.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf',
+      src: fontFile('open-sans/open-sans-400.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 500,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjr0B4gaVc.ttf',
+      src: fontFile('open-sans/open-sans-500.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4gaVc.ttf',
+      src: fontFile('open-sans/open-sans-700.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk5hkWVAexQ.ttf',
+      src: fontFile('open-sans/open-sans-300-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVAexQ.ttf',
+      src: fontFile('open-sans/open-sans-400-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/opensans/v44/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVAexQ.ttf',
+      src: fontFile('open-sans/open-sans-700-italic.ttf'),
     },
   ],
 })
@@ -92,32 +94,32 @@ Font.register({
     {
       fontStyle: 'normal',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh7USew8.ttf',
+      src: fontFile('lato/lato-300.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHvxk.ttf',
+      src: fontFile('lato/lato-400.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVew8.ttf',
+      src: fontFile('lato/lato-700.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/lato/v25/S6u_w4BMUTPHjxsI9w2PHA.ttf',
+      src: fontFile('lato/lato-300-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/lato/v25/S6u8w4BMUTPHjxswWw.ttf',
+      src: fontFile('lato/lato-400-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/lato/v25/S6u_w4BMUTPHjxsI5wqPHA.ttf',
+      src: fontFile('lato/lato-700-italic.ttf'),
     },
   ],
 })
@@ -128,37 +130,37 @@ Font.register({
     {
       fontStyle: 'normal',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabVmUiA8.ttf',
+      src: fontFile('roboto/roboto-300.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiA8.ttf',
+      src: fontFile('roboto/roboto-400.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 500,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWub2bVmUiA8.ttf',
+      src: fontFile('roboto/roboto-500.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYjalmUiA8.ttf',
+      src: fontFile('roboto/roboto-700.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLt_QuAj-lg.ttf',
+      src: fontFile('roboto/roboto-300-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAj-lg.ttf',
+      src: fontFile('roboto/roboto-400-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/roboto/v50/KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLmbXuAj-lg.ttf',
+      src: fontFile('roboto/roboto-700-italic.ttf'),
     },
   ],
 })
@@ -169,32 +171,32 @@ Font.register({
     {
       fontStyle: 'normal',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/merriweather/v33/u-4D0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiScCmDxhtNOKl8yDrgCcaFF3w.ttf',
+      src: fontFile('merriweather/merriweather-300.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/merriweather/v33/u-4D0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiScCmDxhtNOKl8yDr3icaFF3w.ttf',
+      src: fontFile('merriweather/merriweather-400.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/merriweather/v33/u-4D0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiScCmDxhtNOKl8yDrOSAaFF3w.ttf',
+      src: fontFile('merriweather/merriweather-700.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 300,
-      src: 'https://fonts.gstatic.com/s/merriweather/v33/u-4B0qyriQwlOrhSvowK_l5-eTxCVx0ZbwLvKH2Gk9hLmp0v5yA-xXPqCzLvPee1XYk_XSf-FmScUG33AvQ.ttf',
+      src: fontFile('merriweather/merriweather-300-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/merriweather/v33/u-4B0qyriQwlOrhSvowK_l5-eTxCVx0ZbwLvKH2Gk9hLmp0v5yA-xXPqCzLvPee1XYk_XSf-FmTCUG33AvQ.ttf',
+      src: fontFile('merriweather/merriweather-400-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/merriweather/v33/u-4B0qyriQwlOrhSvowK_l5-eTxCVx0ZbwLvKH2Gk9hLmp0v5yA-xXPqCzLvPee1XYk_XSf-FmQlV233AvQ.ttf',
+      src: fontFile('merriweather/merriweather-700-italic.ttf'),
     },
   ],
 })
@@ -205,32 +207,32 @@ Font.register({
     {
       fontStyle: 'normal',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtY.ttf',
+      src: fontFile('playfair-display/playfair-display-400.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 500,
-      src: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKd3vXDXbtY.ttf',
+      src: fontFile('playfair-display/playfair-display-500.ttf'),
     },
     {
       fontStyle: 'normal',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiunDXbtY.ttf',
+      src: fontFile('playfair-display/playfair-display-700.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 400,
-      src: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_qiTXtHA_A.ttf',
+      src: fontFile('playfair-display/playfair-display-400-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 500,
-      src: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_pqTXtHA_A.ttf',
+      src: fontFile('playfair-display/playfair-display-500-italic.ttf'),
     },
     {
       fontStyle: 'italic',
       fontWeight: 700,
-      src: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_k-UXtHA_A.ttf',
+      src: fontFile('playfair-display/playfair-display-700-italic.ttf'),
     },
   ],
 })
