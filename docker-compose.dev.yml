@@ -4,7 +4,7 @@ services:
   postgres:
     image: pgautoupgrade/pgautoupgrade:17-bookworm
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5432:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -34,11 +34,10 @@ services:
       # Quoted, unquoted YAML reads the all-zero key as the number 0
       GARAGE_DEFAULT_SECRET_KEY: '0000000000000000000000000000000000000000000000000000000000000000'
       GARAGE_DEFAULT_BUCKET: tegonal-cv
+    # Only the S3 API is used by the app. RPC (3901), web (3902) and admin API (3903) stay
+    # inside the container, the healthcheck and the garage CLI reach them there.
     ports:
-      - '3900:3900' # S3 API
-      - '3901:3901' # RPC
-      - '3902:3902' # Web
-      - '3903:3903' # Admin
+      - '127.0.0.1:3900:3900' # S3 API
     volumes:
       - ./garage.toml:/etc/garage.toml:ro
       - garage-data:/var/lib/garage/data
@@ -55,8 +54,8 @@ services:
     volumes:
       - mailpit-data:/data
     ports:
-      - 8025:8025
-      - 1025:1025
+      - '127.0.0.1:8025:8025'
+      - '127.0.0.1:1025:1025'
     environment:
       MP_MAX_MESSAGES: 100
       MP_DATABASE: /data/mailpit.db
