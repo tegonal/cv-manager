@@ -15,7 +15,7 @@ import { I18nCollection } from '@/lib/i18n-collection'
 import { fetchCvAction } from '@/payload/plugins/cv-pdf-generator/actions'
 import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generate-pdf-button'
 import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
-import { Company, Cv, Project } from '@/types/payload-types'
+import { Cv } from '@/types/payload-types'
 
 const profileKeys: (keyof Cv)[] = [
   'birthday',
@@ -52,7 +52,8 @@ const getDefaultExportState = (cv: Cv): Record<string, boolean> => {
 type FormField = {
   export: boolean
   key: string
-  label: string
+  // Rendered as React content, never as HTML: labels contain user-entered names
+  label: React.ReactNode
 }
 
 type FormSection = {
@@ -106,7 +107,14 @@ export const ExportOverlay: React.FC = () => {
         fields: cv?.projects?.map((project) => ({
           export: formState[`project_${project.id}`] ?? true,
           key: `project_${project.id}`,
-          label: `<strong>${(project.company as Company).name} - ${(project.project as Project).name}</strong>`,
+          label: (
+            <strong>
+              {[project.company, project.project]
+                .map((relation) => (typeof relation === 'object' ? relation?.name : undefined))
+                .filter(Boolean)
+                .join(' - ')}
+            </strong>
+          ),
         })),
         section: getLocalizedFieldLabel('projects', locale.code),
       },
@@ -154,10 +162,7 @@ export const ExportOverlay: React.FC = () => {
                         onChange={() => onCheckboxChange(field.key)}
                         type="checkbox"
                       />
-                      <label
-                        className={''}
-                        dangerouslySetInnerHTML={{ __html: field.label }}
-                        htmlFor={field.key}></label>
+                      <label htmlFor={field.key}>{field.label}</label>
                     </li>
                   ))}
                 </ul>
