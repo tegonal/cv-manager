@@ -212,6 +212,8 @@ yarn run dev
 
 Mails are caught by Mailpit at http://localhost:8025. On first start, an admin user `admin@test.com` / `admin` and demo data are created.
 
+`yarn run dev` also writes its output to `.logs/dev.log` (overwritten on each start, not committed).
+
 ### Code Quality
 
 ```bash

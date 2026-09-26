@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation node scripts/dev.mjs",
     "services:start": "docker compose -f docker-compose.dev.yml up -d --wait --remove-orphans",
     "services:stop": "docker compose -f docker-compose.dev.yml down --remove-orphans",
     "services:destroy": "docker compose -f docker-compose.dev.yml down --volumes --remove-orphans",
-    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && yarn run dev",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
