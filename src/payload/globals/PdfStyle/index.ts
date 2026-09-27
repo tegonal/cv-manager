@@ -3,6 +3,7 @@ import { GlobalConfig } from 'payload'
 import { I18nCollection } from '@/lib/i18n-collection'
 import { isLoggedInAccess } from '@/payload/access/is-logged-in-access'
 import { isSuperAdminAccess } from '@/payload/access/is-super-admin-access'
+import { hasSuperAdminRole } from '@/payload/access/utils/has-super-admin-role'
 import { colorField } from '@/payload/fields/color'
 
 export const PdfStyle: GlobalConfig = {
@@ -13,6 +14,8 @@ export const PdfStyle: GlobalConfig = {
   },
   admin: {
     group: I18nCollection.collectionGroup.settings,
+    // Only the users who can change the settings see them
+    hidden: ({ user }) => !hasSuperAdminRole(user),
   },
   fields: [
     // Logo Settings - collapsible
