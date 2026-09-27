@@ -1,11 +1,6 @@
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 import checkFile from 'eslint-plugin-check-file'
 import perfectionist from 'eslint-plugin-perfectionist'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 
 const config = [
   {
@@ -27,12 +22,6 @@ const config = [
   },
   ...nextCoreWebVitals,
   {
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.json'],
-        tsconfigRootDir: __dirname,
-      },
-    },
     plugins: {
       'check-file': checkFile,
     },
@@ -44,7 +33,6 @@ const config = [
         },
         { ignoreMiddleExtensions: true },
       ],
-      'import/order': 'off',
     },
   },
   perfectionist.configs['recommended-natural'],
