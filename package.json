@@ -11,7 +11,7 @@
     "devsafe": "rm -rf .next && yarn run dev",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "start": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && cross-env NODE_OPTIONS=--no-deprecation node .next/standalone/server.js",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && yarn run check",
