@@ -125,6 +125,11 @@ export default buildConfig({
       })
     : undefined,
   globals: [CompanyInfo, PdfStyle],
+  // The admin panel and the PDF export use the REST and Local API; without GraphQL, Payload builds no
+  // schema and exposes no endpoint
+  graphQL: {
+    disable: true,
+  },
   i18n: {
     supportedLanguages: { de, en },
   },
