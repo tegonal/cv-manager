@@ -5,3 +5,12 @@ node_modules
 # Local configuration and secrets, next build would copy .env files into the image
 **/.env*
 .logs
+# Local tooling, caches and notes
+CLAUDE.md
+.claude
+.serena
+.mcp.json
+.idea
+.fallow
+*.tsbuildinfo
+claude-workspace
