@@ -3,9 +3,17 @@ import { Document, Image, Page, Text, View } from '@react-pdf/renderer'
 import { Style } from '@react-pdf/types'
 import React from 'react'
 
-import { I18nCollection } from '@/lib/i18n-collection'
-
-import { CompanyInfoData, CvPdfTemplateProps, mmToPt, PdfSectionContext, styles, tw } from '../lib'
+import {
+  CompanyInfoData,
+  createHeadingStyles,
+  CvPdfTemplateProps,
+  DEFAULT_MARGINS_MM,
+  FOOTER_SPACE,
+  mmToPt,
+  PdfSectionContext,
+  styles,
+  tw,
+} from '../lib'
 import { FirstPageCentered, FirstPageLeftAligned, FirstPageProps } from './first-pages'
 import {
   CasualInfoSection,
@@ -14,6 +22,27 @@ import {
   SkillsSection,
   WorkExperienceSection,
 } from './sections'
+
+type Margins = typeof DEFAULT_MARGINS_MM
+
+// Page and footer styles for page margins in mm
+const pageStyles = (margins: Margins, fontFamily: string) => {
+  const bottom = mmToPt(margins.bottom)
+  const left = mmToPt(margins.left)
+  const right = mmToPt(margins.right)
+
+  return {
+    footer: { ...styles.footer, bottom, left, right },
+    page: {
+      ...styles.page,
+      fontFamily,
+      paddingBottom: bottom + FOOTER_SPACE,
+      paddingLeft: left,
+      paddingRight: right,
+      paddingTop: mmToPt(margins.top),
+    },
+  }
+}
 
 // Logo component (reusable)
 const LogoView = ({
@@ -73,8 +102,7 @@ const FirstPageContent = ({
 const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   companyInfo,
   cv,
-  exportOverride,
-  hasOverride,
+  isSelected,
   locale,
   profileImageDataUrl,
 }) => {
@@ -83,122 +111,77 @@ const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   const secondaryColor = companyInfo.secondaryColor || '#4d4d4d'
   const fontFamily = companyInfo.fontFamily || 'Rubik'
   const firstPageLayout = companyInfo.firstPageLayout || 'centered'
-
-  // Dynamic page margins (for pages 2+ or all pages when logo is on all pages)
-  const marginTop = mmToPt(companyInfo.marginTop || 45)
-  const marginBottom = mmToPt(companyInfo.marginBottom || 15)
-  const marginLeft = mmToPt(companyInfo.marginLeft || 30)
-  const marginRight = mmToPt(companyInfo.marginRight || 30)
   const pageFormat = companyInfo.pageFormat || 'A4'
+  const headings = createHeadingStyles(fontFamily)
 
-  // First page margins (only used when logo is first page only)
-  const logoFirstPageOnly = companyInfo.logoDisplay === 'firstPageOnly'
-  const firstPageMarginTop = mmToPt(companyInfo.firstPageMarginTop || companyInfo.marginTop || 45)
-  const firstPageMarginBottom = mmToPt(
-    companyInfo.firstPageMarginBottom || companyInfo.marginBottom || 15,
-  )
-  const firstPageMarginLeft = mmToPt(
-    companyInfo.firstPageMarginLeft || companyInfo.marginLeft || 30,
-  )
-  const firstPageMarginRight = mmToPt(
-    companyInfo.firstPageMarginRight || companyInfo.marginRight || 30,
-  )
-
-  // First page style (used when logo is first page only)
-  const firstPageStyle = {
-    ...styles.page,
-    fontFamily,
-    paddingBottom: firstPageMarginBottom + 30, // Extra space for footer
-    paddingLeft: firstPageMarginLeft,
-    paddingRight: firstPageMarginRight,
-    paddingTop: firstPageMarginTop,
+  // Margins of pages 2+, or of all pages when the logo is on all pages
+  const margins: Margins = {
+    bottom: companyInfo.marginBottom || DEFAULT_MARGINS_MM.bottom,
+    left: companyInfo.marginLeft || DEFAULT_MARGINS_MM.left,
+    right: companyInfo.marginRight || DEFAULT_MARGINS_MM.right,
+    top: companyInfo.marginTop || DEFAULT_MARGINS_MM.top,
   }
-
-  // Dynamic page style with selected font and margins (for pages 2+ or all pages)
-  const pageStyle = {
-    ...styles.page,
-    fontFamily,
-    paddingBottom: marginBottom + 30, // Extra space for footer
-    paddingLeft: marginLeft,
-    paddingRight: marginRight,
-    paddingTop: marginTop,
-  }
-
-  // Footer styles for first page and other pages
-  const firstPageFooterStyle = {
-    ...styles.footer,
-    bottom: firstPageMarginBottom,
-    left: firstPageMarginLeft,
-    right: firstPageMarginRight,
-  }
-
-  const footerStyle = {
-    ...styles.footer,
-    bottom: marginBottom,
-    left: marginLeft,
-    right: marginRight,
-  }
-
-  // Dynamic heading styles with selected font
-  const h1Style = { ...styles.h1, fontFamily }
+  const otherPages = pageStyles(margins, fontFamily)
 
   const firstPageContent = (
     <FirstPageContent
       cv={cv}
-      h1Style={h1Style}
+      h1Style={headings.h1}
       layout={firstPageLayout}
       primaryColor={primaryColor}
       profileImageDataUrl={profileImageDataUrl}
-      styles={{ lead: styles.lead }}
     />
   )
 
   const ctx: PdfSectionContext = {
     cv,
-    exportOverride,
-    fontFamily,
-    hasOverride,
+    headings,
+    isSelected,
     locale,
     primaryColor,
     secondaryColor,
     skillLevelDisplay,
   }
 
-  // When logo is first page only, use separate pages with different margins
-  if (logoFirstPageOnly) {
+  const sections = (
+    <>
+      <ProfileSection ctx={ctx} />
+      <EducationSection ctx={ctx} />
+      <CasualInfoSection ctx={ctx} />
+
+      {/* Force page break before Skills */}
+      <View break />
+      <SkillsSection ctx={ctx} />
+
+      {/* Force page break before Work Experience */}
+      <View break />
+      <WorkExperienceSection ctx={ctx} />
+    </>
+  )
+
+  // When the logo is on the first page only, that page has its own margins
+  if (companyInfo.logoDisplay === 'firstPageOnly') {
+    const firstPage = pageStyles(
+      {
+        bottom: companyInfo.firstPageMarginBottom || margins.bottom,
+        left: companyInfo.firstPageMarginLeft || margins.left,
+        right: companyInfo.firstPageMarginRight || margins.right,
+        top: companyInfo.firstPageMarginTop || margins.top,
+      },
+      fontFamily,
+    )
+
     return (
       <Document>
-        {/* First Page with its own margins */}
-        <Page dpi={300} size={pageFormat} style={firstPageStyle}>
+        <Page dpi={300} size={pageFormat} style={firstPage.page}>
           <LogoView companyInfo={companyInfo} />
-          <FooterView companyInfo={companyInfo} style={firstPageFooterStyle} />
+          <FooterView companyInfo={companyInfo} style={firstPage.footer} />
           {firstPageContent}
         </Page>
 
-        {/* Subsequent pages with standard margins */}
-        <Page dpi={300} size={pageFormat} style={pageStyle}>
-          <FooterView companyInfo={companyInfo} style={footerStyle} />
-
-          {/* Profile */}
-          <ProfileSection ctx={ctx} />
-
-          {/* Education */}
-          <EducationSection ctx={ctx} />
-
-          {/* Casual Info */}
-          <CasualInfoSection ctx={ctx} />
-
-          {/* Force page break before Skills */}
-          <View break />
-
-          {/* Skills */}
-          <SkillsSection ctx={ctx} />
-
-          {/* Force page break before Work Experience */}
-          <View break />
-
-          {/* Work Experience and Projects */}
-          <WorkExperienceSection ctx={ctx} />
+        <Page dpi={300} size={pageFormat} style={otherPages.page}>
+          <FooterView companyInfo={companyInfo} style={otherPages.footer} />
+          {sections}
         </Page>
       </Document>
     )
@@ -207,36 +190,14 @@ const DefaultTemplate: React.FC<CvPdfTemplateProps> = ({
   // Default: logo on all pages, use same margins throughout
   return (
     <Document>
-      <Page dpi={300} size={pageFormat} style={pageStyle}>
+      <Page dpi={300} size={pageFormat} style={otherPages.page}>
         <LogoView companyInfo={companyInfo} fixed />
-        <FooterView companyInfo={companyInfo} style={footerStyle} />
-
-        {/* First Page - conditionally render based on layout setting */}
+        <FooterView companyInfo={companyInfo} style={otherPages.footer} />
         {firstPageContent}
 
         {/* Force page break after intro */}
         <View break />
-
-        {/* Profile */}
-        <ProfileSection ctx={ctx} />
-
-        {/* Education */}
-        <EducationSection ctx={ctx} />
-
-        {/* Casual Info */}
-        <CasualInfoSection ctx={ctx} />
-
-        {/* Force page break before Skills */}
-        <View break />
-
-        {/* Skills */}
-        <SkillsSection ctx={ctx} />
-
-        {/* Force page break before Work Experience */}
-        <View break />
-
-        {/* Work Experience and Projects */}
-        <WorkExperienceSection ctx={ctx} />
+        {sections}
       </Page>
     </Document>
   )

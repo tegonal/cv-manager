@@ -5,7 +5,6 @@ import { I18nCollection } from '@/lib/i18n-collection'
 import { Level, Skill, SkillGroup } from '@/types/payload-types'
 
 import {
-  createHeadingStyles,
   LexicalContent,
   LexicalPdfRenderer,
   PdfSectionContext,
@@ -16,8 +15,8 @@ import {
 import {
   Bold,
   ContentBlock,
-  Grid3Cols,
   GridCol,
+  GridRow,
   HighlightEntry,
   Section,
   SkillLevelDisplay,
@@ -26,8 +25,8 @@ import {
 } from '../components'
 
 export const SkillsSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => {
-  const { cv, fontFamily, locale, primaryColor, secondaryColor, skillLevelDisplay } = ctx
-  const { h2, h3 } = createHeadingStyles(fontFamily)
+  const { cv, headings, locale, primaryColor, secondaryColor, skillLevelDisplay } = ctx
+  const { h2, h3 } = headings
 
   return (
     <Section>
@@ -40,12 +39,9 @@ export const SkillsSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => 
               borderColor={primaryColor}
               description={item.description as LexicalContent}
               dotColor={secondaryColor}
-              highlightIconStyle={styles.highlightIcon}
-              highlightStyle={styles.highlight}
               key={item.id}
               level={item.level as Level}
               skillLevelDisplay={skillLevelDisplay}
-              smallStyle={styles.small}
               subtitle={(item.level as Level).level}
               title={(item.skill.value as Skill | SkillGroup).name}
             />
@@ -65,30 +61,31 @@ export const SkillsSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => 
                 </View>
               )}
             </ContentBlock>
-            <Grid3Cols>
-              {group.skills?.map((item) => (
-                <GridCol key={item.id}>
-                  <Bold>{(item.skill.value as Skill | SkillGroup).name}</Bold>
-                  {item.level && (
-                    <SkillLevelDisplay
-                      color={secondaryColor}
-                      displayMode={skillLevelDisplay}
-                      level={item.level as Level}
-                    />
-                  )}
-                  {relationNames(item['sub-skill'] ?? []).length > 0 && (
-                    <Small italic>{relationNames(item['sub-skill'] ?? []).join(', ')}</Small>
-                  )}
-                </GridCol>
-              ))}
-            </Grid3Cols>
+            <GridRow>
+              {group.skills?.map((item) => {
+                const subSkills = relationNames(item['sub-skill'] ?? [])
+                return (
+                  <GridCol key={item.id}>
+                    <Bold>{(item.skill.value as Skill | SkillGroup).name}</Bold>
+                    {item.level && (
+                      <SkillLevelDisplay
+                        color={secondaryColor}
+                        displayMode={skillLevelDisplay}
+                        level={item.level as Level}
+                      />
+                    )}
+                    {subSkills.length > 0 && <Small italic>{subSkills.join(', ')}</Small>}
+                  </GridCol>
+                )
+              })}
+            </GridRow>
           </Subsection>
         )
       })}
 
       {(cv.otherSkills?.length ?? 0) > 0 && (
         <Subsection heading={I18nCollection.fieldLabel.otherSkills[locale]} headingStyle={h3}>
-          <Grid3Cols>
+          <GridRow>
             {cv.otherSkills?.map((item) => (
               <GridCol key={item.id} wrap={false}>
                 <Bold>{item.name}</Bold>
@@ -99,13 +96,13 @@ export const SkillsSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => 
                 />
               </GridCol>
             ))}
-          </Grid3Cols>
+          </GridRow>
         </Subsection>
       )}
 
       {(cv.lang?.length ?? 0) > 0 && (
         <Subsection heading={I18nCollection.fieldLabel.languages[locale]} headingStyle={h3}>
-          <Grid3Cols>
+          <GridRow>
             {cv.lang?.map((item) => (
               <GridCol key={item.id} wrap={false}>
                 <Bold>{(item.language as Skill).name}</Bold>
@@ -116,7 +113,7 @@ export const SkillsSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => 
                 />
               </GridCol>
             ))}
-          </Grid3Cols>
+          </GridRow>
         </Subsection>
       )}
     </Section>

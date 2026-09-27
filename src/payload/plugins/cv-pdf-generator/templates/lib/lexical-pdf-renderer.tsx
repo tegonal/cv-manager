@@ -3,17 +3,7 @@ import type { Style } from '@react-pdf/types'
 import { Link, StyleSheet, Text, View } from '@react-pdf/renderer'
 import React from 'react'
 
-import type {
-  HeadingNode,
-  LexicalContent,
-  LinkNode,
-  ListItemNode,
-  ListNode,
-  Node,
-  ParagraphNode,
-  QuoteNode,
-  TextNode,
-} from './lexical-types'
+import type { LexicalContent, Node, TextNode } from './lexical-types'
 
 import { tw } from './tw'
 
@@ -46,114 +36,84 @@ const styles = StyleSheet.create({
   },
 })
 
+// Styles of the text formats, in the order they are applied
+const formatStyles: [flag: number, style: Style][] = [
+  [IS_BOLD, tw('font-bold')],
+  [IS_ITALIC, tw('italic')],
+  [IS_UNDERLINE, tw('underline')],
+  [IS_STRIKETHROUGH, tw('line-through')],
+  [IS_SUBSCRIPT, styles.subscript],
+  [IS_SUPERSCRIPT, styles.superscript],
+]
+
+// Other heading levels use 12pt
+const headingFontSizes: Record<string, number> = { h1: 24, h2: 18, h3: 14 }
+
 type Props = {
   content: LexicalContent
 }
 
-type TextStyle = {
-  bold?: boolean
-  italic?: boolean
-  strikethrough?: boolean
-  subscript?: boolean
-  superscript?: boolean
-  underline?: boolean
-}
-
-function getTextStyle(format: number | string): TextStyle {
-  if (typeof format === 'string' || format === 0) {
-    return {}
-  }
-  return {
-    bold: (format & IS_BOLD) > 0,
-    italic: (format & IS_ITALIC) > 0,
-    strikethrough: (format & IS_STRIKETHROUGH) > 0,
-    subscript: (format & IS_SUBSCRIPT) > 0,
-    superscript: (format & IS_SUPERSCRIPT) > 0,
-    underline: (format & IS_UNDERLINE) > 0,
-  }
+function renderChildren(children: Node[] | undefined): React.ReactNode {
+  return children?.map((child, i) => renderNode(child, i))
 }
 
 function renderNode(node: Node, index: number): React.ReactNode {
   switch (node.type) {
     case 'autolink':
-    case 'link': {
-      const linkNode = node as LinkNode
-      const url = linkNode.fields?.url || ''
+    case 'link':
       return (
-        <Link key={index} src={url} style={tw('text-black no-underline')}>
-          {linkNode.children?.map((child, i) => renderNode(child, i))}
+        <Link key={index} src={node.fields?.url || ''} style={tw('text-black no-underline')}>
+          {renderChildren(node.children)}
         </Link>
       )
-    }
 
-    case 'heading': {
-      const headingNode = node as HeadingNode
-      const headingStyle: Style = {
-        fontWeight: 700,
-        marginBottom: 4,
-      }
-      if (headingNode.tag === 'h1') {
-        headingStyle.fontSize = 24
-      } else if (headingNode.tag === 'h2') {
-        headingStyle.fontSize = 18
-      } else if (headingNode.tag === 'h3') {
-        headingStyle.fontSize = 14
-      } else {
-        headingStyle.fontSize = 12
-      }
+    case 'heading':
       return (
-        <Text key={index} style={headingStyle}>
-          {headingNode.children?.map((child, i) => renderNode(child, i))}
+        <Text
+          key={index}
+          style={{
+            fontSize: headingFontSizes[node.tag] ?? 12,
+            fontWeight: 700,
+            marginBottom: 4,
+          }}>
+          {renderChildren(node.children)}
         </Text>
       )
-    }
 
     case 'linebreak':
       return <Text key={index}>{'\n'}</Text>
 
-    case 'list': {
-      const listNode = node as ListNode
+    case 'list':
       return (
         <View key={index} style={tw('ml-2.5')}>
-          {listNode.children?.map((child, i) => renderNode(child, i))}
+          {renderChildren(node.children)}
         </View>
       )
-    }
 
-    case 'listitem': {
-      const listItemNode = node as ListItemNode
+    case 'listitem':
       return (
         <View key={index} style={tw('flex flex-row')}>
-          <Text style={[tw('mr-1'), { width: 10 }]}>{'\u2022'}</Text>
-          <Text style={tw('flex-1')}>
-            {listItemNode.children?.map((child, i) => renderNode(child, i))}
-          </Text>
+          <Text style={[tw('mr-1'), { width: 10 }]}>{'•'}</Text>
+          <Text style={tw('flex-1')}>{renderChildren(node.children)}</Text>
         </View>
       )
-    }
 
-    case 'paragraph': {
-      const paragraphNode = node as ParagraphNode
+    case 'paragraph':
       return (
         <Text key={index} style={styles.paragraph}>
-          {paragraphNode.children?.map((child, i) => renderNode(child, i))}
+          {renderChildren(node.children)}
         </Text>
       )
-    }
 
-    case 'quote': {
-      const quoteNode = node as QuoteNode
+    case 'quote':
       return (
         <View key={index} style={[tw('ml-2.5 pl-2 border-l-2'), { borderLeftColor: '#9ca3af' }]}>
-          <Text style={tw('italic')}>
-            {quoteNode.children?.map((child, i) => renderNode(child, i))}
-          </Text>
+          <Text style={tw('italic')}>{renderChildren(node.children)}</Text>
         </View>
       )
-    }
 
     case 'text':
-      return renderTextNode(node as TextNode, index)
+      return renderTextNode(node, index)
 
     default:
       return null
@@ -161,15 +121,8 @@ function renderNode(node: Node, index: number): React.ReactNode {
 }
 
 function renderTextNode(node: TextNode, index: number): React.ReactNode {
-  const format = getTextStyle(node.format)
-  const textStyles: Style[] = []
-
-  if (format.bold) textStyles.push(tw('font-bold'))
-  if (format.italic) textStyles.push(tw('italic'))
-  if (format.underline) textStyles.push(tw('underline'))
-  if (format.strikethrough) textStyles.push(tw('line-through'))
-  if (format.subscript) textStyles.push(styles.subscript)
-  if (format.superscript) textStyles.push(styles.superscript)
+  const format = typeof node.format === 'number' ? node.format : 0
+  const textStyles = formatStyles.filter(([flag]) => format & flag).map(([, style]) => style)
 
   return (
     <Text key={index} style={textStyles.length > 0 ? textStyles : undefined}>
@@ -179,9 +132,9 @@ function renderTextNode(node: TextNode, index: number): React.ReactNode {
 }
 
 export const LexicalPdfRenderer: React.FC<Props> = ({ content }) => {
-  if (!content || !content.root || !content.root.children) {
+  if (!content?.root?.children) {
     return null
   }
 
-  return <View>{content.root.children.map((node, index) => renderNode(node, index))}</View>
+  return <View>{renderChildren(content.root.children)}</View>
 }

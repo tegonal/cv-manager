@@ -8,7 +8,7 @@ import { useFetchedRelation } from './use-fetched-relation'
 
 export const RowLabelLanguage: React.FC = () => {
   const { data } = useRowLabel<LanguageRowData>()
-  const { data: language } = useFetchedRelation(data?.language, getLanguage)
+  const language = useFetchedRelation(data?.language, getLanguage)
 
   return (
     <div>

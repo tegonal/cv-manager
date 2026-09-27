@@ -9,7 +9,7 @@ import {
   useModal,
   useTranslation,
 } from '@payloadcms/ui'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 import { fetchCvAction } from '@/payload/plugins/cv-pdf-generator/actions'
@@ -34,20 +34,13 @@ const getLocalizedFieldLabel = (
   return fieldLabel ? (fieldLabel as Record<string, string>)[localeCode] : 'Unknown'
 }
 
+const projectKey = (project: NonNullable<Cv['projects']>[number]) => `project_${project.id}`
+
 // Every profile field and project is exported unless deselected
-const getDefaultExportState = (cv: Cv): Record<string, boolean> => {
-  const profile = profileKeys.reduce<Record<string, boolean>>((acc, key) => {
-    acc[key] = true
-    return acc
-  }, {})
-
-  const projects = cv.projects?.reduce<Record<string, boolean>>((acc, project) => {
-    acc[`project_${project.id}`] = true
-    return acc
-  }, {})
-
-  return { ...profile, ...projects }
-}
+const getDefaultExportState = (cv: Cv): Record<string, boolean> =>
+  Object.fromEntries(
+    [...profileKeys, ...(cv.projects ?? []).map(projectKey)].map((key) => [key, true]),
+  )
 
 type FormField = {
   export: boolean
@@ -67,8 +60,10 @@ export const ExportOverlay: React.FC = () => {
   const { closeModal, isModalOpen } = useModal()
   const { t } = useTranslation()
   const isOpen = isModalOpen(drawerSlug)
-  const [cv, setCv] = React.useState<Cv>()
-  const [formState, setFormState] = React.useState<Record<string, boolean>>({})
+  const [cv, setCv] = useState<Cv>()
+  const [formState, setFormState] = useState<Record<string, boolean>>({})
+
+  const close = () => closeModal(drawerSlug)
 
   useEffect(() => {
     if (!isOpen || !id) {
@@ -89,24 +84,20 @@ export const ExportOverlay: React.FC = () => {
     fetchData()
   }, [id, isOpen])
 
-  const availableOptions = useMemo(() => {
-    const profile = [
+  const availableOptions = useMemo<FormSection[]>(
+    () => [
       {
         fields: profileKeys.map((key) => ({
           export: formState[key] ?? true,
           key,
           label: getLocalizedFieldLabel(key as keyof typeof I18nCollection.fieldLabel, locale.code),
-          value: cv && key in cv ? cv[key] : 'Unknown',
         })),
         section: getLocalizedFieldLabel('profile', locale.code),
       },
-    ]
-
-    const projects = [
       {
-        fields: cv?.projects?.map((project) => ({
-          export: formState[`project_${project.id}`] ?? true,
-          key: `project_${project.id}`,
+        fields: (cv?.projects ?? []).map((project) => ({
+          export: formState[projectKey(project)] ?? true,
+          key: projectKey(project),
           label: (
             <strong>
               {[project.company, project.project]
@@ -118,10 +109,9 @@ export const ExportOverlay: React.FC = () => {
         })),
         section: getLocalizedFieldLabel('projects', locale.code),
       },
-    ]
-
-    return [...profile, ...projects] as FormSection[]
-  }, [formState, cv, locale.code])
+    ],
+    [formState, cv, locale.code],
+  )
 
   const onCheckboxChange = (key: string) => {
     setFormState((prevState) => ({
@@ -144,11 +134,11 @@ export const ExportOverlay: React.FC = () => {
             PDF.
           </p>
           <div>
-            {availableOptions?.map((section) => (
+            {availableOptions.map((section) => (
               <div className={'mb-12'} key={section.section}>
                 <h2 className={'text-xl font-bold'}>{section.section}</h2>
                 <ul>
-                  {section.fields?.map((field) => (
+                  {section.fields.map((field) => (
                     <li className={'flex'} key={field.key}>
                       {/* The whole row toggles the checkbox, as its label */}
                       <label
@@ -175,10 +165,10 @@ export const ExportOverlay: React.FC = () => {
               exportOverride={formState}
               id={id}
               locale={locale.code}
-              onTransferred={() => closeModal(drawerSlug)}
+              onTransferred={close}
               title={cv?.fullName || 'cv-export'}
             />
-            <Button buttonStyle="secondary" onClick={() => closeModal(drawerSlug)}>
+            <Button buttonStyle="secondary" onClick={close}>
               {t('general:cancel')}
             </Button>
           </div>
@@ -187,7 +177,7 @@ export const ExportOverlay: React.FC = () => {
           <Button
             buttonStyle="icon-label"
             className={`${baseClass}__cancel size-10`}
-            onClick={() => closeModal(drawerSlug)}>
+            onClick={close}>
             <CloseMenuIcon />
           </Button>
         </div>

@@ -21,20 +21,13 @@ export const formatYear = (date: string): string => {
 /**
  * Format a date range as years (e.g., "2020 - 2023" or "Since 2020")
  */
-export const fromToYear = (
-  locale: string,
-  from?: null | string,
-  to?: null | string,
-  i18n?: typeof I18nCollection,
-): string => {
+export const fromToYear = (locale: string, from?: null | string, to?: null | string): string => {
   if (!from) return ''
-  let returnString = formatYear(from)
   if (!to) {
-    returnString = `${i18n?.fieldLabel.since[locale as keyof typeof i18n.fieldLabel.since] || 'Since'} ${returnString}`
-  } else if (from != to) {
-    returnString = `${returnString} - ${formatYear(to)}`
+    const since = I18nCollection.fieldLabel.since
+    return `${since[locale as keyof typeof since] || 'Since'} ${formatYear(from)}`
   }
-  return returnString
+  return from !== to ? `${formatYear(from)} - ${formatYear(to)}` : formatYear(from)
 }
 
 /**

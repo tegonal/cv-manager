@@ -4,14 +4,7 @@ import React from 'react'
 import { I18nCollection } from '@/lib/i18n-collection'
 import { Company, Project } from '@/types/payload-types'
 
-import {
-  createHeadingStyles,
-  fromToYear,
-  LexicalContent,
-  LexicalPdfRenderer,
-  PdfSectionContext,
-  styles,
-} from '../../lib'
+import { fromToYear, LexicalContent, LexicalPdfRenderer, PdfSectionContext } from '../../lib'
 import {
   Bold,
   ContentBlock,
@@ -23,8 +16,8 @@ import {
 } from '../components'
 
 export const WorkExperienceSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => {
-  const { cv, exportOverride, fontFamily, locale, primaryColor } = ctx
-  const { h2, h3 } = createHeadingStyles(fontFamily)
+  const { cv, headings, isSelected, locale, primaryColor } = ctx
+  const { h2, h3 } = headings
 
   return (
     <Section>
@@ -36,11 +29,8 @@ export const WorkExperienceSection: React.FC<{ ctx: PdfSectionContext }> = ({ ct
             <HighlightEntry
               borderColor={primaryColor}
               description={item.description as LexicalContent}
-              highlightIconStyle={styles.highlightIcon}
-              highlightStyle={styles.highlight}
               key={item.id}
-              smallStyle={styles.small}
-              subtitle={fromToYear(locale, item.fromYear, item.toYear, I18nCollection)}
+              subtitle={fromToYear(locale, item.fromYear, item.toYear)}
               title={(item.company as Company).name}
             />
           ))}
@@ -50,25 +40,18 @@ export const WorkExperienceSection: React.FC<{ ctx: PdfSectionContext }> = ({ ct
       {(cv.projects?.length ?? 0) > 0 && (
         <Subsection gap={6} heading={I18nCollection.fieldLabel.projects[locale]} headingStyle={h3}>
           {cv.projects?.map((item) => {
-            const projectKey = `project_${item.id}`
-            if (projectKey in exportOverride && !exportOverride[projectKey]) return null
+            if (!isSelected(`project_${item.id}`)) return null
+            const project = item.project as Project
             return (
               <View key={item.id} wrap={false}>
                 <Bold mb={0.5}>
-                  <OptionalLink
-                    name={(item.project as Project).name || ''}
-                    url={(item.project as Project).link}
-                  />
+                  <OptionalLink name={project.name || ''} url={project.link} />
                 </Bold>
                 <Small mb={0.5}>{(item.company as Company).name}</Small>
-                <Small mb={0.5}>
-                  {fromToYear(locale, item.fromYear, item.toYear, I18nCollection)}
-                </Small>
+                <Small mb={0.5}>{fromToYear(locale, item.fromYear, item.toYear)}</Small>
                 <ContentBlock>
-                  {(item.project as Project).description && (
-                    <LexicalPdfRenderer
-                      content={(item.project as Project).description as LexicalContent}
-                    />
+                  {project.description && (
+                    <LexicalPdfRenderer content={project.description as LexicalContent} />
                   )}
                   <LexicalPdfRenderer content={item.description as LexicalContent} />
                 </ContentBlock>

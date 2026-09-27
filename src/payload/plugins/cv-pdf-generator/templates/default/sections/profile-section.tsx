@@ -4,33 +4,33 @@ import React from 'react'
 import { I18nCollection } from '@/lib/i18n-collection'
 import { socialPlatformOptions } from '@/payload/collections/CVs/tabs/profile'
 
-import { createHeadingStyles, formatDate, PdfSectionContext } from '../../lib'
-import { Grid3Cols, GridCol, GridColSpan2, LinkWithIcon, Section } from '../components'
+import { formatDate, PdfSectionContext } from '../../lib'
+import { GridCol, GridColSpan2, GridRow, LinkWithIcon, Section } from '../components'
 
 export const ProfileSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) => {
-  const { cv, fontFamily, hasOverride, locale, secondaryColor } = ctx
-  const { h2, h3 } = createHeadingStyles(fontFamily)
+  const { cv, headings, isSelected, locale, secondaryColor } = ctx
+  const { h2, h3 } = headings
 
   return (
     <Section gap={4} wrap={false}>
       <Text style={h2}>{I18nCollection.fieldLabel.profile[locale]}</Text>
 
-      <Grid3Cols>
-        {cv.birthday && hasOverride('birthday') && (
+      <GridRow>
+        {cv.birthday && isSelected('birthday') && (
           <GridCol>
             <Text style={h3}>{I18nCollection.fieldLabel.birthday[locale]}</Text>
             <Text>{formatDate(cv.birthday, locale)}</Text>
           </GridCol>
         )}
 
-        {cv.nationalityStatus && hasOverride('nationalityStatus') && (
+        {cv.nationalityStatus && isSelected('nationalityStatus') && (
           <GridCol>
             <Text style={h3}>{I18nCollection.fieldLabel.nationalityStatus[locale]}</Text>
             <Text>{cv.nationalityStatus}</Text>
           </GridCol>
         )}
 
-        {cv.phoneNumber && hasOverride('phoneNumber') && (
+        {cv.phoneNumber && isSelected('phoneNumber') && (
           <GridCol>
             <Text style={h3}>{I18nCollection.fieldLabel.phoneNumber[locale]}</Text>
             <Text>{cv.phoneNumber}</Text>
@@ -38,7 +38,7 @@ export const ProfileSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) =>
         )}
 
         {/* External profile links */}
-        {(cv.links?.length ?? 0) > 0 && hasOverride('links') && (
+        {(cv.links?.length ?? 0) > 0 && isSelected('links') && (
           <GridCol>
             <Text style={h3}>{I18nCollection.fieldLabel.externalProfiles[locale]}</Text>
             {cv.links?.map((link) => (
@@ -51,7 +51,7 @@ export const ProfileSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) =>
         )}
 
         {/* Email spans 2 columns */}
-        {cv.email && hasOverride('email') && (
+        {cv.email && isSelected('email') && (
           <GridColSpan2>
             <Text style={h3}>{I18nCollection.fieldLabel.email[locale]}</Text>
             <LinkWithIcon color={secondaryColor} href={`mailto:${cv.email}`}>
@@ -59,7 +59,7 @@ export const ProfileSection: React.FC<{ ctx: PdfSectionContext }> = ({ ctx }) =>
             </LinkWithIcon>
           </GridColSpan2>
         )}
-      </Grid3Cols>
+      </GridRow>
     </Section>
   )
 }

@@ -2,7 +2,7 @@ import { Text, View } from '@react-pdf/renderer'
 import { Style } from '@react-pdf/types'
 import React from 'react'
 
-import { tw } from '../../lib'
+import { styles, tw } from '../../lib'
 
 /** Helper to build class string, filtering empty values */
 const cx = (...classes: (false | string | undefined)[]) => classes.filter(Boolean).join(' ')
@@ -64,7 +64,7 @@ export const Bold: React.FC<{
 )
 
 /**
- * Small text (replaces styles.small) - 7.5pt
+ * Small text (7.5pt)
  */
 export const Small: React.FC<{
   children: React.ReactNode
@@ -73,7 +73,5 @@ export const Small: React.FC<{
 }> = ({ children, italic = false, mb = 0 }) => {
   const classes = cx(italic && 'italic', mb === 0.5 && 'mb-0.5')
 
-  return (
-    <Text style={classes ? [tw(classes), { fontSize: 7.5 }] : { fontSize: 7.5 }}>{children}</Text>
-  )
+  return <Text style={classes ? [tw(classes), styles.small] : styles.small}>{children}</Text>
 }

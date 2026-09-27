@@ -8,7 +8,7 @@ export {
 } from './helpers'
 export { withHyphenationLocale } from './hyphenation'
 export { LexicalPdfRenderer } from './lexical-pdf-renderer'
-export { createHeadingStyles, mmToPt, styles } from './styles'
+export { createHeadingStyles, DEFAULT_MARGINS_MM, FOOTER_SPACE, mmToPt, styles } from './styles'
 export { tw } from './tw'
 export type {
   CompanyInfoData,

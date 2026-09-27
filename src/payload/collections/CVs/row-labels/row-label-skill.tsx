@@ -10,7 +10,7 @@ import { useFetchedRelation } from './use-fetched-relation'
 export const RowLabelSkill: React.FC = () => {
   const { data } = useRowLabel<SkillRowData>()
   const relation = data?.skill
-  const { data: skill } = useFetchedRelation(
+  const skill = useFetchedRelation(
     relation?.value,
     relation?.relationTo === 'skillGroup' ? getSkillGroup : getSkill,
   )

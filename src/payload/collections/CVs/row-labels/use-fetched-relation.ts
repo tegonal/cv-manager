@@ -12,19 +12,14 @@ type Fetched<T> = {
   locale: string
 }
 
-type UseFetchedRelationResult<T> = {
-  data: T | undefined
-  isLoading: boolean
-}
-
 /**
  * Custom hook for fetching related data in row labels using server actions.
- * Fetches once per relation id, locale and fetch action.
+ * Fetches once per relation id, locale and fetch action, returns undefined until fetched.
  */
 export function useFetchedRelation<T>(
   id: null | number | string | undefined,
   fetchAction: FetchAction<T>,
-): UseFetchedRelationResult<T> {
+): T | undefined {
   const locale = useLocale()
   const [fetched, setFetched] = useState<Fetched<T>>()
 
@@ -49,8 +44,5 @@ export function useFetchedRelation<T>(
     }
   }, [hasId, isCurrent, id, locale.code, fetchAction])
 
-  return {
-    data: isCurrent ? (fetched.data ?? undefined) : undefined,
-    isLoading: hasId && !isCurrent,
-  }
+  return isCurrent ? (fetched.data ?? undefined) : undefined
 }

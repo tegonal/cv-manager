@@ -16,7 +16,7 @@ export const GeneratePDFButton: React.FC<Props> = ({
   exportOverride,
   id,
   locale,
-  onTransferred = () => {},
+  onTransferred,
   title,
 }) => {
   const [isBusy, setBusy] = React.useState(false)
@@ -37,13 +37,11 @@ export const GeneratePDFButton: React.FC<Props> = ({
 
       if (result.error) {
         toast.error(`PDF generation failed: ${result.error}`)
-        setBusy(false)
         return
       }
 
       if (!result.data) {
         toast.error('No PDF data returned from server')
-        setBusy(false)
         return
       }
 
@@ -65,12 +63,12 @@ export const GeneratePDFButton: React.FC<Props> = ({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
-      setBusy(false)
       toast.success('PDF generated successfully')
-      onTransferred()
+      onTransferred?.()
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error'
       toast.error(`PDF generation failed: ${message}`)
+    } finally {
       setBusy(false)
     }
   }

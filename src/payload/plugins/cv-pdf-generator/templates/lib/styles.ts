@@ -4,11 +4,16 @@ import { Style } from '@react-pdf/types'
 // Convert mm to points (1mm = 2.83465pt)
 export const mmToPt = (mm: number) => mm * 2.83465
 
-// Default page margins (used in static styles, can be overridden dynamically)
-const DEFAULT_MARGIN_TOP = mmToPt(45)
-const DEFAULT_MARGIN_BOTTOM = mmToPt(15)
-const DEFAULT_MARGIN_LEFT = mmToPt(30)
-const DEFAULT_MARGIN_RIGHT = mmToPt(30)
+// Page margins in mm when the PDF style sets none
+export const DEFAULT_MARGINS_MM = { bottom: 15, left: 30, right: 30, top: 45 }
+
+// Space in pt kept free above the bottom margin for the footer
+export const FOOTER_SPACE = 30
+
+const DEFAULT_MARGIN_TOP = mmToPt(DEFAULT_MARGINS_MM.top)
+const DEFAULT_MARGIN_BOTTOM = mmToPt(DEFAULT_MARGINS_MM.bottom)
+const DEFAULT_MARGIN_LEFT = mmToPt(DEFAULT_MARGINS_MM.left)
+const DEFAULT_MARGIN_RIGHT = mmToPt(DEFAULT_MARGINS_MM.right)
 
 // Base styles matching original default-page.scss layout
 export const styles = StyleSheet.create({
@@ -76,7 +81,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Rubik',
     fontSize: 10,
     fontWeight: 300,
-    paddingBottom: DEFAULT_MARGIN_BOTTOM + 30, // Extra space for footer
+    paddingBottom: DEFAULT_MARGIN_BOTTOM + FOOTER_SPACE,
     paddingLeft: DEFAULT_MARGIN_LEFT,
     paddingRight: DEFAULT_MARGIN_RIGHT,
     paddingTop: DEFAULT_MARGIN_TOP,

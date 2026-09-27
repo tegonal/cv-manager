@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Level } from '@/types/payload-types'
 
-import { tw } from '../../lib'
+import { styles, tw } from '../../lib'
 import { DotRating } from './dot-rating'
 import { ProgressBar } from './progress-bar'
 
@@ -13,10 +13,10 @@ export const SkillLevelDisplay: React.FC<{
   level: Level
 }> = ({ color, displayMode, level }) => {
   if (displayMode === 'dots') {
-    return <DotRating color={color} filled={level.points || 0} total={5} />
+    return <DotRating color={color} filled={level.points || 0} />
   }
   if (displayMode === 'progressBar') {
-    return <ProgressBar color={color} filled={level.points || 0} total={5} />
+    return <ProgressBar color={color} filled={level.points || 0} />
   }
-  return <Text style={[tw('italic'), { fontSize: 7.5 }]}>{level.level}</Text>
+  return <Text style={[tw('italic'), styles.small]}>{level.level}</Text>
 }

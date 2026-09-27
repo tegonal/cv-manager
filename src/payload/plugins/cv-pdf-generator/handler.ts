@@ -9,7 +9,12 @@ import { MEDIA_PREFIX } from '@/payload/collections/Media/constants'
 import { CompanyInfo, Cv, Media, PdfStyle } from '@/types/payload-types'
 
 import DefaultTemplate from './templates/default'
-import { CompanyInfoData, CvPdfTemplateProps, withHyphenationLocale } from './templates/lib'
+import {
+  CompanyInfoData,
+  CvPdfTemplateProps,
+  DEFAULT_MARGINS_MM,
+  withHyphenationLocale,
+} from './templates/lib'
 // Import fonts module to ensure Font registrations happen
 import './templates/lib/fonts'
 
@@ -205,10 +210,10 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
       logoMarginTop: pdfStyleGlobal.logoMarginTop,
       logoPosition: pdfStyleGlobal.logoPosition || 'right',
       logoWidth: logoWidthMm,
-      marginBottom: pdfStyleGlobal.marginBottom || 15,
-      marginLeft: pdfStyleGlobal.marginLeft || 30,
-      marginRight: pdfStyleGlobal.marginRight || 30,
-      marginTop: pdfStyleGlobal.marginTop || 45,
+      marginBottom: pdfStyleGlobal.marginBottom || DEFAULT_MARGINS_MM.bottom,
+      marginLeft: pdfStyleGlobal.marginLeft || DEFAULT_MARGINS_MM.left,
+      marginRight: pdfStyleGlobal.marginRight || DEFAULT_MARGINS_MM.right,
+      marginTop: pdfStyleGlobal.marginTop || DEFAULT_MARGINS_MM.top,
       name: companyInfoGlobal.name || '',
       pageFormat: pdfStyleGlobal.pageFormat || 'A4',
       primaryColor: pdfStyleGlobal.primaryColor || '#64748b',
@@ -217,14 +222,13 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
       url: companyInfoGlobal.url || '',
     }
 
-    // Profile fields are exported unless deselected, like projects
-    const hasOverride = (key: string) => exportOverride[key] !== false
+    // Profile fields and projects are exported unless deselected
+    const isSelected = (key: string) => exportOverride[key] !== false
 
     const props: CvPdfTemplateProps = {
       companyInfo,
       cv,
-      exportOverride,
-      hasOverride,
+      isSelected,
       locale: locale as TypedLocale,
       profileImageDataUrl,
     }

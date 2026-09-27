@@ -1,3 +1,4 @@
+import { Style } from '@react-pdf/types'
 import { TypedLocale } from 'payload'
 
 import { CompanyInfo, Cv, PdfStyle } from '@/types/payload-types'
@@ -17,8 +18,7 @@ export type CompanyInfoData = Omit<CompanyInfo, 'id' | 'updatedAt'> &
 export type CvPdfTemplateProps = {
   companyInfo: CompanyInfoData
   cv: Cv
-  exportOverride: Record<string, boolean>
-  hasOverride: (key: string) => boolean
+  isSelected: IsSelected
   locale: TypedLocale
   profileImageDataUrl: string
 }
@@ -26,11 +26,14 @@ export type CvPdfTemplateProps = {
 // Shared context passed to all PDF section components
 export type PdfSectionContext = {
   cv: Cv
-  exportOverride: Record<string, boolean>
-  fontFamily: string
-  hasOverride: (key: string) => boolean
+  // Headings in the font of the PDF style
+  headings: { h1: Style; h2: Style; h3: Style }
+  isSelected: IsSelected
   locale: 'de' | 'en'
   primaryColor: string
   secondaryColor: string
   skillLevelDisplay: 'dots' | 'progressBar' | 'text'
 }
+
+// Whether a profile field or a project (`project_<id>`) is exported
+type IsSelected = (key: string) => boolean

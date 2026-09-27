@@ -1,9 +1,7 @@
 import { Text, View } from '@react-pdf/renderer'
 import React from 'react'
 
-import type { LexicalContent } from './types'
-
-import { LexicalPdfRenderer, tw } from '../../lib'
+import { LexicalContent, LexicalPdfRenderer, styles, tw } from '../../lib'
 import { CircularImage } from '../components'
 import { FirstPageProps } from './types'
 
@@ -12,7 +10,6 @@ export const FirstPageCentered: React.FC<FirstPageProps> = ({
   h1Style,
   primaryColor,
   profileImageDataUrl,
-  styles,
 }) => {
   return (
     <View style={tw('flex flex-col gap-16 items-center justify-center flex-1')}>

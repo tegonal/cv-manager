@@ -3,23 +3,26 @@ import React from 'react'
 
 import { tw } from '../../lib'
 
+type ColumnProps = {
+  children: React.ReactNode
+  wrap?: boolean
+}
+
 /**
- * A 3-column grid container using flexbox
+ * A row of grid columns, wrapping onto new lines when full
  */
-export const Grid3Cols: React.FC<{
+export const GridRow: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => <View style={tw('flex flex-row flex-wrap')}>{children}</View>
 
-/**
- * A grid column that takes 1/3 of the width
- */
-export const GridCol: React.FC<{
-  children: React.ReactNode
-  wrap?: boolean
-}> = ({ children, wrap = true }) => (
+const GridColumn: React.FC<ColumnProps & { flexBasis: string }> = ({
+  children,
+  flexBasis,
+  wrap = true,
+}) => (
   <View
     style={{
-      flexBasis: '33.33%',
+      flexBasis,
       flexDirection: 'column',
       gap: 4,
       marginBottom: 12,
@@ -28,51 +31,23 @@ export const GridCol: React.FC<{
     wrap={wrap}>
     {children}
   </View>
+)
+
+/**
+ * A grid column that takes 1/3 of the width
+ */
+export const GridCol: React.FC<ColumnProps> = (props) => (
+  <GridColumn flexBasis="33.33%" {...props} />
 )
 
 /**
  * A grid column that takes 2/3 of the width
  */
-export const GridColSpan2: React.FC<{
-  children: React.ReactNode
-  wrap?: boolean
-}> = ({ children, wrap = true }) => (
-  <View
-    style={{
-      flexBasis: '66.66%',
-      flexDirection: 'column',
-      gap: 4,
-      marginBottom: 12,
-      paddingRight: 12,
-    }}
-    wrap={wrap}>
-    {children}
-  </View>
+export const GridColSpan2: React.FC<ColumnProps> = (props) => (
+  <GridColumn flexBasis="66.66%" {...props} />
 )
-
-/**
- * A 2-column grid container using flexbox
- */
-export const Grid2Cols: React.FC<{
-  children: React.ReactNode
-}> = ({ children }) => <View style={tw('flex flex-row flex-wrap')}>{children}</View>
 
 /**
  * A grid column that takes 1/2 of the width
  */
-export const Grid2Col: React.FC<{
-  children: React.ReactNode
-  wrap?: boolean
-}> = ({ children, wrap = true }) => (
-  <View
-    style={{
-      flexBasis: '50%',
-      flexDirection: 'column',
-      gap: 4,
-      marginBottom: 12,
-      paddingRight: 12,
-    }}
-    wrap={wrap}>
-    {children}
-  </View>
-)
+export const Grid2Col: React.FC<ColumnProps> = (props) => <GridColumn flexBasis="50%" {...props} />

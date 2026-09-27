@@ -1,5 +1,5 @@
 export { CircularImage } from './circular-image'
-export { Grid2Col, Grid2Cols, Grid3Cols, GridCol, GridColSpan2 } from './grid'
+export { Grid2Col, GridCol, GridColSpan2, GridRow } from './grid'
 export { HighlightEntry } from './highlight-entry'
 export { LinkWithIcon } from './link-with-icon'
 export { OptionalLink } from './optional-link'
