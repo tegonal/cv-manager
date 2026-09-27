@@ -2,6 +2,8 @@
 import { spawn } from 'node:child_process'
 import { createWriteStream, mkdirSync } from 'node:fs'
 import { createRequire } from 'node:module'
+import { constants } from 'node:os'
+import { createInterface } from 'node:readline'
 import { stripVTControlCharacters } from 'node:util'
 
 mkdirSync('.logs', { recursive: true })
@@ -18,21 +20,26 @@ for (const [output, terminal] of [
   [child.stdout, process.stdout],
   [child.stderr, process.stderr],
 ]) {
-  output.on('data', (chunk) => {
-    terminal.write(chunk)
-    log.write(stripVTControlCharacters(chunk.toString()))
-  })
+  output.on('data', (chunk) => terminal.write(chunk))
+  // Whole lines, so that characters and colour codes split across chunks are logged intact
+  createInterface({ crlfDelay: Infinity, input: output }).on('line', (line) =>
+    log.write(`${stripVTControlCharacters(line)}\n`),
+  )
 }
 
-// Ctrl-C reaches both processes, wait for next dev to shut down
+// Wait for next dev to shut down. On Windows, Ctrl-C reaches it anyway and kill() would end it
+// without cleanup.
 for (const signal of ['SIGINT', 'SIGTERM']) {
-  process.on(signal, () => child.kill(signal))
+  process.on(signal, () => {
+    if (process.platform !== 'win32') child.kill(signal)
+  })
 }
 
 child.on('error', (error) => {
   console.error(`Could not start next dev: ${error.message}`)
   process.exitCode = 1
 })
-child.on('exit', (code, signal) => {
-  log.end(() => process.exit(code ?? (signal ? 1 : 0)))
+// After the output was read to the end
+child.on('close', (code, signal) => {
+  log.end(() => process.exit(code ?? 128 + (constants.signals[signal] ?? 0)))
 })
