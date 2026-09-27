@@ -357,6 +357,56 @@ export const I18nCollection = {
       en: 'Year',
     },
   },
+  pdfExport: {
+    deselectHint: {
+      de: 'Hier kannst du Teile des CVs abwählen. Abgewählte Teile erscheinen nicht im PDF.',
+      en: 'Below you can deselect parts of the CV. Deselected parts will not be displayed in the PDF.',
+    },
+    generatePdf: {
+      de: 'PDF erstellen',
+      en: 'Generate PDF',
+    },
+    generatingPdf: {
+      de: 'PDF wird erstellt …',
+      en: 'Generating PDF...',
+    },
+    generationFailed: {
+      de: 'PDF konnte nicht erstellt werden',
+      en: 'PDF generation failed',
+    },
+    heading: {
+      de: 'CV von {name} als PDF exportieren',
+      en: 'Exporting CV of {name} as PDF',
+    },
+    important: {
+      de: 'Wichtig:',
+      en: 'Important:',
+    },
+    loadFailed: {
+      de: 'CV konnte nicht geladen werden',
+      en: 'Failed to load CV data',
+    },
+    noData: {
+      de: 'Der Server hat kein PDF geliefert',
+      en: 'No PDF data returned from server',
+    },
+    noDocument: {
+      de: 'Kein Dokument ausgewählt',
+      en: 'No document ID provided',
+    },
+    pdfGenerated: {
+      de: 'PDF erstellt',
+      en: 'PDF generated successfully',
+    },
+    unknownError: {
+      de: 'Unbekannter Fehler',
+      en: 'Unknown error',
+    },
+    unsavedChanges: {
+      de: 'Nicht gespeicherte Änderungen erscheinen nicht im PDF. Speichere den CV vor dem Export.',
+      en: 'Changes that have not been saved will not be reflected on the exported PDF file. Save your CV before exporting it.',
+    },
+  },
   roles: {
     admin: {
       de: 'Admin',

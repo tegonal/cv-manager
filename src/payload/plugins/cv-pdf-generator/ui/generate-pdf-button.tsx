@@ -1,7 +1,9 @@
 'use client'
-import { Button, toast } from '@payloadcms/ui'
+import { getTranslation } from '@payloadcms/translations'
+import { Button, toast, useTranslation } from '@payloadcms/ui'
 import React from 'react'
 
+import { I18nCollection } from '@/lib/i18n-collection'
 import { generatePdfAction } from '@/payload/plugins/cv-pdf-generator/actions'
 
 type Props = {
@@ -20,10 +22,13 @@ export const GeneratePDFButton: React.FC<Props> = ({
   title,
 }) => {
   const [isBusy, setBusy] = React.useState(false)
+  const { i18n } = useTranslation()
+  const text = (key: keyof typeof I18nCollection.pdfExport) =>
+    getTranslation(I18nCollection.pdfExport[key], i18n)
 
   const generatePdf = async () => {
     if (!id) {
-      toast.error('No document ID provided')
+      toast.error(text('noDocument'))
       return
     }
     setBusy(true)
@@ -36,12 +41,12 @@ export const GeneratePDFButton: React.FC<Props> = ({
       })
 
       if (result.error) {
-        toast.error(`PDF generation failed: ${result.error}`)
+        toast.error(`${text('generationFailed')}: ${result.error}`)
         return
       }
 
       if (!result.data) {
-        toast.error('No PDF data returned from server')
+        toast.error(text('noData'))
         return
       }
 
@@ -63,11 +68,11 @@ export const GeneratePDFButton: React.FC<Props> = ({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
-      toast.success('PDF generated successfully')
+      toast.success(text('pdfGenerated'))
       onTransferred?.()
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      toast.error(`PDF generation failed: ${message}`)
+      const message = error instanceof Error ? error.message : text('unknownError')
+      toast.error(`${text('generationFailed')}: ${message}`)
     } finally {
       setBusy(false)
     }
@@ -75,7 +80,7 @@ export const GeneratePDFButton: React.FC<Props> = ({
 
   return (
     <Button buttonStyle="primary" disabled={isBusy} onClick={generatePdf}>
-      {isBusy ? 'Generating PDF...' : 'Generate PDF'}
+      {text(isBusy ? 'generatingPdf' : 'generatePdf')}
     </Button>
   )
 }

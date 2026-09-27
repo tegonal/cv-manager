@@ -1,4 +1,5 @@
 'use client'
+import { getTranslation } from '@payloadcms/translations'
 import {
   Button,
   CloseMenuIcon,
@@ -9,7 +10,7 @@ import {
   useModal,
   useTranslation,
 } from '@payloadcms/ui'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useEffectEvent, useMemo, useState } from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 import { fetchCvAction } from '@/payload/plugins/cv-pdf-generator/actions'
@@ -17,7 +18,7 @@ import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/con
 import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generate-pdf-button'
 import { Cv } from '@/types/payload-types'
 
-const profileKeys: (keyof Cv)[] = [
+const profileKeys: (keyof Cv & keyof typeof I18nCollection.fieldLabel)[] = [
   'birthday',
   'nationalityStatus',
   'phoneNumber',
@@ -25,14 +26,6 @@ const profileKeys: (keyof Cv)[] = [
   'links',
   'casualInfo',
 ]
-
-const getLocalizedFieldLabel = (
-  key: keyof typeof I18nCollection.fieldLabel,
-  localeCode: string,
-): string => {
-  const fieldLabel = I18nCollection.fieldLabel[key]
-  return fieldLabel ? (fieldLabel as Record<string, string>)[localeCode] : 'Unknown'
-}
 
 const projectKey = (project: NonNullable<Cv['projects']>[number]) => `project_${project.id}`
 
@@ -58,12 +51,22 @@ export const ExportOverlay: React.FC = () => {
   const { id } = useDocumentInfo()
   const locale = useLocale()
   const { closeModal, isModalOpen } = useModal()
-  const { t } = useTranslation()
+  // Texts follow the admin language, the PDF the content locale
+  const { i18n, t } = useTranslation()
+  const text = (key: keyof typeof I18nCollection.pdfExport) =>
+    getTranslation(I18nCollection.pdfExport[key], i18n)
   const isOpen = isModalOpen(drawerSlug)
   const [cv, setCv] = useState<Cv>()
   const [formState, setFormState] = useState<Record<string, boolean>>({})
 
   const close = () => closeModal(drawerSlug)
+
+  // Not a dependency of the loading effect: a new i18n object must not reload the CV and reset
+  // the selection
+  const onLoadError = useEffectEvent((error: unknown) => {
+    const message = error instanceof Error ? error.message : text('unknownError')
+    toast.error(`${text('loadFailed')}: ${message}`)
+  })
 
   useEffect(() => {
     if (!isOpen || !id) {
@@ -77,8 +80,7 @@ export const ExportOverlay: React.FC = () => {
           setFormState(getDefaultExportState(data))
         }
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error'
-        toast.error(`Failed to load CV data: ${message}`)
+        onLoadError(error)
       }
     }
     fetchData()
@@ -90,9 +92,9 @@ export const ExportOverlay: React.FC = () => {
         fields: profileKeys.map((key) => ({
           export: formState[key] ?? true,
           key,
-          label: getLocalizedFieldLabel(key as keyof typeof I18nCollection.fieldLabel, locale.code),
+          label: getTranslation(I18nCollection.fieldLabel[key], i18n),
         })),
-        section: getLocalizedFieldLabel('profile', locale.code),
+        section: getTranslation(I18nCollection.fieldLabel.profile, i18n),
       },
       {
         fields: (cv?.projects ?? []).map((project) => ({
@@ -107,10 +109,10 @@ export const ExportOverlay: React.FC = () => {
             </strong>
           ),
         })),
-        section: getLocalizedFieldLabel('projects', locale.code),
+        section: getTranslation(I18nCollection.fieldLabel.projects, i18n),
       },
     ],
-    [formState, cv, locale.code],
+    [formState, cv, i18n],
   )
 
   const onCheckboxChange = (key: string) => {
@@ -124,15 +126,13 @@ export const ExportOverlay: React.FC = () => {
     <Drawer Header={null} slug={drawerSlug}>
       <div className={'mt-12 grid grid-cols-[auto_min-content]'}>
         <div className={'flex flex-col gap-8'}>
-          <h1 className={'text-2xl font-bold'}>Exporting CV of {cv?.fullName} as PDF</h1>
+          <h1 className={'text-2xl font-bold'}>
+            {text('heading').replace('{name}', cv?.fullName ?? '')}
+          </h1>
           <p>
-            <strong>Important:</strong> Changes that have not been saved will not be reflected on
-            the exported PDF file. Save your CV <em>before</em> exporting it.
+            <strong>{text('important')}</strong> {text('unsavedChanges')}
           </p>
-          <p>
-            Below you can deselect parts of the CV. Deselected parts will not be displayed in the
-            PDF.
-          </p>
+          <p>{text('deselectHint')}</p>
           <div>
             {availableOptions.map((section) => (
               <div className={'mb-12'} key={section.section}>
