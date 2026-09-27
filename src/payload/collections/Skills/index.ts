@@ -18,16 +18,22 @@ export const Skills: CollectionConfig = {
   },
   fields: [
     {
+      label: I18nCollection.fieldLabel.name,
       localized: true,
       name: 'name',
       type: 'text',
     },
     {
+      label: I18nCollection.fieldLabel.description,
       localized: true,
       name: 'description',
       type: 'richText',
     },
     adminSettingsField({ sidebar: true }),
   ],
+  labels: {
+    plural: I18nCollection.fieldLabel.skills,
+    singular: I18nCollection.fieldLabel.skill,
+  },
   slug: 'skill',
 }

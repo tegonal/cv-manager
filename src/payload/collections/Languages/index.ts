@@ -18,6 +18,7 @@ export const Languages: CollectionConfig = {
   },
   fields: [
     {
+      label: I18nCollection.fieldLabel.name,
       localized: true,
       name: 'name',
       type: 'text',

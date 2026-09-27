@@ -18,11 +18,16 @@ export const SkillGroups: CollectionConfig = {
   },
   fields: [
     {
+      label: I18nCollection.fieldLabel.name,
       localized: true,
       name: 'name',
       type: 'text',
     },
     adminSettingsField({ sidebar: true }),
   ],
+  labels: {
+    plural: I18nCollection.fieldLabel.skillGroups,
+    singular: I18nCollection.fieldLabel.skillGroup,
+  },
   slug: 'skillGroup',
 }

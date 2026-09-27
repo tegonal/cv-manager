@@ -62,8 +62,7 @@ export const SkillsTabFields: Field[] = [
       selectSkillGroup,
       {
         admin: {
-          description:
-            'Add a description to the skill group to describe your specific skills in that area.',
+          description: I18nCollection.fieldDescription.skillGroupDescription,
         },
         label: I18nCollection.fieldLabel.description,
         localized: true,

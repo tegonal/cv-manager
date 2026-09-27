@@ -1,5 +1,6 @@
 import type { Field } from 'payload'
 
+import { I18nCollection } from '@/lib/i18n-collection'
 import { recordOrganisationAdminFieldAccess } from '@/payload/access/record-organisation-admin-field-access'
 import { checkOrganisationRoles } from '@/payload/access/utils/check-organisation-roles'
 import { checkUserRoles } from '@/payload/access/utils/check-user-roles'
@@ -22,8 +23,7 @@ export const organisationField: Field = {
         checkOrganisationRoles([ORGANISATION_ROLE_ADMIN], user, selectedOrganisation),
       )
     },
-    description:
-      "The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.",
+    description: I18nCollection.fieldDescription.organisation,
   },
   hooks: {
     // automatically set the organisation to the last logged in organisation
@@ -36,6 +36,7 @@ export const organisationField: Field = {
   // to achieve this, create a custom component that conditionally renders the field based on the user's role
   // hidden: true,
   index: true,
+  label: I18nCollection.fieldLabel.organisation,
   name: 'organisation',
   relationTo: 'organisations',
   type: 'relationship',

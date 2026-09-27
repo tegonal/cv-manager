@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload'
 
+import { I18nCollection } from '@/lib/i18n-collection'
 import { defaultCollectionAccess } from '@/payload/access/default-collection-access'
 import { hasSelectedOrganisationAccess } from '@/payload/access/has-selected-organisation-access'
 import { assignOrgToUpload } from '@/payload/collections/hooks/assign-org-to-upload'
@@ -14,6 +15,7 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
+      label: I18nCollection.fieldLabel.altText,
       name: 'alt',
       type: 'text',
     },
@@ -21,6 +23,10 @@ export const Media: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [assignOrgToUpload],
+  },
+  labels: {
+    plural: I18nCollection.fieldLabel.media,
+    singular: I18nCollection.fieldLabel.medium,
   },
   slug: 'media',
   upload: {

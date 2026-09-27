@@ -18,11 +18,27 @@ export const I18nCollection = {
       de: 'Highlights, welche Du auf Deinem CV prominent dargestellt und ausgezeichnet haben möchtest. Dinge, auf welche Du stolz bist.',
       en: 'Highlights that you would like to prominently display on top of the list, emphasised. Things you are proud of.',
     },
+    introduction: {
+      de: 'Schreibe eine Einleitung über dich. Versuche, persönliche Themen und deinen beruflichen Hintergrund abzudecken. Bitte keine Formatierungen verwenden.',
+      en: 'Write an introduction about yourself. Try to cover some personal topics and your professional background. Please do not use formatting.',
+    },
+    organisation: {
+      de: 'Die Organisation, zu der dieser Eintrag gehört. Neue Einträge erhalten die Organisation, in der du arbeitest; nur Super-Admins können sie ändern.',
+      en: 'The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.',
+    },
+    skillGroupDescription: {
+      de: 'Beschreibe deine konkreten Fähigkeiten in diesem Bereich.',
+      en: 'Add a description to the skill group to describe your specific skills in that area.',
+    },
   },
   fieldLabel: {
     advanced: {
       de: 'Fortgeschritten',
       en: 'Advanced',
+    },
+    altText: {
+      de: 'Alternativtext',
+      en: 'Alt text',
     },
     birthday: {
       de: 'Geburtstag',
@@ -40,9 +56,17 @@ export const I18nCollection = {
       de: 'Unternehmen',
       en: 'Companies',
     },
+    company: {
+      de: 'Unternehmen',
+      en: 'Company',
+    },
     courses: {
       de: 'Kurse',
       en: 'Courses',
+    },
+    createdBy: {
+      de: 'Erstellt von',
+      en: 'Created by',
     },
     currentJobDepartment: {
       de: 'Aktuelle Abteilung',
@@ -88,6 +112,10 @@ export const I18nCollection = {
       de: 'Datei',
       en: 'File',
     },
+    firstName: {
+      de: 'Vorname',
+      en: 'First name',
+    },
     french: {
       de: 'Französisch',
       en: 'French',
@@ -132,6 +160,22 @@ export const I18nCollection = {
       de: 'Sprachen',
       en: 'Languages',
     },
+    lastName: {
+      de: 'Nachname',
+      en: 'Last name',
+    },
+    level: {
+      de: 'Niveau',
+      en: 'Level',
+    },
+    levels: {
+      de: 'Niveaus',
+      en: 'Levels',
+    },
+    levelType: {
+      de: 'Niveau-Typ',
+      en: 'Level type',
+    },
     link: {
       de: 'Link',
       en: 'Link',
@@ -148,6 +192,14 @@ export const I18nCollection = {
       de: 'Haupt-Fähigkeit',
       en: 'Main-Skill',
     },
+    media: {
+      de: 'Medien',
+      en: 'Media',
+    },
+    medium: {
+      de: 'Medium',
+      en: 'Media',
+    },
     name: {
       de: 'Name',
       en: 'Name',
@@ -159,6 +211,10 @@ export const I18nCollection = {
     native: {
       de: 'Muttersprache',
       en: 'Native',
+    },
+    oauthSubject: {
+      de: 'OAuth-Kennung',
+      en: 'OAuth subject',
     },
     order: {
       de: 'Reihenfolge',
@@ -180,6 +236,10 @@ export const I18nCollection = {
       de: 'Telefonnummer',
       en: 'Phone number',
     },
+    points: {
+      de: 'Punkte',
+      en: 'Points',
+    },
     professional: {
       de: 'Professionell',
       en: 'Professional',
@@ -192,6 +252,10 @@ export const I18nCollection = {
       de: 'Profilbild',
       en: 'Profile image',
     },
+    project: {
+      de: 'Projekt',
+      en: 'Project',
+    },
     projects: {
       de: 'Projekte',
       en: 'Projects',
@@ -200,13 +264,25 @@ export const I18nCollection = {
       de: 'Rolle',
       en: 'Role',
     },
+    roles: {
+      de: 'Rollen',
+      en: 'Roles',
+    },
     schools: {
       de: 'Schulen',
       en: 'Schools',
     },
+    selectedOrganisation: {
+      de: 'Ausgewählte Organisation',
+      en: 'Selected organisation',
+    },
     since: {
       de: 'seit',
       en: 'since',
+    },
+    skill: {
+      de: 'Fähigkeit',
+      en: 'Skill',
     },
     skillCollections: {
       de: 'Skill Collections',
@@ -214,6 +290,10 @@ export const I18nCollection = {
     },
     skillGroup: {
       de: 'Skillgruppe',
+      en: 'Skill group',
+    },
+    skillGroups: {
+      de: 'Skillgruppen',
       en: 'Skill groups',
     },
     skillHighlights: {
@@ -251,6 +331,10 @@ export const I18nCollection = {
     toYear: {
       de: 'Bis Jahr',
       en: 'To year',
+    },
+    updatedBy: {
+      de: 'Geändert von',
+      en: 'Updated by',
     },
     url: {
       de: 'URL',

@@ -449,7 +449,7 @@ export interface Cv {
       }[]
     | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -465,7 +465,7 @@ export interface Media {
   id: number;
   alt?: string | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -563,7 +563,7 @@ export interface Lang {
   id: number;
   name?: string | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -582,7 +582,7 @@ export interface Level {
   levelType?: ('language' | 'skill')[] | null;
   points?: number | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -613,7 +613,7 @@ export interface Skill {
     [k: string]: unknown;
   } | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -629,7 +629,7 @@ export interface SkillGroup {
   id: number;
   name?: string | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -645,7 +645,7 @@ export interface Company {
   id: number;
   name?: string | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;
@@ -677,7 +677,7 @@ export interface Project {
     [k: string]: unknown;
   } | null;
   /**
-   * The organisation this record belongs to. It is set automatically based on the user's role and his or her selected organisation while creating a new record.
+   * The organisation this record belongs to. New records get the organisation you work in; only super admins can change it.
    */
   organisation?: (number | null) | Organisation;
   createdBy?: (number | null) | User;

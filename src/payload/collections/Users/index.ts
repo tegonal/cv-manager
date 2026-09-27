@@ -101,14 +101,17 @@ export const Users: CollectionConfig = {
   auth: true,
   fields: [
     {
+      label: I18nCollection.fieldLabel.firstName,
       name: 'firstName',
       type: 'text',
     },
     {
+      label: I18nCollection.fieldLabel.lastName,
       name: 'lastName',
       type: 'text',
     },
     {
+      label: I18nCollection.fieldLabel.email,
       name: 'email',
       required: true,
       type: 'text',
@@ -121,6 +124,7 @@ export const Users: CollectionConfig = {
         // read: superAdminFieldAccess,
       },
       hasMany: true,
+      label: I18nCollection.fieldLabel.roles,
       name: 'roles',
       options: [
         {
@@ -142,6 +146,7 @@ export const Users: CollectionConfig = {
       },
       fields: [
         {
+          label: I18nCollection.fieldLabel.organisation,
           name: 'organisation',
           relationTo: 'organisations',
           required: true,
@@ -149,6 +154,7 @@ export const Users: CollectionConfig = {
         },
         {
           hasMany: true,
+          label: I18nCollection.fieldLabel.roles,
           name: 'roles',
           options: [
             {
@@ -165,7 +171,7 @@ export const Users: CollectionConfig = {
         },
       ],
       interfaceName: 'UserOrganisations',
-      label: 'Organisations',
+      label: I18nCollection.fieldLabel.organisations,
       name: 'organisations',
       type: 'array',
     },
@@ -179,6 +185,7 @@ export const Users: CollectionConfig = {
         position: 'sidebar',
       },
       index: true,
+      label: I18nCollection.fieldLabel.selectedOrganisation,
       name: 'selectedOrganisation',
       relationTo: 'organisations',
       type: 'relationship',
@@ -193,6 +200,7 @@ export const Users: CollectionConfig = {
         update: () => false,
       },
       index: true,
+      label: I18nCollection.fieldLabel.oauthSubject,
       name: 'sub',
       type: 'text',
     },
@@ -200,6 +208,10 @@ export const Users: CollectionConfig = {
   hooks: {
     afterLogin: [recordSelectedOrganisation],
     beforeChange: [userDefaultsBeforeCreate, guardUserChanges],
+  },
+  labels: {
+    plural: I18nCollection.fieldLabel.users,
+    singular: I18nCollection.fieldLabel.user,
   },
   slug: 'users',
 }

@@ -34,5 +34,9 @@ export const Projects: CollectionConfig = {
     },
     adminSettingsField({ sidebar: true }),
   ],
+  labels: {
+    plural: I18nCollection.fieldLabel.projects,
+    singular: I18nCollection.fieldLabel.project,
+  },
   slug: 'project',
 }

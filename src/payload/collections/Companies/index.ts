@@ -18,10 +18,15 @@ export const Companies: CollectionConfig = {
   },
   fields: [
     {
+      label: I18nCollection.fieldLabel.name,
       name: 'name',
       type: 'text',
     },
     adminSettingsField({ sidebar: true }),
   ],
+  labels: {
+    plural: I18nCollection.fieldLabel.companies,
+    singular: I18nCollection.fieldLabel.company,
+  },
   slug: 'company',
 }

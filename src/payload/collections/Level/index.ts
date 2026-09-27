@@ -18,29 +18,37 @@ export const Levels: CollectionConfig = {
   },
   fields: [
     {
+      label: I18nCollection.fieldLabel.level,
       localized: true,
       name: 'level',
       type: 'text',
     },
     {
+      label: I18nCollection.fieldLabel.description,
       localized: true,
       name: 'description',
       type: 'textarea',
     },
     {
       hasMany: true,
+      label: I18nCollection.fieldLabel.levelType,
       name: 'levelType',
       options: [
-        { label: 'Language', value: 'language' },
-        { label: 'Skill', value: 'skill' },
+        { label: I18nCollection.fieldLabel.language, value: 'language' },
+        { label: I18nCollection.fieldLabel.skill, value: 'skill' },
       ],
       type: 'select',
     },
     {
+      label: I18nCollection.fieldLabel.points,
       name: 'points',
       type: 'number',
     },
     adminSettingsField({ sidebar: true }),
   ],
+  labels: {
+    plural: I18nCollection.fieldLabel.levels,
+    singular: I18nCollection.fieldLabel.level,
+  },
   slug: 'level',
 }

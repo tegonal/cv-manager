@@ -31,8 +31,7 @@ export const ProfileTabFields: Field[] = [
   },
   {
     admin: {
-      description:
-        'Write an introduction about yourself. Try to cover some personal topics and your professional background. Please do not use formatting.',
+      description: I18nCollection.fieldDescription.introduction,
     },
     label: I18nCollection.fieldLabel.introduction,
     localized: true,
