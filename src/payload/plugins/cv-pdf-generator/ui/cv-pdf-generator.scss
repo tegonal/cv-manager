@@ -1,0 +1,80 @@
+// PDF export button and dialog, styled with the admin panel's variables like the built-in views
+.cv-pdf-generator {
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--base) * 0.5);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+    max-width: 60rem;
+    padding-bottom: calc(var(--base) * 2);
+
+    // The body's gap spaces the blocks
+    .banner {
+      margin: 0;
+    }
+  }
+
+  &__hint {
+    margin: 0;
+    color: var(--theme-elevation-800);
+  }
+
+  // Side by side while both fit, stacked on narrow screens
+  &__sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    align-items: start;
+    gap: var(--base);
+  }
+
+  &__section {
+    padding: var(--base);
+    border: 1px solid var(--theme-elevation-150);
+    border-radius: var(--style-radius-m);
+    background: var(--theme-elevation-50);
+  }
+
+  &__section-header {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--base) * 0.75);
+    margin-bottom: calc(var(--base) * 0.75);
+    padding-bottom: calc(var(--base) * 0.75);
+    border-bottom: 1px solid var(--theme-elevation-150);
+  }
+
+  &__section-title {
+    flex: 1;
+    margin: 0;
+  }
+
+  &__count {
+    color: var(--theme-elevation-500);
+    white-space: nowrap;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base) * 0.5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__actions {
+    display: flex;
+    gap: calc(var(--base) * 0.5);
+    padding-top: var(--base);
+    border-top: 1px solid var(--theme-elevation-150);
+
+    .btn {
+      margin: 0;
+    }
+  }
+}

@@ -398,6 +398,14 @@ export const I18nCollection = {
       de: 'PDF erstellt',
       en: 'PDF generated successfully',
     },
+    selectAll: {
+      de: 'Alle',
+      en: 'All',
+    },
+    selectedCount: {
+      de: '{selected} von {total}',
+      en: '{selected} of {total}',
+    },
     unknownError: {
       de: 'Unbekannter Fehler',
       en: 'Unknown error',

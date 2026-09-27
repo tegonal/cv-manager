@@ -8,10 +8,12 @@ import { I18nCollection } from '@/lib/i18n-collection'
 import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/constants'
 import { ExportOverlay } from '@/payload/plugins/cv-pdf-generator/ui/export-overlay'
 
+import './cv-pdf-generator.scss'
+
 export const SaveButtonReplacer: React.FC<SaveButtonServerProps> = ({ i18n }) => {
   return (
     <>
-      <div className={'flex flex-row gap-6'}>
+      <div className={`${baseClass}__controls`}>
         <DrawerToggler
           className={`${baseClass}__edit btn btn--size-small btn--style-secondary`}
           slug={drawerSlug}>
