@@ -149,20 +149,21 @@ export const ExportOverlay: React.FC = () => {
                 <h2 className={'text-xl font-bold'}>{section.section}</h2>
                 <ul>
                   {section.fields?.map((field) => (
-                    <li
-                      className={
-                        'flex gap-2 p-2 select-none hover:cursor-pointer hover:bg-emerald-200/15'
-                      }
-                      key={field.key}
-                      onClick={() => onCheckboxChange(field.key)}>
-                      <input
-                        checked={field.export}
-                        id={field.key}
-                        name={field.key}
-                        onChange={() => onCheckboxChange(field.key)}
-                        type="checkbox"
-                      />
-                      <label htmlFor={field.key}>{field.label}</label>
+                    <li className={'flex'} key={field.key}>
+                      {/* The whole row toggles the checkbox, as its label */}
+                      <label
+                        className={
+                          'flex flex-1 gap-2 p-2 select-none hover:cursor-pointer hover:bg-emerald-200/15'
+                        }>
+                        <input
+                          checked={field.export}
+                          id={field.key}
+                          name={field.key}
+                          onChange={() => onCheckboxChange(field.key)}
+                          type="checkbox"
+                        />
+                        {field.label}
+                      </label>
                     </li>
                   ))}
                 </ul>
