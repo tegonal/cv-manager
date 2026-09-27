@@ -76,12 +76,12 @@ export default buildConfig({
         }
       : {}),
     components: {
-      afterLogin: ['src/payload/components/oauth-server-login-button#OAuthServerLoginButton'],
+      afterLogin: ['@/payload/components/oauth-server-login-button#OAuthServerLoginButton'],
       graphics: {
         // shown in the nav bar
-        Icon: 'src/graphics/Icon/index.tsx#Icon',
+        Icon: '@/graphics/Icon#Icon',
         // shown on the signup login page
-        Logo: 'src/graphics/Logo/index.tsx#Logo',
+        Logo: '@/graphics/Logo#Logo',
       },
     },
     meta: {
