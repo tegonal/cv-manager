@@ -1,8 +1,3 @@
-@layer theme, base, components, utilities;
-
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/utilities.css' layer(utilities);
-
 /* Custom styles for payload admin */
 .field-type.array-field {
   margin-bottom: 4rem;

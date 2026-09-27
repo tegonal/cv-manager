@@ -5,5 +5,4 @@ export default {
   trailingComma: 'all',
   printWidth: 100,
   bracketSameLine: true,
-  plugins: ['prettier-plugin-tailwindcss'],
 }

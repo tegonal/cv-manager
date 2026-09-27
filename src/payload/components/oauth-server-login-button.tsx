@@ -1,7 +1,9 @@
 import type { ServerProps } from 'payload'
 
-import { Banner } from '@payloadcms/ui'
+import { Banner, Button } from '@payloadcms/ui'
 import React from 'react'
+
+import './oauth-server-login-button.scss'
 
 const messages = {
   de: {
@@ -23,15 +25,14 @@ export const OAuthServerLoginButton: React.FC<ServerProps> = ({ i18n, searchPara
     <>
       {searchParams?.oauth === 'failed' && <Banner type="error">{text.failed}</Banner>}
       {process.env.OAUTH_ENABLED === 'true' && (
-        <div className={'w-full'}>
-          <a
-            className={
-              'btn btn--icon-style-without-border btn--size-large btn--style-secondary w-full'
-            }
-            href={'/api/users/oauth/authorize'}>
-            <span className={'btn__content'}>{text.login}</span>
-          </a>
-        </div>
+        <Button
+          buttonStyle="secondary"
+          className="oauth-login-button"
+          el="anchor"
+          size="large"
+          url="/api/users/oauth/authorize">
+          {text.login}
+        </Button>
       )}
     </>
   )

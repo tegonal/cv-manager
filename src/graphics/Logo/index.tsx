@@ -3,7 +3,7 @@ import { iconMarkPaths } from '../icon-mark-paths'
 export const Logo: React.FC = () => {
   return (
     <svg
-      className={'h-24 w-auto'}
+      className="graphic-logo"
       fill="none"
       height="96"
       viewBox="0 0 389 96"
