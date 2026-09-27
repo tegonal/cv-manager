@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
+import type { Style } from '@react-pdf/types'
+
 import { Document, Image, Page, Text, View } from '@react-pdf/renderer'
-import { Style } from '@react-pdf/types'
 import React from 'react'
 
 import {

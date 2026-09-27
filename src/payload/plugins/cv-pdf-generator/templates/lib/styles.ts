@@ -1,5 +1,6 @@
+import type { Style } from '@react-pdf/types'
+
 import { StyleSheet } from '@react-pdf/renderer'
-import { Style } from '@react-pdf/types'
 
 // Convert mm to points (1mm = 2.83465pt)
 export const mmToPt = (mm: number) => mm * 2.83465

@@ -1,5 +1,6 @@
+import type { Style } from '@react-pdf/types'
+
 import { Text, View } from '@react-pdf/renderer'
-import { Style } from '@react-pdf/types'
 import React from 'react'
 
 import { styles, tw } from '../../lib'

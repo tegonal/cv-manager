@@ -1,5 +1,5 @@
 import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
-import { pgTable, serial, text } from 'drizzle-orm/pg-core'
+import { pgTable, serial, text } from '@payloadcms/db-postgres/drizzle/pg-core'
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   const skillTable = pgTable('skill', {

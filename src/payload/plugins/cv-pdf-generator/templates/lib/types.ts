@@ -1,4 +1,5 @@
-import { Style } from '@react-pdf/types'
+import type { Style } from '@react-pdf/types'
+
 import { TypedLocale } from 'payload'
 
 import { CompanyInfo, Cv, PdfStyle } from '@/types/payload-types'

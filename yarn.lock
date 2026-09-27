@@ -4505,6 +4505,7 @@ __metadata:
     "@payloadcms/translations": "npm:3.90.2"
     "@payloadcms/ui": "npm:3.90.2"
     "@react-pdf/renderer": "npm:^4.9.0"
+    "@react-pdf/types": "npm:^2.14.0"
     "@tailwindcss/postcss": "npm:^4.3.3"
     "@types/hyphen": "npm:^1.14.0"
     "@types/node": "npm:^24.19.0"

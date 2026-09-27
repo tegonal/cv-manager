@@ -48,6 +48,7 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@react-pdf/types": "^2.14.0",
     "@types/hyphen": "^1.14.0",
     "@types/node": "^24.19.0",
     "@types/react": "^19.3.0",
