@@ -16,10 +16,12 @@ export const oauthGetUserInfo = async (accessToken: string, req: PayloadRequest)
     throw new Error(`OAuth userinfo request failed with status ${response.status}`)
   }
 
-  const { email, email_verified, sub } = await response.json()
-  if (typeof email !== 'string' || !email) {
+  const { email: providerEmail, email_verified, sub } = await response.json()
+  if (typeof providerEmail !== 'string' || !providerEmail) {
     throw new Error('OAuth userinfo contains no email')
   }
+  // Payload stores emails in lowercase, payload-oauth2 looks users up by the exact email returned
+  const email = providerEmail.trim().toLowerCase()
   // Providers that do not report email_verified are trusted to return verified emails only
   if (email_verified === false) {
     throw new Error(`OAuth email ${email} is not verified`)
@@ -30,7 +32,7 @@ export const oauthGetUserInfo = async (accessToken: string, req: PayloadRequest)
     req,
     where: { email: { equals: email } },
   })
-  const domain = email.split('@').pop()?.toLowerCase() ?? ''
+  const domain = email.split('@').pop() ?? ''
   if (existingUsers === 0 && !allowedEmailDomains.includes(domain)) {
     throw new Error(
       `No user with email ${email}, and ${domain} is not in OAUTH_ALLOWED_EMAIL_DOMAINS`,
