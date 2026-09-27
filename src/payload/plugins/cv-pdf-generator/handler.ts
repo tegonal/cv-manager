@@ -217,9 +217,8 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
       url: companyInfoGlobal.url || '',
     }
 
-    const hasOverride = (key: string) => {
-      return key in exportOverride && exportOverride[key]
-    }
+    // Profile fields are exported unless deselected, like projects
+    const hasOverride = (key: string) => exportOverride[key] !== false
 
     const props: CvPdfTemplateProps = {
       companyInfo,
