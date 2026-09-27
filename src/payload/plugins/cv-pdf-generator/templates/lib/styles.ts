@@ -5,10 +5,10 @@ import { Style } from '@react-pdf/types'
 export const mmToPt = (mm: number) => mm * 2.83465
 
 // Default page margins (used in static styles, can be overridden dynamically)
-export const DEFAULT_MARGIN_TOP = mmToPt(45)
-export const DEFAULT_MARGIN_BOTTOM = mmToPt(15)
-export const DEFAULT_MARGIN_LEFT = mmToPt(30)
-export const DEFAULT_MARGIN_RIGHT = mmToPt(30)
+const DEFAULT_MARGIN_TOP = mmToPt(45)
+const DEFAULT_MARGIN_BOTTOM = mmToPt(15)
+const DEFAULT_MARGIN_LEFT = mmToPt(30)
+const DEFAULT_MARGIN_RIGHT = mmToPt(30)
 
 // Base styles matching original default-page.scss layout
 export const styles = StyleSheet.create({

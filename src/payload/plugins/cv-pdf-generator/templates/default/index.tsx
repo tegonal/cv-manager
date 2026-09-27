@@ -5,15 +5,7 @@ import React from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 
-import {
-  CompanyInfoData,
-  CvPdfTemplateProps,
-  LexicalContent,
-  mmToPt,
-  PdfSectionContext,
-  styles,
-  tw,
-} from '../lib'
+import { CompanyInfoData, CvPdfTemplateProps, mmToPt, PdfSectionContext, styles, tw } from '../lib'
 import { FirstPageCentered, FirstPageLeftAligned, FirstPageProps } from './first-pages'
 import {
   CasualInfoSection,
@@ -22,9 +14,6 @@ import {
   SkillsSection,
   WorkExperienceSection,
 } from './sections'
-
-// Re-export LexicalContent type for use in template
-export type { LexicalContent }
 
 // Logo component (reusable)
 const LogoView = ({

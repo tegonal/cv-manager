@@ -26,7 +26,7 @@ const hyphenators: Record<string, (text: string, options?: HyphenationOptions) =
 /**
  * Create hyphenation callback for a given locale.
  */
-export const createHyphenationCallback = (locale: string) => {
+const createHyphenationCallback = (locale: string) => {
   const hyphenate = hyphenators[locale] || hyphenators['en']
 
   return (word: string): string[] => {

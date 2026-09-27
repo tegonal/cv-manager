@@ -13,8 +13,8 @@ import React, { useEffect, useMemo } from 'react'
 
 import { I18nCollection } from '@/lib/i18n-collection'
 import { fetchCvAction } from '@/payload/plugins/cv-pdf-generator/actions'
+import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/constants'
 import { GeneratePDFButton } from '@/payload/plugins/cv-pdf-generator/ui/generate-pdf-button'
-import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/save-button-replacer'
 import { Cv } from '@/types/payload-types'
 
 const profileKeys: (keyof Cv)[] = [

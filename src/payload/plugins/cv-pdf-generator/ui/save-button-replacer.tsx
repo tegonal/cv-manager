@@ -1,10 +1,8 @@
 import { DrawerToggler, SaveButton } from '@payloadcms/ui'
 import React from 'react'
 
+import { baseClass, drawerSlug } from '@/payload/plugins/cv-pdf-generator/ui/constants'
 import { ExportOverlay } from '@/payload/plugins/cv-pdf-generator/ui/export-overlay'
-
-export const baseClass = 'cv-pdf-generator'
-export const drawerSlug = 'cv-pdf-chooser'
 
 export const SaveButtonReplacer: React.FC = () => {
   return (
