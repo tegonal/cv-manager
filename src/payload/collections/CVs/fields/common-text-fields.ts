@@ -1,6 +1,7 @@
 import { Field } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
+import { validateUrl } from '@/payload/fields/url/validate-url'
 
 export const textNameRequired: Field = {
   label: I18nCollection.fieldLabel.name,
@@ -23,4 +24,5 @@ export const textLinkOptional: Field = {
   name: 'link',
   required: false,
   type: 'text',
+  validate: validateUrl,
 }

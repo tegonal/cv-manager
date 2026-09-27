@@ -283,4 +283,10 @@ export const I18nCollection = {
       en: 'User',
     },
   },
+  validation: {
+    url: {
+      de: 'Bitte gib eine vollständige Adresse an, die mit https:// beginnt.',
+      en: 'Please enter a complete address starting with https://.',
+    },
+  },
 }

@@ -1,6 +1,7 @@
 import { Field } from 'payload'
 
 import { I18nCollection } from '@/lib/i18n-collection'
+import { validateUrl } from '@/payload/fields/url/validate-url'
 
 // Platforms of external profile links, the labels are also printed in the PDF
 export const socialPlatformOptions = [
@@ -71,7 +72,7 @@ export const ProfileTabFields: Field[] = [
     label: I18nCollection.fieldLabel.email,
     name: 'email',
     required: true,
-    type: 'text',
+    type: 'email',
   },
   {
     label: I18nCollection.fieldLabel.currentJobTitle,
@@ -100,6 +101,7 @@ export const ProfileTabFields: Field[] = [
         name: 'url',
         required: true,
         type: 'text',
+        validate: validateUrl,
       },
     ],
     interfaceName: 'SocialLinks',
