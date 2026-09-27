@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/fallow/schema.json",
+  "ignoreDependencies": ["lucide-react"],
+  "ignoreExports": [{ "file": "src/migrations/*.ts", "exports": ["up", "down"] }],
+  "overrides": [
+    {
+      "files": ["src/types/payload-types.ts"],
+      "rules": { "unused-exports": "off", "unused-types": "off" }
+    }
+  ],
+  "duplicates": {
+    "ignore": ["src/types/payload-types.ts", "src/migrations/**", "src/app/(payload)/**"]
+  },
+  "health": {
+    "ignore": ["src/types/payload-types.ts", "src/migrations/**", "src/config/seed/**"]
+  }
+}
