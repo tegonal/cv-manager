@@ -59,11 +59,15 @@ jobs:
         # Also after a failed step, to report the failure
         if: always()
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          # One tag per line, GITHUB_ENV takes single line values only
+          IMAGE_TAGS: ${{ steps.meta.outputs.tags }}
         run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            echo "STATUS_MESSAGE=Build completed successfully, image pushed. ${{ steps.meta.outputs.tags }} ${{ steps.meta.outputs.labels }} :white_check_mark:" >> $GITHUB_ENV
+          if [ "$JOB_STATUS" == "success" ]; then
+            echo "STATUS_MESSAGE=Build completed successfully, image pushed as ${IMAGE_TAGS//$'\n'/, } :white_check_mark:" >> "$GITHUB_ENV"
           else
-            echo "STATUS_MESSAGE=:boom: :boom: :boom: Build failed, more information is available in the GitHub action logs." >> $GITHUB_ENV
+            echo "STATUS_MESSAGE=:boom: :boom: :boom: Build failed, more information is available in the GitHub action logs." >> "$GITHUB_ENV"
           fi
 
       - name: Mattermost Notification
