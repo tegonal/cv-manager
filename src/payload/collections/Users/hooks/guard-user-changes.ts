@@ -1,4 +1,4 @@
-import { CollectionBeforeChangeHook, Forbidden } from 'payload'
+import { CollectionBeforeChangeHook, Forbidden, ValidationError } from 'payload'
 
 import { hasSuperAdminRole } from '@/payload/access/utils/has-super-admin-role'
 import { ORGANISATION_ROLE_ADMIN } from '@/payload/utilities/constants'
@@ -33,9 +33,17 @@ export const guardUserChanges: CollectionBeforeChangeHook<User> = ({
     }
   }
 
-  if (data.organisations) {
+  // Collection hooks run before field validation, check any value that was sent
+  if (data.organisations !== undefined) {
+    if (!Array.isArray(data.organisations)) {
+      throw new ValidationError(
+        { collection: 'users', errors: [{ message: 'Must be a list', path: 'organisations' }] },
+        req.t,
+      )
+    }
+
     const administeredOrganisations = (actor.organisations ?? [])
-      .filter(({ roles }) => roles.includes(ORGANISATION_ROLE_ADMIN))
+      .filter(({ roles }) => roles?.includes(ORGANISATION_ROLE_ADMIN))
       .map(({ organisation }) => getIdFromRelation(organisation))
 
     // Memberships in organisations the actor does not administer must stay as they are
@@ -44,7 +52,7 @@ export const guardUserChanges: CollectionBeforeChangeHook<User> = ({
         (organisations ?? [])
           .map(({ organisation, roles }) => ({
             organisation: getIdFromRelation(organisation),
-            roles: [...roles].sort(),
+            roles: [...(roles ?? [])].sort(),
           }))
           .filter(({ organisation }) => !administeredOrganisations.includes(organisation))
           .sort((a, b) => String(a.organisation).localeCompare(String(b.organisation))),
