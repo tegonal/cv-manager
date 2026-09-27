@@ -55,7 +55,6 @@ export const ProfileTabFields: Field[] = [
     },
     label: I18nCollection.fieldLabel.birthday,
     name: 'birthday',
-    required: true,
     type: 'date',
   },
   {

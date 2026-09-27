@@ -207,7 +207,7 @@ export interface Cv {
     };
     [k: string]: unknown;
   } | null;
-  birthday: string;
+  birthday?: string | null;
   nationalityStatus?: string | null;
   phoneNumber?: string | null;
   email: string;
@@ -332,7 +332,7 @@ export interface Cv {
     | {
         institution: string;
         fromYear: string;
-        toYear: string;
+        toYear?: string | null;
         link?: string | null;
         description?: {
           root: {

@@ -52,7 +52,7 @@ export const EducationTabFields: Field[] = [
         type: 'text',
       },
       {
-        fields: [selectStartYear, selectEndYear, textLinkOptional],
+        fields: [selectStartYear, optional(selectEndYear), textLinkOptional],
         type: 'row',
       },
       textDescription,

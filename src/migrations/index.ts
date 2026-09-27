@@ -14,6 +14,7 @@ import * as migration_20251210_005506 from './20251210_005506'
 import * as migration_20251210_225957 from './20251210_225957'
 import * as migration_20260923_075804 from './20260923_075804'
 import * as migration_20260926_140326_restore_users_sub from './20260926_140326_restore_users_sub'
+import * as migration_20260927_091542_optional_birthday_and_education_end_year from './20260927_091542_optional_birthday_and_education_end_year'
 
 export const migrations = [
   {
@@ -95,5 +96,10 @@ export const migrations = [
     up: migration_20260926_140326_restore_users_sub.up,
     down: migration_20260926_140326_restore_users_sub.down,
     name: '20260926_140326_restore_users_sub',
+  },
+  {
+    up: migration_20260927_091542_optional_birthday_and_education_end_year.up,
+    down: migration_20260927_091542_optional_birthday_and_education_end_year.down,
+    name: '20260927_091542_optional_birthday_and_education_end_year',
   },
 ]
