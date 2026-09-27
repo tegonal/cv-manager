@@ -30,6 +30,11 @@ export const createHyphenationCallback = (locale: string) => {
   const hyphenate = hyphenators[locale] || hyphenators['en']
 
   return (word: string): string[] => {
+    // Soft hyphens entered by the author replace the patterns, like in react-pdf's own hyphenation
+    if (word.includes(SOFT_HYPHEN)) {
+      return word.split(SOFT_HYPHEN)
+    }
+
     // Skip very short words
     if (word.length < HYPHENATION_OPTIONS.minWordLength!) {
       return [word]
