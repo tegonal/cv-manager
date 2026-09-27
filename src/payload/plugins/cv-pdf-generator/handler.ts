@@ -25,8 +25,8 @@ type Props = {
 const PDF_DPI = 300
 const DPI_SCALE = PDF_DPI / 72 // ~4.17x scale for 300 DPI
 
-// Largest size the profile image is printed at, in points (see CircularImage)
-const PROFILE_IMAGE_WIDTH_PT = 192
+// Largest size the profile image is printed at, in points (a circle, see CircularImage)
+const PROFILE_IMAGE_SIZE_PT = 192
 const MM_TO_PT = 72 / 25.4
 
 let s3Client: S3Client | undefined
@@ -44,17 +44,26 @@ const getS3Client = () =>
 /**
  * react-pdf only embeds JPEG and PNG. Images are converted to one of them (PNG if they have
  * transparency), turned upright according to their EXIF orientation and scaled to the size they
- * are printed at, instead of embedding the uploaded original.
+ * are printed at, instead of embedding the uploaded original. With a height, they are cropped to
+ * that box like object-fit: cover.
  */
-const toPdfImage = async (buffer: Uint8Array, widthPt: number): Promise<string> => {
+const toPdfImage = async (
+  buffer: Uint8Array,
+  widthPt: number,
+  heightPt?: number,
+): Promise<string> => {
   const widthPx = Math.round(widthPt * DPI_SCALE)
-  const { format, hasAlpha, width } = await sharp(buffer).metadata()
+  const heightPx = heightPt === undefined ? undefined : Math.round(heightPt * DPI_SCALE)
+  const { format, hasAlpha, height, width } = await sharp(buffer).metadata()
   // Vector images are rasterised at the density that yields the printed size
-  const density = format === 'svg' && width ? (72 * widthPx) / width : undefined
+  const density =
+    format === 'svg' && width && height
+      ? 72 * Math.max(widthPx / width, heightPx ? heightPx / height : 0)
+      : undefined
 
   const image = sharp(buffer, { density })
     .rotate()
-    .resize({ width: widthPx, withoutEnlargement: true })
+    .resize({ fit: 'cover', height: heightPx, width: widthPx, withoutEnlargement: true })
   const [mimeType, data] = hasAlpha
     ? ['image/png', await image.png().toBuffer()]
     : ['image/jpeg', await image.jpeg({ quality: 85 }).toBuffer()]
@@ -82,6 +91,7 @@ const loadImage = async (
   media: Media,
   logger: { debug: (msg: string) => void; error: (msg: string) => void },
   widthPt: number,
+  heightPt?: number,
 ): Promise<string> => {
   const filename = media.filename
   if (!filename) {
@@ -94,7 +104,7 @@ const loadImage = async (
   try {
     // Use the folder the storage adapter stored the file in
     const prefix = [media.prefix || MEDIA_PREFIX, media._objectKey].filter(Boolean).join('/')
-    const result = await toPdfImage(await loadImageFromS3(filename, prefix), widthPt)
+    const result = await toPdfImage(await loadImageFromS3(filename, prefix), widthPt, heightPt)
     logger.debug(`loadImage: Loaded from S3, data URL length: ${result.length}`)
     return result
   } catch (error) {
@@ -136,7 +146,7 @@ export const requestHandler = async ({ exportOverride, id, locale, user }: Props
     // Load profile image directly from storage
     logger.debug(`PDF Generator: CV image field: ${cv.image ? 'present' : 'absent'}`)
     const profileImageDataUrl = cv.image
-      ? await loadImage(cv.image as Media, logger, PROFILE_IMAGE_WIDTH_PT)
+      ? await loadImage(cv.image as Media, logger, PROFILE_IMAGE_SIZE_PT, PROFILE_IMAGE_SIZE_PT)
       : ''
     logger.debug(`PDF Generator: Profile image data URL length: ${profileImageDataUrl.length}`)
 
