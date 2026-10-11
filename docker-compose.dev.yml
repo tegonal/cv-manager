@@ -2,7 +2,7 @@ name: cv-manager
 
 services:
   postgres:
-    image: pgautoupgrade/pgautoupgrade:17-bookworm
+    image: pgautoupgrade/pgautoupgrade:17-bookworm@sha256:43a613e92d75ecef171311211a31c23d3fc01c64be7f72f660374429ec9316be
     ports:
       - '127.0.0.1:5432:5432'
     environment:
@@ -24,7 +24,7 @@ services:
   #      - pgadmin-data:/var/lib/pgadmin
 
   garage:
-    image: dxflrs/garage:v2.4.1
+    image: dxflrs/garage:v2.4.1@sha256:9c96caa2612d3411acc5b0e6701fb238dbfba33e533a6d7d3d811a4b12d0d020
     container_name: cv-manager-garage
     # Single-node layout, access key and bucket are set up automatically on startup
     command: ['/garage', 'server', '--single-node', '--default-bucket']
@@ -49,7 +49,7 @@ services:
       start_period: 10s
 
   mailpit:
-    image: axllent/mailpit
+    image: axllent/mailpit@sha256:94f6b70c1436defae6799d9ac7ff0eeff9540465b842026d5cdb018f1c0234ea
     restart: unless-stopped
     volumes:
       - mailpit-data:/data
