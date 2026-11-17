@@ -37,7 +37,7 @@
     "graphql": "^16.14.2",
     "hyphen": "^1.14.1",
     "lucide-react": "^1.62.0",
-    "next": "16.4.3",
+    "next": "16.4.5",
     "payload": "3.92.0",
     "payload-oauth2": "^1.0.21",
     "react": "19.3.1",
